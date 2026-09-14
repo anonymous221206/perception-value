@@ -1,0 +1,9 @@
+#!/bin/bash
+# Python of the nuPlan environment, with both libgomp copies preloaded (same aarch64 static-TLS issue as py-edge:
+# cv2, reached through nuplan.database.utils.image, links conda's libgomp.so.1 and torch vendors its own copy).
+# Run every script that imports nuplan-devkit or tuplan_garage through this wrapper.
+E="${RAP_NUPLAN_PREFIX:?set RAP_NUPLAN_PREFIX to the nuPlan environment prefix}"
+PRE=$(ls "$E"/lib/python3.9/site-packages/torch.libs/libgomp*.so* 2>/dev/null | head -1)
+CONDA_GOMP=$(ls "$E"/lib/libgomp.so.1 2>/dev/null | head -1)
+[ -n "$CONDA_GOMP" ] && PRE="${PRE:+$PRE:}$CONDA_GOMP"
+exec env ${PRE:+LD_PRELOAD="$PRE"} "$E/bin/python" "$@"

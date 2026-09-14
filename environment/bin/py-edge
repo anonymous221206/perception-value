@@ -1,0 +1,9 @@
+#!/bin/bash
+# Python of the main environment ("edge"), with scikit-learn's bundled libgomp preloaded.
+#
+# On aarch64, nuscenes-devkit imports scikit-learn late, after other extension modules have consumed the static
+# TLS block, and scikit-learn's libgomp then fails with "cannot allocate memory in static TLS block".  Preloading
+# it first avoids that.  Run every script that touches nuscenes-devkit, PKL or TIP through this wrapper.
+E="${RAP_EDGE_PREFIX:-${CONDA_PREFIX:?set RAP_EDGE_PREFIX to the environment prefix, or activate the environment}}"
+GOMP=$(ls "$E"/lib/python3*/site-packages/scikit_learn.libs/libgomp*.so* 2>/dev/null | head -1)
+exec env ${GOMP:+LD_PRELOAD="$GOMP"} "$E/bin/python" "$@"

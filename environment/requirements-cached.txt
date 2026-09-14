@@ -1,0 +1,8 @@
+# Minimal CPU environment for `python reproduce.py --tier cached` (no GPU, no dataset). Python 3.8.
+# These are the versions the shipped outputs were produced with; other versions can change results in the last
+# decimal places (for example scikit-learn's model fitting), which `--verify` reports.
+numpy==1.24.4
+pandas==2.0.3
+scipy==1.10.1
+scikit-learn==1.3.2
+matplotlib==3.7.5

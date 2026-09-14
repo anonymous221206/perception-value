@@ -1,0 +1,33 @@
+{
+  "measured_classes": [
+    "bicycle",
+    "pedestrian",
+    "vehicle"
+  ],
+  "n_objects": 46469,
+  "n_train": 36982,
+  "n_val": 9487,
+  "val_sequences": [
+    "0000",
+    "0003",
+    "0006",
+    "0009",
+    "0012",
+    "0015",
+    "0018"
+  ],
+  "recall_cheap_observed": 0.47463900664959435,
+  "recall_full_observed": 0.7171447631754503,
+  "recall_cheap_predicted": 0.46799611951842557,
+  "recall_full_predicted": 0.7070519238861674,
+  "brier_cheap_train": 0.16142986569638218,
+  "brier_cheap_val": 0.14421181379484677,
+  "brier_full_implied_val": 0.15826221487080996,
+  "brier_cheap_baserate": 0.25064050674735905,
+  "brier_full_baserate": 0.1917037693351317,
+  "monotone_violation_observed": 0.014611891798833631,
+  "p_lose_observed": 0.030785273848385926,
+  "p_rescue_observed": 0.48941137918322203,
+  "brier_rescue_val": 0.23213810759869472,
+  "brier_lose_val": 0.025627138055518705
+}

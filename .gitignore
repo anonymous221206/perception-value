@@ -1,0 +1,21 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# user-supplied data, weights and environments (see data/README.md, configs/paths.env.example)
+datasets/
+models/
+configs/paths.env
+configs/nuplan_camera_urls.txt
+configs/nuplan_mini_sensor.txt
+
+# prior-work checkouts, cloned at pinned commits by environment/setup_third_party.sh
+third_party/*
+!third_party/PROVENANCE.md
+
+# regenerated, device-specific or large artefacts
+*.engine
+*.onnx
+data/cache/router_r2/
+data/cache/nuplan_exp/
+logs/
