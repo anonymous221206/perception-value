@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 from rap.ego_traj import (ego_velocity, future_waypoints, interp_poses,   # noqa: E402
                           to_ego_frame)
+pytest.importorskip("torch", reason="Planner D code needs PyTorch (main environment)")
 from rap.planner_d import HORIZONS                                        # noqa: E402
 
 

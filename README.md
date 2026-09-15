@@ -51,7 +51,7 @@ that the paper's tables are computed from. The statistics on top of them are det
 ```bash
 conda create -n rap python=3.8 && conda activate rap
 pip install -r environment/requirements-cached.txt
-cp configs/paths.env.example configs/paths.env    # set RAP_EDGE_PREFIX to this environment's prefix
+cp configs/paths.env.example configs/paths.env    # defaults: datasets/ and models/ here, the active environment
 source configs/paths.env
 python reproduce.py --tier cached --verify
 ```
@@ -65,7 +65,8 @@ that leave the paper's numbers unchanged:
 * in C12, `R1_gbm_clf` on PDM-Closed safety changes at the 30–50% quotas; the 20% cells used in the paper are
   unchanged.
 
-`python -m pytest tests` runs the unit tests; tests that need KITTI files are skipped when the dataset is absent.
+`python -m pytest tests` runs the unit tests. Tests that need KITTI files are skipped when the dataset is absent;
+tests that need PyTorch or OpenCV are skipped in this CPU environment.
 
 | result | file(s) | stage |
 |---|---|---|

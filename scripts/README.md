@@ -25,6 +25,7 @@ Markers:
 | script | what | marker |
 |---|---|---|
 | `08_mechanism.py` | per-object detection outcomes by range, size and criticality | D |
+| `41_nusc_decision.py` | first nuScenes replication check on v1.0-mini (characterization only; not a `reproduce.py` stage) | D |
 | `50_percep_metrics.py` | perception-metric robustness | D |
 | `51_temporal.py` | temporal replay | D |
 | `52_core_matrix.py` | braking and lateral decision tables for every configuration | D |

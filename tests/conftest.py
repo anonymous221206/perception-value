@@ -1,6 +1,7 @@
 """Skip the tests that read KITTI calibration files when the KITTI dataset is not present.
 
-Everything else runs without any dataset.
+Everything else runs without any dataset. Tests that need PyTorch or OpenCV skip themselves when those are not
+installed, as in the CPU environment of the cached tier.
 """
 import inspect
 import sys

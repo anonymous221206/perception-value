@@ -1,4 +1,4 @@
-# Prior-work code used in Phase 0F
+# Prior-work code, data and environment deviations
 
 Nothing here is modified except where stated. Scoring definitions are untouched.
 
@@ -83,10 +83,9 @@ boxes.
 - **tuPlan Garage** (PDM-Closed): https://github.com/autonomousvision/tuplan_garage, commit
   `b51d5d04fac1bd4389653b9ab2ff73ea88f435a3` (2024-11-28), installed with `--no-deps`.
 - **Data**: `nuplan-v1.1_mini.zip` (8.0 GB) and `nuplan-maps-v1.1.zip` (927 MB) from the
-  official S3 bucket. The mini **camera** blobs were not downloaded: they are nine shards of
-  45-54 GB (~450 GB) against 138 GB of free disk, and they are split by blob rather than by
-  log, so an arbitrary shard need not contain a single complete scenario window. What replaces
-  them is recorded in the Phase 0G pre-registration.
+  official S3 bucket. The mini **camera** archives (nine shards of 45-54 GB, ~450 GB, split by blob
+  rather than by log) were not downloaded whole. Only the 12,921 CAM_F0 images inside the benchmark's
+  scenario windows were fetched, by HTTP Range (`scripts/112_nuplan_fetch_cam_f0.py`, `data/README.md`).
 
 ### Environment deviation, and why it is safe
 The devkit requires Python >= 3.9; this project's `edge` environment is 3.8.20 and is tied to
@@ -115,7 +114,7 @@ modified. It took five fixes, none of which touches the planners or their config
    1.9.0+cu111, neither of which exists for this platform — recorded as a deviation).
 3. **`environment/bin/py-nuplan`, an LD_PRELOAD wrapper.** cv2, reached through
    `nuplan.database.utils.image`, failed with `libgomp.so.1: cannot allocate memory in static
-   TLS block` — the same aarch64 static-TLS defect the `py` wrapper handles for the `edge`
+   TLS block` — the same aarch64 static-TLS defect `environment/bin/py-edge` handles for the main
    environment. Two libgomp copies with *different sonames* are in play (conda's `libgomp.so.1`
    for cv2 and torch's vendored `libgomp-<hash>.so.1.0.0`), so both must be preloaded;
    preloading one leaves the other to fail.
@@ -125,6 +124,9 @@ modified. It took five fixes, none of which touches the planners or their config
    which conflicts with selenium's requirement; selenium is only used for bokeh PNG export and
    is not on the simulation path.
 5. No change to PDM-Closed, IDMPlanner, their configs, or any scoring code.
+
+`environment/setup_nuplan_env.sh` applies steps 1, 2 and 4 (the packages the devkit imports at module level);
+`environment/bin/py-nuplan` is step 3.
 
 **B2 result**: `closed_loop_nonreactive_agents` on nuPlan mini, `scenario_filter=one_continuous_log`
 limited to 4 scenarios. IDMPlanner 4/4 succeeded, PDM-Closed 4/4 succeeded, on the **same**

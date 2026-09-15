@@ -77,6 +77,7 @@ def test_mono_geometry_uses_only_current_and_previous():
 
 
 def _stats():
+    pytest.importorskip("cv2", reason="image statistics need OpenCV (main environment)")
     rng = np.random.default_rng(3)
     a = (rng.random((96, 320)) * 255).astype("uint8")
     return F.image_stats(a, a)
