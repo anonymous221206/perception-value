@@ -97,7 +97,10 @@ FULL = [
      "{py} scripts/84_deployable_gate.py --nboot 400 && {py} scripts/86_gate_checks.py"),
     ("F1", "[D] frozen benchmark splits", EDGE, "scripts/90_benchmark_splits.py"),
     ("F2", "[D] nuPlan allocation signals (detection profile)", NUPLAN, "scripts/91_nuplan_cheap_features.py"),
-    ("F3", "benchmark table and markdown", EDGE, "{py} scripts/92_benchmark_table.py && {py} scripts/94_benchmark_markdown.py"),
+    ("F3", "[H] benchmark table, measured-cost budgets (default threads and OMP_NUM_THREADS=1), markdown", EDGE,
+     "{py} scripts/92_benchmark_table.py && {py} scripts/93_budget_allocation.py && "
+     "OMP_NUM_THREADS=1 {py} scripts/93_budget_allocation.py --tag benchmark_budget_1thread --suffix _1thread && "
+     "{py} scripts/94_benchmark_markdown.py"),
     ("G1", "[D] calibration: precision/recall curves, thresholds, per-mode outcomes", EDGE, "scripts/100_calibration_outcomes.py --workers 3"),
     ("G2", "[D] calibration: q_plan boxes and planning", EDGE,
      "{py} scripts/101_calibration_plan.py --stage boxes && {py} scripts/101_calibration_plan.py --stage plan"),

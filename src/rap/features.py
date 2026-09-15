@@ -24,7 +24,7 @@ from .geometry import CriticalityModel
 from .mono import box_iou
 
 # "ego_state": the vehicle's own speed, acceleration and traffic-light status, known before any escalation
-# decision (added for the nuPlan real-perception gate, RESEARCH_LOG Task 7 pre-registration)
+# decision (added for the nuPlan real-perception gate, Task 7 pre-registration)
 LEGAL_SOURCES = {"cheap_det", "cheap_image", "cheap_prev", "calib", "ego_state"}
 
 # arm -> feature groups it may use

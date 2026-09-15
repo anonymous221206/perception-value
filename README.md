@@ -52,12 +52,18 @@ dataset is absent.
 | benchmark table (frame quotas, all tracks, all baselines) | `results/final/benchmark_table.csv`, `benchmark_cells.csv`, `docs/benchmark_tables.md` | C2–C3 |
 | per-mode operating-point calibration | `results/final/calibration_*.csv/json`, `docs/calibration_tables.md` | C4–C5 |
 | detection-list and pixel routers | `results/final/benchmark_table_routers.csv`, `docs/routers_tables.md` | C6–C7 |
-| measured latency and energy budgets | `results/final/benchmark_budget_routers.csv` | full tier (H6) |
+| measured latency and energy budgets | `results/final/benchmark_budget_two_level*.csv`, `benchmark_budget_routers.csv` | full tier (F3, H4) |
 | nuPlan with real perception | `results/final/nuplan_real_perception_*.csv/json`, overlays, `docs/nuplan_real_perception_tables.md` | C9–C11 |
 | nuPlan allocation on real-perception decision values | `results/final/benchmark_table_nuplan_real.csv`, `benchmark_budget_nuplan_real.csv` | C12 |
 | figure data (BEV objects, gallery, budget curves) | `results/final/fig_*` | full tier (L1) |
 
 Reports that interpret these tables are in `docs/` (`iclr_*.md`).
+
+**IDM route input.** The first nuPlan runs handed IDM a route it could not start from in 58% of states. All
+IDM-dependent results shipped here were regenerated after the fix.
+* `docs/iclr_idm_route_fix.md` documents the bug, the checks and every changed number.
+* `--no_route_fix` on `scripts/82_nuplan_counterfactual.py` and `scripts/115_nuplan_real_counterfactual.py`
+  reproduces the original behaviour.
 
 ## 2. Full reproduction from raw data
 
