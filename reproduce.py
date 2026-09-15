@@ -85,8 +85,8 @@ FULL = [
      "for v in gt aug; do for s in 0 1 2; do {py} scripts/71_planner_d_train.py --variant $v --seed $s || exit 1; done; done"),
     ("D3", "Planner D evaluation of every checkpoint", EDGE,
      "for f in data/cache/planner_d/planner_d_*_best.pt; do {py} scripts/72_planner_d_eval.py --ckpt $f || exit 1; done"),
-    ("D4", "planner transfer and cross-target measurement", EDGE,
-     "{py} scripts/73_planner_transfer.py && for v in oracle mono; do s=$([ $v = mono ] && echo _mono); "
+    ("D4", "cross-target measurement: braking controller against Planner C, oracle and mono geometry", EDGE,
+     "for v in oracle mono; do s=$([ $v = mono ] && echo _mono); "
      "{py} scripts/75_cross_target_measurement.py --brake_table results/raw/20260913_133004_core_matrix_postreview/"
      "nuScenes__YOLOv8s__ns_cheap_320tons_full_640__$v.pkl --plan_csv data/cache/planner_d/planC_vs_truth$s.csv "
      "--label $v --nboot 400 --tag cross_target_tierobust_$v || exit 1; done"),

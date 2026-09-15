@@ -42,7 +42,7 @@ Markers:
 | `65_planner_b_decision.py` | Planner B rollouts | D |
 | `66_planner_c_pkl_planner.py`, `74_plannerC_vs_truth.py` | Planner C (PKL's planner) against its own output and the real trajectory | D |
 | `70_planner_d_data.py`, `70b_fix_ego_velocity.py`, `71_planner_d_train.py`, `72_planner_d_eval.py` | Planner D | D |
-| `73_planner_transfer.py`, `75_cross_target_measurement.py` | planner transfer, cross-target measurement | |
+| `75_cross_target_measurement.py` | cross-target measurement (braking controller against Planner C) | |
 
 ## External planners on nuPlan
 

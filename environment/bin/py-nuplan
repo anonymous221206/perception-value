@@ -5,5 +5,11 @@
 E="${RAP_NUPLAN_PREFIX:?set RAP_NUPLAN_PREFIX to the nuPlan environment prefix}"
 PRE=$(ls "$E"/lib/python3.9/site-packages/torch.libs/libgomp*.so* 2>/dev/null | head -1)
 CONDA_GOMP=$(ls "$E"/lib/libgomp.so.1 2>/dev/null | head -1)
+# conda activation would point PROJ and GDAL at their data inside the environment; running its python directly
+# does not, and GDAL then warns "proj_create_from_database: Open of .../share/proj failed".
+[ -d "$E/share/proj" ] && export PROJ_DATA="$E/share/proj"
+[ -f "$E/share/proj/copyright_and_licenses.csv" ] && export PROJ_NETWORK=OFF
+[ -d "$E/share/gdal" ] && export GDAL_DATA="$E/share/gdal"
+[ -d "$E/lib/gdalplugins" ] && export GDAL_DRIVER_PATH="$E/lib/gdalplugins"
 [ -n "$CONDA_GOMP" ] && PRE="${PRE:+$PRE:}$CONDA_GOMP"
 exec env ${PRE:+LD_PRELOAD="$PRE"} "$E/bin/python" "$@"
