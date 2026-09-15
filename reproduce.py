@@ -47,6 +47,8 @@ CACHED = [
     ("C12", "nuPlan allocation track on real-perception decision values (quotas and measured budgets)", EDGE,
      "scripts/120_nuplan_real_allocation.py",
      ["results/final/benchmark_table_nuplan_real.csv", "results/final/benchmark_budget_nuplan_real.csv"]),
+    ("C13", "mechanism table: detection changes on frames where FULL helps, harms or does nothing", EDGE,
+     "scripts/123_mechanism_table.py", ["results/final/mechanism_table.csv"]),
 ]
 
 # the full pipeline from raw data, in the order the results were produced; D = needs datasets, H = hardware-dependent
@@ -62,7 +64,7 @@ FULL = [
     ("B3", "[D] perception-metric robustness", EDGE, "scripts/50_percep_metrics.py"),
     ("B4", "[D] temporal replay", EDGE, "scripts/51_temporal.py --dataset kitti --tag temporal_kitti"),
     ("B5", "[D] core decision matrix (braking controller, lateral task)", EDGE, "scripts/52_core_matrix.py --tag core_matrix_postreview"),
-    ("B6", "headline table, statistics and figures", EDGE, "{py} scripts/53_finalize.py && {py} scripts/54_figures.py"),
+    ("B6", "Jetson cost columns, run manifest and figures (plus unshipped by-products)", EDGE, "{py} scripts/53_finalize.py && {py} scripts/54_figures.py"),
     ("B7", "[D] Planner B rollouts", EDGE, "scripts/65_planner_b_decision.py --params static_obstacles --tag planner_b_static_fixed --kitti_only"),
     ("C1", "[D] nuScenes detection submissions (oracle and mono geometry)", EDGE, "scripts/60_build_submissions.py"),
     ("C2", "[D] PKL and TIP on the submissions, in 6 chunks per metric and geometry", EDGE,

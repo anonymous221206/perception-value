@@ -144,5 +144,5 @@ The R1 result rests on 10 affected test states and should be read as fragile.
 
 * `phase0g_external_idm_sanity_raw.csv`: the 6-state wiring probe predates the fix and is superseded by the
   identity checks.
-* Seven hand-written reports that quote pre-fix IDM numbers carry a pointer to this page. Generated tables (`docs/*_tables.md`)
+* Four hand-written reports that quote pre-fix IDM numbers carry a pointer to this page. Generated tables (`docs/*_tables.md`)
   were regenerated.

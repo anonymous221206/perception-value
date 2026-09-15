@@ -39,7 +39,7 @@ NEEDED = WORK / "needed_cam_f0.csv.gz"         # the CAM_F0 images of the 34 ben
 
 
 def shard_urls() -> dict[int, tuple[str, str]]:
-    """Camera shard links, supplied by the user from the official nuPlan download page (not shipped)."""
+    """Camera shard links, obtained from the official nuPlan download page (login required; not shipped)."""
     if not URLS_FILE.exists():
         raise SystemExit(f"missing {URLS_FILE}: after logging in to the official nuPlan download page and accepting its "
                          "terms, copy the links of the v1.1 mini sensor archives 'Camera 0' .. 'Camera 8', one "
@@ -48,7 +48,7 @@ def shard_urls() -> dict[int, tuple[str, str]]:
     for line in URLS_FILE.read_text().splitlines():
         if line.strip() and not line.startswith("#"):
             i, u = line.split("	", 1)
-            urls[int(i)] = (u.strip(), "official nuPlan download page, supplied by the user")
+            urls[int(i)] = (u.strip(), "obtained from the official nuPlan download page (login required; not shipped)")
     missing = sorted(set(range(9)) - set(urls))
     if missing:
         raise SystemExit(f"{URLS_FILE} lacks shards {missing}")

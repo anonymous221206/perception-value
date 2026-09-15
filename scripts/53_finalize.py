@@ -1,5 +1,10 @@
 #!/usr/bin/env python
-"""Phase 0E Stages 14-18: headline table, statistics, run manifest, figures."""
+"""Jetson cost columns for core_matrix.csv, the run manifest, and two by-products.
+
+The by-products, headline_table.csv and statistical_tests.csv, are computed from the post-review core matrix
+(52_core_matrix.py --tag core_matrix_postreview). They are not shipped and no paper table uses them: the
+robustness table is results/final/core_matrix.csv.
+"""
 from __future__ import annotations
 
 import argparse, glob, json, sys
@@ -103,7 +108,7 @@ def main():
     print(f"headline_table.csv: {len(head)} rows")
 
     # ---------------- per-sequence statistics ----------------
-    cmr = latest("core_matrix")
+    cmr = latest("core_matrix_postreview")
     tests = []
     for pkl in sorted(cmr.glob("*.pkl")):
         key = pkl.stem.replace("__", "|").replace("to", "->", 1)

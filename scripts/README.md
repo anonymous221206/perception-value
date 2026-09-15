@@ -28,8 +28,9 @@ Markers:
 | `50_percep_metrics.py` | perception-metric robustness | D |
 | `51_temporal.py` | temporal replay | D |
 | `52_core_matrix.py` | braking and lateral decision tables for every configuration | D |
-| `53_finalize.py`, `54_figures.py` | headline table, statistics, figures | |
+| `53_finalize.py`, `54_figures.py` | Jetson cost columns, run manifest, figures (53's headline and statistics tables are unshipped by-products) | |
 | `99_synthetic_pipeline_check.py` | end-to-end plumbing check with simulated detections | |
+| `123_mechanism_table.py` | FP, FN and detection-count changes on frames where FULL helps, harms or does nothing | |
 
 ## Planning-aware metrics and planners
 

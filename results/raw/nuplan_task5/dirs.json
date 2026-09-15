@@ -2,7 +2,7 @@
  "0": {
   "shard": 0,
   "url": "<official nuPlan download URL>",
-  "source": "official nuPlan download page, supplied by the user",
+  "source": "obtained from the official nuPlan download page (login required; not shipped)",
   "head_status": 200,
   "size": 52219710368,
   "content_type": "application/zip",
@@ -29,7 +29,7 @@
  "1": {
   "shard": 1,
   "url": "<official nuPlan download URL>",
-  "source": "official nuPlan download page, supplied by the user",
+  "source": "obtained from the official nuPlan download page (login required; not shipped)",
   "head_status": 200,
   "size": 54207817441,
   "content_type": "application/zip",
@@ -56,7 +56,7 @@
  "2": {
   "shard": 2,
   "url": "<official nuPlan download URL>",
-  "source": "official nuPlan download page, supplied by the user",
+  "source": "obtained from the official nuPlan download page (login required; not shipped)",
   "head_status": 200,
   "size": 49961035181,
   "content_type": "application/zip",
@@ -83,7 +83,7 @@
  "3": {
   "shard": 3,
   "url": "<official nuPlan download URL>",
-  "source": "official nuPlan download page, supplied by the user",
+  "source": "obtained from the official nuPlan download page (login required; not shipped)",
   "head_status": 200,
   "size": 49943866247,
   "content_type": "application/zip",
@@ -110,7 +110,7 @@
  "4": {
   "shard": 4,
   "url": "<official nuPlan download URL>",
-  "source": "official nuPlan download page, supplied by the user",
+  "source": "obtained from the official nuPlan download page (login required; not shipped)",
   "head_status": 200,
   "size": 49154151608,
   "content_type": "application/zip",
@@ -137,7 +137,7 @@
  "5": {
   "shard": 5,
   "url": "<official nuPlan download URL>",
-  "source": "official nuPlan download page, supplied by the user",
+  "source": "obtained from the official nuPlan download page (login required; not shipped)",
   "head_status": 200,
   "size": 50786913086,
   "content_type": "application/zip",
@@ -164,7 +164,7 @@
  "6": {
   "shard": 6,
   "url": "<official nuPlan download URL>",
-  "source": "official nuPlan download page, supplied by the user",
+  "source": "obtained from the official nuPlan download page (login required; not shipped)",
   "head_status": 200,
   "size": 49896639214,
   "content_type": "application/zip",
@@ -191,7 +191,7 @@
  "7": {
   "shard": 7,
   "url": "<official nuPlan download URL>",
-  "source": "official nuPlan download page, supplied by the user",
+  "source": "obtained from the official nuPlan download page (login required; not shipped)",
   "head_status": 200,
   "size": 49334635327,
   "content_type": "application/zip",
@@ -218,7 +218,7 @@
  "8": {
   "shard": 8,
   "url": "<official nuPlan download URL>",
-  "source": "official nuPlan download page, supplied by the user",
+  "source": "obtained from the official nuPlan download page (login required; not shipped)",
   "head_status": 200,
   "size": 45163195054,
   "content_type": "application/zip",

@@ -12,7 +12,20 @@ tracks:
 | KITTI | KITTI tracking | braking controller; Planner B |
 | nuPlan | nuPlan mini | published PDM-Closed and IDM planners, first under a transported detection profile, then under real detections |
 
-Allocation signals are scored under frame quotas and under measured latency and energy budgets.
+Together these tracks form the **DEEP** benchmark. Allocation signals are scored under frame quotas and under
+measured latency and energy budgets.
+
+### Paper terms and repository names
+
+| paper | repository |
+|---|---|
+| q_brake | system `brake`, target `J` |
+| q_traj (Planner B) | system `traj`, target `JB` |
+| q_plan (Planner C) | system `plan_ade`, target `JC_ade` |
+| self control | `plannerC_path_dev` |
+| detection-list router | `R1_*` |
+| pixel router | `R2_cnn_clf` |
+| gates | `gate_ridge`, `gate_gbm` |
 
 ## Repository layout
 
@@ -44,8 +57,15 @@ python reproduce.py --tier cached --verify
 ```
 
 `--verify` regenerates each table and compares it with the shipped file. Numbers are compared to 1e-9 relative
-and text exactly. `python -m pytest tests` runs the unit tests; tests that need KITTI files are skipped when the
-dataset is absent.
+and text exactly.
+
+**Tolerance on other platforms.** On CPUs other than the reference platform, `--verify` can report differences
+that leave the paper's numbers unchanged:
+* C2 differs at about 1e-6;
+* in C12, `R1_gbm_clf` on PDM-Closed safety changes at the 30–50% quotas; the 20% cells used in the paper are
+  unchanged.
+
+`python -m pytest tests` runs the unit tests; tests that need KITTI files are skipped when the dataset is absent.
 
 | result | file(s) | stage |
 |---|---|---|
@@ -55,9 +75,10 @@ dataset is absent.
 | measured latency and energy budgets | `results/final/benchmark_budget_two_level*.csv`, `benchmark_budget_routers.csv` | full tier (F3, H4) |
 | nuPlan with real perception | `results/final/nuplan_real_perception_*.csv/json`, overlays, `docs/nuplan_real_perception_tables.md` | C9–C11 |
 | nuPlan allocation on real-perception decision values | `results/final/benchmark_table_nuplan_real.csv`, `benchmark_budget_nuplan_real.csv` | C12 |
+| mechanism table (detection changes where FULL helps or harms) | `results/final/mechanism_table.csv` | C13 |
 | figure data (BEV objects, gallery, budget curves) | `results/final/fig_*` | full tier (L1) |
 
-Reports that interpret these tables are in `docs/` (`iclr_*.md`).
+Reports that interpret these tables: `docs/iclr_calibration.md`, `docs/iclr_idm_route_fix.md`, `docs/iclr_nuplan_real_allocation.md`, `docs/iclr_nuplan_real_perception.md`, `docs/iclr_phase0g_external_planners.md`, `docs/iclr_routers.md`. The other files in `docs/` are generated tables (`*_tables.md`, `gate_spec.md`).
 
 **IDM route input.** The first nuPlan runs handed IDM a route it could not start from in 58% of states. All
 IDM-dependent results shipped here were regenerated after the fix.
