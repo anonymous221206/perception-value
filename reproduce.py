@@ -55,6 +55,8 @@ CACHED = [
      "scripts/125_statistics_hardening.py", ["results/final/statistics_hardening.csv"]),
     ("C16", "consumer transfer matrix: an allocator trained for one consumer, scored against another", EDGE,
      "scripts/126_consumer_transfer.py", ["results/final/consumer_transfer.csv"]),
+    ("C17", "objective swap: which allocator each evaluation objective selects", EDGE,
+     "scripts/127_objective_swap.py", ["results/final/objective_swap.csv"]),
 ]
 
 # the full pipeline from raw data, in the order the results were produced; D = needs datasets, H = hardware-dependent
@@ -171,15 +173,34 @@ def compare(a: Path, b: Path) -> str:
                 bad.append(f"{c} (text)")
         return "identical" if not bad else "DIFFERS: " + ", ".join(bad[:8])
     if a.suffix == ".json":
-        def norm(o):
-            if isinstance(o, float):
-                return "nan" if o != o else round(o, 9)
+        def strip(o):
+            """Timing fields are not results."""
             if isinstance(o, dict):
-                return {k: norm(v) for k, v in o.items() if k != "seconds"}
+                return {k: strip(v) for k, v in o.items() if k != "seconds"}
             if isinstance(o, list):
-                return [norm(v) for v in o]
+                return [strip(v) for v in o]
             return o
-        return "identical" if norm(json.loads(a.read_text())) == norm(json.loads(b.read_text())) else "DIFFERS"
+
+        def same(u, v):
+            """NaN equals NaN in the same position; numbers compare with a relative tolerance.
+
+            This used to be `round(x, 9)` equality, which turns a difference in the last bits into a verdict
+            whenever the two values fall either side of a rounding boundary, and which never matched a NaN
+            against itself. A relative tolerance does neither, and still fails on the genuine platform
+            differences documented above for C2, C12 and C14, which are orders of magnitude larger.
+            """
+            if isinstance(u, dict) and isinstance(v, dict):
+                return set(u) == set(v) and all(same(u[k], v[k]) for k in u)
+            if isinstance(u, list) and isinstance(v, list):
+                return len(u) == len(v) and all(same(x, y) for x, y in zip(u, v))
+            if isinstance(u, bool) or isinstance(v, bool):
+                return u is v
+            if isinstance(u, (int, float)) and isinstance(v, (int, float)):
+                return bool(np.isclose(float(u), float(v), rtol=1e-9, atol=1e-12, equal_nan=True))
+            return u == v
+
+        return ("identical" if same(strip(json.loads(a.read_text())), strip(json.loads(b.read_text())))
+                else "DIFFERS")
     return "identical" if a.read_text() == b.read_text() else "DIFFERS"
 
 

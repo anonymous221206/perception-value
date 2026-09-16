@@ -49,6 +49,11 @@ jointly.
 | R1_gbm_reg | −0.114 | [−0.218, −0.020] |
 | R1_gbm_clf | −0.124 | [−0.207, −0.050] |
 
+**Reproducibility of this table.** The six learned signals are refit inside the stage, and the fits are not
+bit-reproducible across platforms or runs. The pooled statistic and the reading below are stable at the three
+decimals quoted; `R1_mlp_clf`'s upper bound reads −0.015 or −0.016 depending on the run, and the counts in
+section 3 shift by about one cell × signal pair. `README.md` records this next to the C2 and C12 tolerances.
+
 The registered rule reads "streaming holds" when the lower bound is above −0.05 and "streaming costs" when the
 interval lies entirely below −0.05. Here the interval straddles −0.05, so the reading is **inconclusive**: the
 data rule out neither a negligible cost nor a substantial one. 382 of 1,000 draws left at least one pooled cell out

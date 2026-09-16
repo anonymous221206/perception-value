@@ -64,10 +64,13 @@ that leave the paper's numbers unchanged:
 * C2 differs at about 1e-6;
 * in C12, `R1_gbm_clf` on PDM-Closed safety changes at the 30–50% quotas; the 20% cells used in the paper are
   unchanged.
-* in C14, the learned signals are refit inside the stage, so 71 of 3,464 rows can move — every one of them a
-  learned signal (`R1_*`, `gate_gbm`), 50 of them in the near-degenerate nuPlan IDM safety cell, whose nDG is
-  undefined anyway. Each number quoted in `docs/iclr_causal_threshold.md`, including the pooled
-  −0.089 [−0.143, −0.024], is unchanged at the three decimals it is quoted to.
+* in C14, the learned signals are refit inside the stage and the fits are not bit-reproducible, so about 70 of
+  3,464 rows move from run to run (71 and 72 observed) — every one of them a learned signal (`R1_*`, `gate_gbm`),
+  and most in the near-degenerate nuPlan IDM safety cell, whose nDG is undefined anyway. The pooled statistic of
+  `docs/iclr_causal_threshold.md`, −0.089 [−0.143, −0.024], is unchanged at the three decimals it is quoted to,
+  and so is its reading. One quoted endpoint is not: `R1_mlp_clf`'s upper bound reads −0.015 or −0.016 depending
+  on the run. The per-policy means and win counts in section 3 of that report are not stored in
+  `causal_threshold.csv`, so `--verify` does not cover them; they shift by about one pair between runs.
 
 `python -m pytest tests` runs the unit tests. Tests that need KITTI files are skipped when the dataset is absent;
 tests that need PyTorch or OpenCV are skipped in this CPU environment.
@@ -84,9 +87,10 @@ tests that need PyTorch or OpenCV are skipped in this CPU environment.
 | causal streaming allocation (frozen threshold, causal cap) | `results/final/causal_threshold.csv`, `docs/iclr_causal_threshold.md` | C14 |
 | statistics hardening (raw gain, influence, trivial baselines) | `results/final/statistics_hardening.csv`, `docs/iclr_statistics.md` | C15 |
 | consumer transfer matrix | `results/final/consumer_transfer.csv`, `docs/iclr_consumer_transfer.md` | C16 |
+| objective swap (decision-value vs perception-gain selection) | `results/final/objective_swap.csv`, `docs/iclr_objective_swap.md` | C17 |
 | figure data (BEV objects, gallery, budget curves) | `results/final/fig_*` | full tier (L1) |
 
-Reports that interpret these tables: `docs/iclr_calibration.md`, `docs/iclr_causal_threshold.md`, `docs/iclr_consumer_transfer.md`, `docs/iclr_idm_route_fix.md`, `docs/iclr_nuplan_real_allocation.md`, `docs/iclr_nuplan_real_perception.md`, `docs/iclr_phase0g_external_planners.md`, `docs/iclr_routers.md`, `docs/iclr_statistics.md`. The other files in `docs/` are generated tables (`*_tables.md`, `gate_spec.md`).
+Reports that interpret these tables: `docs/iclr_calibration.md`, `docs/iclr_causal_threshold.md`, `docs/iclr_consumer_transfer.md`, `docs/iclr_idm_route_fix.md`, `docs/iclr_nuplan_real_allocation.md`, `docs/iclr_nuplan_real_perception.md`, `docs/iclr_objective_swap.md`, `docs/iclr_phase0g_external_planners.md`, `docs/iclr_routers.md`, `docs/iclr_statistics.md`. The other files in `docs/` are generated tables (`*_tables.md`, `gate_spec.md`).
 
 **IDM route input.** The first nuPlan runs handed IDM a route it could not start from in 58% of states. All
 IDM-dependent results shipped here were regenerated after the fix.
