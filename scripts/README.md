@@ -85,6 +85,9 @@ Markers:
 | `116_nuplan_real_cells.py`, `117_nuplan_real_markdown.py` | cells, reading, tables | |
 | `119_nuplan_real_features.py` | allocation inputs from the real CHEAP branch | nuPlan, D |
 | `120_nuplan_real_allocation.py` | allocation track on real-perception decision values | |
+| `124_causal_threshold.py` | causal streaming allocation with a threshold frozen before the test stream | |
+| `125_statistics_hardening.py` | raw-gain intervals, leave-one-unit-out influence, trivial baselines | |
+| `126_consumer_transfer.py` | consumer transfer matrix across the consumers of each track | |
 
 ## Figure data
 

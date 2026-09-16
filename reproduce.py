@@ -49,6 +49,12 @@ CACHED = [
      ["results/final/benchmark_table_nuplan_real.csv", "results/final/benchmark_budget_nuplan_real.csv"]),
     ("C13", "mechanism table: detection changes on frames where FULL helps, harms or does nothing", EDGE,
      "scripts/123_mechanism_table.py", ["results/final/mechanism_table.csv"]),
+    ("C14", "causal streaming allocation: a threshold frozen before the test stream", EDGE,
+     "scripts/124_causal_threshold.py", ["results/final/causal_threshold.csv"]),
+    ("C15", "statistics hardening: raw-gain intervals, leave-one-unit-out influence, trivial baselines", EDGE,
+     "scripts/125_statistics_hardening.py", ["results/final/statistics_hardening.csv"]),
+    ("C16", "consumer transfer matrix: an allocator trained for one consumer, scored against another", EDGE,
+     "scripts/126_consumer_transfer.py", ["results/final/consumer_transfer.csv"]),
 ]
 
 # the full pipeline from raw data, in the order the results were produced; D = needs datasets, H = hardware-dependent
