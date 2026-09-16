@@ -88,9 +88,10 @@ tests that need PyTorch or OpenCV are skipped in this CPU environment.
 | statistics hardening (raw gain, influence, trivial baselines) | `results/final/statistics_hardening.csv`, `docs/iclr_statistics.md` | C15 |
 | consumer transfer matrix | `results/final/consumer_transfer.csv`, `docs/iclr_consumer_transfer.md` | C16 |
 | objective swap (decision-value vs perception-gain selection) | `results/final/objective_swap.csv`, `docs/iclr_objective_swap.md` | C17 |
+| skipping cost accounting for the pixel router | `results/final/skip_accounting.csv`, `docs/iclr_skip_accounting.md` | C18 |
 | figure data (BEV objects, gallery, budget curves) | `results/final/fig_*` | full tier (L1) |
 
-Reports that interpret these tables: `docs/iclr_calibration.md`, `docs/iclr_causal_threshold.md`, `docs/iclr_consumer_transfer.md`, `docs/iclr_idm_route_fix.md`, `docs/iclr_nuplan_real_allocation.md`, `docs/iclr_nuplan_real_perception.md`, `docs/iclr_objective_swap.md`, `docs/iclr_phase0g_external_planners.md`, `docs/iclr_routers.md`, `docs/iclr_statistics.md`. The other files in `docs/` are generated tables (`*_tables.md`, `gate_spec.md`).
+Reports that interpret these tables: `docs/iclr_calibration.md`, `docs/iclr_causal_threshold.md`, `docs/iclr_consumer_transfer.md`, `docs/iclr_idm_route_fix.md`, `docs/iclr_nuplan_real_allocation.md`, `docs/iclr_nuplan_real_perception.md`, `docs/iclr_objective_swap.md`, `docs/iclr_phase0g_external_planners.md`, `docs/iclr_routers.md`, `docs/iclr_skip_accounting.md`, `docs/iclr_statistics.md`. The other files in `docs/` are generated tables (`*_tables.md`, `gate_spec.md`).
 
 **IDM route input.** The first nuPlan runs handed IDM a route it could not start from in 58% of states. All
 IDM-dependent results shipped here were regenerated after the fix.

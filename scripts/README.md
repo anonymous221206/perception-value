@@ -89,6 +89,7 @@ Markers:
 | `125_statistics_hardening.py` | raw-gain intervals, leave-one-unit-out influence, trivial baselines | |
 | `126_consumer_transfer.py` | consumer transfer matrix across the consumers of each track | |
 | `127_objective_swap.py` | which allocator a decision-value and a perception-gain objective each select | |
+| `128_skip_accounting.py` | the pixel router under skipping cost accounting, beside the cascade | |
 
 ## Figure data
 

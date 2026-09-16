@@ -57,6 +57,8 @@ CACHED = [
      "scripts/126_consumer_transfer.py", ["results/final/consumer_transfer.csv"]),
     ("C17", "objective swap: which allocator each evaluation objective selects", EDGE,
      "scripts/127_objective_swap.py", ["results/final/objective_swap.csv"]),
+    ("C18", "skipping cost accounting for the pixel router, beside the cascade", EDGE,
+     "scripts/128_skip_accounting.py", ["results/final/skip_accounting.csv"]),
 ]
 
 # the full pipeline from raw data, in the order the results were produced; D = needs datasets, H = hardware-dependent
