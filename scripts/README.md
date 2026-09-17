@@ -90,6 +90,8 @@ Markers:
 | `126_consumer_transfer.py` | consumer transfer matrix across the consumers of each track | |
 | `127_objective_swap.py` | which allocator a decision-value and a perception-gain objective each select | |
 | `128_skip_accounting.py` | the pixel router under skipping cost accounting, beside the cascade | |
+| `122_target_swap.py` | the same allocators trained on perception gain instead of decision value | |
+| `129_target_swap_audit.py` | audit of the target swap: label, refit, degeneracy and bootstrap checks | |
 
 ## Figure data
 

@@ -59,6 +59,9 @@ CACHED = [
      "scripts/127_objective_swap.py", ["results/final/objective_swap.csv"]),
     ("C18", "skipping cost accounting for the pixel router, beside the cascade", EDGE,
      "scripts/128_skip_accounting.py", ["results/final/skip_accounting.csv"]),
+    ("C19", "target swap: the same allocators trained on perception gain instead of decision value", EDGE,
+     "scripts/122_target_swap.py", ["results/final/benchmark_target_swap.csv",
+                                    "results/final/benchmark_target_swap_summary.json"]),
 ]
 
 # the full pipeline from raw data, in the order the results were produced; D = needs datasets, H = hardware-dependent

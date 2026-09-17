@@ -80,6 +80,9 @@ move some of the figures its report quotes.
   * The reading, inconclusive, holds in every run.
   * That report's reproducibility table lists which of its figures are safe at three decimals. Its section 3
     means and win counts are not stored in `causal_threshold.csv`, so `--verify` does not cover them.
+* C19 refits its models as C14 does, but its two outputs were byte-identical in four runs on the reference
+  platform, two of them with BLAS and OpenMP pinned to 1 and to 4 threads. It has not been run on a second
+  platform. `docs/iclr_target_swap.md` names the one quoted figure that another platform could move.
 
 `python -m pytest tests` runs the unit tests. Tests that need KITTI files are skipped when the dataset is absent;
 tests that need PyTorch or OpenCV are skipped in this CPU environment.
@@ -98,9 +101,11 @@ tests that need PyTorch or OpenCV are skipped in this CPU environment.
 | consumer transfer matrix | `results/final/consumer_transfer.csv`, `docs/iclr_consumer_transfer.md` | C16 |
 | objective swap (decision-value vs perception-gain selection) | `results/final/objective_swap.csv`, `docs/iclr_objective_swap.md` | C17 |
 | skipping cost accounting for the pixel router | `results/final/skip_accounting.csv`, `docs/iclr_skip_accounting.md` | C18 |
+| target swap: allocators trained on perception gain instead of decision value | `results/final/benchmark_target_swap.csv`, `benchmark_target_swap_summary.json`, `docs/iclr_target_swap.md` | C19 |
+| target-swap audit (no compared output; its record is `results/raw/20260915_221911_target_swap_audit/`) | run `scripts/129_target_swap_audit.py` after C19 | — |
 | figure data (BEV objects, gallery, budget curves) | `results/final/fig_*` | full tier (L1) |
 
-Reports that interpret these tables: `docs/iclr_calibration.md`, `docs/iclr_causal_threshold.md`, `docs/iclr_consumer_transfer.md`, `docs/iclr_idm_route_fix.md`, `docs/iclr_nuplan_real_allocation.md`, `docs/iclr_nuplan_real_perception.md`, `docs/iclr_objective_swap.md`, `docs/iclr_phase0g_external_planners.md`, `docs/iclr_routers.md`, `docs/iclr_skip_accounting.md`, `docs/iclr_statistics.md`. The other files in `docs/` are generated tables (`*_tables.md`, `gate_spec.md`).
+Reports that interpret these tables: `docs/iclr_calibration.md`, `docs/iclr_causal_threshold.md`, `docs/iclr_consumer_transfer.md`, `docs/iclr_idm_route_fix.md`, `docs/iclr_nuplan_real_allocation.md`, `docs/iclr_nuplan_real_perception.md`, `docs/iclr_objective_swap.md`, `docs/iclr_phase0g_external_planners.md`, `docs/iclr_routers.md`, `docs/iclr_skip_accounting.md`, `docs/iclr_statistics.md`, `docs/iclr_target_swap.md`. The other files in `docs/` are generated tables (`*_tables.md`, `gate_spec.md`).
 
 **IDM route input.** The first nuPlan runs handed IDM a route it could not start from in 58% of states. All
 IDM-dependent results shipped here were regenerated after the fix.
