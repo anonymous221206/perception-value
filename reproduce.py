@@ -74,6 +74,8 @@ CACHED = [
      ["results/final/energy_module_budget_two_level.csv", "results/final/energy_module_budget_multifidelity.csv",
       "results/final/energy_module_budget_nuplan_real.csv", "results/final/energy_module_skip_accounting.csv",
       "results/final/energy_module_costs.json", "results/final/energy_module_claims.csv"]),
+    ("C23", "causal streaming allocation with rate controllers (adaptive threshold, token bucket) on saved scores", EDGE,
+     "PYTHONHASHSEED=0 {py} scripts/130_streaming_controllers.py", ["results/final/streaming_controllers.csv"]),
 ]
 
 # the full pipeline from raw data, in the order the results were produced; D = needs datasets, H = hardware-dependent
@@ -161,6 +163,8 @@ FULL = [
      "scripts/132_allocator_rails.py"),
     ("N2", "save the core gate scores and multi-fidelity level predictions once (read by C21, C22)", EDGE,
      "scripts/133_energy_module_budgets.py --save_gate_scores"),
+    ("N3", "fit the train-only (V1) allocator scores once for the streaming controllers (read by C23)", EDGE,
+     "scripts/130_streaming_controllers.py --fit_once"),
 ]
 
 
