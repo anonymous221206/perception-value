@@ -25,6 +25,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 from rap.paths import DATASETS as _DS, MODELS as _MD                      # noqa: E402
 from rap import decision, geometry as G, planner as P                         # noqa: E402
+from rap.budget import budget_curves                                           # noqa: E402
 from rap.cache import DetCache                                                 # noqa: E402
 from rap.mono import box_iou                                                   # noqa: E402
 from rap.nusc import NuScenesDB, make_adapter                                  # noqa: E402
@@ -385,16 +386,14 @@ def main():
                                                 "frames": index}, indent=1))
 
     # ---------------------------------------------------------------- C: budget curves
-    b = pd.read_csv(FINAL / "benchmark_budget_routers.csv")
-    b = b[b.unit == "ms"].copy()
-    keep = ["track", "geometry", "system", "target", "signal", "budget_level", "budget_per_frame", "n_frames", "feasible",
-            "overhead", "overhead_source", "escalated_frac", "eta", "eta_lo", "eta_hi", "minus_random", "minus_random_lo",
-            "minus_random_hi", "note"]
-    cells = b[keep].assign(row_type="cell")
-    med = (b.groupby(["track", "signal", "budget_level"], dropna=False)
-           .agg(eta=("eta", "median"), escalated_frac=("escalated_frac", "median"), n_cells=("eta", "size"))
-           .reset_index().assign(row_type="median_over_cells", geometry="all", system="all", target="all"))
-    pd.concat([cells, med], ignore_index=True).to_csv(FINAL / "fig_budget_curves.csv", index=False)
+    write_budget_curves()
+
+
+def write_budget_curves():
+    """Part C on its own: it needs no dataset, so the cached tier regenerates it (scripts/131_budget_feasibility.py)."""
+    out = budget_curves(pd.read_csv(FINAL / "benchmark_budget_routers.csv"))
+    out.to_csv(FINAL / "fig_budget_curves.csv", index=False)
+    cells, med = (out.row_type == "cell").sum(), (out.row_type == "median_over_cells").sum()
     print(f"  budget curves: {len(cells)} cell rows, {len(med)} median rows")
 
 

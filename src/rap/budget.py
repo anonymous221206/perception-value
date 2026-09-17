@@ -133,3 +133,86 @@ def add_compute_columns(res: pd.DataFrame, lat_cheap_ms: float, lat_full_ms: flo
         res["risk_per_extra_joule"] = res["risk_reduction"] / res["extra_energy_j"].replace(0, np.nan)
     res["total_frames"] = total
     return res
+
+
+# ---------------------------------------------------------------------------------------
+# Feasibility under a measured budget (Task 19 Part A).
+#
+# A cascade charges every input C_c + C_S and an escalated input C_f more.  At the budget level
+# b = C_c + alpha * C_f the affordable share is (b - C_c - C_S) / C_f, which the budget tables used to clip at 0:
+# an allocator whose own overhead does not fit the headroom b - C_c was written as a 0% escalation with nDG 0, as if it
+# had run and chosen nothing.  It cannot run within that budget at all, so such a row is marked infeasible instead.
+
+FEASIBILITY_TOL = 1e-9
+
+# what an allocator achieves inside a budget: meaningless, and therefore blanked, where it cannot run
+ACHIEVED = ("escalated_frac", "escalations_lost_to_overhead", "gain", "eta", "eta_lo", "eta_hi",
+            "minus_random", "minus_random_lo", "minus_random_hi", "share_384", "share_512", "share_640",
+            "extra_ms_per_frame", "extra_mJ_per_frame")
+
+
+def infeasible(budget, cheap, overhead, tol: float = FEASIBILITY_TOL) -> np.ndarray:
+    """True where an allocator's per-input overhead exceeds the budget headroom b - C_c.
+
+    A row without an overhead (NaN: random, the oracle, a diagnostic already written as infeasible) is never marked.
+    """
+    b, c, o = (np.asarray(x, float) for x in (budget, cheap, overhead))
+    with np.errstate(invalid="ignore"):
+        return np.isfinite(o) & (o > b - c + tol)
+
+
+def mark_infeasible(df: pd.DataFrame, applies, budget, cheap, overhead, units,
+                    nan_cols=ACHIEVED, note_col: str = "note") -> pd.DataFrame:
+    """Write `feasible` for the rows the rule applies to, and blank what an infeasible row cannot have achieved.
+
+    Rows the rule does not apply to keep their existing `feasible` value (or none, if the column is new); every value
+    not named in `nan_cols` is left untouched, so a feasible row is unchanged to full precision.
+    """
+    df = df.copy()
+    applies = np.asarray(applies, bool)
+    b, c, o = (np.asarray(x, float) for x in (budget, cheap, overhead))
+    bad = applies & infeasible(b, c, o)
+    feas = df["feasible"].to_numpy(dtype=object) if "feasible" in df.columns else np.full(len(df), np.nan, dtype=object)
+    feas[applies] = [not x for x in bad[applies]]
+    df["feasible"] = feas
+    for col in nan_cols:
+        if col in df.columns:
+            df.loc[bad, col] = np.nan
+    df[note_col] = df[note_col].astype(object) if note_col in df.columns else pd.Series(np.nan, index=df.index, dtype=object)
+    u = np.broadcast_to(np.asarray(units, dtype=object), (len(df),))
+    for i in np.flatnonzero(bad):
+        df.iat[i, df.columns.get_loc(note_col)] = (
+            f"infeasible: allocator overhead {o[i]:.4f} {u[i]} per input exceeds the budget headroom "
+            f"b - C_c = {b[i] - c[i]:.4f} {u[i]}, so it cannot run within this budget")
+    return df
+
+
+def flag_two_level(df: pd.DataFrame) -> pd.DataFrame:
+    """93's two-level tables and 120's nuPlan table: budget, CHEAP cost and overhead are columns of every row."""
+    return mark_infeasible(df, df["overhead"].notna().to_numpy(), df["budget_per_frame"], df["cheap_cost"],
+                           df["overhead"], df["unit"])
+
+
+def flag_multifidelity(df: pd.DataFrame, cheap_cost: dict) -> pd.DataFrame:
+    """93's multi-fidelity tables; `cheap_cost` is the 320-px cost per unit ({"ms": ..., "mJ": ...})."""
+    return mark_infeasible(df, np.ones(len(df), bool), df["budget_per_frame"], df["unit"].map(cheap_cost),
+                           df["overhead"], df["unit"])
+
+
+def budget_curves(routers: pd.DataFrame) -> pd.DataFrame:
+    """Figure data: every ms row of benchmark_budget_routers.csv, plus the median over cells per track x signal x level.
+
+    Medians skip infeasible cells (their nDG is NaN), so a level no cell can afford has no median rather than a 0;
+    `n_feasible` counts the cells a median is taken over.
+    """
+    b = routers[routers.unit == "ms"].copy()
+    keep = ["track", "geometry", "system", "target", "signal", "budget_level", "budget_per_frame", "n_frames", "feasible",
+            "overhead", "overhead_source", "escalated_frac", "eta", "eta_lo", "eta_hi", "minus_random", "minus_random_lo",
+            "minus_random_hi", "note"]
+    cells = b[keep].assign(row_type="cell")
+    b["_feasible"] = b.feasible.astype(str).str.lower().eq("true")
+    med = (b.groupby(["track", "signal", "budget_level"], dropna=False)
+           .agg(eta=("eta", "median"), escalated_frac=("escalated_frac", "median"), n_cells=("eta", "size"),
+                n_feasible=("_feasible", "sum"))
+           .reset_index().assign(row_type="median_over_cells", geometry="all", system="all", target="all"))
+    return pd.concat([cells, med], ignore_index=True)

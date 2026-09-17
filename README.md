@@ -103,9 +103,12 @@ tests that need PyTorch or OpenCV are skipped in this CPU environment.
 | skipping cost accounting for the pixel router | `results/final/skip_accounting.csv`, `docs/iclr_skip_accounting.md` | C18 |
 | target swap: allocators trained on perception gain instead of decision value | `results/final/benchmark_target_swap.csv`, `benchmark_target_swap_summary.json`, `docs/iclr_target_swap.md` | C19 |
 | target-swap audit (no compared output; its record is `results/raw/20260915_221911_target_swap_audit/`) | run `scripts/129_target_swap_audit.py` after C19 | — |
-| figure data (BEV objects, gallery, budget curves) | `results/final/fig_*` | full tier (L1) |
+| figure data (BEV objects, gallery, budget curves) | `results/final/fig_*` | full tier (L1); budget curves also C20 |
+| measured budgets with infeasible allocators marked (overhead above the budget headroom) | `results/final/benchmark_budget_*.csv`, `fig_budget_curves.csv`, `docs/iclr_budget_feasibility.md` | C20 (C12, C14, C18, C19 apply the same rule) |
+| energy budgets under one rail convention for detectors and allocators, and the claims they bear on | `results/final/energy_module_*`, `allocator_rails.json`, `docs/iclr_energy_conventions.md` | C21, C22 (rails: full tier N1) |
+| exact formulas: monocular lifting, reference geometry, controllers, perception gains, ego speed | `docs/iclr_formulas.md` | — |
 
-Reports that interpret these tables: `docs/iclr_calibration.md`, `docs/iclr_causal_threshold.md`, `docs/iclr_consumer_transfer.md`, `docs/iclr_idm_route_fix.md`, `docs/iclr_nuplan_real_allocation.md`, `docs/iclr_nuplan_real_perception.md`, `docs/iclr_objective_swap.md`, `docs/iclr_phase0g_external_planners.md`, `docs/iclr_routers.md`, `docs/iclr_skip_accounting.md`, `docs/iclr_statistics.md`, `docs/iclr_target_swap.md`. The other files in `docs/` are generated tables (`*_tables.md`, `gate_spec.md`).
+Reports that interpret these tables: `docs/iclr_budget_feasibility.md`, `docs/iclr_calibration.md`, `docs/iclr_causal_threshold.md`, `docs/iclr_consumer_transfer.md`, `docs/iclr_energy_conventions.md`, `docs/iclr_formulas.md`, `docs/iclr_idm_route_fix.md`, `docs/iclr_nuplan_real_allocation.md`, `docs/iclr_nuplan_real_perception.md`, `docs/iclr_objective_swap.md`, `docs/iclr_phase0g_external_planners.md`, `docs/iclr_routers.md`, `docs/iclr_skip_accounting.md`, `docs/iclr_statistics.md`, `docs/iclr_target_swap.md`. The other files in `docs/` are generated tables (`*_tables.md`, `gate_spec.md`).
 
 **IDM route input.** The first nuPlan runs handed IDM a route it could not start from in 58% of states. All
 IDM-dependent results shipped here were regenerated after the fix.

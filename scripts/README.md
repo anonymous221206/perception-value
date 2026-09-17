@@ -92,6 +92,9 @@ Markers:
 | `128_skip_accounting.py` | the pixel router under skipping cost accounting, beside the cascade | |
 | `122_target_swap.py` | the same allocators trained on perception gain instead of decision value | |
 | `129_target_swap_audit.py` | audit of the target swap: label, refit, degeneracy and bootstrap checks | |
+| `131_budget_feasibility.py` | marks allocators whose overhead exceeds the budget headroom as infeasible in every measured-budget table | |
+| `132_allocator_rails.py` | every power rail over idle while the gate, R1 and R2 workloads run | H, D |
+| `133_energy_module_budgets.py` | every energy-budget result under one rail convention for detectors and allocators | |
 
 ## Figure data
 

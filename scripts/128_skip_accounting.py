@@ -31,6 +31,7 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 from rap import runmeta                                                          # noqa: E402
+from rap.budget import infeasible                                                # noqa: E402
 from rap.paths import RESULTS                                                    # noqa: E402
 
 FINAL = Path(RESULTS) / "final"
@@ -58,8 +59,14 @@ INELIGIBLE = {
 
 
 def shares(Cc, Cf, Cs, q):
-    """Budget, cascade share (93:342) and skipping share for one budget level."""
+    """Budget, cascade share (93:342) and skipping share for one budget level.
+
+    Both designs charge C_c + C_S at zero escalation, so a router whose overhead exceeds the headroom B - C_c cannot
+    run within the budget under either: both shares are NaN there, not 0 (Task 19 Part A).
+    """
     B = Cc + q * Cf                                                              # 93:317
+    if infeasible(B, Cc, Cs):
+        return B, np.nan, np.nan
     return B, max((B - Cc - Cs) / Cf, 0.0), min(max((B - Cc - Cs) / (Cf - Cc), 0.0), 1.0)
 
 
@@ -101,9 +108,10 @@ def build_cells(splits):
     return cells
 
 
-def constants(ov, track, unit):
-    cost = t93.profile_costs(track)
-    o_ms, o_mj, _ = t93.signal_overhead(ov, track, SIGNAL)
+def constants(ov, track, unit, costs=None, power=None):
+    """(C_c, C_f, C_S) for R2.  Task 19 Part B passes another detector `costs` function and allocator `power`."""
+    cost = t93.profile_costs(track) if costs is None else costs(track)
+    o_ms, o_mj, _ = t93.signal_overhead(ov, track, SIGNAL, power=power)
     return cost["cheap"][unit], cost["640"][unit], (o_ms if unit == "ms" else o_mj)
 
 
@@ -111,6 +119,109 @@ def pct(x, p):
     x = np.asarray(x, float)
     x = x[np.isfinite(x)]
     return float(np.percentile(x, p)) if len(x) else np.nan
+
+
+def shares_rows(ov, costs=None, power=None, budget_units=("ms", "mJ")):
+    """Constants, and the cascade and skipping shares, per track, unit and budget level."""
+    rows = []
+    for track in ("nuScenes", "KITTI"):
+        for unit in budget_units:
+            Cc, Cf, Cs = constants(ov, track, unit, costs, power)
+            for q in QUOTAS:
+                B, fc, fs = shares(Cc, Cf, Cs, q)
+                rows.append({"section": "shares", "track": track, "unit": unit, "budget_level": q, "budget": B,
+                             "Cc": Cc, "Cf": Cf, "Cs": Cs, "signal": SIGNAL, "eligible": True,
+                             "feasible": bool(np.isfinite(fc)), "share_cascade": fc, "share_skipping": fs})
+    for sig, why in INELIGIBLE.items():
+        rows.append({"section": "shares", "signal": sig, "eligible": False, "ineligible_reason": why})
+    return rows
+
+
+def evaluation_rows(cells, ov, shipped, nboot, costs=None, power=None, budget_units=("ms", "mJ")):
+    """Every (cell, unit, budget) with a positive skipping share: R2 against random and the same-k oracle.
+
+    Task 19 Part B passes other detector `costs`, allocator `power` and `budget_units`, and `shipped=None`, since the
+    shipped cascade rows belong to the shipped energy convention.
+    """
+    rows = []
+    rng = np.random.default_rng(0)
+    for c in cells:
+        v, s, units, n = c["v"], c["s"], c["units"], len(c["v"])
+        todo = []
+        for unit in budget_units:
+            Cc, Cf, Cs = constants(ov, c["track"], unit, costs, power)
+            for q in QUOTAS:
+                B, fc, fs = shares(Cc, Cf, Cs, q)
+                if fs > 0:
+                    todo.append((unit, q, B, Cc, Cf, Cs, fc, fs))
+        if not todo:
+            continue
+        uniq = np.unique(units)
+        idx = [np.flatnonzero(units == u) for u in uniq]
+        fss = np.array([t[7] for t in todo])
+        ks = np.array([k_of(f, n) for f in fss])
+        g_r2, tie_r2 = gains(s, v, ks)
+        g_rand = gains(None, v, ks)[0]
+        g_or = gains(v, v, ks)[0]
+        D = {x: np.full((nboot, len(todo)), np.nan) for x in ("r2", "rand", "or")}
+        for b in range(nboot):
+            t = np.concatenate([idx[i] for i in rng.integers(0, len(uniq), len(uniq))])
+            vt = v[t]
+            kt = np.array([k_of(f, len(t)) for f in fss])
+            D["r2"][b] = gains(s[t], vt, kt)[0]
+            D["rand"][b] = gains(None, vt, kt)[0]
+            D["or"][b] = gains(vt, vt, kt)[0]
+        n_pos, n_nonneg = int((v > EPS).sum()), int((v > -EPS).sum())
+        capacity = float(np.maximum(v, 0.0).sum())
+        shipped_c = None if shipped is None else shipped[
+            (shipped.track == c["track"]) & (shipped.geometry == c["geometry"])
+            & (shipped.system == c["system"]) & (shipped.target == c["target"])]
+        for i, (unit, q, B, Cc, Cf, Cs, fc, fs) in enumerate(todo):
+            k = int(ks[i])
+            regime = ("share_below_positives" if k < n_pos else
+                      "share_above_nonnegative" if k > n_nonneg else "at_capacity")
+            ratio = g_or[i] / capacity if capacity > EPS else np.nan
+            if regime == "at_capacity":
+                assert ratio >= 1 - 1e-9, (c["track"], c["system"], unit, q, ratio)
+            else:
+                assert ratio < 1 + 1e-12, (c["track"], c["system"], unit, q, ratio)
+            diff = D["r2"][:, i] - D["rand"][:, i]
+            ok = D["or"][:, i] > EPS
+            den = np.where(ok, D["or"][:, i], np.nan)
+            ndg_r2_t, ndg_diff_t = D["r2"][:, i] / den, diff / den
+            lo, hi = pct(diff, 2.5), pct(diff, 97.5)
+            cas = (None if shipped_c is None else
+                   shipped_c[(shipped_c.unit == unit) & np.isclose(shipped_c.budget_level, q)].iloc[0])
+            rows.append({
+                "section": "evaluation", **{kk: c[kk] for kk in KEY}, "signal": SIGNAL, "unit": unit,
+                "budget_level": q, "budget": B, "Cc": Cc, "Cf": Cf, "Cs": Cs,
+                "share_cascade": fc, "share_skipping": fs, "k": k, "n_test": n,
+                "n_units": int(len(uniq)), "coverage": c["coverage"],
+                "n_positive": n_pos, "n_nonnegative": n_nonneg, "share_positive": n_pos / n,
+                "share_nonnegative": n_nonneg / n, "share_skipping_exceeds_nonnegative": bool(fs > n_nonneg / n),
+                "regime": regime, "denominator": "oracle escalating the same k (budget-constrained)",
+                "oracle_same_k": float(g_or[i]), "oracle_capacity": capacity, "oracle_same_k_over_capacity": ratio,
+                "gain_r2": float(g_r2[i]), "gain_random": float(g_rand[i]), "tie_frac_r2": float(tie_r2[i]),
+                "ndg_r2": float(g_r2[i] / g_or[i]) if g_or[i] > EPS else np.nan,
+                "ndg_random": float(g_rand[i] / g_or[i]) if g_or[i] > EPS else np.nan,
+                "ndg_minus_random": float((g_r2[i] - g_rand[i]) / g_or[i]) if g_or[i] > EPS else np.nan,
+                "all_cheap_loss": c["all_cheap"],
+                "gain_share_all_cheap_r2": float(g_r2[i] / c["all_cheap"]),
+                "gain_share_all_cheap_random": float(g_rand[i] / c["all_cheap"]),
+                "n_draws": int(nboot), "n_draws_oracle_nonpositive": int((~ok).sum()),
+                "gain_minus_random_mean": float(np.mean(diff)), "gain_minus_random_lo": lo,
+                "gain_minus_random_hi": hi,
+                "ndg_r2_lo": pct(ndg_r2_t, 2.5), "ndg_r2_hi": pct(ndg_r2_t, 97.5),
+                "ndg_minus_random_lo": pct(ndg_diff_t, 2.5), "ndg_minus_random_hi": pct(ndg_diff_t, 97.5),
+                "p_le_random": float(np.mean(diff <= 0)),
+                "beats_random": bool(lo > 0), "loses_to_random": bool(hi < 0),
+                "cascade_eta_shipped": np.nan if cas is None else float(cas.eta),
+                "cascade_minus_random_lo_shipped": np.nan if cas is None else float(cas.minus_random_lo),
+                "cascade_minus_random_hi_shipped": np.nan if cas is None else float(cas.minus_random_hi)})
+            print(f"  {c['track']:8s} {c['geometry']:6s} {c['system']:9s} {unit:2s} {q:.0%}: share {fs:6.1%} "
+                  f"(cascade {fc:5.1%}), nDG R2 {rows[-1]['ndg_r2']:+.3f} vs random {rows[-1]['ndg_random']:+.3f}, "
+                  f"gain diff [{lo:+.3f}, {hi:+.3f}], {regime}", flush=True)
+    return rows
 
 
 def main():
@@ -143,14 +254,16 @@ def main():
                 assert len(r) == 1, (c["track"], c["system"], c["target"], unit, q, len(r))
                 r = r.iloc[0]
                 prize = gains(v, v, [k_of(q, n)])[0][0]                               # 93:328
-                eta = gains(s, v, [k_of(fc, n)])[0][0] / prize if prize > EPS else np.nan
-                frac_equal = fc == r.escalated_frac
+                feasible = bool(np.isfinite(fc))
+                eta = gains(s, v, [k_of(fc, n)])[0][0] / prize if (feasible and prize > EPS) else np.nan
+                frac_equal = (bool(np.isnan(fc) and np.isnan(r.escalated_frac)) or fc == r.escalated_frac) \
+                    and feasible == (str(r.feasible).lower() == "true")
                 eta_ok = bool((np.isnan(eta) and np.isnan(r.eta))
                               or np.isclose(eta, r.eta, rtol=1e-9, atol=1e-12))
                 bad_frac += not frac_equal
                 bad_eta += not eta_ok
                 rows.append({"section": "validation", **{k: c[k] for k in KEY}, "unit": unit, "budget_level": q,
-                             "budget": B, "budget_shipped": r.budget_per_frame, "share_cascade": fc,
+                             "budget": B, "budget_shipped": r.budget_per_frame, "feasible": feasible, "share_cascade": fc,
                              "share_cascade_shipped": r.escalated_frac, "share_equal": bool(frac_equal),
                              "eta_cascade": eta, "eta_cascade_shipped": r.eta, "eta_match": eta_ok})
     n_val = len(rows)
@@ -158,102 +271,21 @@ def main():
           f"eta within 1e-9 in {n_val - bad_eta}/{n_val}", flush=True)
     for track in ("nuScenes", "KITTI"):
         for q in (0.2, 0.5):
-            med = np.median([x["share_cascade"] for x in rows if x["track"] == track and x["unit"] == "ms"
-                             and np.isclose(x["budget_level"], q)])
-            print(f"    {track:8s} ms budget {q:.0%}: cascade share {med:.1%}", flush=True)
+            sh = [x["share_cascade"] for x in rows if x["track"] == track and x["unit"] == "ms"
+                  and np.isclose(x["budget_level"], q)]
+            txt = "infeasible" if np.isnan(sh).all() else f"{np.nanmedian(sh):.1%}"
+            print(f"    {track:8s} ms budget {q:.0%}: cascade share {txt}", flush=True)
     if bad_frac or bad_eta:
         pd.DataFrame(rows).to_csv(run / "skip_accounting_validation_FAILED.csv", index=False)
         raise SystemExit("validation failed: the cascade branch does not reproduce the shipped R2 rows; stopping")
 
     # ---- section: shares ---------------------------------------------------------------------------
-    for track in ("nuScenes", "KITTI"):
-        for unit in ("ms", "mJ"):
-            Cc, Cf, Cs = constants(ov, track, unit)
-            for q in QUOTAS:
-                B, fc, fs = shares(Cc, Cf, Cs, q)
-                rows.append({"section": "shares", "track": track, "unit": unit, "budget_level": q, "budget": B,
-                             "Cc": Cc, "Cf": Cf, "Cs": Cs, "signal": SIGNAL, "eligible": True,
-                             "share_cascade": fc, "share_skipping": fs})
-    for sig, why in INELIGIBLE.items():
-        rows.append({"section": "shares", "signal": sig, "eligible": False, "ineligible_reason": why})
+    rows += shares_rows(ov)
 
     # ---- section: evaluation -------------------------------------------------------------------------
-    rng = np.random.default_rng(0)
-    n_eval = 0
-    for c in cells:
-        v, s, units, n = c["v"], c["s"], c["units"], len(c["v"])
-        todo = []
-        for unit in ("ms", "mJ"):
-            Cc, Cf, Cs = constants(ov, c["track"], unit)
-            for q in QUOTAS:
-                B, fc, fs = shares(Cc, Cf, Cs, q)
-                if fs > 0:
-                    todo.append((unit, q, B, Cc, Cf, Cs, fc, fs))
-        if not todo:
-            continue
-        uniq = np.unique(units)
-        idx = [np.flatnonzero(units == u) for u in uniq]
-        fss = np.array([t[7] for t in todo])
-        ks = np.array([k_of(f, n) for f in fss])
-        g_r2, tie_r2 = gains(s, v, ks)
-        g_rand = gains(None, v, ks)[0]
-        g_or = gains(v, v, ks)[0]
-        D = {x: np.full((args.nboot, len(todo)), np.nan) for x in ("r2", "rand", "or")}
-        for b in range(args.nboot):
-            t = np.concatenate([idx[i] for i in rng.integers(0, len(uniq), len(uniq))])
-            vt = v[t]
-            kt = np.array([k_of(f, len(t)) for f in fss])
-            D["r2"][b] = gains(s[t], vt, kt)[0]
-            D["rand"][b] = gains(None, vt, kt)[0]
-            D["or"][b] = gains(vt, vt, kt)[0]
-        n_pos, n_nonneg = int((v > EPS).sum()), int((v > -EPS).sum())
-        capacity = float(np.maximum(v, 0.0).sum())
-        shipped_c = shipped[(shipped.track == c["track"]) & (shipped.geometry == c["geometry"])
-                            & (shipped.system == c["system"]) & (shipped.target == c["target"])]
-        for i, (unit, q, B, Cc, Cf, Cs, fc, fs) in enumerate(todo):
-            k = int(ks[i])
-            regime = ("share_below_positives" if k < n_pos else
-                      "share_above_nonnegative" if k > n_nonneg else "at_capacity")
-            ratio = g_or[i] / capacity if capacity > EPS else np.nan
-            if regime == "at_capacity":
-                assert ratio >= 1 - 1e-9, (c["track"], c["system"], unit, q, ratio)
-            else:
-                assert ratio < 1 + 1e-12, (c["track"], c["system"], unit, q, ratio)
-            diff = D["r2"][:, i] - D["rand"][:, i]
-            ok = D["or"][:, i] > EPS
-            den = np.where(ok, D["or"][:, i], np.nan)
-            ndg_r2_t, ndg_diff_t = D["r2"][:, i] / den, diff / den
-            lo, hi = pct(diff, 2.5), pct(diff, 97.5)
-            cas = shipped_c[(shipped_c.unit == unit) & np.isclose(shipped_c.budget_level, q)].iloc[0]
-            rows.append({
-                "section": "evaluation", **{kk: c[kk] for kk in KEY}, "signal": SIGNAL, "unit": unit,
-                "budget_level": q, "budget": B, "Cc": Cc, "Cf": Cf, "Cs": Cs,
-                "share_cascade": fc, "share_skipping": fs, "k": k, "n_test": n,
-                "n_units": int(len(uniq)), "coverage": c["coverage"],
-                "n_positive": n_pos, "n_nonnegative": n_nonneg, "share_positive": n_pos / n,
-                "share_nonnegative": n_nonneg / n, "share_skipping_exceeds_nonnegative": bool(fs > n_nonneg / n),
-                "regime": regime, "denominator": "oracle escalating the same k (budget-constrained)",
-                "oracle_same_k": float(g_or[i]), "oracle_capacity": capacity, "oracle_same_k_over_capacity": ratio,
-                "gain_r2": float(g_r2[i]), "gain_random": float(g_rand[i]), "tie_frac_r2": float(tie_r2[i]),
-                "ndg_r2": float(g_r2[i] / g_or[i]) if g_or[i] > EPS else np.nan,
-                "ndg_random": float(g_rand[i] / g_or[i]) if g_or[i] > EPS else np.nan,
-                "ndg_minus_random": float((g_r2[i] - g_rand[i]) / g_or[i]) if g_or[i] > EPS else np.nan,
-                "all_cheap_loss": c["all_cheap"],
-                "gain_share_all_cheap_r2": float(g_r2[i] / c["all_cheap"]),
-                "gain_share_all_cheap_random": float(g_rand[i] / c["all_cheap"]),
-                "n_draws": int(args.nboot), "n_draws_oracle_nonpositive": int((~ok).sum()),
-                "gain_minus_random_mean": float(np.mean(diff)), "gain_minus_random_lo": lo,
-                "gain_minus_random_hi": hi,
-                "ndg_r2_lo": pct(ndg_r2_t, 2.5), "ndg_r2_hi": pct(ndg_r2_t, 97.5),
-                "ndg_minus_random_lo": pct(ndg_diff_t, 2.5), "ndg_minus_random_hi": pct(ndg_diff_t, 97.5),
-                "p_le_random": float(np.mean(diff <= 0)),
-                "beats_random": bool(lo > 0), "loses_to_random": bool(hi < 0),
-                "cascade_eta_shipped": float(cas.eta), "cascade_minus_random_lo_shipped": float(cas.minus_random_lo),
-                "cascade_minus_random_hi_shipped": float(cas.minus_random_hi)})
-            n_eval += 1
-            print(f"  {c['track']:8s} {c['geometry']:6s} {c['system']:9s} {unit:2s} {q:.0%}: share {fs:6.1%} "
-                  f"(cascade {fc:5.1%}), nDG R2 {rows[-1]['ndg_r2']:+.3f} vs random {rows[-1]['ndg_random']:+.3f}, "
-                  f"gain diff [{lo:+.3f}, {hi:+.3f}], {regime}", flush=True)
+    ev_rows = evaluation_rows(cells, ov, shipped, args.nboot)
+    n_eval = len(ev_rows)
+    rows += ev_rows
 
     out = pd.DataFrame(rows)
     out.to_csv(run / "skip_accounting.csv", index=False)

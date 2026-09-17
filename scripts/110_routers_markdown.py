@@ -92,7 +92,7 @@ def main():
     bf = FINAL / "benchmark_budget_routers.csv"
     if bf.exists():
         b = read("benchmark_budget_routers.csv")
-        b = b[b.feasible.astype(bool) & b.signal.isin(BUDGET_SIGNALS)]
+        b = b[b.overhead.notna() & b.signal.isin(BUDGET_SIGNALS)]           # infeasible rows are shown as such
         for unit in ("ms", "mJ"):
             for lvl in (0.2, 0.5):
                 x = b[(b.unit == unit) & np.isclose(b.budget_level, lvl)]
@@ -105,6 +105,8 @@ def main():
                         if not len(y):
                             row.append("—"); continue
                         y = y.iloc[0]
+                        if str(y.feasible).strip().lower() != "true":
+                            row.append("infeasible"); continue
                         e = f"{y.eta:+.2f}"
                         if s != "random" and np.isfinite(y.minus_random_lo) and y.minus_random_lo > 0:
                             e = f"**{e}**"

@@ -119,7 +119,7 @@ Each entry is η, with the paired lower bound over random in parentheses. **Bold
 With nuPlan's own, larger 640 cost (23.6 ms), a gate's 3.5–3.9 ms overhead takes a smaller share of one escalation.
 The batched GBM gate can still escalate 5% of frames, and on PDM-Closed those 5% capture about half of the prize.
 
-**Energy.** On energy, gate overheads (24–26 mJ) remain too large at 20%.
+**Energy.** On energy, gate overheads (24–26 mJ) remain too large at 20%: they exceed the 21.2 mJ headroom, so the gates cannot run within that budget and the rows are marked infeasible (Task 19 Part A, 2026-09-17; they read 0% before). The single-call GBM gate and both R1 GBM routers are infeasible at every ms and mJ budget.
 
 ## 5. Caveats
 

@@ -1,0 +1,418 @@
+{
+ "rails_module": [
+  "GPU",
+  "SOC",
+  "CPU"
+ ],
+ "reps": [
+  {
+   "rep": 0,
+   "workload": "gate",
+   "idle_mw": {
+    "CV": 0.0,
+    "VDDRQ": 196.5137920000001,
+    "SYS5V": 2657.3987839999995,
+    "GPU": 172.31104000000002,
+    "CPU": 1078.0037119999995,
+    "SOC": 1592.0762879999993
+   },
+   "busy_mw": {
+    "CV": 0.0,
+    "VDDRQ": 293.4285891472868,
+    "SYS5V": 2880.758573643411,
+    "GPU": 0.0,
+    "CPU": 8468.010666666667,
+    "SOC": 2473.567751937984
+   },
+   "module_mw_over_idle": 8099.187378604653,
+   "all_rails_mw_over_idle": 8419.46196539535,
+   "cpu_mw_over_idle": 7390.006954666667,
+   "cpu_gpu_mw_over_idle": 7217.695914666668
+  },
+  {
+   "rep": 0,
+   "workload": "r1",
+   "idle_mw": {
+    "CV": 0.0,
+    "VDDRQ": 154.62247619047622,
+    "SYS5V": 2496.6506666666655,
+    "GPU": 0.0,
+    "CPU": 1137.129650793651,
+    "SOC": 1319.7373968253964
+   },
+   "busy_mw": {
+    "CV": 0.0,
+    "VDDRQ": 285.9065263157894,
+    "SYS5V": 2878.531929824562,
+    "GPU": 0.0,
+    "CPU": 10200.547368421057,
+    "SOC": 2542.3449824561408
+   },
+   "module_mw_over_idle": 10286.02530325815,
+   "all_rails_mw_over_idle": 10799.19061654136,
+   "cpu_mw_over_idle": 9063.417717627406,
+   "cpu_gpu_mw_over_idle": 9063.417717627406
+  },
+  {
+   "rep": 0,
+   "workload": "r2",
+   "idle_mw": {
+    "CV": 0.0,
+    "VDDRQ": 153.41815873015878,
+    "SYS5V": 2497.2906666666663,
+    "GPU": 0.0,
+    "CPU": 1250.4045714285712,
+    "SOC": 1344.523174603174
+   },
+   "busy_mw": {
+    "CV": 0.0,
+    "VDDRQ": 295.65284848484856,
+    "SYS5V": 3127.8264242424248,
+    "GPU": 701.0637575757574,
+    "CPU": 2103.874909090909,
+    "SOC": 2599.2247272727277
+   },
+   "module_mw_over_idle": 2809.235647907649,
+   "all_rails_mw_over_idle": 3582.0060952380973,
+   "cpu_mw_over_idle": 853.4703376623379,
+   "cpu_gpu_mw_over_idle": 1554.5340952380952
+  },
+  {
+   "rep": 1,
+   "workload": "gate",
+   "idle_mw": {
+    "CV": 0.0,
+    "VDDRQ": 158.1450078740158,
+    "SYS5V": 2541.2898267716528,
+    "GPU": 109.65820472440944,
+    "CPU": 761.2472440944885,
+    "SOC": 1321.4100157480307
+   },
+   "busy_mw": {
+    "CV": 0.0,
+    "VDDRQ": 285.3318449612403,
+    "SYS5V": 2872.584434108527,
+    "GPU": 0.0,
+    "CPU": 8291.636589147285,
+    "SOC": 2463.357519379845
+   },
+   "module_mw_over_idle": 8562.678643960202,
+   "all_rails_mw_over_idle": 9021.160088384302,
+   "cpu_mw_over_idle": 7530.389345052797,
+   "cpu_gpu_mw_over_idle": 7420.7311403283875
+  },
+  {
+   "rep": 1,
+   "workload": "r1",
+   "idle_mw": {
+    "CV": 0.0,
+    "VDDRQ": 167.632253968254,
+    "SYS5V": 2544.5749841269835,
+    "GPU": 0.0,
+    "CPU": 1349.5949206349208,
+    "SOC": 1461.8996825396819
+   },
+   "busy_mw": {
+    "CV": 0.0,
+    "VDDRQ": 286.463396226415,
+    "SYS5V": 2872.109283018868,
+    "GPU": 0.0,
+    "CPU": 9980.32362264151,
+    "SOC": 2466.593811320754
+   },
+   "module_mw_over_idle": 9635.42283078766,
+   "all_rails_mw_over_idle": 10081.788271937705,
+   "cpu_mw_over_idle": 8630.728702006589,
+   "cpu_gpu_mw_over_idle": 8630.728702006589
+  },
+  {
+   "rep": 1,
+   "workload": "r2",
+   "idle_mw": {
+    "CV": 0.0,
+    "VDDRQ": 155.707968503937,
+    "SYS5V": 2493.08674015748,
+    "GPU": 0.0,
+    "CPU": 1280.2549921259842,
+    "SOC": 1321.9361259842512
+   },
+   "busy_mw": {
+    "CV": 0.0,
+    "VDDRQ": 294.5352727272728,
+    "SYS5V": 3101.3352727272722,
+    "GPU": 689.7396363636362,
+    "CPU": 2018.869818181819,
+    "SOC": 2569.7153939393943
+   },
+   "module_mw_over_idle": 2676.133730374614,
+   "all_rails_mw_over_idle": 3423.209567167742,
+   "cpu_mw_over_idle": 738.6148260558348,
+   "cpu_gpu_mw_over_idle": 1428.354462419471
+  },
+  {
+   "rep": 2,
+   "workload": "gate",
+   "idle_mw": {
+    "CV": 0.0,
+    "VDDRQ": 161.66903937007868,
+    "SYS5V": 2562.7363779527545,
+    "GPU": 129.7048188976378,
+    "CPU": 758.8399370078741,
+    "SOC": 1324.865511811023
+   },
+   "busy_mw": {
+    "CV": 0.0,
+    "VDDRQ": 286.5503255813953,
+    "SYS5V": 2871.616992248062,
+    "GPU": 0.0,
+    "CPU": 8152.1007131782935,
+    "SOC": 2468.4155038759686
+   },
+   "module_mw_over_idle": 8407.105949337727,
+   "all_rails_mw_over_idle": 8840.867849844351,
+   "cpu_mw_over_idle": 7393.260776170419,
+   "cpu_gpu_mw_over_idle": 7263.555957272782
+  },
+  {
+   "rep": 2,
+   "workload": "r1",
+   "idle_mw": {
+    "CV": 0.0,
+    "VDDRQ": 152.26158730158733,
+    "SYS5V": 2484.1935238095234,
+    "GPU": 0.0,
+    "CPU": 1035.2833015873018,
+    "SOC": 1300.7918730158724
+   },
+   "busy_mw": {
+    "CV": 0.0,
+    "VDDRQ": 284.5628235294117,
+    "SYS5V": 2883.4302745098043,
+    "GPU": 0.0,
+    "CPU": 9823.543215686273,
+    "SOC": 2494.54494117647
+   },
+   "module_mw_over_idle": 9982.012982259568,
+   "all_rails_mw_over_idle": 10513.550969187672,
+   "cpu_mw_over_idle": 8788.259914098971,
+   "cpu_gpu_mw_over_idle": 8788.259914098971
+  },
+  {
+   "rep": 2,
+   "workload": "r2",
+   "idle_mw": {
+    "CV": 0.0,
+    "VDDRQ": 160.50234920634927,
+    "SYS5V": 2505.7681269841264,
+    "GPU": 0.0,
+    "CPU": 1296.4566349206345,
+    "SOC": 1363.2812698412695
+   },
+   "busy_mw": {
+    "CV": 0.0,
+    "VDDRQ": 304.7064242424243,
+    "SYS5V": 3100.7612121212114,
+    "GPU": 663.6533333333334,
+    "CPU": 2053.9190303030305,
+    "SOC": 2492.665212121212
+   },
+   "module_mw_over_idle": 2550.4996709956717,
+   "all_rails_mw_over_idle": 3289.696831168832,
+   "cpu_mw_over_idle": 757.4623953823959,
+   "cpu_gpu_mw_over_idle": 1421.1157287157293
+  }
+ ],
+ "median": {
+  "gate": {
+   "module_mw_over_idle": 8407.105949337727,
+   "all_rails_mw_over_idle": 8840.867849844351,
+   "cpu_mw_over_idle": 7393.260776170419,
+   "cpu_gpu_mw_over_idle": 7263.555957272782,
+   "median_rails_over_idle_mw": {
+    "CPU": 7393.260776170419,
+    "CV": 0.0,
+    "GPU": -129.7048188976378,
+    "SOC": 1141.9475036318145,
+    "SYS5V": 308.8806142953076,
+    "VDDRQ": 124.88128621131665
+   }
+  },
+  "r1": {
+   "module_mw_over_idle": 9982.012982259568,
+   "all_rails_mw_over_idle": 10513.550969187672,
+   "cpu_mw_over_idle": 8788.259914098971,
+   "cpu_gpu_mw_over_idle": 8788.259914098971,
+   "median_rails_over_idle_mw": {
+    "CPU": 8788.259914098971,
+    "CV": 0.0,
+    "GPU": 0.0,
+    "SOC": 1193.7530681605974,
+    "SYS5V": 381.8812631578967,
+    "VDDRQ": 131.28405012531317
+   }
+  },
+  "r2": {
+   "module_mw_over_idle": 2676.133730374614,
+   "all_rails_mw_over_idle": 3423.209567167742,
+   "cpu_mw_over_idle": 757.4623953823959,
+   "cpu_gpu_mw_over_idle": 1428.354462419471,
+   "median_rails_over_idle_mw": {
+    "CPU": 757.4623953823959,
+    "CV": 0.0,
+    "GPU": 689.7396363636362,
+    "SOC": 1247.779267955143,
+    "SYS5V": 608.2485325697921,
+    "VDDRQ": 142.23468975468978
+   }
+  }
+ },
+ "board_before": {
+  "throttle": {
+   "cpuSteps": 0,
+   "gpuSteps": 0,
+   "cpuAlert": false,
+   "gpuAlert": false
+  },
+  "temperatures": {
+   "CPU": 47.5,
+   "GPU": 44.5,
+   "AUX": 45.5,
+   "AO": 44.0,
+   "PMIC-Die": 50.0,
+   "Tboard": 43.0,
+   "Tdiode": 47.5,
+   "thermal_fan_est": 45.6
+  },
+  "fan": {
+   "pwm": 255,
+   "percent": 100,
+   "rpm": 3403,
+   "mode": "manual",
+   "profile": null,
+   "profiles": [
+    "quiet",
+    "cool"
+   ],
+   "controllable": true,
+   "manualSince": 1789640963.2640018,
+   "safetyTrips": [],
+   "safetyCelsius": 80.0
+  },
+  "nvpmodel": null,
+  "power": {
+   "GPU": {
+    "mw": 745,
+    "mv": 18632,
+    "ma": 40
+   },
+   "CPU": {
+    "mw": 6409,
+    "mv": 18632,
+    "ma": 344
+   },
+   "SOC": {
+    "mw": 2683,
+    "mv": 18632,
+    "ma": 144
+   },
+   "CV": {
+    "mw": 0,
+    "mv": 18640,
+    "ma": 0
+   },
+   "VDDRQ": {
+    "mw": 298,
+    "mv": 18640,
+    "ma": 16
+   },
+   "SYS5V": {
+    "mw": 3135,
+    "mv": 5024,
+    "ma": 624
+   },
+   "TOTAL": {
+    "mw": 13271,
+    "mv": 0,
+    "ma": 0
+   }
+  }
+ },
+ "board_after": {
+  "throttle": {
+   "cpuSteps": 0,
+   "gpuSteps": 0,
+   "cpuAlert": false,
+   "gpuAlert": false
+  },
+  "temperatures": {
+   "CPU": 41.0,
+   "GPU": 39.0,
+   "AUX": 40.5,
+   "AO": 39.0,
+   "PMIC-Die": 50.0,
+   "Tboard": 38.0,
+   "Tdiode": 42.8,
+   "thermal_fan_est": 40.4
+  },
+  "fan": {
+   "pwm": 255,
+   "percent": 100,
+   "rpm": 3431,
+   "mode": "manual",
+   "profile": null,
+   "profiles": [
+    "quiet",
+    "cool"
+   ],
+   "controllable": true,
+   "manualSince": 1789640963.2640018,
+   "safetyTrips": [],
+   "safetyCelsius": 80.0
+  },
+  "nvpmodel": null,
+  "power": {
+   "GPU": {
+    "mw": 598,
+    "mv": 18688,
+    "ma": 32
+   },
+   "CPU": {
+    "mw": 1944,
+    "mv": 18696,
+    "ma": 104
+   },
+   "SOC": {
+    "mw": 2542,
+    "mv": 18688,
+    "ma": 136
+   },
+   "CV": {
+    "mw": 0,
+    "mv": 18696,
+    "ma": 0
+   },
+   "VDDRQ": {
+    "mw": 299,
+    "mv": 18696,
+    "ma": 16
+   },
+   "SYS5V": {
+    "mw": 3135,
+    "mv": 5024,
+    "ma": 624
+   },
+   "TOTAL": {
+    "mw": 8518,
+    "mv": 0,
+    "ma": 0
+   }
+  }
+ },
+ "r2_engine_run": "20260914_125344_router_r2",
+ "shipped_for_comparison": {
+  "gate_cpu_mw_over_idle": 6717.921569736434,
+  "gate_all_rails_mw_over_idle": 8423.72514331783,
+  "r1_cpu_mw_over_idle": 8928.883418803423,
+  "r2_cpu_gpu_mw_over_idle": 1617.0484324848483
+ }
+}

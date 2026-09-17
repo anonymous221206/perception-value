@@ -26,6 +26,11 @@ def f3(x):
     return "—" if x is None or not np.isfinite(x) else f"{x:+.3f}"
 
 
+def feasible(r):
+    """A budget row's flag as written to CSV (bool, or the text True/False)."""
+    return str(r["feasible"]).strip().lower() == "true"
+
+
 def label(r):
     g = "" if r["geometry"] == "n/a" else f" {r['geometry']}"
     return f"{r['track']}{g} · {r['system']}" + (f" · {r['target']}" if r["track"] == "nuPlan" else "")
@@ -93,10 +98,16 @@ def self_table(s):
 def budget_tables(two, multi):
     out = []
     if two is not None:
-        b = two[np.isclose(two.budget_level, 0.2) & two.feasible.astype(bool)]
+        # every row with an overhead: diagnostics (no overhead, FULL on every frame) are left out as before, and an
+        # allocator whose overhead exceeds the headroom b - C_c is shown as infeasible rather than dropped
+        b = two[np.isclose(two.budget_level, 0.2) & two.overhead.notna()]
         out += ["| cell | unit | budget / frame | signal | overhead | escalated | η | η 95% CI |",
                 "|---|---|---|---|---|---|---|---|"]
         for _, r in b[b.signal.isin(["random", "uncertainty", "gate_ridge", "gate_gbm"])].iterrows():
+            if not feasible(r):
+                out.append(f"| {label(r)} | {r.unit} | {r.budget_per_frame:.2f} | {r.signal} | {r.overhead:.3f} | "
+                           f"infeasible | infeasible | — |")
+                continue
             out.append(f"| {label(r)} | {r.unit} | {r.budget_per_frame:.2f} | {r.signal} | {r.overhead:.3f} | "
                        f"{r.escalated_frac:.1%} | {f3(r.eta)} | [{f3(r.eta_lo)}, {f3(r.eta_hi)}] |")
     if multi is not None:
@@ -108,6 +119,9 @@ def budget_tables(two, multi):
             sp, bu = r.get(f"extra_{other}_per_frame", np.nan), r.get(f"extra_{other}_budget_at_same_level", np.nan)
             ratio = f"{sp / bu:.2f}" if np.isfinite(sp) and np.isfinite(bu) and bu > 0 else "—"
             pct = lambda x: "—" if x is None or not np.isfinite(x) else f"{x:.1%}"          # noqa: E731
+            if "feasible" in r and not feasible(r):
+                out.append(f"| {r.system} | {r.unit} | {r.signal} | infeasible | — | — | — | — |")
+                continue
             out.append(f"| {r.system} | {r.unit} | {r.signal} | {f3(r.eta)} | {pct(r.get('share_384', np.nan))} | "
                        f"{pct(r.get('share_512', np.nan))} | {pct(r.share_640)} | {ratio} |")
     return "\n".join(out)

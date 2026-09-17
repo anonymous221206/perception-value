@@ -180,145 +180,145 @@ Sources: `results/final/benchmark_*.csv`. Bold = deployable signal whose paired 
 | cell | unit | budget / frame | signal | overhead | escalated | η | η 95% CI |
 |---|---|---|---|---|---|---|---|
 | nuScenes oracle · brake | ms | 16.58 | random | 0.000 | 20.0% | +0.083 | [-0.262, +0.186] |
-| nuScenes oracle · brake | ms | 16.58 | gate_ridge | 3.985 | 0.0% | +0.000 | [+0.000, +0.000] |
-| nuScenes oracle · brake | ms | 16.58 | gate_gbm | 19.723 | 0.0% | +0.000 | [+0.000, +0.000] |
+| nuScenes oracle · brake | ms | 16.58 | gate_ridge | 3.985 | infeasible | infeasible | — |
+| nuScenes oracle · brake | ms | 16.58 | gate_gbm | 19.723 | infeasible | infeasible | — |
 | nuScenes oracle · brake | ms | 16.58 | uncertainty | 0.239 | 18.8% | -0.121 | [-1.004, +0.275] |
 | nuScenes oracle · brake | mJ | 37.04 | random | 0.000 | 20.0% | +0.083 | [-0.262, +0.186] |
-| nuScenes oracle · brake | mJ | 37.04 | gate_ridge | 29.494 | 0.0% | +0.000 | [+0.000, +0.000] |
-| nuScenes oracle · brake | mJ | 37.04 | gate_gbm | 145.975 | 0.0% | +0.000 | [+0.000, +0.000] |
+| nuScenes oracle · brake | mJ | 37.04 | gate_ridge | 29.494 | infeasible | infeasible | — |
+| nuScenes oracle · brake | mJ | 37.04 | gate_gbm | 145.975 | infeasible | infeasible | — |
 | nuScenes oracle · brake | mJ | 37.04 | uncertainty | 1.768 | 17.3% | -0.122 | [-0.974, +0.235] |
 | nuScenes oracle · plan_ade | ms | 16.58 | random | 0.000 | 20.0% | +0.017 | [-0.109, +0.091] |
-| nuScenes oracle · plan_ade | ms | 16.58 | gate_ridge | 3.985 | 0.0% | +0.000 | [+0.000, +0.000] |
-| nuScenes oracle · plan_ade | ms | 16.58 | gate_gbm | 19.723 | 0.0% | +0.000 | [+0.000, +0.000] |
+| nuScenes oracle · plan_ade | ms | 16.58 | gate_ridge | 3.985 | infeasible | infeasible | — |
+| nuScenes oracle · plan_ade | ms | 16.58 | gate_gbm | 19.723 | infeasible | infeasible | — |
 | nuScenes oracle · plan_ade | ms | 16.58 | uncertainty | 0.239 | 18.8% | +0.064 | [-0.318, +0.201] |
 | nuScenes oracle · plan_ade | mJ | 37.04 | random | 0.000 | 20.0% | +0.017 | [-0.109, +0.091] |
-| nuScenes oracle · plan_ade | mJ | 37.04 | gate_ridge | 29.494 | 0.0% | +0.000 | [+0.000, +0.000] |
-| nuScenes oracle · plan_ade | mJ | 37.04 | gate_gbm | 145.975 | 0.0% | +0.000 | [+0.000, +0.000] |
+| nuScenes oracle · plan_ade | mJ | 37.04 | gate_ridge | 29.494 | infeasible | infeasible | — |
+| nuScenes oracle · plan_ade | mJ | 37.04 | gate_gbm | 145.975 | infeasible | infeasible | — |
 | nuScenes oracle · plan_ade | mJ | 37.04 | uncertainty | 1.768 | 17.3% | +0.104 | [-0.294, +0.189] |
 | nuScenes oracle · plan_fde | ms | 16.58 | random | 0.000 | 20.0% | +0.055 | [-0.066, +0.130] |
-| nuScenes oracle · plan_fde | ms | 16.58 | gate_ridge | 3.985 | 0.0% | +0.000 | [+0.000, +0.000] |
-| nuScenes oracle · plan_fde | ms | 16.58 | gate_gbm | 19.723 | 0.0% | +0.000 | [+0.000, +0.000] |
+| nuScenes oracle · plan_fde | ms | 16.58 | gate_ridge | 3.985 | infeasible | infeasible | — |
+| nuScenes oracle · plan_fde | ms | 16.58 | gate_gbm | 19.723 | infeasible | infeasible | — |
 | nuScenes oracle · plan_fde | ms | 16.58 | uncertainty | 0.239 | 18.8% | +0.096 | [-0.239, +0.235] |
 | nuScenes oracle · plan_fde | mJ | 37.04 | random | 0.000 | 20.0% | +0.055 | [-0.066, +0.130] |
-| nuScenes oracle · plan_fde | mJ | 37.04 | gate_ridge | 29.494 | 0.0% | +0.000 | [+0.000, +0.000] |
-| nuScenes oracle · plan_fde | mJ | 37.04 | gate_gbm | 145.975 | 0.0% | +0.000 | [+0.000, +0.000] |
+| nuScenes oracle · plan_fde | mJ | 37.04 | gate_ridge | 29.494 | infeasible | infeasible | — |
+| nuScenes oracle · plan_fde | mJ | 37.04 | gate_gbm | 145.975 | infeasible | infeasible | — |
 | nuScenes oracle · plan_fde | mJ | 37.04 | uncertainty | 1.768 | 17.3% | +0.105 | [-0.218, +0.219] |
 | nuScenes mono · brake | ms | 16.58 | random | 0.000 | 20.0% | +0.071 | [-0.180, +0.154] |
-| nuScenes mono · brake | ms | 16.58 | gate_ridge | 3.985 | 0.0% | +0.000 | [+0.000, +0.000] |
-| nuScenes mono · brake | ms | 16.58 | gate_gbm | 19.723 | 0.0% | +0.000 | [+0.000, +0.000] |
+| nuScenes mono · brake | ms | 16.58 | gate_ridge | 3.985 | infeasible | infeasible | — |
+| nuScenes mono · brake | ms | 16.58 | gate_gbm | 19.723 | infeasible | infeasible | — |
 | nuScenes mono · brake | ms | 16.58 | uncertainty | 0.239 | 18.8% | -0.030 | [-0.452, +0.234] |
 | nuScenes mono · brake | mJ | 37.04 | random | 0.000 | 20.0% | +0.071 | [-0.180, +0.154] |
-| nuScenes mono · brake | mJ | 37.04 | gate_ridge | 29.494 | 0.0% | +0.000 | [+0.000, +0.000] |
-| nuScenes mono · brake | mJ | 37.04 | gate_gbm | 145.975 | 0.0% | +0.000 | [+0.000, +0.000] |
+| nuScenes mono · brake | mJ | 37.04 | gate_ridge | 29.494 | infeasible | infeasible | — |
+| nuScenes mono · brake | mJ | 37.04 | gate_gbm | 145.975 | infeasible | infeasible | — |
 | nuScenes mono · brake | mJ | 37.04 | uncertainty | 1.768 | 17.3% | -0.017 | [-0.455, +0.193] |
 | nuScenes mono · plan_ade | ms | 16.58 | random | 0.000 | 20.0% | +0.093 | [-0.040, +0.143] |
-| nuScenes mono · plan_ade | ms | 16.58 | gate_ridge | 3.985 | 0.0% | +0.000 | [+0.000, +0.000] |
-| nuScenes mono · plan_ade | ms | 16.58 | gate_gbm | 19.723 | 0.0% | +0.000 | [+0.000, +0.000] |
+| nuScenes mono · plan_ade | ms | 16.58 | gate_ridge | 3.985 | infeasible | infeasible | — |
+| nuScenes mono · plan_ade | ms | 16.58 | gate_gbm | 19.723 | infeasible | infeasible | — |
 | nuScenes mono · plan_ade | ms | 16.58 | uncertainty | 0.239 | 18.8% | -0.061 | [-0.233, +0.060] |
 | nuScenes mono · plan_ade | mJ | 37.04 | random | 0.000 | 20.0% | +0.093 | [-0.040, +0.143] |
-| nuScenes mono · plan_ade | mJ | 37.04 | gate_ridge | 29.494 | 0.0% | +0.000 | [+0.000, +0.000] |
-| nuScenes mono · plan_ade | mJ | 37.04 | gate_gbm | 145.975 | 0.0% | +0.000 | [+0.000, +0.000] |
+| nuScenes mono · plan_ade | mJ | 37.04 | gate_ridge | 29.494 | infeasible | infeasible | — |
+| nuScenes mono · plan_ade | mJ | 37.04 | gate_gbm | 145.975 | infeasible | infeasible | — |
 | nuScenes mono · plan_ade | mJ | 37.04 | uncertainty | 1.768 | 17.3% | -0.037 | [-0.211, +0.063] |
 | nuScenes mono · plan_fde | ms | 16.58 | random | 0.000 | 20.0% | +0.069 | [-0.068, +0.138] |
-| nuScenes mono · plan_fde | ms | 16.58 | gate_ridge | 3.985 | 0.0% | +0.000 | [+0.000, +0.000] |
-| nuScenes mono · plan_fde | ms | 16.58 | gate_gbm | 19.723 | 0.0% | +0.000 | [+0.000, +0.000] |
+| nuScenes mono · plan_fde | ms | 16.58 | gate_ridge | 3.985 | infeasible | infeasible | — |
+| nuScenes mono · plan_fde | ms | 16.58 | gate_gbm | 19.723 | infeasible | infeasible | — |
 | nuScenes mono · plan_fde | ms | 16.58 | uncertainty | 0.239 | 18.8% | -0.109 | [-0.294, +0.015] |
 | nuScenes mono · plan_fde | mJ | 37.04 | random | 0.000 | 20.0% | +0.069 | [-0.068, +0.138] |
-| nuScenes mono · plan_fde | mJ | 37.04 | gate_ridge | 29.494 | 0.0% | +0.000 | [+0.000, +0.000] |
-| nuScenes mono · plan_fde | mJ | 37.04 | gate_gbm | 145.975 | 0.0% | +0.000 | [+0.000, +0.000] |
+| nuScenes mono · plan_fde | mJ | 37.04 | gate_ridge | 29.494 | infeasible | infeasible | — |
+| nuScenes mono · plan_fde | mJ | 37.04 | gate_gbm | 145.975 | infeasible | infeasible | — |
 | nuScenes mono · plan_fde | mJ | 37.04 | uncertainty | 1.768 | 17.3% | -0.100 | [-0.283, +0.014] |
 | KITTI oracle · brake | ms | 16.87 | random | 0.000 | 20.0% | +0.131 | [+0.032, +0.178] |
-| KITTI oracle · brake | ms | 16.87 | gate_ridge | 4.239 | 0.0% | +0.000 | [+0.000, +0.000] |
-| KITTI oracle · brake | ms | 16.87 | gate_gbm | 19.977 | 0.0% | +0.000 | [+0.000, +0.000] |
+| KITTI oracle · brake | ms | 16.87 | gate_ridge | 4.239 | infeasible | infeasible | — |
+| KITTI oracle · brake | ms | 16.87 | gate_gbm | 19.977 | infeasible | infeasible | — |
 | KITTI oracle · brake | ms | 16.87 | uncertainty | 0.236 | 18.7% | +0.046 | [-0.030, +0.142] |
 | KITTI oracle · brake | mJ | 20.47 | random | 0.000 | 20.0% | +0.131 | [+0.032, +0.178] |
-| KITTI oracle · brake | mJ | 20.47 | gate_ridge | 31.373 | 0.0% | +0.000 | [+0.000, +0.000] |
-| KITTI oracle · brake | mJ | 20.47 | gate_gbm | 147.854 | 0.0% | +0.000 | [+0.000, +0.000] |
+| KITTI oracle · brake | mJ | 20.47 | gate_ridge | 31.373 | infeasible | infeasible | — |
+| KITTI oracle · brake | mJ | 20.47 | gate_gbm | 147.854 | infeasible | infeasible | — |
 | KITTI oracle · brake | mJ | 20.47 | uncertainty | 1.748 | 14.7% | +0.054 | [-0.042, +0.122] |
 | KITTI oracle · traj | ms | 16.87 | random | 0.000 | 20.0% | +0.199 | [+0.197, +0.200] |
-| KITTI oracle · traj | ms | 16.87 | gate_ridge | 4.239 | 0.0% | +0.000 | [+0.000, +0.000] |
-| KITTI oracle · traj | ms | 16.87 | gate_gbm | 19.977 | 0.0% | +0.000 | [+0.000, +0.000] |
+| KITTI oracle · traj | ms | 16.87 | gate_ridge | 4.239 | infeasible | infeasible | — |
+| KITTI oracle · traj | ms | 16.87 | gate_gbm | 19.977 | infeasible | infeasible | — |
 | KITTI oracle · traj | ms | 16.87 | uncertainty | 0.236 | 18.7% | +0.022 | [+0.002, +0.066] |
 | KITTI oracle · traj | mJ | 20.47 | random | 0.000 | 20.0% | +0.199 | [+0.197, +0.200] |
-| KITTI oracle · traj | mJ | 20.47 | gate_ridge | 31.373 | 0.0% | +0.000 | [+0.000, +0.000] |
-| KITTI oracle · traj | mJ | 20.47 | gate_gbm | 147.854 | 0.0% | +0.000 | [+0.000, +0.000] |
+| KITTI oracle · traj | mJ | 20.47 | gate_ridge | 31.373 | infeasible | infeasible | — |
+| KITTI oracle · traj | mJ | 20.47 | gate_gbm | 147.854 | infeasible | infeasible | — |
 | KITTI oracle · traj | mJ | 20.47 | uncertainty | 1.748 | 14.7% | +0.005 | [-0.001, +0.064] |
 | KITTI mono · brake | ms | 16.87 | random | 0.000 | 20.0% | +0.070 | [-0.022, +0.160] |
-| KITTI mono · brake | ms | 16.87 | gate_ridge | 4.239 | 0.0% | +0.000 | [+0.000, +0.000] |
-| KITTI mono · brake | ms | 16.87 | gate_gbm | 19.977 | 0.0% | +0.000 | [+0.000, +0.000] |
+| KITTI mono · brake | ms | 16.87 | gate_ridge | 4.239 | infeasible | infeasible | — |
+| KITTI mono · brake | ms | 16.87 | gate_gbm | 19.977 | infeasible | infeasible | — |
 | KITTI mono · brake | ms | 16.87 | uncertainty | 0.236 | 18.7% | +0.045 | [-0.050, +0.089] |
 | KITTI mono · brake | mJ | 20.47 | random | 0.000 | 20.0% | +0.070 | [-0.022, +0.160] |
-| KITTI mono · brake | mJ | 20.47 | gate_ridge | 31.373 | 0.0% | +0.000 | [+0.000, +0.000] |
-| KITTI mono · brake | mJ | 20.47 | gate_gbm | 147.854 | 0.0% | +0.000 | [+0.000, +0.000] |
+| KITTI mono · brake | mJ | 20.47 | gate_ridge | 31.373 | infeasible | infeasible | — |
+| KITTI mono · brake | mJ | 20.47 | gate_gbm | 147.854 | infeasible | infeasible | — |
 | KITTI mono · brake | mJ | 20.47 | uncertainty | 1.748 | 14.7% | +0.017 | [-0.036, +0.065] |
 | KITTI mono · traj | ms | 16.87 | random | 0.000 | 20.0% | +0.133 | [+0.035, +0.193] |
-| KITTI mono · traj | ms | 16.87 | gate_ridge | 4.239 | 0.0% | +0.000 | [+0.000, +0.000] |
-| KITTI mono · traj | ms | 16.87 | gate_gbm | 19.977 | 0.0% | +0.000 | [+0.000, +0.000] |
+| KITTI mono · traj | ms | 16.87 | gate_ridge | 4.239 | infeasible | infeasible | — |
+| KITTI mono · traj | ms | 16.87 | gate_gbm | 19.977 | infeasible | infeasible | — |
 | KITTI mono · traj | ms | 16.87 | uncertainty | 0.236 | 18.7% | +0.136 | [+0.014, +0.280] |
 | KITTI mono · traj | mJ | 20.47 | random | 0.000 | 20.0% | +0.133 | [+0.035, +0.193] |
-| KITTI mono · traj | mJ | 20.47 | gate_ridge | 31.373 | 0.0% | +0.000 | [+0.000, +0.000] |
-| KITTI mono · traj | mJ | 20.47 | gate_gbm | 147.854 | 0.0% | +0.000 | [+0.000, +0.000] |
+| KITTI mono · traj | mJ | 20.47 | gate_ridge | 31.373 | infeasible | infeasible | — |
+| KITTI mono · traj | mJ | 20.47 | gate_gbm | 147.854 | infeasible | infeasible | — |
 | KITTI mono · traj | mJ | 20.47 | uncertainty | 1.748 | 14.7% | +0.035 | [+0.009, +0.202] |
 | nuPlan · pdm_closed · safety | ms | 16.87 | random | 0.000 | 20.0% | +0.198 | [+0.198, +0.200] |
-| nuPlan · pdm_closed · safety | ms | 16.87 | gate_ridge | 3.985 | 0.0% | +0.000 | [+0.000, +0.000] |
-| nuPlan · pdm_closed · safety | ms | 16.87 | gate_gbm | 19.723 | 0.0% | +0.000 | [+0.000, +0.000] |
+| nuPlan · pdm_closed · safety | ms | 16.87 | gate_ridge | 3.985 | infeasible | infeasible | — |
+| nuPlan · pdm_closed · safety | ms | 16.87 | gate_gbm | 19.723 | infeasible | infeasible | — |
 | nuPlan · pdm_closed · safety | ms | 16.87 | uncertainty | 0.239 | 18.7% | +0.335 | [+0.098, +0.746] |
 | nuPlan · pdm_closed · safety | mJ | 20.47 | random | 0.000 | 20.0% | +0.198 | [+0.198, +0.200] |
-| nuPlan · pdm_closed · safety | mJ | 20.47 | gate_ridge | 29.494 | 0.0% | +0.000 | [+0.000, +0.000] |
-| nuPlan · pdm_closed · safety | mJ | 20.47 | gate_gbm | 145.975 | 0.0% | +0.000 | [+0.000, +0.000] |
+| nuPlan · pdm_closed · safety | mJ | 20.47 | gate_ridge | 29.494 | infeasible | infeasible | — |
+| nuPlan · pdm_closed · safety | mJ | 20.47 | gate_gbm | 145.975 | infeasible | infeasible | — |
 | nuPlan · pdm_closed · safety | mJ | 20.47 | uncertainty | 1.768 | 14.7% | +0.335 | [+0.000, +0.692] |
 | nuPlan · pdm_closed · scalar_J | ms | 16.87 | random | 0.000 | 20.0% | +0.197 | [+0.196, +0.199] |
-| nuPlan · pdm_closed · scalar_J | ms | 16.87 | gate_ridge | 3.985 | 0.0% | +0.000 | [+0.000, +0.000] |
-| nuPlan · pdm_closed · scalar_J | ms | 16.87 | gate_gbm | 19.723 | 0.0% | +0.000 | [+0.000, +0.000] |
+| nuPlan · pdm_closed · scalar_J | ms | 16.87 | gate_ridge | 3.985 | infeasible | infeasible | — |
+| nuPlan · pdm_closed · scalar_J | ms | 16.87 | gate_gbm | 19.723 | infeasible | infeasible | — |
 | nuPlan · pdm_closed · scalar_J | ms | 16.87 | uncertainty | 0.239 | 18.7% | +0.326 | [+0.079, +0.679] |
 | nuPlan · pdm_closed · scalar_J | mJ | 20.47 | random | 0.000 | 20.0% | +0.197 | [+0.196, +0.199] |
-| nuPlan · pdm_closed · scalar_J | mJ | 20.47 | gate_ridge | 29.494 | 0.0% | +0.000 | [+0.000, +0.000] |
-| nuPlan · pdm_closed · scalar_J | mJ | 20.47 | gate_gbm | 145.975 | 0.0% | +0.000 | [+0.000, +0.000] |
+| nuPlan · pdm_closed · scalar_J | mJ | 20.47 | gate_ridge | 29.494 | infeasible | infeasible | — |
+| nuPlan · pdm_closed · scalar_J | mJ | 20.47 | gate_gbm | 145.975 | infeasible | infeasible | — |
 | nuPlan · pdm_closed · scalar_J | mJ | 20.47 | uncertainty | 1.768 | 14.7% | +0.326 | [+0.004, +0.651] |
 | nuPlan · idm · safety | ms | 16.87 | random | 0.000 | 20.0% | +0.198 | [+0.197, +0.200] |
-| nuPlan · idm · safety | ms | 16.87 | gate_ridge | 3.985 | 0.0% | +0.000 | [+0.000, +0.000] |
-| nuPlan · idm · safety | ms | 16.87 | gate_gbm | 19.723 | 0.0% | +0.000 | [+0.000, +0.000] |
+| nuPlan · idm · safety | ms | 16.87 | gate_ridge | 3.985 | infeasible | infeasible | — |
+| nuPlan · idm · safety | ms | 16.87 | gate_gbm | 19.723 | infeasible | infeasible | — |
 | nuPlan · idm · safety | ms | 16.87 | uncertainty | 0.239 | 18.7% | +0.248 | [+0.002, +0.728] |
 | nuPlan · idm · safety | mJ | 20.47 | random | 0.000 | 20.0% | +0.198 | [+0.197, +0.200] |
-| nuPlan · idm · safety | mJ | 20.47 | gate_ridge | 29.494 | 0.0% | +0.000 | [+0.000, +0.000] |
-| nuPlan · idm · safety | mJ | 20.47 | gate_gbm | 145.975 | 0.0% | +0.000 | [+0.000, +0.000] |
+| nuPlan · idm · safety | mJ | 20.47 | gate_ridge | 29.494 | infeasible | infeasible | — |
+| nuPlan · idm · safety | mJ | 20.47 | gate_gbm | 145.975 | infeasible | infeasible | — |
 | nuPlan · idm · safety | mJ | 20.47 | uncertainty | 1.768 | 14.7% | +0.248 | [+0.002, +0.661] |
 | nuPlan · idm · scalar_J | ms | 16.87 | random | 0.000 | 20.0% | +0.197 | [+0.196, +0.199] |
-| nuPlan · idm · scalar_J | ms | 16.87 | gate_ridge | 3.985 | 0.0% | +0.000 | [+0.000, +0.000] |
-| nuPlan · idm · scalar_J | ms | 16.87 | gate_gbm | 19.723 | 0.0% | +0.000 | [+0.000, +0.000] |
+| nuPlan · idm · scalar_J | ms | 16.87 | gate_ridge | 3.985 | infeasible | infeasible | — |
+| nuPlan · idm · scalar_J | ms | 16.87 | gate_gbm | 19.723 | infeasible | infeasible | — |
 | nuPlan · idm · scalar_J | ms | 16.87 | uncertainty | 0.239 | 18.7% | +0.246 | [+0.003, +0.677] |
 | nuPlan · idm · scalar_J | mJ | 20.47 | random | 0.000 | 20.0% | +0.197 | [+0.196, +0.199] |
-| nuPlan · idm · scalar_J | mJ | 20.47 | gate_ridge | 29.494 | 0.0% | +0.000 | [+0.000, +0.000] |
-| nuPlan · idm · scalar_J | mJ | 20.47 | gate_gbm | 145.975 | 0.0% | +0.000 | [+0.000, +0.000] |
+| nuPlan · idm · scalar_J | mJ | 20.47 | gate_ridge | 29.494 | infeasible | infeasible | — |
+| nuPlan · idm · scalar_J | mJ | 20.47 | gate_gbm | 145.975 | infeasible | infeasible | — |
 | nuPlan · idm · scalar_J | mJ | 20.47 | uncertainty | 1.768 | 14.7% | +0.246 | [+0.003, +0.641] |
 
 | system | unit | signal | η | share 384 | share 512 | share 640 | other-unit spend / budget |
 |---|---|---|---|---|---|---|---|
 | brake | ms | oracle (multi-fidelity) | +1.000 | 9.2% | 6.6% | 6.9% | 0.88 |
-| brake | ms | gate_ridge (multi-fidelity) | +0.000 | 0.0% | 0.0% | 0.0% | 0.00 |
-| brake | ms | gate_gbm (multi-fidelity) | +0.000 | 0.0% | 0.0% | 0.0% | 0.00 |
+| brake | ms | gate_ridge (multi-fidelity) | infeasible | — | — | — | — |
+| brake | ms | gate_gbm (multi-fidelity) | infeasible | — | — | — | — |
 | brake | ms | random (640 only) | +0.052 | — | — | 20.0% | — |
 | brake | ms | uncertainty (640 only) | +0.033 | — | — | 18.7% | — |
-| brake | ms | gate_gbm (640 only) | +0.000 | — | — | 0.0% | — |
+| brake | ms | gate_gbm (640 only) | infeasible | — | — | — | — |
 | brake | ms | oracle (640 only) | +0.742 | — | — | 20.0% | — |
 | brake | mJ | oracle (multi-fidelity) | +1.000 | 11.5% | 7.2% | 7.4% | 1.14 |
-| brake | mJ | gate_ridge (multi-fidelity) | +0.000 | 0.0% | 0.0% | 0.0% | 0.00 |
-| brake | mJ | gate_gbm (multi-fidelity) | +0.000 | 0.0% | 0.0% | 0.0% | 0.00 |
+| brake | mJ | gate_ridge (multi-fidelity) | infeasible | — | — | — | — |
+| brake | mJ | gate_gbm (multi-fidelity) | infeasible | — | — | — | — |
 | brake | mJ | random (640 only) | +0.051 | — | — | 20.0% | — |
 | brake | mJ | uncertainty (640 only) | +0.013 | — | — | 14.7% | — |
-| brake | mJ | gate_gbm (640 only) | +0.000 | — | — | 0.0% | — |
+| brake | mJ | gate_gbm (640 only) | infeasible | — | — | — | — |
 | brake | mJ | oracle (640 only) | +0.740 | — | — | 20.0% | — |
 | traj | ms | oracle (multi-fidelity) | +1.000 | 6.4% | 2.0% | 1.2% | 0.33 |
-| traj | ms | gate_ridge (multi-fidelity) | +0.000 | 0.0% | 0.0% | 0.0% | 0.00 |
-| traj | ms | gate_gbm (multi-fidelity) | +0.000 | 0.0% | 0.0% | 0.0% | 0.00 |
+| traj | ms | gate_ridge (multi-fidelity) | infeasible | — | — | — | — |
+| traj | ms | gate_gbm (multi-fidelity) | infeasible | — | — | — | — |
 | traj | ms | random (640 only) | +0.103 | — | — | 20.0% | — |
 | traj | ms | uncertainty (640 only) | +0.106 | — | — | 18.7% | — |
-| traj | ms | gate_gbm (640 only) | +0.000 | — | — | 0.0% | — |
+| traj | ms | gate_gbm (640 only) | infeasible | — | — | — | — |
 | traj | ms | oracle (640 only) | +0.776 | — | — | 20.0% | — |
 | traj | mJ | oracle (multi-fidelity) | +1.000 | 6.4% | 2.0% | 1.2% | 0.40 |
-| traj | mJ | gate_ridge (multi-fidelity) | +0.000 | 0.0% | 0.0% | 0.0% | 0.00 |
-| traj | mJ | gate_gbm (multi-fidelity) | +0.000 | 0.0% | 0.0% | 0.0% | 0.00 |
+| traj | mJ | gate_ridge (multi-fidelity) | infeasible | — | — | — | — |
+| traj | mJ | gate_gbm (multi-fidelity) | infeasible | — | — | — | — |
 | traj | mJ | random (640 only) | +0.103 | — | — | 20.0% | — |
 | traj | mJ | uncertainty (640 only) | +0.027 | — | — | 14.7% | — |
-| traj | mJ | gate_gbm (640 only) | +0.000 | — | — | 0.0% | — |
+| traj | mJ | gate_gbm (640 only) | infeasible | — | — | — | — |
 | traj | mJ | oracle (640 only) | +0.776 | — | — | 20.0% | — |

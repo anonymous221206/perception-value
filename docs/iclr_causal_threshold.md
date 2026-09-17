@@ -189,12 +189,17 @@ run at that rate.
 
 | budget | mean feasible rate | mean nDG of policy B | uniform full fidelity |
 |---|---|---|---|
-| 20% ms | 0.076 | +0.026 | infeasible in every cell: a full pass costs more than the budget |
-| 50% ms | 0.259 | +0.110 | feasible in all 14 cells |
+| 20% ms | 0.158 | +0.053 | infeasible in every cell: a full pass costs more than the budget |
+| 50% ms | 0.423 | +0.179 | feasible in all 14 cells |
 
-* At 20% ms both gates and both GBM routers have zero feasible rate: their per-call overhead consumes the budget,
-  so they escalate nothing and gain nothing. The MLP routers and cheap-side criticality are the only allocators
-  that still act.
+*Corrected 2026-09-17 (Task 19 Part A).* The first version of this table read 0.076 / +0.026 and 0.259 / +0.110. Those
+means counted allocators whose overhead exceeds the budget headroom as a 0% rate with nDG 0. Such rows are now marked
+infeasible and excluded; the table averages the feasible V1 rows only. The comparison with uniform full fidelity below
+is unchanged.
+
+* At 20% ms both gates and both GBM routers are infeasible: their per-call overhead alone exceeds the budget headroom,
+  so they cannot run within it. The MLP routers and cheap-side criticality are the only allocators that still act. At
+  50% ms the single-call gate GBM and both R1 GBM routers remain infeasible.
 * At 50% ms, **uniform full fidelity is the stronger baseline in 11 of 14 cells.** Comparing loss reduction as a
   share of the all-cheap loss, running FULL everywhere reaches 51.8% on KITTI oracle traj against 30.6% for the
   best allocator, and 26.5% against 16.1% on KITTI oracle brake. The allocator wins only on nuPlan IDM scalar_J
@@ -342,4 +347,4 @@ nDG against the official oracle prize at 20%. "A" is the frozen threshold, "B" a
 * **Report the realised rate, not just the target.** Two thirds of the rows miss the intended escalation rate by
   more than 5 percentage points, in both directions.
 * **At a tight latency budget the ranking barely matters.** At 20% ms only the MLP routers and cheap-side
-  criticality can act at all; at 50% ms, running FULL on every frame beats the best allocator in 11 of 14 cells.
+  criticality can run within the budget at all; at 50% ms, running FULL on every frame beats the best allocator in 11 of 14 cells.

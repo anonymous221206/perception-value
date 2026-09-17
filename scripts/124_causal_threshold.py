@@ -24,6 +24,7 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 from rap import predict, runmeta                                                # noqa: E402
+from rap.budget import mark_infeasible                                          # noqa: E402
 from rap.paths import CACHE, RESULTS                                            # noqa: E402
 
 
@@ -185,6 +186,21 @@ def per_unit(v, mask, idx_list):
 
 
 # ------------------------------------------------------------------------------------------------ main
+
+# what a policy-B budget row reports; blanked where the allocator's overhead does not fit the budget (Task 19 Part A)
+BUDGET_ACHIEVED = ("rate_target", "rate_realised", "rate_unit_min", "rate_unit_max", "gain", "gain_share_all_cheap", "ndg",
+                   "ndg_lo", "ndg_hi", "minus_random", "minus_random_lo", "minus_random_hi", "oracle_prize", "tau", "tie_p")
+
+
+def flag_budget(df):
+    """Mark the policy-B budget rows whose overhead exceeds the headroom b - C_c as infeasible.
+
+    Their share was clipped to 0, so they were written as a 0% escalation with nDG 0; the calibrated threshold and the
+    one-frame oracle prize of such a row describe that clipped share, and are blanked with it.
+    """
+    applies = ((df.policy == "B") & df.budget_ms.notna() & df.overhead_ms.notna()).to_numpy()
+    return mark_infeasible(df, applies, df.budget_ms, df.cheap_ms, df.overhead_ms, "ms", nan_cols=BUDGET_ACHIEVED)
+
 
 def main():
     ap = argparse.ArgumentParser()
@@ -467,7 +483,7 @@ def main():
                  "signal": "all_learned", "policy": "B-C", "rate_target": POOLED_RATE, "available": True,
                  "ndg": float(np.nanmean(pooled_all)), "ndg_lo": lo, "ndg_hi": hi, "undefined_reason": reading})
 
-    df = pd.DataFrame(rows)
+    df = flag_budget(pd.DataFrame(rows))
     chk = pd.DataFrame(refit_check)
     for out in (FINAL / "causal_threshold.csv", run / "causal_threshold.csv"):
         df.to_csv(out, index=False)

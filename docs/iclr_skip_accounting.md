@@ -40,8 +40,12 @@ Neither can run before CHEAP, so both are structurally ineligible and are not ev
 
 The script's cascade branch reproduces all **80** shipped R2 budget rows of
 `results/final/benchmark_budget_routers.csv`. The escalated share is **exactly equal in 80 of 80**, and the point
-`eta` is **within 1e-9 in 80 of 80**. That includes 0.0% / 0.0% at the 20% ms budget and 0.0% / 23.9% at the 50% ms
-budget (nuScenes / KITTI).
+`eta` is **within 1e-9 in 80 of 80**. That includes the infeasible rows at the 20% ms budget and 23.9% on KITTI at the
+50% ms budget, where nuScenes is infeasible.
+
+*Updated 2026-09-17 (Task 19 Part A).* Where R2's overhead exceeds the headroom B − Cc, it cannot run within the budget
+under either design. Those rows are now infeasible, with NaN shares; they read 0 before. The validation compares NaN
+with NaN, and the 28 evaluation rows below are unchanged.
 
 **Deviation.** The first smoke run stopped at this gate, with shares equal in 56 of 80. The differences were at
 most 9.7e-17: pandas' default CSV float parser is not round-trip exact. Reading the same file with
@@ -51,12 +55,14 @@ most 9.7e-17: pandas' default CSV float parser is not round-trip exact. Reading 
 
 | track | unit | Cc | Cf | Cs | cascade, 10 / 20 / 30 / 50% | **skipping**, 10 / 20 / 30 / 50% |
 |---|---|---|---|---|---|---|
-| nuScenes | ms | 12.710 | 19.351 | 9.766 | 0 / 0 / 0 / 0 | **0 / 0 / 0 / 0** |
-| KITTI | ms | 13.179 | 18.469 | 4.817 | 0 / 0 / 3.9 / 23.9% | **0 / 0 / 13.7 / 83.5%** |
-| nuScenes | mJ | 23.706 | 66.661 | 15.792 | 0 / 0 / 6.3 / 26.3% | **0 / 0 / 9.8 / 40.8%** |
-| KITTI | mJ | 13.858 | 33.050 | 7.789 | 0 / 0 / 6.4 / 26.4% | **0 / 0 / 11.1 / 45.5%** |
+| nuScenes | ms | 12.710 | 19.351 | 9.766 | inf. / inf. / inf. / inf. | **inf. / inf. / inf. / inf.** |
+| KITTI | ms | 13.179 | 18.469 | 4.817 | inf. / inf. / 3.9 / 23.9% | **inf. / inf. / 13.7 / 83.5%** |
+| nuScenes | mJ | 23.706 | 66.661 | 15.792 | inf. / inf. / 6.3 / 26.3% | **inf. / inf. / 9.8 / 40.8%** |
+| KITTI | mJ | 13.858 | 33.050 | 7.789 | inf. / inf. / 6.4 / 26.4% | **inf. / inf. / 11.1 / 45.5%** |
 
-* **nuScenes, latency.** Skipping buys nothing. Cs + Cc = 22.476 ms already exceeds even the 50% budget of
+"inf." = infeasible: Cs exceeds the headroom B − Cc, so R2 cannot run within the budget under either design.
+
+* **nuScenes, latency.** Infeasible under both designs. Cs + Cc = 22.476 ms already exceeds even the 50% budget of
   22.386 ms, and skipping saves CHEAP only on inputs R2 escalates.
 * **KITTI, latency.** At 50% the share rises from 23.9% to **83.5%**. Once CHEAP is skipped, an escalation costs
   only the 5.29 ms gap between FULL and CHEAP instead of FULL's full 18.47 ms.

@@ -191,16 +191,17 @@ R1_gbm_clf.
 
 **20% latency budget.**
 * The budget is the same for both targets; only the ranking differs.
-* Gates and GBM routers escalate no frames on core cells: their per-call overhead exceeds the budget. There V and G
-  are identical by construction.
+* Gates and GBM routers cannot run within the budget on core cells: their per-call overhead exceeds the headroom
+  b − C_c. Those rows are marked infeasible (Task 19 Part A, 2026-09-17); they previously read as a 0% escalation, where
+  V and G were identical by construction.
 * Where frames are escalated, the V-target beats the G-target significantly in 10 rows and the G-target wins 1 row
   (IDM scalar_J batched gate, Δ −0.001).
 
 | escalated fraction | gate_ridge | gate_gbm | gate_gbm_batched | R1_mlp_* | R1_gbm_* |
 |---|---|---|---|---|---|
-| nuScenes | 0 | 0 | 1.7% | 16.6% | 0 |
-| KITTI | 0 | 0 | 0.8% | 16.5% | 0 |
-| nuPlan | 3.3% | 0 | 5.0% | 17.2% | 0 |
+| nuScenes | infeasible | infeasible | 1.7% | 16.6% | infeasible |
+| KITTI | infeasible | infeasible | 0.8% | 16.5% | infeasible |
+| nuPlan | 3.3% | infeasible | 5.0% | 17.2% | infeasible |
 
 ## 7. Caveats
 

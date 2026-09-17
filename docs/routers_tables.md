@@ -123,74 +123,74 @@ Test split, η with the benchmark's exact tie expectation. **Bold** = paired 95%
 
 | cell | random | uncertainty | gate_ridge | gate_gbm | gate_gbm_batched | R1_mlp_reg | R1_mlp_clf | R1_gbm_reg | R1_gbm_clf | R2_cnn_clf |
 |---|---|---|---|---|---|---|---|---|---|---|
-| nuScenes · oracle · brake · J | +0.08 (20%) | -0.12 (18%) | +0.00 (0%) | +0.00 (0%) | -0.09 (2%) | -0.04 (17%) | +0.12 (17%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) |
-| nuScenes · oracle · plan_ade · JC_ade | +0.02 (20%) | +0.06 (18%) | +0.00 (0%) | +0.00 (0%) | -0.01 (2%) | +0.03 (17%) | -0.04 (17%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) |
-| nuScenes · oracle · plan_fde · JC_fde | +0.05 (20%) | +0.09 (18%) | +0.00 (0%) | +0.00 (0%) | -0.00 (2%) | +0.13 (17%) | +0.23 (17%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) |
-| nuScenes · mono · brake · J | +0.07 (20%) | -0.02 (18%) | +0.00 (0%) | +0.00 (0%) | +0.14 (2%) | +0.07 (17%) | +0.17 (17%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) |
-| nuScenes · mono · plan_ade · JC_ade | +0.09 (20%) | -0.06 (18%) | +0.00 (0%) | +0.00 (0%) | +0.00 (2%) | +0.14 (17%) | +0.13 (17%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) |
-| nuScenes · mono · plan_fde · JC_fde | +0.07 (20%) | -0.11 (18%) | +0.00 (0%) | +0.00 (0%) | +0.00 (2%) | +0.18 (17%) | +0.13 (17%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) |
-| KITTI · oracle · brake · J | +0.13 (20%) | +0.05 (19%) | +0.00 (0%) | +0.00 (0%) | +0.01 (1%) | +0.16 (16%) | +0.26 (16%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) |
-| KITTI · oracle · traj · JB | +0.20 (20%) | +0.02 (19%) | +0.00 (0%) | +0.00 (0%) | +0.00 (1%) | +0.33 (16%) | **+0.41** (16%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) |
-| KITTI · mono · brake · J | +0.07 (20%) | +0.05 (19%) | +0.00 (0%) | +0.00 (0%) | +0.01 (1%) | +0.10 (16%) | +0.14 (16%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) |
-| KITTI · mono · traj · JB | +0.13 (20%) | +0.14 (19%) | +0.00 (0%) | +0.00 (0%) | +0.00 (1%) | +0.19 (16%) | +0.30 (16%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) |
-| nuPlan · pdm_closed · safety | +0.20 (20%) | +0.33 (18%) | +0.00 (0%) | +0.00 (0%) | +0.00 (1%) | +0.11 (16%) | +0.22 (16%) | +0.00 (0%) | +0.00 (0%) | — |
-| nuPlan · pdm_closed · scalar_J | +0.20 (20%) | +0.33 (18%) | +0.00 (0%) | +0.00 (0%) | +0.00 (1%) | +0.11 (16%) | +0.33 (16%) | +0.00 (0%) | +0.00 (0%) | — |
-| nuPlan · idm · safety | +0.20 (20%) | +0.25 (18%) | +0.00 (0%) | +0.00 (0%) | +0.00 (1%) | +0.00 (16%) | +0.13 (16%) | +0.00 (0%) | +0.00 (0%) | — |
-| nuPlan · idm · scalar_J | +0.20 (20%) | +0.25 (18%) | +0.00 (0%) | +0.00 (0%) | +0.00 (1%) | +0.12 (16%) | +0.25 (16%) | +0.00 (0%) | +0.00 (0%) | — |
+| nuScenes · oracle · brake · J | +0.08 (20%) | -0.12 (18%) | infeasible | infeasible | -0.09 (2%) | -0.04 (17%) | +0.12 (17%) | infeasible | infeasible | infeasible |
+| nuScenes · oracle · plan_ade · JC_ade | +0.02 (20%) | +0.06 (18%) | infeasible | infeasible | -0.01 (2%) | +0.03 (17%) | -0.04 (17%) | infeasible | infeasible | infeasible |
+| nuScenes · oracle · plan_fde · JC_fde | +0.05 (20%) | +0.09 (18%) | infeasible | infeasible | -0.00 (2%) | +0.13 (17%) | +0.23 (17%) | infeasible | infeasible | infeasible |
+| nuScenes · mono · brake · J | +0.07 (20%) | -0.02 (18%) | infeasible | infeasible | +0.14 (2%) | +0.07 (17%) | +0.17 (17%) | infeasible | infeasible | infeasible |
+| nuScenes · mono · plan_ade · JC_ade | +0.09 (20%) | -0.06 (18%) | infeasible | infeasible | +0.00 (2%) | +0.14 (17%) | +0.13 (17%) | infeasible | infeasible | infeasible |
+| nuScenes · mono · plan_fde · JC_fde | +0.07 (20%) | -0.11 (18%) | infeasible | infeasible | +0.00 (2%) | +0.18 (17%) | +0.13 (17%) | infeasible | infeasible | infeasible |
+| KITTI · oracle · brake · J | +0.13 (20%) | +0.05 (19%) | infeasible | infeasible | +0.01 (1%) | +0.16 (16%) | +0.26 (16%) | infeasible | infeasible | infeasible |
+| KITTI · oracle · traj · JB | +0.20 (20%) | +0.02 (19%) | infeasible | infeasible | +0.00 (1%) | +0.33 (16%) | **+0.41** (16%) | infeasible | infeasible | infeasible |
+| KITTI · mono · brake · J | +0.07 (20%) | +0.05 (19%) | infeasible | infeasible | +0.01 (1%) | +0.10 (16%) | +0.14 (16%) | infeasible | infeasible | infeasible |
+| KITTI · mono · traj · JB | +0.13 (20%) | +0.14 (19%) | infeasible | infeasible | +0.00 (1%) | +0.19 (16%) | +0.30 (16%) | infeasible | infeasible | infeasible |
+| nuPlan · pdm_closed · safety | +0.20 (20%) | +0.33 (18%) | infeasible | infeasible | +0.00 (1%) | +0.11 (16%) | +0.22 (16%) | infeasible | infeasible | — |
+| nuPlan · pdm_closed · scalar_J | +0.20 (20%) | +0.33 (18%) | infeasible | infeasible | +0.00 (1%) | +0.11 (16%) | +0.33 (16%) | infeasible | infeasible | — |
+| nuPlan · idm · safety | +0.20 (20%) | +0.25 (18%) | infeasible | infeasible | +0.00 (1%) | +0.00 (16%) | +0.13 (16%) | infeasible | infeasible | — |
+| nuPlan · idm · scalar_J | +0.20 (20%) | +0.25 (18%) | infeasible | infeasible | +0.00 (1%) | +0.12 (16%) | +0.25 (16%) | infeasible | infeasible | — |
 
 ## Measured-cost allocation, ms budget at the 50% level: η (escalated share)
 
 | cell | random | uncertainty | gate_ridge | gate_gbm | gate_gbm_batched | R1_mlp_reg | R1_mlp_clf | R1_gbm_reg | R1_gbm_clf | R2_cnn_clf |
 |---|---|---|---|---|---|---|---|---|---|---|
-| nuScenes · oracle · brake · J | +0.21 (50%) | +0.12 (48%) | +0.40 (30%) | +0.00 (0%) | -0.13 (32%) | +0.41 (47%) | +0.16 (47%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) |
-| nuScenes · oracle · plan_ade · JC_ade | +0.04 (50%) | +0.03 (48%) | -0.02 (30%) | +0.00 (0%) | -0.08 (32%) | +0.13 (47%) | +0.04 (47%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) |
-| nuScenes · oracle · plan_fde · JC_fde | +0.14 (50%) | +0.13 (48%) | +0.00 (30%) | +0.00 (0%) | -0.12 (32%) | +0.17 (47%) | +0.10 (47%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) |
-| nuScenes · mono · brake · J | +0.18 (50%) | +0.09 (48%) | +0.24 (30%) | +0.00 (0%) | +0.31 (32%) | +0.09 (47%) | +0.14 (47%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) |
-| nuScenes · mono · plan_ade · JC_ade | +0.23 (50%) | +0.03 (48%) | +0.08 (30%) | +0.00 (0%) | +0.15 (32%) | +0.27 (47%) | +0.41 (47%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) |
-| nuScenes · mono · plan_fde · JC_fde | +0.17 (50%) | -0.03 (48%) | -0.09 (30%) | +0.00 (0%) | +0.09 (32%) | +0.13 (47%) | +0.12 (47%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) |
-| KITTI · oracle · brake · J | +0.33 (50%) | +0.04 (49%) | +0.28 (29%) | +0.00 (0%) | +0.39 (31%) | +0.51 (46%) | +0.56 (46%) | +0.00 (0%) | +0.00 (0%) | +0.07 (24%) |
-| KITTI · oracle · traj · JB | +0.50 (50%) | +0.09 (49%) | +0.52 (29%) | +0.00 (0%) | **+0.82** (31%) | **+0.76** (46%) | **+0.84** (46%) | +0.00 (0%) | +0.00 (0%) | +0.15 (24%) |
-| KITTI · mono · brake · J | +0.17 (50%) | -0.08 (49%) | +0.23 (29%) | +0.00 (0%) | +0.23 (31%) | **+0.37** (46%) | **+0.32** (46%) | +0.00 (0%) | +0.00 (0%) | +0.07 (24%) |
-| KITTI · mono · traj · JB | +0.33 (50%) | +0.43 (49%) | +0.13 (29%) | +0.00 (0%) | +0.32 (31%) | +0.18 (46%) | +0.31 (46%) | +0.00 (0%) | +0.00 (0%) | +0.11 (24%) |
-| nuPlan · pdm_closed · safety | +0.50 (50%) | +0.89 (48%) | **+0.89** (29%) | +0.00 (0%) | +0.66 (31%) | +0.66 (46%) | +0.66 (46%) | +0.00 (0%) | +0.00 (0%) | — |
-| nuPlan · pdm_closed · scalar_J | +0.50 (50%) | +0.88 (48%) | **+0.88** (29%) | +0.00 (0%) | +0.77 (31%) | +0.65 (46%) | +0.55 (46%) | +0.00 (0%) | +0.00 (0%) | — |
-| nuPlan · idm · safety | +0.50 (50%) | +0.74 (48%) | +0.51 (29%) | +0.00 (0%) | +0.63 (31%) | +0.25 (46%) | +0.75 (46%) | +0.00 (0%) | +0.00 (0%) | — |
-| nuPlan · idm · scalar_J | +0.50 (50%) | +0.74 (48%) | +0.51 (29%) | +0.00 (0%) | +0.87 (31%) | +0.37 (46%) | +0.49 (46%) | +0.00 (0%) | +0.00 (0%) | — |
+| nuScenes · oracle · brake · J | +0.21 (50%) | +0.12 (48%) | +0.40 (30%) | infeasible | -0.13 (32%) | +0.41 (47%) | +0.16 (47%) | infeasible | infeasible | infeasible |
+| nuScenes · oracle · plan_ade · JC_ade | +0.04 (50%) | +0.03 (48%) | -0.02 (30%) | infeasible | -0.08 (32%) | +0.13 (47%) | +0.04 (47%) | infeasible | infeasible | infeasible |
+| nuScenes · oracle · plan_fde · JC_fde | +0.14 (50%) | +0.13 (48%) | +0.00 (30%) | infeasible | -0.12 (32%) | +0.17 (47%) | +0.10 (47%) | infeasible | infeasible | infeasible |
+| nuScenes · mono · brake · J | +0.18 (50%) | +0.09 (48%) | +0.24 (30%) | infeasible | +0.31 (32%) | +0.09 (47%) | +0.14 (47%) | infeasible | infeasible | infeasible |
+| nuScenes · mono · plan_ade · JC_ade | +0.23 (50%) | +0.03 (48%) | +0.08 (30%) | infeasible | +0.15 (32%) | +0.27 (47%) | +0.41 (47%) | infeasible | infeasible | infeasible |
+| nuScenes · mono · plan_fde · JC_fde | +0.17 (50%) | -0.03 (48%) | -0.09 (30%) | infeasible | +0.09 (32%) | +0.13 (47%) | +0.12 (47%) | infeasible | infeasible | infeasible |
+| KITTI · oracle · brake · J | +0.33 (50%) | +0.04 (49%) | +0.28 (29%) | infeasible | +0.39 (31%) | +0.51 (46%) | +0.56 (46%) | infeasible | infeasible | +0.07 (24%) |
+| KITTI · oracle · traj · JB | +0.50 (50%) | +0.09 (49%) | +0.52 (29%) | infeasible | **+0.82** (31%) | **+0.76** (46%) | **+0.84** (46%) | infeasible | infeasible | +0.15 (24%) |
+| KITTI · mono · brake · J | +0.17 (50%) | -0.08 (49%) | +0.23 (29%) | infeasible | +0.23 (31%) | **+0.37** (46%) | **+0.32** (46%) | infeasible | infeasible | +0.07 (24%) |
+| KITTI · mono · traj · JB | +0.33 (50%) | +0.43 (49%) | +0.13 (29%) | infeasible | +0.32 (31%) | +0.18 (46%) | +0.31 (46%) | infeasible | infeasible | +0.11 (24%) |
+| nuPlan · pdm_closed · safety | +0.50 (50%) | +0.89 (48%) | **+0.89** (29%) | infeasible | +0.66 (31%) | +0.66 (46%) | +0.66 (46%) | infeasible | infeasible | — |
+| nuPlan · pdm_closed · scalar_J | +0.50 (50%) | +0.88 (48%) | **+0.88** (29%) | infeasible | +0.77 (31%) | +0.65 (46%) | +0.55 (46%) | infeasible | infeasible | — |
+| nuPlan · idm · safety | +0.50 (50%) | +0.74 (48%) | +0.51 (29%) | infeasible | +0.63 (31%) | +0.25 (46%) | +0.75 (46%) | infeasible | infeasible | — |
+| nuPlan · idm · scalar_J | +0.50 (50%) | +0.74 (48%) | +0.51 (29%) | infeasible | +0.87 (31%) | +0.37 (46%) | +0.49 (46%) | infeasible | infeasible | — |
 
 ## Measured-cost allocation, mJ budget at the 20% level: η (escalated share)
 
 | cell | random | uncertainty | gate_ridge | gate_gbm | gate_gbm_batched | R1_mlp_reg | R1_mlp_clf | R1_gbm_reg | R1_gbm_clf | R2_cnn_clf |
 |---|---|---|---|---|---|---|---|---|---|---|
-| nuScenes · oracle · brake · J | +0.08 (20%) | -0.12 (17%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) | +0.06 (11%) | +0.12 (11%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) |
-| nuScenes · oracle · plan_ade · JC_ade | +0.02 (20%) | +0.07 (17%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) | +0.07 (11%) | -0.06 (11%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) |
-| nuScenes · oracle · plan_fde · JC_fde | +0.05 (20%) | +0.08 (17%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) | +0.11 (11%) | +0.21 (11%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) |
-| nuScenes · mono · brake · J | +0.07 (20%) | -0.02 (17%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) | +0.06 (11%) | +0.13 (11%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) |
-| nuScenes · mono · plan_ade · JC_ade | +0.09 (20%) | -0.04 (17%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) | +0.12 (11%) | +0.07 (11%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) |
-| nuScenes · mono · plan_fde · JC_fde | +0.07 (20%) | -0.11 (17%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) | +0.16 (11%) | +0.06 (11%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) |
-| KITTI · oracle · brake · J | +0.13 (20%) | +0.04 (16%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) | +0.03 (2%) | +0.03 (2%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) |
-| KITTI · oracle · traj · JB | +0.20 (20%) | +0.00 (16%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) | +0.05 (2%) | +0.13 (2%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) |
-| KITTI · mono · brake · J | +0.07 (20%) | +0.00 (16%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) | +0.02 (2%) | +0.01 (2%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) |
-| KITTI · mono · traj · JB | +0.13 (20%) | +0.03 (16%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) | +0.00 (2%) | +0.08 (2%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) |
-| nuPlan · pdm_closed · safety | +0.20 (20%) | +0.33 (14%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) | +0.00 (2%) | +0.00 (2%) | +0.00 (0%) | +0.00 (0%) | — |
-| nuPlan · pdm_closed · scalar_J | +0.20 (20%) | +0.33 (14%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) | +0.00 (2%) | +0.00 (2%) | +0.00 (0%) | +0.00 (0%) | — |
-| nuPlan · idm · safety | +0.20 (20%) | +0.25 (14%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) | +0.00 (2%) | +0.00 (2%) | +0.00 (0%) | +0.00 (0%) | — |
-| nuPlan · idm · scalar_J | +0.20 (20%) | +0.25 (14%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) | +0.00 (2%) | +0.00 (2%) | +0.00 (0%) | +0.00 (0%) | — |
+| nuScenes · oracle · brake · J | +0.08 (20%) | -0.12 (17%) | infeasible | infeasible | infeasible | +0.06 (11%) | +0.12 (11%) | infeasible | infeasible | infeasible |
+| nuScenes · oracle · plan_ade · JC_ade | +0.02 (20%) | +0.07 (17%) | infeasible | infeasible | infeasible | +0.07 (11%) | -0.06 (11%) | infeasible | infeasible | infeasible |
+| nuScenes · oracle · plan_fde · JC_fde | +0.05 (20%) | +0.08 (17%) | infeasible | infeasible | infeasible | +0.11 (11%) | +0.21 (11%) | infeasible | infeasible | infeasible |
+| nuScenes · mono · brake · J | +0.07 (20%) | -0.02 (17%) | infeasible | infeasible | infeasible | +0.06 (11%) | +0.13 (11%) | infeasible | infeasible | infeasible |
+| nuScenes · mono · plan_ade · JC_ade | +0.09 (20%) | -0.04 (17%) | infeasible | infeasible | infeasible | +0.12 (11%) | +0.07 (11%) | infeasible | infeasible | infeasible |
+| nuScenes · mono · plan_fde · JC_fde | +0.07 (20%) | -0.11 (17%) | infeasible | infeasible | infeasible | +0.16 (11%) | +0.06 (11%) | infeasible | infeasible | infeasible |
+| KITTI · oracle · brake · J | +0.13 (20%) | +0.04 (16%) | infeasible | infeasible | infeasible | +0.03 (2%) | +0.03 (2%) | infeasible | infeasible | infeasible |
+| KITTI · oracle · traj · JB | +0.20 (20%) | +0.00 (16%) | infeasible | infeasible | infeasible | +0.05 (2%) | +0.13 (2%) | infeasible | infeasible | infeasible |
+| KITTI · mono · brake · J | +0.07 (20%) | +0.00 (16%) | infeasible | infeasible | infeasible | +0.02 (2%) | +0.01 (2%) | infeasible | infeasible | infeasible |
+| KITTI · mono · traj · JB | +0.13 (20%) | +0.03 (16%) | infeasible | infeasible | infeasible | +0.00 (2%) | +0.08 (2%) | infeasible | infeasible | infeasible |
+| nuPlan · pdm_closed · safety | +0.20 (20%) | +0.33 (14%) | infeasible | infeasible | infeasible | +0.00 (2%) | +0.00 (2%) | infeasible | infeasible | — |
+| nuPlan · pdm_closed · scalar_J | +0.20 (20%) | +0.33 (14%) | infeasible | infeasible | infeasible | +0.00 (2%) | +0.00 (2%) | infeasible | infeasible | — |
+| nuPlan · idm · safety | +0.20 (20%) | +0.25 (14%) | infeasible | infeasible | infeasible | +0.00 (2%) | +0.00 (2%) | infeasible | infeasible | — |
+| nuPlan · idm · scalar_J | +0.20 (20%) | +0.25 (14%) | infeasible | infeasible | infeasible | +0.00 (2%) | +0.00 (2%) | infeasible | infeasible | — |
 
 ## Measured-cost allocation, mJ budget at the 50% level: η (escalated share)
 
 | cell | random | uncertainty | gate_ridge | gate_gbm | gate_gbm_batched | R1_mlp_reg | R1_mlp_clf | R1_gbm_reg | R1_gbm_clf | R2_cnn_clf |
 |---|---|---|---|---|---|---|---|---|---|---|
-| nuScenes · oracle · brake · J | +0.21 (50%) | +0.12 (47%) | +0.18 (10%) | +0.00 (0%) | +0.03 (14%) | +0.41 (41%) | +0.26 (41%) | +0.00 (0%) | +0.00 (0%) | -0.15 (26%) |
-| nuScenes · oracle · plan_ade · JC_ade | +0.04 (50%) | +0.03 (47%) | +0.00 (10%) | +0.00 (0%) | -0.11 (14%) | +0.13 (41%) | +0.05 (41%) | +0.00 (0%) | +0.00 (0%) | -0.06 (26%) |
-| nuScenes · oracle · plan_fde · JC_fde | +0.14 (50%) | +0.13 (47%) | -0.06 (10%) | +0.00 (0%) | -0.24 (14%) | +0.16 (41%) | +0.12 (41%) | +0.00 (0%) | +0.00 (0%) | +0.27 (26%) |
-| nuScenes · mono · brake · J | +0.18 (50%) | +0.09 (47%) | +0.16 (10%) | +0.00 (0%) | +0.30 (14%) | +0.04 (41%) | +0.11 (41%) | +0.00 (0%) | +0.00 (0%) | -0.11 (26%) |
-| nuScenes · mono · plan_ade · JC_ade | +0.23 (50%) | +0.03 (47%) | -0.02 (10%) | +0.00 (0%) | +0.00 (14%) | +0.26 (41%) | +0.36 (41%) | +0.00 (0%) | +0.00 (0%) | +0.16 (26%) |
-| nuScenes · mono · plan_fde · JC_fde | +0.17 (50%) | -0.03 (47%) | -0.03 (10%) | +0.00 (0%) | -0.06 (14%) | +0.13 (41%) | +0.19 (41%) | +0.00 (0%) | +0.00 (0%) | +0.12 (26%) |
-| KITTI · oracle · brake · J | +0.33 (50%) | +0.04 (46%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) | +0.44 (32%) | +0.42 (32%) | +0.00 (0%) | +0.00 (0%) | +0.12 (26%) |
-| KITTI · oracle · traj · JB | +0.50 (50%) | +0.06 (46%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) | +0.62 (32%) | +0.59 (32%) | +0.00 (0%) | +0.00 (0%) | +0.15 (26%) |
-| KITTI · mono · brake · J | +0.17 (50%) | -0.05 (46%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) | +0.29 (32%) | +0.25 (32%) | +0.00 (0%) | +0.00 (0%) | +0.07 (26%) |
-| KITTI · mono · traj · JB | +0.33 (50%) | +0.38 (46%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) | +0.09 (32%) | +0.19 (32%) | +0.00 (0%) | +0.00 (0%) | +0.11 (26%) |
-| nuPlan · pdm_closed · safety | +0.50 (50%) | +0.78 (44%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) | +0.34 (32%) | +0.44 (32%) | +0.00 (0%) | +0.00 (0%) | — |
-| nuPlan · pdm_closed · scalar_J | +0.50 (50%) | +0.76 (44%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) | +0.55 (32%) | +0.33 (32%) | +0.00 (0%) | +0.00 (0%) | — |
-| nuPlan · idm · safety | +0.50 (50%) | +0.62 (44%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) | +0.25 (32%) | +0.49 (32%) | +0.00 (0%) | +0.00 (0%) | — |
-| nuPlan · idm · scalar_J | +0.50 (50%) | +0.62 (44%) | +0.00 (0%) | +0.00 (0%) | +0.00 (0%) | +0.24 (32%) | +0.25 (32%) | +0.00 (0%) | +0.00 (0%) | — |
+| nuScenes · oracle · brake · J | +0.21 (50%) | +0.12 (47%) | +0.18 (10%) | infeasible | +0.03 (14%) | +0.41 (41%) | +0.26 (41%) | infeasible | infeasible | -0.15 (26%) |
+| nuScenes · oracle · plan_ade · JC_ade | +0.04 (50%) | +0.03 (47%) | +0.00 (10%) | infeasible | -0.11 (14%) | +0.13 (41%) | +0.05 (41%) | infeasible | infeasible | -0.06 (26%) |
+| nuScenes · oracle · plan_fde · JC_fde | +0.14 (50%) | +0.13 (47%) | -0.06 (10%) | infeasible | -0.24 (14%) | +0.16 (41%) | +0.12 (41%) | infeasible | infeasible | +0.27 (26%) |
+| nuScenes · mono · brake · J | +0.18 (50%) | +0.09 (47%) | +0.16 (10%) | infeasible | +0.30 (14%) | +0.04 (41%) | +0.11 (41%) | infeasible | infeasible | -0.11 (26%) |
+| nuScenes · mono · plan_ade · JC_ade | +0.23 (50%) | +0.03 (47%) | -0.02 (10%) | infeasible | +0.00 (14%) | +0.26 (41%) | +0.36 (41%) | infeasible | infeasible | +0.16 (26%) |
+| nuScenes · mono · plan_fde · JC_fde | +0.17 (50%) | -0.03 (47%) | -0.03 (10%) | infeasible | -0.06 (14%) | +0.13 (41%) | +0.19 (41%) | infeasible | infeasible | +0.12 (26%) |
+| KITTI · oracle · brake · J | +0.33 (50%) | +0.04 (46%) | infeasible | infeasible | infeasible | +0.44 (32%) | +0.42 (32%) | infeasible | infeasible | +0.12 (26%) |
+| KITTI · oracle · traj · JB | +0.50 (50%) | +0.06 (46%) | infeasible | infeasible | infeasible | +0.62 (32%) | +0.59 (32%) | infeasible | infeasible | +0.15 (26%) |
+| KITTI · mono · brake · J | +0.17 (50%) | -0.05 (46%) | infeasible | infeasible | infeasible | +0.29 (32%) | +0.25 (32%) | infeasible | infeasible | +0.07 (26%) |
+| KITTI · mono · traj · JB | +0.33 (50%) | +0.38 (46%) | infeasible | infeasible | infeasible | +0.09 (32%) | +0.19 (32%) | infeasible | infeasible | +0.11 (26%) |
+| nuPlan · pdm_closed · safety | +0.50 (50%) | +0.78 (44%) | infeasible | infeasible | infeasible | +0.34 (32%) | +0.44 (32%) | infeasible | infeasible | — |
+| nuPlan · pdm_closed · scalar_J | +0.50 (50%) | +0.76 (44%) | infeasible | infeasible | infeasible | +0.55 (32%) | +0.33 (32%) | infeasible | infeasible | — |
+| nuPlan · idm · safety | +0.50 (50%) | +0.62 (44%) | infeasible | infeasible | infeasible | +0.25 (32%) | +0.49 (32%) | infeasible | infeasible | — |
+| nuPlan · idm · scalar_J | +0.50 (50%) | +0.62 (44%) | infeasible | infeasible | infeasible | +0.24 (32%) | +0.25 (32%) | infeasible | infeasible | — |

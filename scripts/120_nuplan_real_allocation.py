@@ -25,6 +25,7 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 from rap import features as F, runmeta                                         # noqa: E402
+from rap.budget import flag_two_level                                           # noqa: E402
 from rap.paths import RESULTS                                                   # noqa: E402
 
 
@@ -106,6 +107,70 @@ def undefined(prize, n_aff):
     if prize <= EPS:
         return "oracle prize is zero at this quota"
     return ""
+
+
+def budget_track(stash, ov, cost, nboot, power=None, budget_units=("ms", "mJ"),
+                 cost_source="Task 5 detect_summary.json: pre+inference+postprocess median ms (no decode); CPU+GPU mJ over idle"):
+    """93's two-level cascade on the nuPlan real-perception cells, with nuPlan's own detector costs.
+
+    `stash` holds (cell, test V, test units, affected count, scores) per cell, in cell order.  Task 19 Part B passes
+    another `cost`, `power` (see 93's `signal_overhead`), `budget_units` and `cost_source`; the draws depend on none.
+    """
+    brows = []
+    brng = np.random.default_rng(0)
+    for c, v, units, n_aff, scores in stash:
+        scores = dict(scores)
+        scores["gate_gbm_batched"] = scores["gate_gbm"]
+        uniq = np.unique(units)
+        idx = [np.flatnonzero(units == u) for u in uniq]
+        draws = [np.concatenate([idx[i] for i in brng.integers(0, len(uniq), len(uniq))]) for _ in range(nboot)]
+        key = dict(track="nuPlan", geometry="n/a", system=c["system"], target=c["target"], labels="Task 5 real perception, primary",
+                   cost_source=cost_source)
+        for unit in budget_units:
+            c0, c1 = cost["cheap"][unit], cost["640"][unit]
+            for f in QUOTAS:
+                budget = c0 + f * c1
+
+                def gain_at(sc, frac, t=None):
+                    vv = v if t is None else v[t]
+                    k = int(np.floor(frac * len(vv) + 1e-9))
+                    if k <= 0:
+                        return 0.0
+                    if sc is None:
+                        return k / len(vv) * vv.sum()
+                    return float(t92.topk_expect(sc if t is None else sc[t], [vv], [k])[0][0][0])
+
+                prize = gain_at(v, f)
+                prize_t = np.array([gain_at(v, f, t) for t in draws])
+                okb = prize_t > max(EPS, 0.25 * prize)
+                rand_t = np.array([gain_at(None, f, t) for t in draws]) / np.where(okb, prize_t, 1)
+                why = undefined(prize, n_aff)
+                for s in list(scores) + list(DIAGNOSTIC):
+                    base = {**key, "unit": unit, "budget_level": f, "budget_per_frame": budget, "cheap_cost": c0,
+                            "full_cost": c1, "signal": s, "n_frames": len(v), "n_affected": n_aff}
+                    if s in DIAGNOSTIC:
+                        brows.append({**base, "feasible": False,
+                                      "note": f"needs FULL on every frame: >= {c0 + c1:.2f} {unit} per frame before computing the metric"})
+                        continue
+                    o_ms, o_mj, src = t93.signal_overhead(ov, "nuPlan", s, power=power)
+                    o = o_ms if unit == "ms" else o_mj
+                    frac = max((budget - c0 - o) / c1, 0.0)
+                    g = gain_at(scores[s], frac)
+                    e_t = np.array([gain_at(scores[s], frac, t) for t in draws]) / np.where(okb, prize_t, 1)
+                    e_t, dr = np.where(okb, e_t, np.nan), np.where(okb, e_t - rand_t, np.nan)
+                    lo, hi = t92.ci(e_t)
+                    dlo, dhi = t92.ci(dr)
+                    ok = not why
+                    brows.append({**base, "feasible": True, "overhead": o, "overhead_source": src, "escalated_frac": frac,
+                                  "escalations_lost_to_overhead": f - frac, "ndg_defined": ok, "undefined_reason": why,
+                                  "gain": g, "prize": prize,
+                                  "eta": (g / prize if prize > EPS else np.nan) if ok else np.nan,
+                                  "eta_lo": lo if ok else np.nan, "eta_hi": hi if ok else np.nan,
+                                  "minus_random": float(np.nanmean(dr)) if ok else np.nan,
+                                  "minus_random_lo": dlo if ok else np.nan, "minus_random_hi": dhi if ok else np.nan,
+                                  "boot_dropped": int((~okb).sum())})
+        print(f"  budget {c['system']} {c['target']}", flush=True)
+    return brows
 
 
 def main():
@@ -193,61 +258,10 @@ def main():
                         ("criticality_cheap", "gate_ridge", "gate_gbm", "R1_mlp_clf", "R1_gbm_reg")), flush=True)
 
     # ------------------------------------------------------------------ budget track (93's two-level protocol)
-    brng = np.random.default_rng(0)
-    for c, v, units, n_aff, scores in stash:
-        scores = dict(scores)
-        scores["gate_gbm_batched"] = scores["gate_gbm"]
-        uniq = np.unique(units)
-        idx = [np.flatnonzero(units == u) for u in uniq]
-        draws = [np.concatenate([idx[i] for i in brng.integers(0, len(uniq), len(uniq))]) for _ in range(args.nboot)]
-        key = dict(track="nuPlan", geometry="n/a", system=c["system"], target=c["target"], labels="Task 5 real perception, primary",
-                   cost_source="Task 5 detect_summary.json: pre+inference+postprocess median ms (no decode); CPU+GPU mJ over idle")
-        for unit in ("ms", "mJ"):
-            c0, c1 = cost["cheap"][unit], cost["640"][unit]
-            for f in QUOTAS:
-                budget = c0 + f * c1
+    brows = budget_track(stash, ov, cost, args.nboot)
 
-                def gain_at(sc, frac, t=None):
-                    vv = v if t is None else v[t]
-                    k = int(np.floor(frac * len(vv) + 1e-9))
-                    if k <= 0:
-                        return 0.0
-                    if sc is None:
-                        return k / len(vv) * vv.sum()
-                    return float(t92.topk_expect(sc if t is None else sc[t], [vv], [k])[0][0][0])
-
-                prize = gain_at(v, f)
-                prize_t = np.array([gain_at(v, f, t) for t in draws])
-                okb = prize_t > max(EPS, 0.25 * prize)
-                rand_t = np.array([gain_at(None, f, t) for t in draws]) / np.where(okb, prize_t, 1)
-                why = undefined(prize, n_aff)
-                for s in list(scores) + list(DIAGNOSTIC):
-                    base = {**key, "unit": unit, "budget_level": f, "budget_per_frame": budget, "cheap_cost": c0,
-                            "full_cost": c1, "signal": s, "n_frames": len(v), "n_affected": n_aff}
-                    if s in DIAGNOSTIC:
-                        brows.append({**base, "feasible": False,
-                                      "note": f"needs FULL on every frame: >= {c0 + c1:.2f} {unit} per frame before computing the metric"})
-                        continue
-                    o_ms, o_mj, src = t93.signal_overhead(ov, "nuPlan", s)
-                    o = o_ms if unit == "ms" else o_mj
-                    frac = max((budget - c0 - o) / c1, 0.0)
-                    g = gain_at(scores[s], frac)
-                    e_t = np.array([gain_at(scores[s], frac, t) for t in draws]) / np.where(okb, prize_t, 1)
-                    e_t, dr = np.where(okb, e_t, np.nan), np.where(okb, e_t - rand_t, np.nan)
-                    lo, hi = t92.ci(e_t)
-                    dlo, dhi = t92.ci(dr)
-                    ok = not why
-                    brows.append({**base, "feasible": True, "overhead": o, "overhead_source": src, "escalated_frac": frac,
-                                  "escalations_lost_to_overhead": f - frac, "ndg_defined": ok, "undefined_reason": why,
-                                  "gain": g, "prize": prize,
-                                  "eta": (g / prize if prize > EPS else np.nan) if ok else np.nan,
-                                  "eta_lo": lo if ok else np.nan, "eta_hi": hi if ok else np.nan,
-                                  "minus_random": float(np.nanmean(dr)) if ok else np.nan,
-                                  "minus_random_lo": dlo if ok else np.nan, "minus_random_hi": dhi if ok else np.nan,
-                                  "boot_dropped": int((~okb).sum())})
-        print(f"  budget {c['system']} {c['target']}", flush=True)
-
-    tab, bud = pd.DataFrame(rows), pd.DataFrame(brows)
+    # Task 19 Part A: an allocator whose overhead exceeds the headroom b - C_c is infeasible, not a 0% escalation
+    tab, bud = pd.DataFrame(rows), flag_two_level(pd.DataFrame(brows))
     for name, df in (("benchmark_table_nuplan_real", tab), ("benchmark_budget_nuplan_real", bud)):
         df.to_csv(FINAL / f"{name}.csv", index=False)
         df.to_csv(run / f"{name}.csv", index=False)

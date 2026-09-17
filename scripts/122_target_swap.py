@@ -24,6 +24,7 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 from rap import runmeta                                                         # noqa: E402
+from rap.budget import infeasible, mark_infeasible                              # noqa: E402
 from rap.paths import CACHE, RESULTS                                            # noqa: E402
 
 
@@ -129,6 +130,33 @@ def overhead(ov, track, arch):
     return {"ms": ms, "mJ": mj}[BUDGET_UNIT]
 
 
+# what a budget row reports about the allocator; blanked where its overhead does not fit the budget (Task 19 Part A)
+BUDGET_ACHIEVED = ("eta_V", "eta_V_lo", "eta_V_hi", "V_minus_random", "V_minus_random_lo", "V_minus_random_hi",
+                   "eta_G", "eta_G_lo", "eta_G_hi", "G_minus_random", "G_minus_random_lo", "G_minus_random_hi",
+                   "diff", "diff_lo", "diff_hi", "p_diff_le_0", "abs_reduction_V", "abs_reduction_G", "escalated_frac")
+
+
+def budget_costs(track):
+    """(C_c, C_f) in BUDGET_UNIT, exactly as core_cells and nuplan_cells charge a budget row."""
+    if track == "nuPlan":
+        det = json.loads((RAW / "nuplan_task5" / "detect_summary.json").read_text())
+        return {"ms": (det["ns_cheap_320"]["ms_total_median"], det["ns_full_640"]["ms_total_median"]),
+                "mJ": (det["energy"]["ns_cheap_320"]["cpu_gpu_mj_per_frame"],
+                       det["energy"]["ns_full_640"]["cpu_gpu_mj_per_frame"])}[BUDGET_UNIT]
+    cost = t93.profile_costs(track)
+    return cost["cheap"][BUDGET_UNIT], cost["640"][BUDGET_UNIT]
+
+
+def flag_budget(df, ov):
+    """Mark the budget rows whose allocator overhead exceeds the headroom b - C_c as infeasible."""
+    applies = (df.setting == "budget_ms_20").to_numpy()
+    cc = {t: budget_costs(t) for t in df.track.unique()}
+    c0 = df.track.map(lambda t: cc[t][0]).to_numpy(float)
+    c1 = df.track.map(lambda t: cc[t][1]).to_numpy(float)
+    o = np.array([overhead(ov, t, a) if b else np.nan for t, a, b in zip(df.track, df.arch, applies)], float)
+    return mark_infeasible(df, applies, c0 + BUDGET_LEVEL * c1, c0, o, BUDGET_UNIT, nan_cols=BUDGET_ACHIEVED)
+
+
 def official_tables():
     def rd(name, real_nuplan):
         x = pd.read_csv(FINAL / name)
@@ -203,6 +231,8 @@ def main():
                 sc = c["official"]["gate_gbm" if a == "gate_gbm_batched" else a][m]
                 g = gain_at(sc, c["v"], c["frac"][a])
                 eta = np.nan if c["undef_b"] else (g / c["prize_b"] if c["prize_b"] > EPS else np.nan)
+                if infeasible(c0 + BUDGET_LEVEL * c1, c0, overhead(ov, c["track"], a)):
+                    eta = np.nan                                   # the official row is infeasible (Task 19 Part A)
                 ref = off_b.get(key + (a,), "missing")
                 ok = ref != "missing" and ((np.isnan(eta) and pd.isna(ref)) or
                                            (not np.isnan(eta) and not pd.isna(ref) and round(eta, 3) == round(ref, 3)))
@@ -323,7 +353,7 @@ def main():
                              "boot_dropped": int(c["drop_b"]), "escalated_frac": c["frac"][a],
                              "sign_agree_train": ag_tr[0], "sign_agree_train_n": ag_tr[1],
                              "sign_agree_fit": ag_fit[0], "sign_agree_fit_n": ag_fit[1]})
-    df = pd.DataFrame(rows)
+    df = flag_budget(pd.DataFrame(rows), ov)
 
     # ---- pooled test and reading
     pooled_cells = [c for c in cells if c["track"] != "nuPlan" or c["system"] == "pdm_closed"]

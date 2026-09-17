@@ -111,12 +111,15 @@ it is evaluated, not computed analytically. Full tables: `docs/routers_tables.md
 | allocator | overhead | 20% ms budget, nuScenes / KITTI | 50% ms budget | 20% mJ budget |
 |---|---|---|---|---|
 | cheap-detection uncertainty | 0.21–0.29 ms | 18.5% / 18.8% | 48.5% / 48.8% | 17.0% / 15.7% |
-| cheap-side criticality | 1.30–1.47 ms | 12.4% / 12.9% | 42.4% / 42.9% | 5.2% / 0% |
+| cheap-side criticality | 1.30–1.47 ms | 12.4% / 12.9% | 42.4% / 42.9% | 5.2% / infeasible |
 | **R1 MLP** | **0.65 ms** | **16.6% / 16.5%** | **46.6% / 46.5%** | 11.3% / 2.3% |
-| gate, GBM batched | 3.54 ms | 1.7% / 0.8% | 31.7% / 30.8% | 0% / 0% |
-| gate, ridge | 3.93 ms | 0% / 0% | 29.7% / 28.7% | 0% / 0% |
-| gate GBM / R1 GBM, one row per call | 21.4 / 15.9 ms | 0% | 0% | 0% |
-| R2 CNN | 9.8 / 4.8 ms | 0% / 0% | 0% / 23.9% | 0% / 0% |
+| gate, GBM batched | 3.54 ms | 1.7% / 0.8% | 31.7% / 30.8% | infeasible / infeasible |
+| gate, ridge | 3.93 ms | infeasible / infeasible | 29.7% / 28.7% | infeasible / infeasible |
+| gate GBM / R1 GBM, one row per call | 21.4 / 15.9 ms | infeasible | infeasible | infeasible |
+| R2 CNN | 9.8 / 4.8 ms | infeasible / infeasible | infeasible / 23.9% | infeasible / infeasible |
+
+"Infeasible": the allocator's own overhead exceeds the budget headroom b − C_c, so it cannot run within the budget at
+all. These cells read 0% before Task 19 Part A (2026-09-17).
 
 **Allocators that still beat random under measured cost** (paired lower bound above zero):
 

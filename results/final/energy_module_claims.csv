@@ -1,0 +1,40 @@
+claim,convention,budget_level,quantity,value,detail,holds
+a,module,0.1,"R1_mlp_clf minus random, lower bound",0.7390178664790277,feasible=True; eta=0.937; escalated=0.055,True
+a,module,0.2,"R1_mlp_clf minus random, lower bound",0.6488806429210477,feasible=True; eta=0.938; escalated=0.155,True
+a,module,0.3,"R1_mlp_clf minus random, lower bound",0.5542784154241814,feasible=True; eta=0.938; escalated=0.255,True
+a,module,0.5,"R1_mlp_clf minus random, lower bound",0.36611842239651066,feasible=True; eta=0.944; escalated=0.455,True
+a,module,,beats random at every energy budget,,,True
+b,module,,C384/C640 in mJ,0.56606143486388,ms ratio 0.778,True
+b,module,0.1,braking oracle share at 384: energy budget vs latency budget,0.06900452488687783,latency-budget oracle 0.0506; latency overrun of the energy plan +21.1%,True
+b,module,0.2,braking oracle share at 384: energy budget vs latency budget,0.11538461538461539,latency-budget oracle 0.0916; latency overrun of the energy plan +18.9%,True
+b,module,0.3,braking oracle share at 384: energy budget vs latency budget,0.1165158371040724,latency-budget oracle 0.1165; latency overrun of the energy plan -14.8%,False
+b,module,0.5,braking oracle share at 384: energy budget vs latency budget,0.1165158371040724,latency-budget oracle 0.1165; latency overrun of the energy plan -48.9%,False
+b,module,,holds (ratio below the ms ratio and more 384 at 20%),,,True
+c,module,,energy evaluation rows: wins / losses / rows,0.0,losses 3; rows 30; losing rows: nuScenes oracle brake 30%; nuScenes oracle brake 50%; KITTI oracle traj 50%,False
+c,module,,reading: R2 does not beat random in any energy row,,,True
+a,all_rails,0.1,"R1_mlp_clf minus random, lower bound",0.7390178664790277,feasible=True; eta=0.937; escalated=0.062,True
+a,all_rails,0.2,"R1_mlp_clf minus random, lower bound",0.6490744610866733,feasible=True; eta=0.938; escalated=0.162,True
+a,all_rails,0.3,"R1_mlp_clf minus random, lower bound",0.555044529833861,feasible=True; eta=0.938; escalated=0.262,True
+a,all_rails,0.5,"R1_mlp_clf minus random, lower bound",0.36611842239651066,feasible=True; eta=0.944; escalated=0.462,True
+a,all_rails,,beats random at every energy budget,,,True
+b,all_rails,,C384/C640 in mJ,0.5620646500570099,ms ratio 0.778,True
+b,all_rails,0.1,braking oracle share at 384: energy budget vs latency budget,0.06957013574660634,latency-budget oracle 0.0506; latency overrun of the energy plan +20.8%,True
+b,all_rails,0.2,braking oracle share at 384: energy budget vs latency budget,0.11566742081447964,latency-budget oracle 0.0916; latency overrun of the energy plan +18.6%,True
+b,all_rails,0.3,braking oracle share at 384: energy budget vs latency budget,0.1165158371040724,latency-budget oracle 0.1165; latency overrun of the energy plan -14.8%,False
+b,all_rails,0.5,braking oracle share at 384: energy budget vs latency budget,0.1165158371040724,latency-budget oracle 0.1165; latency overrun of the energy plan -48.9%,False
+b,all_rails,,holds (ratio below the ms ratio and more 384 at 20%),,,True
+c,all_rails,,energy evaluation rows: wins / losses / rows,0.0,losses 2; rows 24; losing rows: nuScenes oracle brake 50%; KITTI oracle traj 50%,True
+c,all_rails,,reading: R2 does not beat random in any energy row,,,True
+a,as_specified,0.1,"R1_mlp_clf minus random, lower bound",0.7333058027659037,feasible=True; eta=0.937; escalated=0.053,True
+a,as_specified,0.2,"R1_mlp_clf minus random, lower bound",0.6488806429210477,feasible=True; eta=0.938; escalated=0.153,True
+a,as_specified,0.3,"R1_mlp_clf minus random, lower bound",0.5542784154241814,feasible=True; eta=0.938; escalated=0.253,True
+a,as_specified,0.5,"R1_mlp_clf minus random, lower bound",0.36611842239651066,feasible=True; eta=0.944; escalated=0.453,True
+a,as_specified,,beats random at every energy budget,,,True
+b,as_specified,,C384/C640 in mJ,0.56606143486388,ms ratio 0.778,True
+b,as_specified,0.1,braking oracle share at 384: energy budget vs latency budget,0.06900452488687783,latency-budget oracle 0.0506; latency overrun of the energy plan +21.1%,True
+b,as_specified,0.2,braking oracle share at 384: energy budget vs latency budget,0.11538461538461539,latency-budget oracle 0.0916; latency overrun of the energy plan +18.9%,True
+b,as_specified,0.3,braking oracle share at 384: energy budget vs latency budget,0.1165158371040724,latency-budget oracle 0.1165; latency overrun of the energy plan -14.8%,False
+b,as_specified,0.5,braking oracle share at 384: energy budget vs latency budget,0.1165158371040724,latency-budget oracle 0.1165; latency overrun of the energy plan -48.9%,False
+b,as_specified,,holds (ratio below the ms ratio and more 384 at 20%),,,True
+c,as_specified,,energy evaluation rows: wins / losses / rows,0.0,losses 3; rows 24; losing rows: nuScenes oracle brake 50%; KITTI oracle traj 50%; KITTI mono brake 20%,False
+c,as_specified,,reading: R2 does not beat random in any energy row,,,True

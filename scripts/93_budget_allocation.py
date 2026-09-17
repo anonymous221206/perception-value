@@ -36,6 +36,7 @@ if __name__ == "__main__":
     warn_if_not_reference("93_budget_allocation.py", strict=True)
 from rap.paths import DATASETS as _DS, MODELS as _MD                      # noqa: E402
 from rap import features as F, geometry as G, power, predict, runmeta          # noqa: E402
+from rap.budget import flag_multifidelity, flag_two_level                       # noqa: E402
 from rap.cache import DetCache                                                  # noqa: E402
 from rap.paths import CACHE, RESULTS                                            # noqa: E402
 from rap.risk import RiskConfig                                                 # noqa: E402
@@ -158,8 +159,12 @@ def measure_overheads(n_frames=400):
     return res
 
 
-def signal_overhead(ov, track, signal, n_models=1):
-    """(ms, mJ) per frame an allocator adds on top of CHEAP, and where the number comes from."""
+def signal_overhead(ov, track, signal, n_models=1, power=None):
+    """(ms, mJ) per frame an allocator adds on top of CHEAP, and where the number comes from.
+
+    `power` (Task 19 Part B) replaces the measured power over idle each workload is charged at, in mW:
+    {"gate": ..., "r1": ..., "r2": ...}.  None charges the rails this script measured (CPU; CPU+GPU for R2).
+    """
     if signal in ("random", "oracle"):
         return 0.0, 0.0, "none"
     proxy = track == "nuPlan"
@@ -168,18 +173,18 @@ def signal_overhead(ov, track, signal, n_models=1):
     src = "measured" if not proxy else "nuScenes feature time as proxy (track features not timed)"
     if signal.startswith("R1_"):
         ms = ov[f"r1_features_ms_{rt}"] + ov["r1_mlp_predict_ms" if "_mlp_" in signal else "r1_gbm_predict_ms"]
-        mw = ov.get("r1_cpu_mw_over_idle", np.nan)
+        mw = ov.get("r1_cpu_mw_over_idle", np.nan) if power is None else power["r1"]
     elif signal == "R2_cnn_clf":
         ms = ov[f"r2_pre_ms_{rt}"] + ov["r2_trt_ms"]
-        mw = ov.get("r2_cpu_gpu_mw_over_idle", np.nan)
+        mw = ov.get("r2_cpu_gpu_mw_over_idle", np.nan) if power is None else power["r2"]
     elif signal == "gate_gbm_batched":
         ms = base["features_ms"] + ov["gbm_batched_ms_per_frame"]
-        mw = ov.get("cpu_mw_over_idle", np.nan)
+        mw = ov.get("cpu_mw_over_idle", np.nan) if power is None else power["gate"]
     else:
         ms = {"uncertainty": base["uncertainty_ms"], "criticality_cheap": base["criticality_cheap_ms"],
               "gate_ridge": base["features_ms"] + n_models * ov["ridge_predict_ms"],
               "gate_gbm": base["features_ms"] + n_models * ov["gbm_predict_ms"]}[signal]
-        mw = ov.get("cpu_mw_over_idle", np.nan)
+        mw = ov.get("cpu_mw_over_idle", np.nan) if power is None else power["gate"]
     mj = ms * max(mw, 0.0) / 1e3 if np.isfinite(mw) else 0.0
     return ms, mj, src
 
@@ -287,13 +292,20 @@ def load_router_scores():
 # ----------------------------------------------------------------------------------------------
 # two fidelity levels
 
-def two_level(cells, ov, nboot, rng, routers=None):
+def two_level(cells, ov, nboot, rng, routers=None, gate_scores=None, costs=None, power=None, budget_units=None):
+    """The two-level cascade tables.
+
+    Task 19 Part B injects, without changing the default path: `gate_scores` (saved gate predictions per cell key,
+    in place of refitting), `costs` (a function track -> detector costs), `power` (see `signal_overhead`) and
+    `budget_units` (a subset of UNITS).  The bootstrap draws do not depend on any of them.
+    """
     rows = []
     for c in cells:
         d = c["d"]
-        cost = profile_costs(c["track"])
+        cost = profile_costs(c["track"]) if costs is None else costs(c["track"])
         v_all = (d[c["cheap"]] - d[c["full"]]).to_numpy(float)
-        gates = t92.gate_predictions(d, c["fcols"], v_all)
+        gates = (t92.gate_predictions(d, c["fcols"], v_all) if gate_scores is None
+                 else gate_scores[(c["track"], c["geometry"], c["system"], c["target"])](d))
         m = (d.split == "test").to_numpy()
         v, units = v_all[m], d.unit.to_numpy()[m]
         n = len(v)
@@ -315,7 +327,7 @@ def two_level(cells, ov, nboot, rng, routers=None):
         idx = [np.flatnonzero(units == u) for u in uniq]
         draws = [np.concatenate([idx[i] for i in rng.integers(0, len(uniq), len(uniq))]) for _ in range(nboot)]
         key = dict(track=c["track"], geometry=c["geometry"], system=c["system"], target=c["target"])
-        for unit in UNITS:
+        for unit in (UNITS if budget_units is None else budget_units):
             c0, c1 = cost["cheap"][unit], cost["640"][unit]
             for f in QUOTAS:
                 budget = c0 + f * c1
@@ -341,7 +353,7 @@ def two_level(cells, ov, nboot, rng, routers=None):
                                      "note": f"needs FULL on every frame: >= {c0 + c1:.2f} {unit} per frame "
                                              f"before computing the metric"})
                         continue
-                    o_ms, o_mj, src = signal_overhead(ov, c["track"], s)
+                    o_ms, o_mj, src = signal_overhead(ov, c["track"], s, power=power)
                     o = o_ms if unit == "ms" else o_mj
                     frac = max((budget - c0 - o) / c1, 0.0)
                     g = gain_at(scores[s], frac)
@@ -419,7 +431,12 @@ def greedy(inc, budget_total, weights):
     return gain, level, float(lp)
 
 
-def multi_fidelity(ov, nboot, rng):
+MF_SYSTEMS = (("brake", "J_cheap", ["J_384", "J_512", "J_full"]),
+              ("traj", "JB_cheap", ["JB_384", "JB_512", "JB_full"]))
+
+
+def multi_fidelity_frames():
+    """KITTI mono frames with the braking and Planner B costs at 320/384/512/640, the gate features and the split."""
     cells = [c for c in t92.kitti_cells(json.loads((ROOT / "configs" / "benchmark_splits.json").read_text()))
              if c["geometry"] == "mono"]
     d = cells[0]["d"].copy()
@@ -436,23 +453,34 @@ def multi_fidelity(ov, nboot, rng):
         d = d.merge(lv[res], on=["seq", "frame"], validate="one_to_one")
         assert np.allclose(d[f"Jf_{res}"], d.J_full) and np.allclose(d[f"JBf_{res}"], d.JB_full), \
             f"FULL cost differs between the 320 and {res} tables"
-    cost = profile_costs("KITTI")
-    m = (d.split == "test").to_numpy()
-    fit = d.split.isin(["train", "val"]).to_numpy()
     X = np.nan_to_num(d[fcols].apply(pd.to_numeric, errors="coerce").to_numpy(np.float64),
                       nan=0.0, posinf=1e6, neginf=-1e6)
+    return d, X, (d.split == "test").to_numpy(), d.split.isin(["train", "val"]).to_numpy()
+
+
+def level_predictions(X, fit, gains):
+    """One ridge and one GBM gate per fidelity level, fit on train + val, predicting every frame."""
+    preds = {}
+    for name, mdl in (("gate_ridge", "linear"), ("gate_gbm", "gbm")):
+        P = np.zeros_like(gains)
+        for j in range(gains.shape[1]):
+            P[:, j] = predict.make_model(mdl, "reg", 0).fit(X[fit], gains[fit, j]).predict(X)
+        preds[name] = P
+    return preds
+
+
+def multi_fidelity(ov, nboot, rng, level_preds=None, costs=None, power=None, budget_units=None):
+    """The KITTI multi-fidelity tables.  Task 19 Part B injects saved `level_preds` ({system: {gate: n x 3}}),
+    `costs`, `power` and `budget_units`, as in `two_level`; the default path is unchanged."""
+    d, X, m, fit = multi_fidelity_frames()
+    cost = profile_costs("KITTI") if costs is None else costs("KITTI")
     units = d.unit.to_numpy()[m]
     uniq = np.unique(units)
     rows, mixes = [], []
-    for system, base, levels in (("brake", "J_cheap", ["J_384", "J_512", "J_full"]),
-                                 ("traj", "JB_cheap", ["JB_384", "JB_512", "JB_full"])):
+    for system, base, levels in MF_SYSTEMS:
         gains = np.stack([(d[base] - d[c]).to_numpy(float) for c in levels], 1)        # n x 3
-        preds = {"oracle": gains}
-        for name, mdl in (("gate_ridge", "linear"), ("gate_gbm", "gbm")):
-            P = np.zeros_like(gains)
-            for j in range(3):
-                P[:, j] = predict.make_model(mdl, "reg", 0).fit(X[fit], gains[fit, j]).predict(X)
-            preds[name] = P
+        preds = {"oracle": gains,
+                 **(level_predictions(X, fit, gains) if level_preds is None else level_preds[system])}
         gt = gains[m]
         n = len(gt)
         w1 = np.ones(n)
@@ -463,7 +491,7 @@ def multi_fidelity(ov, nboot, rng):
                 w[units == uniq[i]] += 1
             wdraw.append(w)
         unc = pd.to_numeric(d["unc_sum"], errors="coerce").fillna(-np.inf).to_numpy()[m]
-        for unit in UNITS:
+        for unit in (UNITS if budget_units is None else budget_units):
             c320 = cost["cheap"][unit]
             lvl_cost = np.array([cost["384"][unit], cost["512"][unit], cost["640"][unit]])
             other = "mJ" if unit == "ms" else "ms"
@@ -476,7 +504,7 @@ def multi_fidelity(ov, nboot, rng):
                 ok = o_t > max(EPS, 0.25 * o_or)
                 key = dict(system=system, unit=unit, budget_level=f, budget_per_frame=budget, n_frames=n)
                 for name, P in preds.items():
-                    o_ms, o_mj, _ = signal_overhead(ov, "KITTI", name, n_models=3)
+                    o_ms, o_mj, _ = signal_overhead(ov, "KITTI", name, n_models=3, power=power)
                     o = 0.0 if name == "oracle" else (o_ms if unit == "ms" else o_mj)
                     extra = max(budget - c320 - o, 0.0)
                     g, level, _ = greedy(incs[name], n * extra, w1)
@@ -495,7 +523,7 @@ def multi_fidelity(ov, nboot, rng):
                 # single-level comparators: everything escalated goes to 640
                 for name, sc in (("random", None), ("uncertainty", unc), ("gate_gbm", preds["gate_gbm"][m, 2]),
                                  ("oracle", gt[:, 2])):
-                    o_ms, o_mj, _ = signal_overhead(ov, "KITTI", name)
+                    o_ms, o_mj, _ = signal_overhead(ov, "KITTI", name, power=power)
                     o = o_ms if unit == "ms" else o_mj
                     frac = max((budget - c320 - o) / cost["640"][unit], 0.0)
                     k = int(np.floor(frac * n + 1e-9))
@@ -535,6 +563,11 @@ def main():
     routers = load_router_scores() if args.routers else None
     two = pd.DataFrame(two_level(cells, ov, args.nboot, rng, routers))
     multi = pd.DataFrame() if args.routers else pd.DataFrame(multi_fidelity(ov, args.nboot, rng))
+    # Task 19 Part A: an allocator whose overhead exceeds the headroom b - C_c is infeasible, not a 0% escalation
+    two = flag_two_level(two)
+    if len(multi):
+        kc = profile_costs("KITTI")["cheap"]
+        multi = flag_multifidelity(multi, {"ms": kc["ms"], "mJ": kc["mJ"]})
 
     out = Path(RESULTS) / "final"
     costs = {t: profile_costs(t) for t in PROFILE}
@@ -549,7 +582,7 @@ def main():
         df.to_csv(run / f"{name}.csv", index=False)
         print(f"  wrote {out / (name + '.csv')} ({len(df)} rows)")
     if not args.routers:
-        s = multi[(multi.budget_level == 0.2)][["system", "unit", "signal", "eta", "share_384", "share_512", "share_640"]]
+        s = multi[(multi.budget_level == 0.2)][["system", "unit", "signal", "feasible", "eta", "share_384", "share_512", "share_640"]]
         print(s.round(3).to_string(index=False))
 
 

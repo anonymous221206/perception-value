@@ -62,6 +62,18 @@ CACHED = [
     ("C19", "target swap: the same allocators trained on perception gain instead of decision value", EDGE,
      "scripts/122_target_swap.py", ["results/final/benchmark_target_swap.csv",
                                     "results/final/benchmark_target_swap_summary.json"]),
+    ("C20", "measured budgets: allocators whose overhead exceeds the budget headroom marked infeasible", EDGE,
+     "scripts/131_budget_feasibility.py",
+     ["results/final/benchmark_budget_two_level.csv", "results/final/benchmark_budget_two_level_1thread.csv",
+      "results/final/benchmark_budget_multifidelity.csv", "results/final/benchmark_budget_multifidelity_1thread.csv",
+      "results/final/benchmark_budget_routers.csv", "results/final/fig_budget_curves.csv"]),
+    ("C21", "energy conventions: the saved gate scores reproduce every shipped budget run output (check S)", EDGE,
+     "scripts/133_energy_module_budgets.py --check_scores", ["results/final/energy_module_score_check.json"]),
+    ("C22", "energy conventions: every energy-budget result under one rail convention, and the claims", EDGE,
+     "scripts/133_energy_module_budgets.py",
+     ["results/final/energy_module_budget_two_level.csv", "results/final/energy_module_budget_multifidelity.csv",
+      "results/final/energy_module_budget_nuplan_real.csv", "results/final/energy_module_skip_accounting.csv",
+      "results/final/energy_module_costs.json", "results/final/energy_module_claims.csv"]),
 ]
 
 # the full pipeline from raw data, in the order the results were produced; D = needs datasets, H = hardware-dependent
@@ -145,6 +157,10 @@ FULL = [
     ("L1", "[D] figure data export (BEV objects, gallery, budget curves)", EDGE, "scripts/118_figure_exports.py"),
     ("M1", "[D] nuPlan allocation inputs from the real CHEAP branch", NUPLAN, "scripts/119_nuplan_real_features.py"),
     ("M2", "nuPlan allocation track on real-perception decision values", EDGE, "scripts/120_nuplan_real_allocation.py"),
+    ("N1", "[H,D] every power rail over idle during the allocator workloads (then cached stages C20-C22)", EDGE,
+     "scripts/132_allocator_rails.py"),
+    ("N2", "save the core gate scores and multi-fidelity level predictions once (read by C21, C22)", EDGE,
+     "scripts/133_energy_module_budgets.py --save_gate_scores"),
 ]
 
 
