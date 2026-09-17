@@ -31,14 +31,15 @@ from rap.paths import CACHE, RESULTS                                            
 
 def build_b(det_dir: Path, cheap: str, full: str, seqs, cfg: RiskConfig,
             adapter, range_source: str, pb: B.PlannerBParams,
-            cb: B.CostBParams) -> pd.DataFrame:
+            cb: B.CostBParams, cache_factory=None) -> pd.DataFrame:
+    """Planner B per frame; `cache_factory(path, role)` replaces the detection caches, as in `decision.build`."""
     rng = np.random.default_rng(0)
     rows = []
     for s in seqs:
         geom = adapter.geometry(s)
         speeds = adapter.speeds(s)
-        c = DetCache(det_dir / cheap / f"{s}.npz")
-        f = DetCache(det_dir / full / f"{s}.npz")
+        c = DetCache(det_dir / cheap / f"{s}.npz") if cache_factory is None else cache_factory(det_dir / cheap / f"{s}.npz", "cheap")
+        f = DetCache(det_dir / full / f"{s}.npz") if cache_factory is None else cache_factory(det_dir / full / f"{s}.npz", "full")
         prev_c = prev_f = None
         for i, fr in enumerate(c.frames):
             fr = int(fr)

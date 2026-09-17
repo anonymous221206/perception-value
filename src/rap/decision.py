@@ -104,8 +104,12 @@ def build(det_dir, cheap_mode: str, full_mode: str, seqs, cfg: RiskConfig,
           range_source: str = "mono", sigma: float = 0.0, seed: int = 0,
           lp: P.LateralParams | None = None,
           lc: P.LateralCostParams | None = None,
-          adapter=KittiAdapter) -> pd.DataFrame:
-    """One row per frame. Both downstream tasks are scored from the same perception."""
+          adapter=KittiAdapter, cache_factory=None) -> pd.DataFrame:
+    """One row per frame. Both downstream tasks are scored from the same perception.
+
+    `cache_factory(path, role)` replaces the detection cache of each fidelity (role "cheap" or "full"); None reads the
+    cached detections unchanged.  A realism control uses it to filter detections before both controllers.
+    """
     lp = lp or P.LateralParams()
     lc = lc or P.LateralCostParams()
     rng = np.random.default_rng(seed)
@@ -114,8 +118,10 @@ def build(det_dir, cheap_mode: str, full_mode: str, seqs, cfg: RiskConfig,
         geom = adapter.geometry(s)
         crit_all = G.criticality_for(geom, crit_model)
         speeds = adapter.speeds(s)
-        c = DetCache(det_dir / cheap_mode / f"{s}.npz")
-        f = DetCache(det_dir / full_mode / f"{s}.npz")
+        c = (DetCache(det_dir / cheap_mode / f"{s}.npz") if cache_factory is None
+             else cache_factory(det_dir / cheap_mode / f"{s}.npz", "cheap"))
+        f = (DetCache(det_dir / full_mode / f"{s}.npz") if cache_factory is None
+             else cache_factory(det_dir / full_mode / f"{s}.npz", "full"))
         prev_c = prev_f = None
         prev_lc_ = prev_lf_ = None
         for i, fr in enumerate(c.frames):

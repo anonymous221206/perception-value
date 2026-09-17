@@ -95,6 +95,8 @@ Markers:
 | `130_streaming_controllers.py` | causal streaming allocation with rate controllers on frozen saved scores | |
 | `131_budget_feasibility.py` | marks allocators whose overhead exceeds the budget headroom as infeasible in every measured-budget table | |
 | `132_allocator_rails.py` | every power rail over idle while the gate, R1 and R2 workloads run | H, D |
+| `134_realism_outcomes.py` | KITTI per-frame outcomes under detection persistence and reference geometry | D |
+| `135_realism_controls.py` | persistence and reference-geometry sweeps, sanity gates and readings | |
 | `133_energy_module_budgets.py` | every energy-budget result under one rail convention for detectors and allocators | |
 
 ## Figure data

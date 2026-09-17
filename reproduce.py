@@ -76,6 +76,8 @@ CACHED = [
       "results/final/energy_module_costs.json", "results/final/energy_module_claims.csv"]),
     ("C23", "causal streaming allocation with rate controllers (adaptive threshold, token bucket) on saved scores", EDGE,
      "PYTHONHASHSEED=0 {py} scripts/130_streaming_controllers.py", ["results/final/streaming_controllers.csv"]),
+    ("C24", "realism controls on the KITTI core track: detection persistence and reference geometry for every pair", EDGE,
+     "scripts/135_realism_controls.py", ["results/final/persistence_sweep.csv", "results/final/reference_geometry_sweep.csv"]),
 ]
 
 # the full pipeline from raw data, in the order the results were produced; D = needs datasets, H = hardware-dependent
@@ -165,6 +167,8 @@ FULL = [
      "scripts/133_energy_module_budgets.py --save_gate_scores"),
     ("N3", "fit the train-only (V1) allocator scores once for the streaming controllers (read by C23)", EDGE,
      "scripts/130_streaming_controllers.py --fit_once"),
+    ("N4", "[D] KITTI per-frame braking and Planner B outcomes under persistence and reference geometry (read by C24)",
+     EDGE, "scripts/134_realism_outcomes.py"),
 ]
 
 
