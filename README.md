@@ -56,21 +56,30 @@ source configs/paths.env
 python reproduce.py --tier cached --verify
 ```
 
-`--verify` regenerates each table and compares it with the shipped file. Numbers are compared to 1e-9 relative
-and text exactly.
+`--verify` regenerates each table and compares it with the shipped file, taken from the git commit when the
+repository is a git checkout.
+* Numbers are compared to 1e-9 relative (1e-12 absolute). NaN matches NaN in the same position, and a JSON
+  boolean matches the number it stands for. Text, keys, list lengths and nulls must match exactly.
+* A difference names the columns, or the JSON fields, that differ.
+* The nuPlan check file declared by C10 is written by C9 and completed by C10, so a difference reported for it
+  under C10 can come from either stage.
 
-**Tolerance on other platforms.** On CPUs other than the reference platform, `--verify` can report differences
-that leave the paper's numbers unchanged:
+**Known differences.** `--verify` can report the following. The C2 and C12 differences appear on CPUs other than
+the reference platform and leave the paper's numbers unchanged. The C14 differences appear on any platform and
+move some of the figures its report quotes.
 * C2 differs at about 1e-6;
 * in C12, `R1_gbm_clf` on PDM-Closed safety changes at the 30–50% quotas; the 20% cells used in the paper are
   unchanged.
-* in C14, the learned signals are refit inside the stage and the fits are not bit-reproducible, so about 70 of
-  3,464 rows move from run to run (71 and 72 observed) — every one of them a learned signal (`R1_*`, `gate_gbm`),
-  and most in the near-degenerate nuPlan IDM safety cell, whose nDG is undefined anyway. The pooled statistic of
-  `docs/iclr_causal_threshold.md`, −0.089 [−0.143, −0.024], is unchanged at the three decimals it is quoted to,
-  and so is its reading. One quoted endpoint is not: `R1_mlp_clf`'s upper bound reads −0.015 or −0.016 depending
-  on the run. The per-policy means and win counts in section 3 of that report are not stored in
-  `causal_threshold.csv`, so `--verify` does not cover them; they shift by about one pair between runs.
+* in C14, the learned signals are refit inside the stage and the fits are not bit-reproducible. Five
+  regenerations on the reference platform moved 71 to 95 of 3,464 rows, every one of them a learned signal, most in
+  the near-degenerate nuPlan IDM safety cell, whose nDG is undefined anyway.
+  * For the pooled statistic of `docs/iclr_causal_threshold.md`, −0.089 [−0.143, −0.024], only the point estimate
+    is stable at three decimals.
+  * The lower bound reads −0.142 on a second platform, and the upper bound lies within 1e-4 of a rounding boundary.
+    At two decimals the interval, [−0.14, −0.02], is stable.
+  * The reading, inconclusive, holds in every run.
+  * That report's reproducibility table lists which of its figures are safe at three decimals. Its section 3
+    means and win counts are not stored in `causal_threshold.csv`, so `--verify` does not cover them.
 
 `python -m pytest tests` runs the unit tests. Tests that need KITTI files are skipped when the dataset is absent;
 tests that need PyTorch or OpenCV are skipped in this CPU environment.

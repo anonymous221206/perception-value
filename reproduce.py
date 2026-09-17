@@ -150,6 +150,15 @@ def render(py: str, cmd: str) -> str:
     return f"{py} {cmd}" if cmd.startswith("scripts/") else cmd.replace("{py}", py)
 
 
+def committed_output(path: str):
+    """The committed bytes of a shipped output when this is a git checkout, otherwise None."""
+    try:
+        r = subprocess.run(["git", "show", f"HEAD:{path}"], cwd=ROOT, capture_output=True, check=False)
+    except OSError:
+        return None
+    return r.stdout if r.returncode == 0 else None
+
+
 def compare(a: Path, b: Path) -> str:
     try:
         import numpy as np
@@ -183,26 +192,36 @@ def compare(a: Path, b: Path) -> str:
                 return [strip(v) for v in o]
             return o
 
-        def same(u, v):
-            """NaN equals NaN in the same position; numbers compare with a relative tolerance.
+        def diffs(u, v, path="", out=None):
+            """The paths at which two parsed JSON documents differ, with what differs there.
 
-            This used to be `round(x, 9)` equality, which turns a difference in the last bits into a verdict
-            whenever the two values fall either side of a rounding boundary, and which never matched a NaN
-            against itself. A relative tolerance does neither, and still fails on the genuine platform
-            differences documented above for C2, C12 and C14, which are orders of magnitude larger.
+            NaN equals NaN in the same position, and numbers compare at rtol 1e-9, atol 1e-12, as in the CSV branch.
+            A boolean equals the number it stands for: a writer that passes a NumPy boolean through
+            `json.dumps(default=float)` writes 0.0 or 1.0 where the same value elsewhere is written false or true,
+            which is a difference of representation, not of result.  Key sets, list lengths, text and nulls must
+            match exactly.  `u` is the regenerated document, `v` the shipped one.
             """
+            out = [] if out is None else out
             if isinstance(u, dict) and isinstance(v, dict):
-                return set(u) == set(v) and all(same(u[k], v[k]) for k in u)
-            if isinstance(u, list) and isinstance(v, list):
-                return len(u) == len(v) and all(same(x, y) for x, y in zip(u, v))
-            if isinstance(u, bool) or isinstance(v, bool):
-                return u is v
-            if isinstance(u, (int, float)) and isinstance(v, (int, float)):
-                return bool(np.isclose(float(u), float(v), rtol=1e-9, atol=1e-12, equal_nan=True))
-            return u == v
+                for k in sorted(set(u) ^ set(v), key=str):
+                    out.append(f"{path}.{k} (key only in the {'regenerated' if k in u else 'shipped'} file)")
+                for k in sorted(set(u) & set(v), key=str):
+                    diffs(u[k], v[k], f"{path}.{k}", out)
+            elif isinstance(u, list) and isinstance(v, list):
+                if len(u) != len(v):
+                    out.append(f"{path} (list length {len(u)} vs {len(v)})")
+                else:
+                    for i, (x, y) in enumerate(zip(u, v)):
+                        diffs(x, y, f"{path}[{i}]", out)
+            elif isinstance(u, (bool, int, float)) and isinstance(v, (bool, int, float)):
+                if not np.isclose(float(u), float(v), rtol=1e-9, atol=1e-12, equal_nan=True):
+                    out.append(f"{path} ({u!r} vs {v!r})")
+            elif type(u) is not type(v) or u != v:
+                out.append(f"{path} ({repr(u)[:40]} vs {repr(v)[:40]})")
+            return out
 
-        return ("identical" if same(strip(json.loads(a.read_text())), strip(json.loads(b.read_text())))
-                else "DIFFERS")
+        bad = diffs(strip(json.loads(a.read_text())), strip(json.loads(b.read_text())))
+        return "identical" if not bad else f"DIFFERS: {len(bad)} field(s): " + "; ".join(bad[:8])
     return "identical" if a.read_text() == b.read_text() else "DIFFERS"
 
 
@@ -230,7 +249,17 @@ def main():
     if args.verify:
         for _, _, _, _, outs in stages:
             for o in outs:
-                if (ROOT / o).exists() and not (backup / o).exists():
+                committed = committed_output(o)
+                if (backup / o).exists():
+                    # a reference taken earlier is stale if outputs were regenerated in place before it was taken,
+                    # for example by `--only C9` and then `--only C10`: both write the nuPlan check file
+                    if committed is not None and (backup / o).read_bytes() != committed:
+                        (backup / o).write_bytes(committed)
+                        print(f"  stale reference for {o} replaced with the committed version", flush=True)
+                elif committed is not None:
+                    (backup / o).parent.mkdir(parents=True, exist_ok=True)
+                    (backup / o).write_bytes(committed)
+                elif (ROOT / o).exists():
                     (backup / o).parent.mkdir(parents=True, exist_ok=True)
                     shutil.copy2(ROOT / o, backup / o)
     report = []
