@@ -64,25 +64,24 @@ repository is a git checkout.
 * The nuPlan check file declared by C10 is written by C9 and completed by C10, so a difference reported for it
   under C10 can come from either stage.
 
-**Known differences.** `--verify` can report the following. The C2 and C12 differences appear on CPUs other than
-the reference platform and leave the paper's numbers unchanged. The C14 differences appear on any platform and
-move some of the figures its report quotes.
+**Known differences.** `--verify` can report the following. Both appear on CPUs other than the reference platform
+and leave the paper's numbers unchanged.
 * C2 differs at about 1e-6;
 * in C12, `R1_gbm_clf` on PDM-Closed safety changes at the 30–50% quotas; the 20% cells used in the paper are
   unchanged.
-* in C14, the learned signals are refit inside the stage and the fits are not bit-reproducible. Five
-  regenerations on the reference platform moved 71 to 95 of 3,464 rows, every one of them a learned signal, most in
-  the near-degenerate nuPlan IDM safety cell, whose nDG is undefined anyway.
-  * For the pooled statistic of `docs/iclr_causal_threshold.md`, −0.089 [−0.143, −0.024], only the point estimate
-    is stable at three decimals.
-  * The lower bound reads −0.142 on a second platform, and the upper bound lies within 1e-4 of a rounding boundary.
-    At two decimals the interval, [−0.14, −0.02], is stable.
-  * The reading, inconclusive, holds in every run.
-  * That report's reproducibility table lists which of its figures are safe at three decimals. Its section 3
-    means and win counts are not stored in `causal_threshold.csv`, so `--verify` does not cover them.
-* C19 refits its models as C14 does, but its two outputs were byte-identical in four runs on the reference
-  platform, two of them with BLAS and OpenMP pinned to 1 and to 4 threads. It has not been run on a second
-  platform. `docs/iclr_target_swap.md` names the one quoted figure that another platform could move.
+
+**C14 used to differ on every run, and no longer does.** Its per-cell bootstrap seed came from `hash()`, which
+Python salts per process unless `PYTHONHASHSEED` is set, so each run drew a different sample and 71 to 95 of its
+3,464 rows moved. The seed is now a stable digest and two full runs are byte-identical; the refits, which the
+earlier note here blamed, are deterministic on this platform. Fixing it moved 72 rows, and among the figures
+`docs/iclr_causal_threshold.md` quotes only the pooled lower bound, from −0.143 to −0.142, and one row of its 20%
+table. That report's section 3 means and win counts are not stored in `causal_threshold.csv`, so `--verify` still
+does not cover them. Whether the refits are reproducible on a *different* platform is untested.
+
+C19 refits its models as C14 does, and reuses the saved G-target scores of `results/raw/20260915_214330_target_swap`
+wherever the label is unchanged, as its pre-registration requires; its two outputs were byte-identical in five runs
+on the reference platform, two of them with BLAS and OpenMP pinned to 1 and to 4 threads. It has not been run on a
+second platform. `docs/iclr_target_swap.md` names the one quoted figure that another platform could move.
 
 `python -m pytest tests` runs the unit tests. Tests that need KITTI files are skipped when the dataset is absent;
 tests that need PyTorch or OpenCV are skipped in this CPU environment.

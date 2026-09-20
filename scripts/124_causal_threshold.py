@@ -15,7 +15,7 @@ cross-fitted inside train + val; TEST = threshold calibrated on the test scores 
 """
 from __future__ import annotations
 
-import argparse, glob, importlib.util, json, sys, time
+import argparse, glob, hashlib, importlib.util, json, sys, time
 from pathlib import Path
 
 import numpy as np
@@ -66,7 +66,13 @@ UNC_REASON = "no uncertainty signal exists for the real-perception nuPlan cells 
 
 
 def seed_of(*parts):
-    return abs(hash(tuple(map(str, parts)))) % (2 ** 32)
+    """A per-cell bootstrap seed that does not depend on the process.
+
+    This used `hash()`, which Python salts per process unless PYTHONHASHSEED is set, so two runs of this stage drew
+    different bootstrap samples: 60 of 3,062 realised rates and 20 of 2,879 nDG values moved between two runs of the
+    same code on the same data (max 0.164 nDG, median 0.004). A stable digest fixes it.
+    """
+    return int.from_bytes(hashlib.blake2b("|".join(map(str, parts)).encode(), digest_size=4).digest(), "big")
 
 
 # ------------------------------------------------------------------------------------------------ models

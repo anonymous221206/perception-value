@@ -5,8 +5,7 @@ This measures the same cached scores applied causally: one threshold, frozen bef
 timestamp order, with and without a running budget cap.
 
 **Provenance.**
-* Pre-registration: the pre-registration record (not part of this release), Task 11, committed before the
-  script ran.
+* Pre-registration: the pre-registration record (not part of this release), Task 11, committed before the script ran (commit `780efbe`).
 * Code: `scripts/124_causal_threshold.py`. Output: `results/final/causal_threshold.csv`.
 * No official result file was changed. CPU only, cached scores.
 
@@ -41,7 +40,7 @@ jointly.
 
 | statistic | value | 95% CI |
 |---|---|---|
-| **pooled B − official (six learned signals)** | **−0.089** | **[−0.143, −0.024]** |
+| **pooled B − official (six learned signals)** | **−0.089** | **[−0.142, −0.024]** |
 | gate_ridge | −0.090 | [−0.226, +0.097] |
 | gate_gbm | −0.096 | [−0.195, +0.035] |
 | R1_mlp_reg | −0.015 | [−0.088, +0.086] |
@@ -49,52 +48,29 @@ jointly.
 | R1_gbm_reg | −0.114 | [−0.218, −0.020] |
 | R1_gbm_clf | −0.124 | [−0.207, −0.050] |
 
-**Reproducibility of this table.** The six learned signals are refit inside the stage, and those fits are not
-bit-reproducible across runs or platforms. The figures below come from six runs on the reference platform (the
-shipped run, three regenerations, and two more with BLAS and OpenMP pinned to 1 and to 4 threads) and one run on a
-second platform, macOS, for which only some figures were reported.
+**Reproducibility of this table.** This stage used to give slightly different numbers on every run: five
+regenerations on the reference platform moved 71 to 95 of the 3,464 rows, every one of them a learned signal, and
+this report used to carry a table saying which of its figures survived that drift at three decimals.
 
-A figure is **safe** at three decimals if it rounds the same in every run and lies farther from its rounding
-boundary than it has drifted in any run. It is **fragile** if it has rounded the same only because its drift pointed
-away from the boundary, and **not safe** if two runs round it differently. The reading below, that the interval
-straddles −0.05, holds in every run.
+**The cause was found and removed (2026-09-20).** `seed_of`, which seeds each cell's bootstrap, was
+`abs(hash(tuple(...)))`, and Python salts `hash()` per process unless `PYTHONHASHSEED` is set, so every run drew a
+different bootstrap sample. It is now a stable digest (`hashlib.blake2b`). **Two runs of the stage are now
+byte-identical**, and the refits, which the earlier note blamed, turn out to be deterministic on this platform.
 
-| signal | figure | as quoted | reference platform, 6 runs | second platform | at three decimals |
-|---|---|---|---|---|---|
-| **pooled, six signals** | point | −0.089 | −0.0892 to −0.0890 | same at 3 dp | safe |
-| **pooled, six signals** | lower | −0.143 | −0.1427 to −0.1426 | −0.142 | **not safe** (−0.143 / −0.142) |
-| **pooled, six signals** | upper | −0.024 | −0.0240 to −0.0236 | same at 3 dp | **fragile** |
-| `gate_ridge` | point | −0.090 | identical | same at 3 dp | safe |
-| `gate_ridge` | lower | −0.226 | identical | not reported | safe |
-| `gate_ridge` | upper | +0.097 | identical | not reported | safe |
-| `gate_gbm` | point | −0.096 | identical | same at 3 dp | safe |
-| `gate_gbm` | lower | −0.195 | identical | not reported | safe |
-| `gate_gbm` | upper | +0.035 | identical | not reported | safe |
-| `R1_mlp_reg` | point | −0.015 | identical | same at 3 dp | safe |
-| `R1_mlp_reg` | lower | −0.088 | identical | not reported | safe |
-| `R1_mlp_reg` | upper | +0.086 | identical | not reported | safe |
-| `R1_mlp_clf` | point | −0.095 | −0.0958 to −0.0949 | same at 3 dp | **not safe** (−0.096 / −0.095) |
-| `R1_mlp_clf` | lower | −0.176 | −0.1767 to −0.1764 | not reported | **not safe** (−0.177 / −0.176) |
-| `R1_mlp_clf` | upper | −0.015 | −0.0167 to −0.0155 | not reported | **not safe** (−0.017 / −0.016 / −0.015) |
-| `R1_gbm_reg` | point | −0.114 | identical | same at 3 dp | safe |
-| `R1_gbm_reg` | lower | −0.218 | identical | not reported | safe |
-| `R1_gbm_reg` | upper | −0.020 | identical | not reported | safe |
-| `R1_gbm_clf` | point | −0.124 | identical | −0.125 | **not safe** (−0.125 / −0.124) |
-| `R1_gbm_clf` | lower | −0.207 | identical | not reported | safe |
-| `R1_gbm_clf` | upper | −0.050 | identical | not reported | safe |
+What that changed in the numbers: 72 of the 3,464 rows move between the last salted run and the deterministic one,
+all of them learned signals, and among the figures this report quotes only the pooled lower bound moves at three
+decimals, from −0.143 to −0.142. The point estimate (−0.089), the upper bound (−0.024), every per-signal row except
+`R1_mlp_clf` (whose point estimate moves from −0.0949 to −0.0945, still −0.095 at three decimals), the section 3
+means and win counts, and the per-cell table below are unchanged. The reading, inconclusive, holds. One row of the
+20% table in section 8 moves, KITTI mono brake `R1_mlp_clf`, and is updated there. The median realised-rate
+deviations quoted in section 5 are derived from this table outside the stage; recomputing them the same way on both
+files moves them by at most 0.2 pp, so read them to the nearest half point.
 
-What to quote:
-* **At three decimals:** the pooled point estimate, −0.089, and `gate_ridge`, −0.090 [−0.226, +0.097], whose fit is
-  closed-form.
-* **The pooled interval, at two decimals:** [−0.14, −0.02].
-* **`R1_mlp_clf`'s and `R1_gbm_clf`'s point estimates, only as ranges.** They change even at two decimals: −0.09 or
-  −0.10, and −0.12 or −0.13.
-* **`gate_gbm`, `R1_mlp_reg`, `R1_gbm_reg`, and `R1_gbm_clf`'s bounds:** identical in every run on the reference
-  platform, which is the only platform with exact values for them. Pooled figures of the same model classes have
-  moved by 1.1e-3 (gradient boosting, on the second platform) and 1.3e-3 (MLP, on the reference platform). Either
-  exceeds any three-decimal margin, so three decimals is not guaranteed for these on another platform.
-* **The means and win counts in section 3** are not stored in `causal_threshold.csv`, so `--verify` does not cover
-  them; they shift by about one cell × signal pair between runs.
+What to quote: every figure in the table above, at three decimals, with the pooled interval [−0.142, −0.024].
+Cross-platform reproducibility is a separate question and is untested since the fix: on a second platform (macOS)
+the refits could still move the learned signals, and the one figure with a closed-form fit, `gate_ridge`
+−0.090 [−0.226, +0.097], is the safest to quote there. Under the old code that platform read the pooled lower bound
+as −0.142, which is what the deterministic run gives here.
 
 The registered rule reads "streaming holds" when the lower bound is above −0.05 and "streaming costs" when the
 interval lies entirely below −0.05. Here the interval straddles −0.05, so the reading is **inconclusive**: the
@@ -217,7 +193,7 @@ nDG against the official oracle prize at 20%. "A" is the frozen threshold, "B" a
 |---|---|---|---|---|---|
 | KITTI mono brake | R1_gbm_clf | +0.220 | +0.307 | +0.084 | -0.136 |
 | KITTI mono brake | R1_gbm_reg | +0.203 | +0.291 | +0.134 | -0.070 |
-| KITTI mono brake | R1_mlp_clf | +0.168 | +0.169 | +0.099 | -0.069 |
+| KITTI mono brake | R1_mlp_clf | +0.168 | +0.172 | +0.103 | -0.066 |
 | KITTI mono brake | R1_mlp_reg | +0.174 | +0.290 | +0.157 | -0.017 |
 | KITTI mono brake | R2_cnn_clf | +0.063 | +nan | +nan | +nan |
 | KITTI mono brake | criticality_cheap | +0.056 | -0.037 | +0.001 | -0.055 |

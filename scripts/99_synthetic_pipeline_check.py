@@ -8,6 +8,7 @@ but not a fabricated one. It exercises every stage without needing the images.
 """
 from __future__ import annotations
 
+import hashlib
 import sys
 from pathlib import Path
 
@@ -66,7 +67,9 @@ def main():
         calib = kitti.load_calib(seq)
         for mode, ds, jit, fp, seed in [("cheap_320", 46.0, 3.0, 1.2, 1),
                                         ("full_640", 22.0, 1.6, 0.7, 2)]:
-            frames, dets, geos, scal = simulate(seq, ds, jit, fp, seed + hash(seq) % 1000, calib)
+            # a stable digest, not hash(): Python salts hash() per process
+            seq_seed = int.from_bytes(hashlib.blake2b(str(seq).encode(), digest_size=4).digest(), "big")
+            frames, dets, geos, scal = simulate(seq, ds, jit, fp, seed + seq_seed % 1000, calib)
             if mode == "cheap_320":
                 rng = np.random.default_rng(7)
                 for k, v in {"img_bright_mean": 110, "img_bright_std": 50, "img_dark_frac": .1,
