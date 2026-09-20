@@ -188,11 +188,15 @@ CRITICALITY_MODELS = {
 def coarse_classes(geom: np.ndarray) -> np.ndarray:
     """The coarse class of every object, from the geometry's own field.
 
-    Older geometry arrays predate the field; they are KITTI's, so the KITTI map is the fallback.
+    It refuses to guess. Mapping `type` here is what labelled every nuScenes object `vehicle` until 2026-09-20,
+    and a fallback that did it silently would put that defect back the moment an array reached this without the
+    field. Every builder fills `coarse`, and no geometry array is ever persisted, so a missing field means the
+    array came from somewhere unexpected and the caller should hear about it.
     """
-    if "coarse" in (geom.dtype.names or ()):
-        return geom["coarse"].astype("U8")
-    return np.array([kitti.TYPE_TO_COARSE.get(str(t), "vehicle") for t in geom["type"]], dtype="U8")
+    if "coarse" not in (geom.dtype.names or ()):
+        raise ValueError("this geometry array carries no `coarse` field: it was not built by "
+                         "rap.geometry.sequence_geometry or rap.nusc, and its classes cannot be inferred here")
+    return geom["coarse"].astype("U8")
 
 
 def criticality_for(geom: np.ndarray, model: CriticalityModel) -> np.ndarray:

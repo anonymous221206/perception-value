@@ -41,6 +41,12 @@ KITTI_SETTINGS = [(p, "mono") for p in KITTI_PAIRS] + [("Y8_320", "oracle")]
 NUSC_PAIR = ("nusc_det_tv", "ns_cheap_320", "ns_full_640")
 
 
+def gate(ok, message: str) -> None:
+    """A pre-registered check that must stop the run. `assert` would vanish under `python -O`."""
+    if not ok:
+        raise RuntimeError(message)
+
+
 def kitti_offsets(seqs):
     """cam2 -> IMU translation per sequence: (forward, left) in metres."""
     return {s: tuple(float(v) for v in kitti.load_calib(s).cam_to_imu[:2, 3]) for s in seqs}
@@ -88,6 +94,7 @@ def check_lift(seqs, offsets, checks):
             prev = d
     checks.append({"check": "L1", "what": "shifting the cached geometry == the lift with cam_offset",
                    "detections": n, "max_abs_diff": worst, "ok": worst == 0.0})
+    gate(worst == 0.0, f"L1 failed: shifting the cached geometry differs from the lift by {worst:g}")
     print(f"  L1: {n} detections, max |diff| {worst:g}", flush=True)
 
 

@@ -13,6 +13,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 import matplotlib                                   # noqa: E402
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt                     # noqa: E402
+from rap import runs as rap_runs                                                 # noqa: E402
 from rap import budget                              # noqa: E402
 from rap.paths import RAW, RESULTS                  # noqa: E402
 from rap.viz import (GRID, INK, INK2, MUTED, SERIES, SURFACE, _tidy)  # noqa: E402
@@ -48,7 +49,7 @@ def short(row):
 
 def main():
     cm = pd.read_csv(Path(RESULTS) / "final" / "core_matrix.csv")
-    cmr = Path(sorted(glob.glob(str(RAW / "*_core_matrix")))[-1])
+    cmr = rap_runs.core_matrix("plain")
     tables = {p.stem: pd.read_pickle(p).reset_index(drop=True) for p in sorted(cmr.glob("*.pkl"))}
     cm["label"] = cm.apply(short, axis=1)
 

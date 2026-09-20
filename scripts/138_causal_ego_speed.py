@@ -27,12 +27,13 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+from rap import runs as rap_runs                                                 # noqa: E402
 from rap import egospeed, kitti, runmeta                                        # noqa: E402
 from rap.nusc import NuScenesDB                                                 # noqa: E402
 from rap.paths import CACHE, NUSCENES_TRAINVAL, RESULTS                         # noqa: E402
 
 RAW = ROOT / "results" / "raw"
-CORE = RAW / "20260913_133004_core_matrix_postreview"
+CORE = rap_runs.core_matrix("postreview")
 KITTI_TABLE = "KITTI__YOLOv8s__cheap_320tofull_640__mono.pkl"
 NUPLAN_SIGNALS = Path(RESULTS) / "final" / "benchmark_nuplan_signals.csv"
 WINDOW_S = 0.5
@@ -48,7 +49,7 @@ def build(db, scenes, checks):
         toks = db.samples(scene)
         ts = np.array([db._t["sample"][tk]["timestamp"] / 1e6 for tk in toks])
         pos = np.array([db._global_to_ego(tk)[1] for tk in toks])
-        assert len(c) == len(m) == len(toks)
+        gate(len(c) == len(m) == len(toks), f"{name}: speed arrays and keyframes disagree in length")
         for i in range(len(toks)):
             rows.append({"seq": name, "frame": i, "v_ego_centred": float(m[i]), "v_ego_causal": float(c[i]),
                          "first_frame": int(i == 0), "window_s": float(ts[i] - ts[max(i - 1, 0)])})
@@ -58,7 +59,8 @@ def build(db, scenes, checks):
         for i in range(1, len(toks)):
             back = np.linalg.norm(pos[i] - pos[i - 1]) / (ts[i] - ts[i - 1])
             if abs(back - c[i]) < 1e-9:
-                assert ts[i] - ts[i - 1] <= 2 * WINDOW_S
+                gate(ts[i] - ts[i - 1] <= 2 * WINDOW_S,
+                     f"B1 {name} frame {i}: the window reached past a {ts[i] - ts[i - 1]:.3f}s gap")
             else:
                 longer += 1
             fwd += int(abs(c[i] - m[i]) < 1e-12)

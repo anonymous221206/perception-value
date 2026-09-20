@@ -83,6 +83,10 @@ wherever the label is unchanged, as its pre-registration requires; its two outpu
 on the reference platform, two of them with BLAS and OpenMP pinned to 1 and to 4 threads. It has not been run on a
 second platform. `docs/iclr_target_swap.md` names the one quoted figure that another platform could move.
 
+**Run the stages with a plain interpreter, not `python -O`.** Some invariants inside the stages are `assert`
+statements, which `-O` removes; the pre-registered gates (C1-C4 of the class-error fix, B1-B4 of the ego speed, L1
+and the sanity gate of the lift offset) raise explicitly and are unaffected either way.
+
 `python -m pytest tests` runs the unit tests. Tests that need KITTI files are skipped when the dataset is absent;
 tests that need PyTorch or OpenCV are skipped in this CPU environment.
 

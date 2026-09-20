@@ -28,6 +28,7 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+from rap import runs as rap_runs                                                 # noqa: E402
 from rap import budget, features as F, geometry as G, predict, runmeta         # noqa: E402
 from rap.cache import DetCache                                                  # noqa: E402
 from rap.paths import CACHE, RESULTS                                            # noqa: E402
@@ -111,8 +112,7 @@ def main():
           f"(leakage guard passed)")
 
     tm = pd.read_csv(Path(CACHE) / "nusc_token_map.csv")
-    cm = sorted(glob.glob(str(ROOT / "results/raw/*core_matrix_postreview")))
-    cm = Path(cm[-1]) if cm else ROOT / "results/raw/20260912_071140_core_matrix"
+    cm = rap_runs.core_matrix("postreview")      # the corrected tables when there are some; see rap.runs
     print(f"  decision tables from {cm.name}")
 
     rows = []

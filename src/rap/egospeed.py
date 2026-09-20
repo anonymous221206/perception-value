@@ -39,11 +39,23 @@ def table() -> pd.DataFrame:
     return _TABLE
 
 
-def attach(d: pd.DataFrame, dataset: str, col: str = COL) -> pd.DataFrame:
-    """Add the causal ego speed of every row. On tracks that are already causal it is the shipped `v_ego`."""
+MODES = ("causal", "centred", "causal_drop_first")
+
+
+def attach(d: pd.DataFrame, dataset: str, col: str = COL, mode: str | None = None) -> pd.DataFrame:
+    """Add the causal ego speed of every row. On tracks that are already causal it is the shipped `v_ego`.
+
+    `mode` defaults to the module setting, which a stage sets once through `configure`. It is a module-level
+    setting because the cell builders of `92_benchmark_table.py` are imported and reused by four other stages;
+    passing it explicitly is always allowed, and an unknown value is refused rather than silently treated as
+    causal.
+    """
+    mode = MODE if mode is None else mode
+    if mode not in MODES:
+        raise ValueError(f"unknown ego-speed mode {mode!r}; expected one of {MODES}")
     if col in d.columns:
         return d
-    if dataset != "nuScenes" or MODE == "centred":
+    if dataset != "nuScenes" or mode == "centred":
         d[col] = d["v_ego"].to_numpy(float)
         return d
     k = d[["seq", "frame"]].astype({"seq": str, "frame": int}).reset_index(drop=True)
@@ -51,7 +63,7 @@ def attach(d: pd.DataFrame, dataset: str, col: str = COL) -> pd.DataFrame:
                 validate="one_to_one")
     assert m[COL].notna().all(), f"the causal ego-speed table misses {int(m[COL].isna().sum())} frames"
     v = m[COL].to_numpy(float)
-    if MODE == "causal_drop_first":
+    if mode == "causal_drop_first":
         # the sensitivity the pre-registration promised: a scene's first frame carries no measured speed, so
         # instead of the defined 0 it is put out of reach of any quota
         v = np.where(m.first_frame.to_numpy(int) == 1, -np.inf, v)
@@ -65,11 +77,13 @@ def add_argument(ap):
     `centred` reproduces the pre-fix signal and is the sanity gate; `causal_drop_first` is the sensitivity to the
     rule for a scene's first frame, which it puts out of reach instead of giving it a speed of 0.
     """
-    ap.add_argument("--ego_speed", choices=["causal", "centred", "causal_drop_first"], default="causal",
+    ap.add_argument("--ego_speed", choices=list(MODES), default="causal",
                     help="which ego speed the signals read; 'centred' reproduces the pre-Task-22B values")
 
 
 def configure(args):
     global MODE
+    if args.ego_speed not in MODES:
+        raise ValueError(f"unknown ego-speed mode {args.ego_speed!r}")
     MODE = args.ego_speed
     print(f"  ego-speed signal: {MODE}", flush=True)

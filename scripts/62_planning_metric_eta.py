@@ -24,6 +24,7 @@ sys.path.insert(0, str(ROOT / "src"))
 from rap.paths import DATASETS as _DS, MODELS as _MD                      # noqa: E402
 sys.path.insert(0, str(ROOT / "scripts"))
 
+from rap import runs as rap_runs                                                 # noqa: E402
 from rap import budget, percep_metrics as PM, predict, runmeta                  # noqa: E402
 from rap.paths import CACHE, RESULTS                                            # noqa: E402
 
@@ -207,8 +208,9 @@ def token_map(seqs, dataroot, version) -> pd.DataFrame:
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--tables", default=str(ROOT / "results/raw/20260912_071140_core_matrix"),
-                    help="core_matrix run holding the pickled nuScenes decision tables")
+    ap.add_argument("--tables", default=None,
+                    help="core_matrix run holding the pickled nuScenes decision tables "
+                         "(default: rap.runs.core_matrix, the corrected copy where there is one)")
     ap.add_argument("--subs", default=str(CACHE / "nusc_submissions"))
     ap.add_argument("--variant", default="oracle", help="submission geometry variant")
     ap.add_argument("--dataroot", default=str(_DS / "nuscenes/trainval"))
@@ -227,6 +229,7 @@ def main():
     ap.add_argument("--coverage", default="per_metric", choices=["per_metric", "intersect"],
                     help="evaluate on each metric's own frames, or only where all overlap")
     args = ap.parse_args()
+    args.tables = args.tables or str(rap_runs.core_matrix("plain"))
     run = runmeta.new_run(args.tag, vars(args))
     subs = Path(args.subs)
     rng = np.random.default_rng(0)

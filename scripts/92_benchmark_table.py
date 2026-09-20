@@ -30,6 +30,7 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+from rap import runs as rap_runs                                                 # noqa: E402
 from rap import egospeed, predict, runmeta                                      # noqa: E402
 from rap.paths import CACHE, RESULTS                                            # noqa: E402
 from rap.risk import RiskConfig                                                 # noqa: E402
@@ -47,11 +48,10 @@ g84 = _load("gate84", "84_deployable_gate.py")
 x83 = _load("ext83", "83_external_transfer.py")
 
 RAW = ROOT / "results" / "raw"
-# The nuScenes tables in these runs carry the corrected coarse class labels (see CLASS_ERROR_FIX.md in each run
-# directory and docs/iclr_class_error_fix.md); everything else in them is as first written.
-NUSC_JOINED = {"oracle": RAW / "20260913_211441_phase0g_eta_fde_oracle" / "joined_frames.pkl",
-               "mono": RAW / "20260913_214436_phase0g_eta_fde_mono" / "joined_frames.pkl"}
-CORE = RAW / "20260913_133004_core_matrix_postreview"
+# Resolved, not hard-coded (rap.runs). The nuScenes tables in the runs it picks carry the corrected coarse class
+# labels; see CLASS_ERROR_FIX.md in each run directory and docs/iclr_class_error_fix.md.
+NUSC_JOINED = {geom: rap_runs.latest(f"phase0g_eta_fde_{geom}") / "joined_frames.pkl" for geom in ("oracle", "mono")}
+CORE = rap_runs.core_matrix("postreview")
 PLANB = RAW / "20260912_111225_planner_b_static_fixed"
 NUPLAN_SIGNALS = Path(RESULTS) / "final" / "benchmark_nuplan_signals.csv"
 QUOTAS = (0.10, 0.20, 0.30, 0.50)

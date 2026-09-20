@@ -33,6 +33,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 from rap.paths import DATASETS as _DS, MODELS as _MD                      # noqa: E402
 sys.path.insert(0, str(ROOT / "scripts"))
+from rap import runs as rap_runs                                                 # noqa: E402
 from rap import percep_metrics as PM, runmeta                                   # noqa: E402
 from rap.cache import DetCache                                                  # noqa: E402
 from rap.paths import CACHE, RESULTS                                            # noqa: E402
@@ -40,7 +41,7 @@ from rap.risk import RiskConfig                                                 
 from rap.tables import match_detection_counts                                   # noqa: E402
 
 RAW = ROOT / "results" / "raw"
-CORE = RAW / "20260913_133004_core_matrix_postreview"
+CORE = rap_runs.core_matrix("postreview")      # the corrected tables when there are some; see rap.runs
 PLANB = RAW / "20260912_111225_planner_b_static_fixed"
 NUSC_ROOT, NUSC_VER = str(_DS / "nuscenes/trainval"), "v1.0-trainval"
 GRID05 = [round(0.10 + 0.05 * i, 2) for i in range(13)]

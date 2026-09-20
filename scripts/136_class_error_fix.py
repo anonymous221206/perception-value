@@ -45,6 +45,12 @@ E_CHANGED = ("E3_class_aware", "E5_combined", "E5_fp_heavy", "E5_loc_heavy")
 E_UNCHANGED = ("E1_fn_only", "E2_fn_fp", "E4_localization", "E6_risk_weighted")
 
 
+def gate(ok, message: str) -> None:
+    """A pre-registered check that must stop the run. `assert` would vanish under `python -O`."""
+    if not ok:
+        raise RuntimeError(message)
+
+
 def frame_primitives(adapter, seqs, mode, threshold, cfg):
     """Every per-frame primitive of one nuScenes mode at one threshold, under the corrected class labels."""
     rows = []
@@ -82,9 +88,10 @@ class Recompute:
     def check_unchanged(self, where, mode, threshold, stored: pd.DataFrame, tag: str):
         """C1: every primitive except `cls` must match what the shipped table stores."""
         got = self.get(mode, threshold)
-        assert len(got) == len(stored), (where, len(got), len(stored))
-        assert np.array_equal(got["seq"].astype(str).to_numpy(), stored["seq"].astype(str).to_numpy()) and \
-            np.array_equal(got["frame"].to_numpy(int), stored["frame"].to_numpy(int)), f"frame order differs: {where}"
+        gate(len(got) == len(stored), f"{where}: {len(got)} recomputed rows against {len(stored)} stored")
+        gate(np.array_equal(got["seq"].astype(str).to_numpy(), stored["seq"].astype(str).to_numpy())
+             and np.array_equal(got["frame"].to_numpy(int), stored["frame"].to_numpy(int)),
+             f"frame order differs: {where}")
         bad = {}
         for k in UNCHANGED:
             col = f"{tag}_{k}"
@@ -142,9 +149,9 @@ def patch_core_matrix(rec: Recompute, run_in: Path, run_out: Path, summary: list
         d = pd.read_pickle(f)
         old = d.copy()
         for tag, mode in MODES.items():
-            assert rec.check_unchanged(f"{run_in.name}/{geom}", mode, 0.25, d, tag), "C1 failed"
+            gate(rec.check_unchanged(f"{run_in.name}/{geom}", mode, 0.25, d, tag), "C1 failed")
             d[f"{tag}_cls"] = rec.get(mode, 0.25)["cls"].to_numpy(float)
-        assert check_arithmetic(f"{run_in.name}/{geom}", old, rec.checks), "C2 failed"
+        gate(check_arithmetic(f"{run_in.name}/{geom}", old, rec.checks), "C2 failed")
         for col, v in recombine_gains(d).items():
             if col in d.columns:
                 d[col] = v
@@ -169,7 +176,7 @@ def patch_outcomes(rec: Recompute, run_in: Path, run_out: Path, summary: list):
         d = pd.DataFrame({k: v for k, v in z.items()})
         changed = {}
         for tag, threshold in (("cheap", t_cheap), ("full", t_full)):
-            assert rec.check_unchanged(f"{f.name}", MODES[tag], threshold, d, tag), "C1 failed"
+            gate(rec.check_unchanged(f"{f.name}", MODES[tag], threshold, d, tag), "C1 failed")
             new = rec.get(MODES[tag], threshold)["cls"].to_numpy(float)
             old = z[f"{tag}_cls"].astype(float)
             changed[f"{tag}_cls"] = int((old != new).sum())

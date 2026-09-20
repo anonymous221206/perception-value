@@ -26,6 +26,7 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+from rap import runs as rap_runs                                                 # noqa: E402
 from rap import predict, runmeta                                                # noqa: E402
 from rap.paths import CACHE, RESULTS                                            # noqa: E402
 from rap.risk import RiskConfig                                                 # noqa: E402
@@ -120,8 +121,7 @@ def main():
     feats = g84.build_features(Path(args.det), args.mode, RiskConfig())
     fcols = feature_columns(feats)                      # assert_no_leakage runs here
     tm = pd.read_csv(Path(CACHE) / "nusc_token_map.csv")
-    cm = sorted(glob.glob(str(ROOT / "results/raw/*core_matrix_postreview")))
-    cm = Path(cm[-1]) if cm else ROOT / "results/raw/20260912_071140_core_matrix"
+    cm = rap_runs.core_matrix("postreview")      # the corrected tables when there are some; see rap.runs
     ref = pd.read_csv(Path(RESULTS) / "final" / "phase0g_deployable_gate.csv")
     print(f"  {len(feats)} frames, {len(fcols)} cheap-side features; decision tables {cm.name}")
 

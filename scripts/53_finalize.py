@@ -15,6 +15,7 @@ import pandas as pd
 from scipy import stats
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+from rap import runs as rap_runs                                                 # noqa: E402
 from rap import budget, egospeed, runmeta, viz  # noqa: E402
 from rap.paths import RAW, RESULTS              # noqa: E402
 
@@ -59,6 +60,9 @@ def holm(pvals):
 
 
 def latest(tag):
+    """The core matrix is resolved through rap.runs, which prefers a corrected copy; other tags glob as before."""
+    if tag == "core_matrix":
+        return rap_runs.core_matrix("plain")
     d = sorted(glob.glob(str(RAW / f"*_{tag}")))
     return Path(d[-1]) if d else None
 
@@ -124,6 +128,9 @@ def main():
     ap.add_argument("--policies", nargs="+", default=None, help="with --tests_only: recompute only these policies")
     ap.add_argument("--run_copy_only", action="store_true",
                     help="with --tests_only: write the run copy and leave results/final alone")
+    ap.add_argument("--write_core_matrix", action="store_true",
+                    help="also rewrite results/final/core_matrix.csv with the Jetson cost columns. Off by "
+                         "default: 52_core_matrix.py owns that file, and this stage would change its schema")
     egospeed.add_argument(ap)
     args = ap.parse_args()
     egospeed.configure(args)
@@ -157,7 +164,11 @@ def main():
     cm["full_mj"] = cm.full_mode.map(lambda m: cost(m, "energy_gpu_mj_per_frame"))
     cm["compute_ratio"] = cm.full_gpu_ms / cm.cheap_gpu_ms
     cm["energy_ratio"] = cm.full_mj / cm.cheap_mj
-    cm.to_csv(OUT / "core_matrix.csv", index=False)
+    cm.to_csv(run / "core_matrix_with_costs.csv", index=False)
+    if args.write_core_matrix:
+        cm.to_csv(OUT / "core_matrix.csv", index=False)
+    else:
+        print("core_matrix.csv left alone (52_core_matrix.py owns it); the cost columns are in the run directory")
 
     # ---------------- headline table ----------------
     head = cm[["dataset", "detector", "cheap_mode", "full_mode", "task", "geometry",
