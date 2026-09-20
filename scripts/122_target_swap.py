@@ -157,6 +157,15 @@ def flag_budget(df, ov):
     return mark_infeasible(df, applies, c0 + BUDGET_LEVEL * c1, c0, o, BUDGET_UNIT, nan_cols=BUDGET_ACHIEVED)
 
 
+def load_saved_gscores(run: Path) -> dict:
+    """The G-target scores of an earlier run, keyed by cell, with the labels they were fit on."""
+    out = {}
+    for f in sorted(run.glob("gscores__*.npz")):
+        _, track, geom, system, target = f.stem.split("__")
+        out[(track, "n/a" if geom == "na" else geom, system, target)] = dict(np.load(f, allow_pickle=False))
+    return out
+
+
 def official_tables():
     def rd(name, real_nuplan):
         x = pd.read_csv(FINAL / name)
@@ -188,6 +197,8 @@ def ci(x):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--nboot", type=int, default=1000)
+    ap.add_argument("--reuse_gscores", default=None,
+                    help="an earlier run of this script: reuse its G-target scores wherever the label is unchanged")
     args = ap.parse_args()
     for tag, run_dir in (("routers_r1", R1_RUN), ("nuplan_real_allocation", NR_RUN)):
         assert sorted(RAW.glob(f"*_{tag}"))[-1] == run_dir, f"{run_dir.name} is not the latest official {tag} run"
@@ -256,17 +267,27 @@ def main():
         sys.exit(3)
 
     # ---- stage 2: G-target models
+    saved = load_saved_gscores(Path(args.reuse_gscores)) if args.reuse_gscores else {}
+    reused = []
     for c in cells:
         t0 = time.time()
         c["gscores"] = {}
         for gv in G_VARIANTS:
             g = c["G"][gv]
+            have = saved.get((c["track"], c["geometry"], c["system"], c["target"]))
+            if have is not None and np.array_equal(have[f"G_{gv}"], g) and np.array_equal(have["V"], c["v_all"]):
+                # the label is unchanged, so refitting would reproduce the saved scores: reuse them (Task 22 Part A)
+                c["gscores"][gv] = {a: np.asarray(have[f"{gv}__{a}"], float) for a in ARCH}
+                reused.append(f"{c['track']}|{c['geometry']}|{c['system']}|{c['target']}|{gv}")
+                continue
             c["gscores"][gv] = {**t92.gate_predictions(c["d"], c["fcols"], g), **t103.fit_score(c["X"], g, c["fit"])}
         np.savez_compressed(run / f"gscores__{c['track']}__{c['geometry'].replace('/', '')}__{c['system']}__{c['target']}.npz",
                             unit=c["d"].unit.astype(str).to_numpy().astype("U40"), split=c["d"].split.to_numpy().astype("U8"),
                             V=c["v_all"], **{f"G_{gv}": c["G"][gv] for gv in G_VARIANTS},
                             **{f"{gv}__{a}": s for gv in G_VARIANTS for a, s in c["gscores"][gv].items()})
         print(f"  G-target fits {c['track']:8s} {c['geometry']:6s} {c['system']:10s} {c['target']:8s} [{time.time() - t0:.0f}s]", flush=True)
+    summary["reused_gscores"] = sorted(reused)
+    print(f"  reused saved G-target scores for {len(reused)} of {len(cells) * len(G_VARIANTS)} cell x label pairs", flush=True)
 
     # ---- stage 3: joint bootstrap
     names = [("V", a) for a in ARCH] + [(gv, a) for gv in G_VARIANTS for a in ARCH]

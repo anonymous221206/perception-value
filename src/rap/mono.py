@@ -113,9 +113,38 @@ def box_iou(a: np.ndarray, b: np.ndarray) -> np.ndarray:
     return np.where(union > 0, inter / np.maximum(union, 1e-9), 0.0)
 
 
+# The lift measures range along the camera optical axis and lateral extent about the camera axis, and the planners
+# read those as ego-frame quantities.  The camera is not at the ego origin (KITTI's cam2 is ~1.1 m forward and
+# ~0.32 m right of the IMU origin; nuScenes's CAM_FRONT is 1.70 m forward).  `cam_offset` applies that translation.
+# It is off by default: every shipped result uses the camera frame, and Task 22 Part C measures the sensitivity.
+GEOM_SHIFT_Z = ("z", "z_ground", "z_height")
+GEOM_SHIFT_LAT = ("lat_min", "lat_max")
+
+
+def apply_cam_offset(geo: dict, cam_offset) -> dict:
+    """The camera-to-ego translation applied to an already-lifted geometry.
+
+    Exact: the fused range is a convex combination whose weight depends on `y2 - c_y` only, so shifting after the
+    fusion equals shifting each cue before it, and the lateral extent is computed from the camera-frame depth, so
+    the translation reaches it only through `t_y`.  `140_lift_offset_outcomes.py` checks this against the lift.
+    """
+    tx, ty = float(cam_offset[0]), float(cam_offset[1])
+    out = dict(geo)
+    for k in GEOM_SHIFT_Z:
+        if k in out:
+            out[k] = out[k] + tx
+    for k in GEOM_SHIFT_LAT:
+        if k in out:
+            out[k] = out[k] + ty
+    return out
+
+
 def predicted_geometry(det: dict, prev_det: dict | None, calib: Calib,
-                       cam_h: float = CAMERA_HEIGHT, dt: float = FRAME_DT) -> dict:
-    """Per-detection estimated ego geometry: range, lateral extent, TTC."""
+                       cam_h: float = CAMERA_HEIGHT, dt: float = FRAME_DT, cam_offset=None) -> dict:
+    """Per-detection estimated ego geometry: range, lateral extent, TTC.
+
+    `cam_offset=(t_x, t_y)` moves the result from the camera frame to the ego frame (default: off, see above).
+    """
     xyxy = det["xyxy"].astype(np.float64)
     n = len(xyxy)
     if n == 0:
@@ -130,5 +159,6 @@ def predicted_geometry(det: dict, prev_det: dict | None, calib: Calib,
     prev_h = (associate_prev(xyxy, prev_det["xyxy"].astype(np.float64))
               if prev_det is not None else np.full(n, np.nan))
     ttc = ttc_from_scale(y2 - y1, prev_h, dt)
-    return {"z": z, "z_ground": np.clip(zg, 0.5, 200.0), "z_height": np.clip(zh, 0.5, 200.0),
-            "lat_min": lat_min, "lat_max": lat_max, "ttc": ttc, "box_h": y2 - y1}
+    g = {"z": z, "z_ground": np.clip(zg, 0.5, 200.0), "z_height": np.clip(zh, 0.5, 200.0),
+         "lat_min": lat_min, "lat_max": lat_max, "ttc": ttc, "box_h": y2 - y1}
+    return g if cam_offset is None else apply_cam_offset(g, cam_offset)

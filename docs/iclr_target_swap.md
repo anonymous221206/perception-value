@@ -8,8 +8,7 @@
   training units.
 
 **Provenance.**
-* Pre-registration: the pre-registration record (not part of this release), Task 9, committed before
-  any G-target model was trained.
+* Pre-registration: the pre-registration record (not part of this release), Task 9 (commit `33f96a4`), committed before any G-target model was trained.
 * Code: `scripts/122_target_swap.py`; the audit in section 9 is `scripts/129_target_swap_audit.py`.
 * Outputs: `results/final/benchmark_target_swap.csv` (1,106 rows) and `benchmark_target_swap_summary.json`.
 * No official result file was changed.
@@ -58,21 +57,25 @@ paired difference Δ = nDG(V-target) − nDG(G-target).
 
 | architecture | mean Δ | 95% CI | cells with V > G | cells where V wins significantly | cells where G wins significantly |
 |---|---|---|---|---|---|
-| gate_ridge | +0.118 | [−0.080, +0.275] | 9/12 | 2 | 0 |
-| gate_gbm | +0.106 | [−0.058, +0.217] | 7/12 | 3 | 0 |
-| R1_mlp_reg | +0.040 | [−0.083, +0.141] | 6/12 | 0 | 0 |
-| R1_mlp_clf | +0.117 | [−0.037, +0.197] | 9/12 | 2 | 0 |
-| R1_gbm_reg | −0.069 | [−0.186, +0.131] | 6/12 | 0 | 2 |
-| R1_gbm_clf | +0.013 | [−0.070, +0.164] | 7/12 | 1 | 2 |
+| gate_ridge | +0.123 | [−0.093, +0.271] | 8/12 | 2 | 0 |
+| gate_gbm | +0.085 | [−0.090, +0.213] | 7/12 | 3 | 0 |
+| R1_mlp_reg | +0.024 | [−0.090, +0.132] | 5/12 | 0 | 0 |
+| R1_mlp_clf | +0.142 | [−0.023, +0.235] | 10/12 | 2 | 0 |
+| R1_gbm_reg | −0.090 | [−0.197, +0.085] | 5/12 | 0 | 3 |
+| R1_gbm_clf | −0.014 | [−0.098, +0.126] | 7/12 | 1 | 2 |
+
+*(Recomputed on 2026-09-20 after the nuScenes class-error fix, which changes the primary G label on the six
+nuScenes cells and nothing else; the two secondary labels are unchanged to the last digit. Old values and the
+full OLD → NEW table: `docs/iclr_class_error_fix.md`.)*
 
 **Why this reading.**
 * Every pooled CI includes 0, which is the registered condition for "architecture-driven".
 * Both secondary G variants give the same reading. Their means lie between −0.057 and +0.157, and every CI includes 0.
 
 **What the point estimates say.**
-* Five of six architectures lean towards the V-target: both gates and R1_mlp_clf by about 0.12, R1_mlp_reg by 0.04
-  and R1_gbm_clf by 0.01.
-* Only R1_gbm_reg leans towards the G-target, by 0.07.
+* Four of six architectures lean towards the V-target: R1_mlp_clf by 0.14, gate_ridge by 0.12, gate_gbm by 0.09 and
+  R1_mlp_reg by 0.02.
+* Two lean towards the G-target: R1_gbm_reg by 0.09 and R1_gbm_clf by 0.01.
 * None of these leans is significant.
 
 **Reproducibility of these figures.** The G-target models are refit inside the stage. Four runs on the reference
@@ -243,25 +246,27 @@ Requested after the results were read. Code: `scripts/129_target_swap_audit.py`;
 
 | check | result |
 |---|---|
-| G-target code path with V as label | reproduces the official V-target scores in all 84 architecture × cell rows: bit-identical in 83 (82 in a second audit run), the rest within 1.1e-16, and nDG identical in all 84 (`A1_eta20_max_abs_diff` = 0). The G models differ from the official ones in the label alone |
+| G-target code path with V as label | reproduces the official V-target scores in all 84 architecture × cell rows: bit-identical in 82 of 84 (83 in the first audit run), the rest within 1.1e-16, and nDG identical in all 84 (`A1_eta20_max_abs_diff` = 0). The G models differ from the official ones in the label alone |
 | degenerate G-target scores | none constant; no tie share above 0.5 at the 20% cut; all 252 recomputed nDG values equal 122's |
 | per-cell bootstrap | CI width against the official per-cell CIs: median ratio 1.00 (0.58–1.09); 13 vs 12 rows beat random at 20% |
 | pooled bootstrap | re-run with the same seed reproduces the pooled CIs exactly |
-| G labels | equal the official `dE_*` diagnostic columns. On nuScenes, `dE_exact` is positive on average (+0.85), so the sign is right; `dE_E5_combined` is negative on 49% of frames, because at 640 nuScenes carries more FP and localisation error |
+| G labels | equal the official `dE_*` diagnostic columns. On nuScenes, `dE_exact` is positive on average (+0.85), so the sign is right; `dE_E5_combined` is now positive on average too (+0.11 braking, +0.13 planner) and negative on 43% of frames, against −0.07/−0.09 and 49% before the class-error fix |
 
 **Why the result is null** (exploratory, not the registered test):
 * **G says little about V.** Spearman(G, V) on the fitting units is at most 0.22. Ranked against V at 20%, the G label
-  itself reaches −0.08 to 0.19 on nuScenes, 0.16–0.66 on KITTI and 0.30 on PDM-Closed.
+  itself reaches −0.03 to 0.28 on nuScenes, 0.16–0.66 on KITTI and 0.30 on PDM-Closed.
 * **The official V-target allocators beat random in only 12 of 78 rows at 20%**, none on nuScenes. There is little
   V-target advantage to lose.
-* **On the 10 core cells the target makes no difference to the gates:** mean Δ +0.0002 and +0.0136
+* **On the 10 core cells the target makes no difference to the gates:** mean Δ +0.007 and −0.011
   (`A5.exploratory.<arch>.core10_point` in the audit record, equal to the mean of `diff` over those cells in the table). The R1 classifiers
-  lean towards V by +0.12 (mlp_clf) and +0.10 (gbm_clf), and every CI includes 0.
+  lean towards V by +0.15 (mlp_clf) and +0.06 (gbm_clf), and every CI includes 0.
 * **The two PDM-Closed cells carry the pooled signal in both directions:** gates +0.70 and +0.57, GBM routers −0.63
   and −0.41, all significant. They are dropped from 319 draws, and the pooled mean then averages 10 instead of 12
   cells.
-* **Restricting to the 618 draws with all 12 cells present puts both gate CIs above 0.** That subset is conditional
-  on resampling PDM-Closed's dominant log, so it is not an unbiased interval and does not change the reading.
+* **Restricting to the 618 draws with all 12 cells present does not change the reading either:** gate_ridge
+  [−0.009, +0.294] and gate_gbm [−0.006, +0.231], both still containing 0. (Before the class-error fix both of these
+  subset intervals lay just above 0; that was the one place where the null was marginal, and it no longer is.) The
+  subset is in any case conditional on resampling PDM-Closed's dominant log, so it is not an unbiased interval.
 
 **Two registered design choices a reader may question:**
 1. **Units are resampled once per dataset and shared by that dataset's cells.** Independent per-cell resampling

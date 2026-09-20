@@ -1,0 +1,105 @@
+group,figure,cell,statistic,old,new,delta
+"1 held-out nDG@20%, ego speed",C15 statistics hardening,nuScenes oracle brake,nDG@20% of ego speed,0.0816202958107923,0.0518274222297834,-0.029792873581008905
+"1 held-out nDG@20%, ego speed",C15 statistics hardening,nuScenes oracle brake,nDG@20% of random,0.08261244085000886,0.08261244085000886,0.0
+"1 held-out nDG@20%, ego speed",C15 statistics hardening,nuScenes oracle brake,ego speed above random,False,False,
+"1 held-out nDG@20%, ego speed",C15 statistics hardening,nuScenes mono brake,nDG@20% of ego speed,0.0263866757142319,-0.0031189424896909,-0.0295056182039228
+"1 held-out nDG@20%, ego speed",C15 statistics hardening,nuScenes mono brake,nDG@20% of random,0.07066353527529641,0.07066353527529641,0.0
+"1 held-out nDG@20%, ego speed",C15 statistics hardening,nuScenes mono brake,ego speed above random,False,False,
+"1 held-out nDG@20%, ego speed",C15 statistics hardening,nuScenes oracle plan_ade,nDG@20% of ego speed,-0.0232005866033221,-0.01843725901409,0.004763327589232098
+"1 held-out nDG@20%, ego speed",C15 statistics hardening,nuScenes oracle plan_ade,nDG@20% of random,0.017227636377870635,0.017227636377870635,0.0
+"1 held-out nDG@20%, ego speed",C15 statistics hardening,nuScenes oracle plan_ade,ego speed above random,False,False,
+"1 held-out nDG@20%, ego speed",C15 statistics hardening,nuScenes mono plan_ade,nDG@20% of ego speed,-0.0120162476818635,-0.0031343782526303,0.0088818694292332
+"1 held-out nDG@20%, ego speed",C15 statistics hardening,nuScenes mono plan_ade,nDG@20% of random,0.09257932507570367,0.09257932507570367,0.0
+"1 held-out nDG@20%, ego speed",C15 statistics hardening,nuScenes mono plan_ade,ego speed above random,False,False,
+"1 held-out nDG@20%, ego speed",C15 statistics hardening,nuScenes oracle plan_fde,nDG@20% of ego speed,0.0443934602117986,0.037671114291312,-0.006722345920486601
+"1 held-out nDG@20%, ego speed",C15 statistics hardening,nuScenes oracle plan_fde,nDG@20% of random,0.05467464560519161,0.05467464560519161,0.0
+"1 held-out nDG@20%, ego speed",C15 statistics hardening,nuScenes oracle plan_fde,ego speed above random,False,False,
+"1 held-out nDG@20%, ego speed",C15 statistics hardening,nuScenes mono plan_fde,nDG@20% of ego speed,-0.0142379103479729,0.0056835479831381,0.019921458331111
+"1 held-out nDG@20%, ego speed",C15 statistics hardening,nuScenes mono plan_fde,nDG@20% of random,0.06947426865276217,0.06947426865276217,0.0
+"1 held-out nDG@20%, ego speed",C15 statistics hardening,nuScenes mono plan_fde,ego speed above random,False,False,
+"2 realised gain vs random, every draw kept",C15 statistics hardening,all tracks,rows where ego speed beats random,3,3,0.0
+"2 realised gain vs random, every draw kept",C15 statistics hardening,all tracks,which rows,KITTI oracle traj @30%; KITTI oracle traj @50%; nuPlan nan pdm_closed @50%,KITTI oracle traj @30%; KITTI oracle traj @50%; nuPlan nan pdm_closed @50%,
+"2 realised gain vs random, every draw kept",C15 statistics hardening,all tracks,rows won at the 10% quota,0,0,0.0
+"2 realised gain vs random, every draw kept",C15 statistics hardening,all tracks,rows won at the 20% quota,0,0,0.0
+"2 realised gain vs random, every draw kept",C15 statistics hardening,all tracks,rows won at the 30% quota,1,1,0.0
+"2 realised gain vs random, every draw kept",C15 statistics hardening,all tracks,rows won at the 50% quota,2,2,0.0
+3 objective swap (C17) headline,13 defined cells x 4 budgets,E_perc_dE,comparisons,52,52,0.0
+3 objective swap (C17) headline,13 defined cells x 4 budgets,E_perc_dE,argmax differs,42,42,0.0
+3 objective swap (C17) headline,13 defined cells x 4 budgets,E_perc_dE,"Kendall tau between the rankings, median",0.17142857142857135,0.17142857142857135,0.0
+3 objective swap (C17) headline,13 defined cells x 4 budgets,E_perc_dE,"selection regret, median nDG",-0.1042835104947208,-0.1035537222701499,0.0007297882245708986
+3 objective swap (C17) headline,13 defined cells x 4 budgets,E_perc_dE,"selection regret, median share of the all-cheap loss",-0.00799740995360605,-0.00799740995360605,0.0
+3 objective swap (C17) headline,13 defined cells x 4 budgets,E_perc_dE,the E_perc winner is worse than random on decision value,16,16,0.0
+3 objective swap (C17) headline,13 defined cells x 4 budgets,E_perc_dE,regret intervals excluding zero,4,4,0.0
+3 objective swap (C17) headline,13 defined cells x 4 budgets,E_perc_risk,comparisons,52,52,0.0
+3 objective swap (C17) headline,13 defined cells x 4 budgets,E_perc_risk,argmax differs,40,40,0.0
+3 objective swap (C17) headline,13 defined cells x 4 budgets,E_perc_risk,"Kendall tau between the rankings, median",0.0,0.01428571428571425,0.01428571428571425
+3 objective swap (C17) headline,13 defined cells x 4 budgets,E_perc_risk,"selection regret, median nDG",-0.12192025369966045,-0.12192025369966045,0.0
+3 objective swap (C17) headline,13 defined cells x 4 budgets,E_perc_risk,"selection regret, median share of the all-cheap loss",-0.0070304542601298,-0.0070304542601298,0.0
+3 objective swap (C17) headline,13 defined cells x 4 budgets,E_perc_risk,the E_perc winner is worse than random on decision value,22,22,0.0
+3 objective swap (C17) headline,13 defined cells x 4 budgets,E_perc_risk,regret intervals excluding zero,0,0,0.0
+4 trivial heuristics of the core matrix,core matrix,nuScenes mono longitudinal,best trivial heuristic,speed + detections,speed + detections,
+4 trivial heuristics of the core matrix,core matrix,nuScenes mono longitudinal,its nDG@20%,0.2085917943213454,0.2147199913287642,0.0061281970074188175
+4 trivial heuristics of the core matrix,core matrix,nuScenes mono lateral,best trivial heuristic,n detections,n detections,
+4 trivial heuristics of the core matrix,core matrix,nuScenes mono lateral,its nDG@20%,0.175206863690962,0.175206863690962,0.0
+4 trivial heuristics of the core matrix,core matrix,nuScenes oracle longitudinal,best trivial heuristic,ego speed,ego speed,
+4 trivial heuristics of the core matrix,core matrix,nuScenes oracle longitudinal,its nDG@20%,0.2415787759171464,0.2274879378623428,-0.0140908380548036
+4 trivial heuristics of the core matrix,core matrix,nuScenes oracle lateral,best trivial heuristic,n detections,n detections,
+4 trivial heuristics of the core matrix,core matrix,nuScenes oracle lateral,its nDG@20%,0.493220255178863,0.493220255178863,0.0
+5 per-sequence ego-speed policy,53 statistical tests (run copies only),nuScenes mono longitudinal,median per-sequence nDG,0.0,0.0,0.0
+5 per-sequence ego-speed policy,53 statistical tests (run copies only),nuScenes mono longitudinal,sequences above 0.5,7,7,0.0
+5 per-sequence ego-speed policy,53 statistical tests (run copies only),nuScenes mono longitudinal,Wilcoxon p (oracle > policy),2.400827792707734e-07,2.471540425727618e-07,7.07126330198842e-09
+5 per-sequence ego-speed policy,53 statistical tests (run copies only),nuScenes mono lateral,median per-sequence nDG,0.0,0.0,0.0
+5 per-sequence ego-speed policy,53 statistical tests (run copies only),nuScenes mono lateral,sequences above 0.5,1,1,0.0
+5 per-sequence ego-speed policy,53 statistical tests (run copies only),nuScenes mono lateral,Wilcoxon p (oracle > policy),0.0020587098026626,0.0020587098026626,0.0
+5 per-sequence ego-speed policy,53 statistical tests (run copies only),nuScenes oracle longitudinal,median per-sequence nDG,0.0,0.0,0.0
+5 per-sequence ego-speed policy,53 statistical tests (run copies only),nuScenes oracle longitudinal,sequences above 0.5,4,5,1.0
+5 per-sequence ego-speed policy,53 statistical tests (run copies only),nuScenes oracle longitudinal,Wilcoxon p (oracle > policy),2.0293383626802383e-05,3.481957454318535e-05,1.452619091638297e-05
+5 per-sequence ego-speed policy,53 statistical tests (run copies only),nuScenes oracle lateral,median per-sequence nDG,0.0,0.0,0.0
+5 per-sequence ego-speed policy,53 statistical tests (run copies only),nuScenes oracle lateral,sequences above 0.5,0,0,0.0
+5 per-sequence ego-speed policy,53 statistical tests (run copies only),nuScenes oracle lateral,Wilcoxon p (oracle > policy),0.03125,0.03125,0.0
+"6 sensitivity: a scene's first frame dropped, not zeroed",reported causal -> first frame dropped,nuScenes oracle brake,nDG@20% of ego speed,0.0518274222297834,0.0518274222297834,0.0
+"6 sensitivity: a scene's first frame dropped, not zeroed",reported causal -> first frame dropped,nuScenes oracle brake,nDG@20% of random,0.08261244085000886,0.08261244085000886,0.0
+"6 sensitivity: a scene's first frame dropped, not zeroed",reported causal -> first frame dropped,nuScenes oracle brake,ego speed above random,False,False,
+"6 sensitivity: a scene's first frame dropped, not zeroed",reported causal -> first frame dropped,nuScenes mono brake,nDG@20% of ego speed,-0.0031189424896909,-0.0031189424896909,0.0
+"6 sensitivity: a scene's first frame dropped, not zeroed",reported causal -> first frame dropped,nuScenes mono brake,nDG@20% of random,0.07066353527529641,0.07066353527529641,0.0
+"6 sensitivity: a scene's first frame dropped, not zeroed",reported causal -> first frame dropped,nuScenes mono brake,ego speed above random,False,False,
+"6 sensitivity: a scene's first frame dropped, not zeroed",reported causal -> first frame dropped,nuScenes oracle plan_ade,nDG@20% of ego speed,-0.01843725901409,-0.01843725901409,0.0
+"6 sensitivity: a scene's first frame dropped, not zeroed",reported causal -> first frame dropped,nuScenes oracle plan_ade,nDG@20% of random,0.017227636377870635,0.017227636377870635,0.0
+"6 sensitivity: a scene's first frame dropped, not zeroed",reported causal -> first frame dropped,nuScenes oracle plan_ade,ego speed above random,False,False,
+"6 sensitivity: a scene's first frame dropped, not zeroed",reported causal -> first frame dropped,nuScenes mono plan_ade,nDG@20% of ego speed,-0.0031343782526303,-0.0031343782526303,0.0
+"6 sensitivity: a scene's first frame dropped, not zeroed",reported causal -> first frame dropped,nuScenes mono plan_ade,nDG@20% of random,0.09257932507570367,0.09257932507570367,0.0
+"6 sensitivity: a scene's first frame dropped, not zeroed",reported causal -> first frame dropped,nuScenes mono plan_ade,ego speed above random,False,False,
+"6 sensitivity: a scene's first frame dropped, not zeroed",reported causal -> first frame dropped,nuScenes oracle plan_fde,nDG@20% of ego speed,0.037671114291312,0.037671114291312,0.0
+"6 sensitivity: a scene's first frame dropped, not zeroed",reported causal -> first frame dropped,nuScenes oracle plan_fde,nDG@20% of random,0.05467464560519161,0.05467464560519161,0.0
+"6 sensitivity: a scene's first frame dropped, not zeroed",reported causal -> first frame dropped,nuScenes oracle plan_fde,ego speed above random,False,False,
+"6 sensitivity: a scene's first frame dropped, not zeroed",reported causal -> first frame dropped,nuScenes mono plan_fde,nDG@20% of ego speed,0.0056835479831381,0.0056835479831381,0.0
+"6 sensitivity: a scene's first frame dropped, not zeroed",reported causal -> first frame dropped,nuScenes mono plan_fde,nDG@20% of random,0.06947426865276217,0.06947426865276217,0.0
+"6 sensitivity: a scene's first frame dropped, not zeroed",reported causal -> first frame dropped,nuScenes mono plan_fde,ego speed above random,False,False,
+"6 sensitivity: a scene's first frame dropped, not zeroed",reported causal -> first frame dropped,all tracks,rows where ego speed beats random,3,3,0.0
+"6 sensitivity: a scene's first frame dropped, not zeroed",reported causal -> first frame dropped,all tracks,which rows,KITTI oracle traj @30%; KITTI oracle traj @50%; nuPlan nan pdm_closed @50%,KITTI oracle traj @30%; KITTI oracle traj @50%; nuPlan nan pdm_closed @50%,
+"6 sensitivity: a scene's first frame dropped, not zeroed",reported causal -> first frame dropped,all tracks,rows won at the 10% quota,0,0,0.0
+"6 sensitivity: a scene's first frame dropped, not zeroed",reported causal -> first frame dropped,all tracks,rows won at the 20% quota,0,0,0.0
+"6 sensitivity: a scene's first frame dropped, not zeroed",reported causal -> first frame dropped,all tracks,rows won at the 30% quota,1,1,0.0
+"6 sensitivity: a scene's first frame dropped, not zeroed",reported causal -> first frame dropped,all tracks,rows won at the 50% quota,2,2,0.0
+"6 sensitivity: a scene's first frame dropped, not zeroed",13 defined cells x 4 budgets,E_perc_dE,comparisons,52,52,0.0
+"6 sensitivity: a scene's first frame dropped, not zeroed",13 defined cells x 4 budgets,E_perc_dE,argmax differs,42,42,0.0
+"6 sensitivity: a scene's first frame dropped, not zeroed",13 defined cells x 4 budgets,E_perc_dE,"Kendall tau between the rankings, median",0.17142857142857135,0.17142857142857135,0.0
+"6 sensitivity: a scene's first frame dropped, not zeroed",13 defined cells x 4 budgets,E_perc_dE,"selection regret, median nDG",-0.1035537222701499,-0.1035537222701499,0.0
+"6 sensitivity: a scene's first frame dropped, not zeroed",13 defined cells x 4 budgets,E_perc_dE,"selection regret, median share of the all-cheap loss",-0.00799740995360605,-0.00799740995360605,0.0
+"6 sensitivity: a scene's first frame dropped, not zeroed",13 defined cells x 4 budgets,E_perc_dE,the E_perc winner is worse than random on decision value,16,16,0.0
+"6 sensitivity: a scene's first frame dropped, not zeroed",13 defined cells x 4 budgets,E_perc_dE,regret intervals excluding zero,4,4,0.0
+"6 sensitivity: a scene's first frame dropped, not zeroed",13 defined cells x 4 budgets,E_perc_risk,comparisons,52,52,0.0
+"6 sensitivity: a scene's first frame dropped, not zeroed",13 defined cells x 4 budgets,E_perc_risk,argmax differs,40,40,0.0
+"6 sensitivity: a scene's first frame dropped, not zeroed",13 defined cells x 4 budgets,E_perc_risk,"Kendall tau between the rankings, median",0.01428571428571425,0.01428571428571425,0.0
+"6 sensitivity: a scene's first frame dropped, not zeroed",13 defined cells x 4 budgets,E_perc_risk,"selection regret, median nDG",-0.12192025369966045,-0.12192025369966045,0.0
+"6 sensitivity: a scene's first frame dropped, not zeroed",13 defined cells x 4 budgets,E_perc_risk,"selection regret, median share of the all-cheap loss",-0.0070304542601298,-0.0070304542601298,0.0
+"6 sensitivity: a scene's first frame dropped, not zeroed",13 defined cells x 4 budgets,E_perc_risk,the E_perc winner is worse than random on decision value,22,22,0.0
+"6 sensitivity: a scene's first frame dropped, not zeroed",13 defined cells x 4 budgets,E_perc_risk,regret intervals excluding zero,0,0,0.0
+"6 sensitivity: a scene's first frame dropped, not zeroed",core matrix,nuScenes mono longitudinal,best trivial heuristic,speed + detections,speed + detections,
+"6 sensitivity: a scene's first frame dropped, not zeroed",core matrix,nuScenes mono longitudinal,its nDG@20%,0.2147199913287642,0.2147199913287642,0.0
+"6 sensitivity: a scene's first frame dropped, not zeroed",core matrix,nuScenes mono lateral,best trivial heuristic,n detections,n detections,
+"6 sensitivity: a scene's first frame dropped, not zeroed",core matrix,nuScenes mono lateral,its nDG@20%,0.175206863690962,0.175206863690962,0.0
+"6 sensitivity: a scene's first frame dropped, not zeroed",core matrix,nuScenes oracle longitudinal,best trivial heuristic,ego speed,ego speed,
+"6 sensitivity: a scene's first frame dropped, not zeroed",core matrix,nuScenes oracle longitudinal,its nDG@20%,0.2274879378623428,0.2274879378623428,0.0
+"6 sensitivity: a scene's first frame dropped, not zeroed",core matrix,nuScenes oracle lateral,best trivial heuristic,n detections,n detections,
+"6 sensitivity: a scene's first frame dropped, not zeroed",core matrix,nuScenes oracle lateral,its nDG@20%,0.493220255178863,0.493220255178863,0.0

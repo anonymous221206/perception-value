@@ -23,7 +23,7 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
-from rap import runmeta                                                         # noqa: E402
+from rap import egospeed, runmeta                                               # noqa: E402
 from rap.paths import RESULTS                                                    # noqa: E402
 
 
@@ -55,7 +55,7 @@ R1_RUN = _latest("routers_r1")
 NR_RUN = _latest("nuplan_real_allocation")
 _r2 = sorted(glob.glob(str(RAW / "*_router_r2")))
 R2_RUN = Path(_r2[-1]) if _r2 else None
-TRIVIAL_CORE = {"trivial_ego_speed": "v_ego", "trivial_n_det": "feat_n_det",
+TRIVIAL_CORE = {"trivial_ego_speed": "v_ego_causal", "trivial_n_det": "feat_n_det",
                 "trivial_risk_cheap": "feat_crit_sum", "trivial_area_max": "feat_area_frac_max"}
 TRIVIAL_NUPLAN = {"trivial_ego_speed": "nr_ego_speed", "trivial_n_det": "nr_n_cheap",
                   "trivial_risk_cheap": "nr_crit_cheap_sum"}
@@ -138,7 +138,9 @@ def official_reference():
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--nboot", type=int, default=NBOOT)
+    egospeed.add_argument(ap)
     args = ap.parse_args()
+    egospeed.configure(args)
     run = runmeta.new_run("statistics_hardening", vars(args))
     splits = json.loads((ROOT / "configs" / "benchmark_splits.json").read_text())
     t120.register_features()

@@ -40,7 +40,7 @@ def eta(df, score, col, quota=0.20):
 
 def primitives(det_dir, cheap, full, seqs, cfg, adapter, min_h) -> pd.DataFrame:
     """Per-frame perception-loss primitives for both modes, plus distance-binned recall."""
-    from rap.kitti import TYPE_TO_COARSE
+    from rap.geometry import coarse_classes
     rows = []
     for s in seqs:
         geom = adapter.geometry(s)
@@ -55,7 +55,9 @@ def primitives(det_dir, cheap, full, seqs, cfg, adapter, min_h) -> pd.DataFrame:
             g, cg = g[ok], cg[ok]
             gt = (np.stack([g["x1"], g["y1"], g["x2"], g["y2"]], 1).astype(float)
                   if len(g) else np.zeros((0, 4)))
-            gcls = np.array([TYPE_TO_COARSE.get(t, "vehicle") for t in g["type"]])
+            # the coarse class travels with the geometry: mapping `type` here labelled every nuScenes
+            # object "vehicle" and counted every detected pedestrian or cyclist as a class error
+            gcls = coarse_classes(g)
             rec = {"seq": s, "frame": fr}
             prim = {}
             for tag, cache, idx in (("cheap", c, i), ("full", f, f.index[fr])):

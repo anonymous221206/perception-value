@@ -1,0 +1,5 @@
+check,what,frames_not_using_the_previous_keyframe,frames_equal_to_the_centred_value,ok,frames,first_frames,mean_centred,mean_causal,mean_abs_diff,mean_abs_diff_excluding_first,spearman,frames_differing_by_more_than_0.5_m_s,frames_differing,rows,finite
+B1,causal speed = backward difference over the previous keyframe,0.0,85.0,True,,,,,,,,,,,
+B4,how far the two nuScenes estimates differ,,,True,3376.0,85.0,6.0891604218401785,5.938779914589047,0.2630103957927947,0.1185986663616121,0.9503646746350172,97.0,,,
+B2,KITTI v_ego == OXTS vf of the same frame,,,True,8008.0,,,,,,,,0.0,,
+B3,nuPlan ego_speed is a gate feature read at the current iteration (91_nuplan_cheap_features.py: ego.dynamic_car_state.rear_axle_velocity_2d.x of get_ego_state_at_iteration(it)),,,True,,,,,,,,,,1440.0,1440.0

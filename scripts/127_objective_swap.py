@@ -38,7 +38,7 @@ from scipy.stats import kendalltau
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
-from rap import runmeta                                                          # noqa: E402
+from rap import egospeed, runmeta                                                # noqa: E402
 from rap.paths import RESULTS                                                    # noqa: E402
 
 RAW = ROOT / "results" / "raw"
@@ -119,7 +119,7 @@ def build_cells(splits):
             scores.update({g: gates[g] for g in ("gate_ridge", "gate_gbm")})
             col = c["cols"]
             for s, src in (("uncertainty", col.get("uncertainty")), ("criticality_cheap", col.get("criticality_cheap")),
-                           ("trivial_ego_speed", "v_ego"), ("dE_exact", col.get("dE_exact")),
+                           ("trivial_ego_speed", "v_ego_causal"), ("dE_exact", col.get("dE_exact")),
                            ("dE_E1_fn_only", col.get("dE_E1_fn_only")),
                            ("dE_E6_risk_weighted", col.get("dE_E6_risk_weighted")),
                            ("PKL", col.get("PKL")), ("TIP", col.get("TIP"))):
@@ -162,7 +162,9 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--nboot", type=int, default=1000)
     ap.add_argument("--debug", action="store_true", help="two cells, 50 draws")
+    egospeed.add_argument(ap)
     args = ap.parse_args()
+    egospeed.configure(args)
     run = runmeta.new_run("objective_swap", vars(args))
     splits = json.loads((ROOT / "configs" / "benchmark_splits.json").read_text())
     rng = np.random.default_rng(0)

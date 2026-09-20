@@ -30,7 +30,7 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
-from rap import predict, runmeta                                                # noqa: E402
+from rap import egospeed, predict, runmeta                                      # noqa: E402
 from rap.paths import CACHE, RESULTS                                            # noqa: E402
 from rap.risk import RiskConfig                                                 # noqa: E402
 from rap.tables import feature_columns                                          # noqa: E402
@@ -47,6 +47,8 @@ g84 = _load("gate84", "84_deployable_gate.py")
 x83 = _load("ext83", "83_external_transfer.py")
 
 RAW = ROOT / "results" / "raw"
+# The nuScenes tables in these runs carry the corrected coarse class labels (see CLASS_ERROR_FIX.md in each run
+# directory and docs/iclr_class_error_fix.md); everything else in them is as first written.
 NUSC_JOINED = {"oracle": RAW / "20260913_211441_phase0g_eta_fde_oracle" / "joined_frames.pkl",
                "mono": RAW / "20260913_214436_phase0g_eta_fde_mono" / "joined_frames.pkl"}
 CORE = RAW / "20260913_133004_core_matrix_postreview"
@@ -174,7 +176,7 @@ def nuscenes_cells(splits):
         j["unit"], j["split"] = j.seq, j.seq.map(split_of)
         for system, cc, cf in (("brake", "J_cheap", "J_full"), ("plan_ade", "JC_ade_cheap", "JC_ade_full"),
                                ("plan_fde", "JC_fde_cheap", "JC_fde_full")):
-            d = j[j[cc].notna()].reset_index(drop=True)
+            d = egospeed.attach(j[j[cc].notna()].reset_index(drop=True), "nuScenes")
             yield dict(track="nuScenes", geometry=geom, system=system, target=cc.replace("_cheap", ""),
                        d=d, cheap=cc, full=cf, fcols=fcols, cols=cols, na={})
 
@@ -196,6 +198,7 @@ def kitti_cells(splits):
               .merge(feats, on=["seq", "frame"], how="inner", validate="one_to_one"))
         assert len(d) == 8008, len(d)
         d["unit"], d["split"] = d.seq, d.seq.map(split_of)
+        egospeed.attach(d, "KITTI")                        # already causal: the OXTS velocity of the frame itself
         for system, cc, cf in (("brake", "J_cheap", "J_full"), ("traj", "JB_cheap", "JB_full")):
             yield dict(track="KITTI", geometry=geom, system=system, target=cc.replace("_cheap", ""),
                        d=d, cheap=cc, full=cf, fcols=fcols, cols=cols, na=na)

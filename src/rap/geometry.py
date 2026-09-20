@@ -19,6 +19,10 @@ from . import kitti
 
 GEOM_FIELDS = [
     ("seq", "U16"), ("frame", "i4"), ("track_id", "i4"), ("type", "U16"),
+    # the detector's own coarse class of this object: vehicle | person | cyclist.  It is filled where the
+    # dataset's own class names are known, because a dataset-agnostic map over `type` cannot be right for both
+    # (nuScenes's `type` is a category prefix, so `vehicle` there also covers bicycles and motorcycles).
+    ("coarse", "U8"),
     ("x1", "f4"), ("y1", "f4"), ("x2", "f4"), ("y2", "f4"),
     ("truncated", "f4"), ("occluded", "i4"),
     ("long_near", "f4"),     # nearest longitudinal distance of the footprint [m]
@@ -47,6 +51,7 @@ def sequence_geometry(seq: str, smooth_halfwidth: int = 2) -> np.ndarray:  # noq
         out[i]["frame"] = row["frame"]
         out[i]["track_id"] = row["track_id"]
         out[i]["type"] = row["type"]
+        out[i]["coarse"] = kitti.TYPE_TO_COARSE.get(str(row["type"]), "vehicle")
         for c in ("x1", "y1", "x2", "y2", "truncated", "occluded"):
             out[i][c] = row[c]
         out[i]["long_near"] = imu[:, 0].min()
@@ -178,6 +183,16 @@ CRITICALITY_MODELS = {
         replace(PRIMARY, name="composite_proxheavy", ttc_weight=0.15),
     ]
 }
+
+
+def coarse_classes(geom: np.ndarray) -> np.ndarray:
+    """The coarse class of every object, from the geometry's own field.
+
+    Older geometry arrays predate the field; they are KITTI's, so the KITTI map is the fallback.
+    """
+    if "coarse" in (geom.dtype.names or ()):
+        return geom["coarse"].astype("U8")
+    return np.array([kitti.TYPE_TO_COARSE.get(str(t), "vehicle") for t in geom["type"]], dtype="U8")
 
 
 def criticality_for(geom: np.ndarray, model: CriticalityModel) -> np.ndarray:

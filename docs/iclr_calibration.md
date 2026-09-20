@@ -1,6 +1,7 @@
 # Does sign-varying decision value survive per-mode operating points?
 
-Pre-registration: the pre-registration record (not part of this release), 2026-09-14 "Task 1 pre-registration", with two documented corrections before any scheme was scored (10:32 Planner B preset; 11:03 q_plan
+Pre-registration: the pre-registration record (not part of this release), 2026-09-14 "Task 1 pre-registration" (commit `bb1a270`, before any
+run), with two documented corrections before any scheme was scored (10:32 Planner B preset; 11:03 q_plan
 split). Every table at every scheme, split and sweep point: `docs/calibration_tables.md`, generated from
 `results/final/calibration_*.csv` by `scripts/109_calibration_markdown.py`.
 
@@ -92,8 +93,12 @@ Gains considered: exact FN, FN+FP, combined E5 and E_risk, under S1–S3.
 * planner: between −0.02 and +0.01.
 
 **P(V<0 | gain>0) among affected frames:**
-* braking: 30–46%;
+* braking: 32–46%;
 * planner: 50–53%.
+
+*(The four gain columns on nuScenes were recomputed in Task 22 Part A, which corrected the nuScenes class-error
+mapping; braking moved from 30–46% to 32–46% and every other range on this page is unchanged. See
+`docs/iclr_class_error_fix.md`.)*
 
 These are the same magnitudes as at S0. Better perception by any of the four measures is harmful for the
 decision about as often as a coin flip on the planner, and a third to a half of the time on braking.

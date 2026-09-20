@@ -20,7 +20,7 @@ def _gt_for_frame(geom: np.ndarray, crit: np.ndarray, frame: int, cfg: RiskConfi
     g, c = g[ok], c[ok]
     gt = {
         "xyxy": np.stack([g["x1"], g["y1"], g["x2"], g["y2"]], axis=1).astype(np.float64),
-        "cls": np.array([kitti.TYPE_TO_COARSE.get(t, "vehicle") for t in g["type"]]),
+        "cls": G.coarse_classes(g),
     }
     return gt, c, g
 

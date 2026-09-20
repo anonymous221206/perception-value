@@ -1,0 +1,120 @@
+group,figure,cell,statistic,old,new,delta,source
+1 gain-vs-decision (E5_combined),"E5 row, oracle geometry, S0",nuScenes oracle q_brake,sign disagreement,0.3840830449826989,0.356401384083045,-0.027681660899653904,calibration_cells.csv
+1 gain-vs-decision (E5_combined),"E5 row, oracle geometry, S0",nuScenes oracle q_brake,Spearman rho with V,0.0927726007035012,0.0992417860175818,0.006469185314080597,calibration_cells.csv
+1 gain-vs-decision (E5_combined),"E5 row, oracle geometry, S0",nuScenes oracle q_brake,P(V<0 | gain>0) among affected,0.3243243243243243,0.3206106870229007,-0.0037136373014236,calibration_cells.csv
+1 gain-vs-decision (E5_combined),"E5 row, oracle geometry, S0",nuScenes oracle q_brake,P(V<0 | gain>0) all frames,0.0251396648044692,0.0256880733944954,0.0005484085900262017,calibration_cells.csv
+1 gain-vs-decision (E5_combined),"E5 row, oracle geometry, S0",nuScenes oracle q_brake,frames with gain and V both non-zero,289.0,289.0,0.0,calibration_cells.csv
+1 gain-vs-decision (E5_combined),"E5 row, oracle geometry, S0",nuScenes oracle q_plan,sign disagreement,0.485973597359736,0.4933993399339934,0.007425742574257377,calibration_cells.csv
+1 gain-vs-decision (E5_combined),"E5 row, oracle geometry, S0",nuScenes oracle q_plan,Spearman rho with V,0.0185351578977226,0.0194884656752228,0.0009533077775002001,calibration_cells.csv
+1 gain-vs-decision (E5_combined),"E5 row, oracle geometry, S0",nuScenes oracle q_plan,P(V<0 | gain>0) among affected,0.4991762767710049,0.5056497175141242,0.006473440743119341,calibration_cells.csv
+1 gain-vs-decision (E5_combined),"E5 row, oracle geometry, S0",nuScenes oracle q_plan,P(V<0 | gain>0) all frames,0.2641673931996512,0.2722433460076046,0.008075952807953368,calibration_cells.csv
+1 gain-vs-decision (E5_combined),"E5 row, oracle geometry, S0",nuScenes oracle q_plan,frames with gain and V both non-zero,1212.0,1212.0,0.0,calibration_cells.csv
+2 sign-disagreement range over the four gains,"S0, oracle geometry",nuScenes oracle q_brake,min over gains,0.3426294820717131,0.3426294820717131,0.0,calibration_cells.csv
+2 sign-disagreement range over the four gains,"S0, oracle geometry",nuScenes oracle q_brake,max over gains,0.4256410256410256,0.4256410256410256,0.0,calibration_cells.csv
+2 sign-disagreement range over the four gains,"per-mode S1-S4, oracle geometry",nuScenes oracle q_brake,min over gains,0.2923976608187134,0.2923976608187134,0.0,calibration_cells.csv
+2 sign-disagreement range over the four gains,"per-mode S1-S4, oracle geometry",nuScenes oracle q_brake,max over gains,0.4482758620689655,0.4482758620689655,0.0,calibration_cells.csv
+2 sign-disagreement range over the four gains,"S0, oracle geometry",nuScenes oracle q_plan,min over gains,0.485973597359736,0.4894894894894895,0.003515892129753506,calibration_cells.csv
+2 sign-disagreement range over the four gains,"S0, oracle geometry",nuScenes oracle q_plan,max over gains,0.5174488567990373,0.5174488567990373,0.0,calibration_cells.csv
+2 sign-disagreement range over the four gains,"per-mode S1-S4, oracle geometry",nuScenes oracle q_plan,min over gains,0.4915705412599822,0.4912923923006416,-0.00027814895934058503,calibration_cells.csv
+2 sign-disagreement range over the four gains,"per-mode S1-S4, oracle geometry",nuScenes oracle q_plan,max over gains,0.5248868778280543,0.5248868778280543,0.0,calibration_cells.csv
+3 scatter and overall share,"scatter, E5_combined, oracle S0",nuScenes oracle q_brake,frames plotted (gain and V both non-zero),289.0,289.0,0.0,calibration_cells.csv
+3 scatter and overall share,"scatter, E5_combined, oracle S0",nuScenes oracle q_brake,share with opposite signs,0.3840830449826989,0.356401384083045,-0.027681660899653904,calibration_cells.csv
+3 scatter and overall share,"scatter, E5_combined, oracle S0",nuScenes oracle q_plan,frames plotted (gain and V both non-zero),1212.0,1212.0,0.0,calibration_cells.csv
+3 scatter and overall share,"scatter, E5_combined, oracle S0",nuScenes oracle q_plan,share with opposite signs,0.485973597359736,0.4933993399339934,0.007425742574257377,calibration_cells.csv
+3 scatter and overall share,"both consumers, four gains, oracle S0",nuScenes oracle,min sign disagreement,0.3426294820717131,0.3426294820717131,0.0,calibration_cells.csv
+3 scatter and overall share,"both consumers, four gains, oracle S0",nuScenes oracle,max sign disagreement,0.5174488567990373,0.5174488567990373,0.0,calibration_cells.csv
+4 target swap (C19),"pooled test, G = primary",gate_ridge,pooled mean V - G,0.11752822882638003,0.12325709386264883,0.005728865036268793,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = primary",gate_ridge,CI low,-0.08018280358253718,-0.09284698013933401,-0.01266417655679683,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = primary",gate_ridge,CI high,0.27456455880703445,0.27127091182299945,-0.0032936469840350036,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = primary",gate_gbm,pooled mean V - G,0.10556927161265144,0.0853646607110497,-0.020204610901601736,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = primary",gate_gbm,CI low,-0.0577520456273691,-0.08970632818589087,-0.03195428255852177,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = primary",gate_gbm,CI high,0.21701075995880934,0.21338393880468023,-0.0036268211541291007,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = primary",R1_mlp_reg,pooled mean V - G,0.03992809457360701,0.024018446621776757,-0.015909647951830256,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = primary",R1_mlp_reg,CI low,-0.08289937483080716,-0.08975665495886916,-0.006857280128061999,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = primary",R1_mlp_reg,CI high,0.14070052205250758,0.13248126625013715,-0.008219255802370429,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = primary",R1_mlp_clf,pooled mean V - G,0.11725744432481204,0.14175999765689165,0.02450255333207961,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = primary",R1_mlp_clf,CI low,-0.036761628833175804,-0.023039096025654227,0.013722532807521576,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = primary",R1_mlp_clf,CI high,0.19695566355876365,0.23497439098770037,0.03801872742893672,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = primary",R1_gbm_reg,pooled mean V - G,-0.06938028087920804,-0.0895235349612873,-0.02014325408207926,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = primary",R1_gbm_reg,CI low,-0.18561081883641362,-0.19702266408778618,-0.011411845251372565,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = primary",R1_gbm_reg,CI high,0.1305216172902071,0.08489204366667792,-0.045629573623529165,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = primary",R1_gbm_clf,pooled mean V - G,0.01262969257891238,-0.014434579923290452,-0.02706427250220283,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = primary",R1_gbm_clf,CI low,-0.06968833025581596,-0.09826070301083202,-0.028572372755016062,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = primary",R1_gbm_clf,CI high,0.16400976445393922,0.12630344217163536,-0.03770632228230386,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = primary",all six architectures,architectures whose CI includes zero (of 6),6,6,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = primary",all six architectures,architectures leaning to V (of 6),5,4,-1.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = primary",all six architectures,architectures leaning to G (of 6),1,2,1.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = primary",all six architectures,cells where V wins significantly (of 72),8,8,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = primary",all six architectures,cells where G wins significantly (of 72),4,5,1.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = primary",all six architectures,"architectures leaning to G, named",R1_gbm_reg,"R1_gbm_reg,R1_gbm_clf",,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_exact",gate_ridge,pooled mean V - G,0.11187325567885524,0.11187325567885524,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_exact",gate_ridge,CI low,-0.07302871152267469,-0.07302871152267469,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_exact",gate_ridge,CI high,0.30781688772679044,0.30781688772679044,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_exact",gate_gbm,pooled mean V - G,0.1572342173469589,0.1572342173469589,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_exact",gate_gbm,CI low,-0.107448048194111,-0.107448048194111,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_exact",gate_gbm,CI high,0.3022733296197564,0.3022733296197564,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_exact",R1_mlp_reg,pooled mean V - G,0.044896742472607665,0.044896742472607665,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_exact",R1_mlp_reg,CI low,-0.05137972225443629,-0.05137972225443629,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_exact",R1_mlp_reg,CI high,0.15099963864209556,0.15099963864209556,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_exact",R1_mlp_clf,pooled mean V - G,0.12213079414083967,0.12213079414083967,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_exact",R1_mlp_clf,CI low,-0.019195325800454688,-0.019195325800454688,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_exact",R1_mlp_clf,CI high,0.21670383090187992,0.21670383090187992,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_exact",R1_gbm_reg,pooled mean V - G,-0.004250896099020111,-0.004250896099020111,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_exact",R1_gbm_reg,CI low,-0.17055707222667757,-0.17055707222667757,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_exact",R1_gbm_reg,CI high,0.1687433920238619,0.1687433920238619,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_exact",R1_gbm_clf,pooled mean V - G,-0.0034472188877276073,-0.0034472188877276073,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_exact",R1_gbm_clf,CI low,-0.12253794466156627,-0.12253794466156627,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_exact",R1_gbm_clf,CI high,0.10575580828122101,0.10575580828122101,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_exact",all six architectures,architectures whose CI includes zero (of 6),6,6,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_exact",all six architectures,architectures leaning to V (of 6),4,4,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_exact",all six architectures,architectures leaning to G (of 6),2,2,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_exact",all six architectures,cells where V wins significantly (of 72),11,11,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_exact",all six architectures,cells where G wins significantly (of 72),3,3,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_exact",all six architectures,"architectures leaning to G, named","R1_gbm_reg,R1_gbm_clf","R1_gbm_reg,R1_gbm_clf",,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_E6_risk_weighted",gate_ridge,pooled mean V - G,0.05027258376779412,0.05027258376779412,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_E6_risk_weighted",gate_ridge,CI low,-0.10427548968022626,-0.10427548968022626,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_E6_risk_weighted",gate_ridge,CI high,0.2028657396677471,0.2028657396677471,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_E6_risk_weighted",gate_gbm,pooled mean V - G,0.05048067405129782,0.05048067405129782,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_E6_risk_weighted",gate_gbm,CI low,-0.1444191513076751,-0.1444191513076751,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_E6_risk_weighted",gate_gbm,CI high,0.21041082037714914,0.21041082037714914,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_E6_risk_weighted",R1_mlp_reg,pooled mean V - G,0.014949991259233098,0.014949991259233098,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_E6_risk_weighted",R1_mlp_reg,CI low,-0.10194140158105787,-0.10194140158105787,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_E6_risk_weighted",R1_mlp_reg,CI high,0.11776633065075635,0.11776633065075635,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_E6_risk_weighted",R1_mlp_clf,pooled mean V - G,0.08710785909762453,0.08710785909762453,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_E6_risk_weighted",R1_mlp_clf,CI low,-0.025702789868440306,-0.025702789868440306,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_E6_risk_weighted",R1_mlp_clf,CI high,0.23129599491263875,0.23129599491263875,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_E6_risk_weighted",R1_gbm_reg,pooled mean V - G,-0.05496099536069337,-0.05496099536069337,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_E6_risk_weighted",R1_gbm_reg,CI low,-0.16764005517762026,-0.16764005517762026,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_E6_risk_weighted",R1_gbm_reg,CI high,0.0973420515890536,0.0973420515890536,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_E6_risk_weighted",R1_gbm_clf,pooled mean V - G,-0.057478803532160234,-0.057478803532160234,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_E6_risk_weighted",R1_gbm_clf,CI low,-0.1437959209837533,-0.1437959209837533,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_E6_risk_weighted",R1_gbm_clf,CI high,0.12949201811705077,0.12949201811705077,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_E6_risk_weighted",all six architectures,architectures whose CI includes zero (of 6),6,6,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_E6_risk_weighted",all six architectures,architectures leaning to V (of 6),4,4,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_E6_risk_weighted",all six architectures,architectures leaning to G (of 6),2,2,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_E6_risk_weighted",all six architectures,cells where V wins significantly (of 72),11,11,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_E6_risk_weighted",all six architectures,cells where G wins significantly (of 72),5,5,0.0,benchmark_target_swap_summary.json
+4 target swap (C19),"pooled test, G = dE_E6_risk_weighted",all six architectures,"architectures leaning to G, named","R1_gbm_reg,R1_gbm_clf","R1_gbm_reg,R1_gbm_clf",,benchmark_target_swap_summary.json
+4 target swap (C19),registered reading,primary G,reading,architecture-driven,architecture-driven,,benchmark_target_swap_summary.json
+4 target swap (C19),"the 10 core cells, 20% quota, primary G",gate_ridge,mean V - G over the core cells,0.00024231121897747286,0.0071169492625000556,0.006874638043522583,benchmark_target_swap.csv
+4 target swap (C19),"the 10 core cells, 20% quota, primary G",gate_gbm,mean V - G over the core cells,0.013557369737396125,-0.010688163344525964,-0.024245533081922087,benchmark_target_swap.csv
+5 robustness table (nuScenes rows),core matrix,nuScenes mono longitudinal,"multi-metric perception oracle, nDG@20%",0.1511076567215322,0.3088362889921618,0.1577286322706296,core_matrix.csv
+5 robustness table (nuScenes rows),core matrix,nuScenes mono longitudinal,"best single perception metric, nDG@20%",0.1646490591780407,0.1646490591780407,0.0,core_matrix.csv
+5 robustness table (nuScenes rows),core matrix,nuScenes mono longitudinal,best single perception metric,E6_risk_weighted,E6_risk_weighted,,core_matrix.csv
+5 robustness table (nuScenes rows),core matrix,nuScenes mono longitudinal,"exact perception oracle, nDG@20%",0.0300457471920445,0.0300457471920445,0.0,core_matrix.csv
+5 robustness table (nuScenes rows),core matrix,nuScenes mono longitudinal,"Spearman(dE, dJ)",0.0010446027778174,0.0010446027778174,0.0,core_matrix.csv
+5 robustness table (nuScenes rows),core matrix,nuScenes mono lateral,"multi-metric perception oracle, nDG@20%",0.1114821803495603,0.1209864698396531,0.009504289490092799,core_matrix.csv
+5 robustness table (nuScenes rows),core matrix,nuScenes mono lateral,"best single perception metric, nDG@20%",0.0231862948830875,0.1444252954451714,0.1212390005620839,core_matrix.csv
+5 robustness table (nuScenes rows),core matrix,nuScenes mono lateral,best single perception metric,E5_loc_heavy,E5_loc_heavy,,core_matrix.csv
+5 robustness table (nuScenes rows),core matrix,nuScenes mono lateral,"exact perception oracle, nDG@20%",-0.076730732899068,-0.076730732899068,0.0,core_matrix.csv
+5 robustness table (nuScenes rows),core matrix,nuScenes mono lateral,"Spearman(dE, dJ)",-0.0274816639073439,-0.0274816639073439,0.0,core_matrix.csv
+5 robustness table (nuScenes rows),core matrix,nuScenes oracle longitudinal,"multi-metric perception oracle, nDG@20%",0.4338054675360617,0.4923779061663211,0.058572438630259405,core_matrix.csv
+5 robustness table (nuScenes rows),core matrix,nuScenes oracle longitudinal,"best single perception metric, nDG@20%",0.5624858054996026,0.5624858054996026,0.0,core_matrix.csv
+5 robustness table (nuScenes rows),core matrix,nuScenes oracle longitudinal,best single perception metric,E6_risk_weighted,E6_risk_weighted,,core_matrix.csv
+5 robustness table (nuScenes rows),core matrix,nuScenes oracle longitudinal,"exact perception oracle, nDG@20%",0.1342349391976685,0.1342349391976685,0.0,core_matrix.csv
+5 robustness table (nuScenes rows),core matrix,nuScenes oracle longitudinal,"Spearman(dE, dJ)",0.0462526786660372,0.0462526786660372,0.0,core_matrix.csv
+5 robustness table (nuScenes rows),core matrix,nuScenes oracle lateral,"multi-metric perception oracle, nDG@20%",-0.054226193790164,0.0124379951249482,0.06666418891511221,core_matrix.csv
+5 robustness table (nuScenes rows),core matrix,nuScenes oracle lateral,"best single perception metric, nDG@20%",0.308675482197505,0.3272094565027535,0.018533974305248502,core_matrix.csv
+5 robustness table (nuScenes rows),core matrix,nuScenes oracle lateral,best single perception metric,E5_loc_heavy,E5_loc_heavy,,core_matrix.csv
+5 robustness table (nuScenes rows),core matrix,nuScenes oracle lateral,"exact perception oracle, nDG@20%",0.1095703983746956,0.1095703983746956,0.0,core_matrix.csv
+5 robustness table (nuScenes rows),core matrix,nuScenes oracle lateral,"Spearman(dE, dJ)",-0.0058052670908047,-0.0058052670908047,0.0,core_matrix.csv

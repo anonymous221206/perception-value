@@ -15,7 +15,7 @@ import pandas as pd
 from scipy import stats
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-from rap import budget, runmeta, viz            # noqa: E402
+from rap import budget, egospeed, runmeta, viz  # noqa: E402
 from rap.paths import RAW, RESULTS              # noqa: E402
 
 OUT = Path(RESULTS) / "final"
@@ -63,13 +63,78 @@ def latest(tag):
     return Path(d[-1]) if d else None
 
 
+def statistical_tests(run, tables: Path, policies=None, write_final=True):
+    """The per-sequence Wilcoxon tests, from the decision tables of one core-matrix run.
+
+    `policies` restricts which policies are recomputed. `write_final=False` writes the run copy only: the Holm
+    adjustment couples every row of the file, so a partial recomputation cannot be spliced into it without moving
+    rows this part does not own (Task 22 Part B).
+    """
+    tests = []
+    for pkl in sorted(tables.glob("*.pkl")):
+        d = pd.read_pickle(pkl).reset_index(drop=True)
+        parts = pkl.stem.split("__")
+        ds, detname, geo = parts[0], parts[1], parts[-1]
+        d = egospeed.attach(d, ds)
+        for tname, col in TASKS.items():
+            dj = (d[col[0]] - d[col[1]]).to_numpy()
+            for pol, score in [("perception oracle", d["dE"].to_numpy()),
+                               ("uncertainty", d.unc_sum.to_numpy()),
+                               ("criticality", d.crit_sum.to_numpy()),
+                               ("ego speed", d[egospeed.COL].to_numpy())]:
+                if policies and pol not in policies:
+                    continue
+                a = per_seq_eta(d, score, col)
+                b = per_seq_eta(d, dj, col)          # decision oracle, = 1 by construction
+                keys = sorted(set(a) & set(b))
+                if len(keys) < 5:
+                    continue
+                va = np.array([a[k] for k in keys])
+                vb = np.array([b[k] for k in keys])
+                w = stats.wilcoxon(vb, va, alternative="greater")
+                tests.append({
+                    "config": pkl.stem, "dataset": ds, "detector": detname,
+                    "geometry": geo, "task": tname, "policy": pol,
+                    "n_sequences": len(keys), "median_policy_eta": float(np.median(va)),
+                    "iqr_policy_eta": float(np.percentile(va, 75) - np.percentile(va, 25)),
+                    "n_seq_policy_above_0.5": int((va > 0.5).sum()),
+                    "median_gap_to_oracle": float(np.median(vb - va)),
+                    "wilcoxon_p": float(w.pvalue),
+                })
+    st = pd.DataFrame(tests)
+    if not len(st):
+        return st
+    st["holm_p"] = holm(st.wilcoxon_p.to_numpy())
+    st.to_csv(run / "statistical_tests.csv", index=False)
+    if write_final:
+        st.to_csv(OUT / "statistical_tests.csv", index=False)
+    print(f"statistical_tests.csv: {len(st)} tests, "
+          f"{int((st.holm_p < 0.05).sum())} significant after Holm"
+          f"{'' if write_final else ' (run copy only)'}")
+    return st
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--tag", default="finalize")
+    ap.add_argument("--tables", default=None,
+                    help="the core-matrix run holding the decision tables (default: the newest *_core_matrix)")
+    ap.add_argument("--tests_only", action="store_true",
+                    help="write statistical_tests.csv and nothing else: no core matrix, headline or manifest")
+    ap.add_argument("--policies", nargs="+", default=None, help="with --tests_only: recompute only these policies")
+    ap.add_argument("--run_copy_only", action="store_true",
+                    help="with --tests_only: write the run copy and leave results/final alone")
+    egospeed.add_argument(ap)
     args = ap.parse_args()
+    egospeed.configure(args)
     run = runmeta.new_run(args.tag, vars(args))
     OUT.mkdir(parents=True, exist_ok=True)
     FIG.mkdir(parents=True, exist_ok=True)
+    if args.tests_only:
+        statistical_tests(run, Path(args.tables) if args.tables else latest("core_matrix"),
+                          args.policies, not args.run_copy_only)
+        print("wrote", run)
+        return
 
     cm = pd.read_csv(OUT / "core_matrix.csv")
 
@@ -108,43 +173,7 @@ def main():
     print(f"headline_table.csv: {len(head)} rows")
 
     # ---------------- per-sequence statistics ----------------
-    cmr = latest("core_matrix_postreview")
-    tests = []
-    for pkl in sorted(cmr.glob("*.pkl")):
-        key = pkl.stem.replace("__", "|").replace("to", "->", 1)
-        d = pd.read_pickle(pkl).reset_index(drop=True)
-        parts = pkl.stem.split("__")
-        ds, detname = parts[0], parts[1]
-        geo = parts[-1]
-        for tname, col in TASKS.items():
-            dj = (d[col[0]] - d[col[1]]).to_numpy()
-            for pol, score in [("perception oracle", d["dE"].to_numpy()),
-                               ("uncertainty", d.unc_sum.to_numpy()),
-                               ("criticality", d.crit_sum.to_numpy()),
-                               ("ego speed", d.v_ego.to_numpy())]:
-                a = per_seq_eta(d, score, col)
-                b = per_seq_eta(d, dj, col)          # decision oracle, = 1 by construction
-                keys = sorted(set(a) & set(b))
-                if len(keys) < 5:
-                    continue
-                va = np.array([a[k] for k in keys])
-                vb = np.array([b[k] for k in keys])
-                w = stats.wilcoxon(vb, va, alternative="greater")
-                tests.append({
-                    "config": pkl.stem, "dataset": ds, "detector": detname,
-                    "geometry": geo, "task": tname, "policy": pol,
-                    "n_sequences": len(keys), "median_policy_eta": float(np.median(va)),
-                    "iqr_policy_eta": float(np.percentile(va, 75) - np.percentile(va, 25)),
-                    "n_seq_policy_above_0.5": int((va > 0.5).sum()),
-                    "median_gap_to_oracle": float(np.median(vb - va)),
-                    "wilcoxon_p": float(w.pvalue),
-                })
-    st = pd.DataFrame(tests)
-    if len(st):
-        st["holm_p"] = holm(st.wilcoxon_p.to_numpy())
-        st.to_csv(OUT / "statistical_tests.csv", index=False)
-        print(f"statistical_tests.csv: {len(st)} tests, "
-              f"{int((st.holm_p < 0.05).sum())} significant after Holm")
+    st = statistical_tests(run, Path(args.tables) if args.tables else latest("core_matrix"))
 
     # ---------------- run manifest ----------------
     man = []

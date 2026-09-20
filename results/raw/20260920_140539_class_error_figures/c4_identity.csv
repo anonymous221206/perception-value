@@ -1,0 +1,12 @@
+file,rows_old,rows_new,columns_equal,rows_nuScenes,rows_other,nuScenes_rows_changed,other_rows_changed,status,ok
+core_matrix.csv,16,16,True,4,12,4,0,ok,True
+calibration_cells.csv,140,140,True,40,100,40,0,ok,True
+calibration_thresholds.csv,70,70,True,20,50,0,0,ok,True
+calibration_sweep.csv,350,350,True,100,250,0,0,ok,True
+calibration_brake_vs_plan.csv,20,20,True,20,0,0,0,ok,True
+phase0f_planning_metric_eta.csv,80,80,True,80,0,14,0,ok,True
+benchmark_table.csv,1668,1668,True,828,840,192,0,ok,True
+benchmark_cells.csv,28,28,True,12,16,0,0,ok,True
+benchmark_self_agreement.csv,64,64,True,64,0,0,0,ok,True
+benchmark_target_swap.csv,1106,1106,True,474,632,186,0,ok,True
+statistics_hardening.csv,2552,2552,True,1320,1232,246,0,ok,True

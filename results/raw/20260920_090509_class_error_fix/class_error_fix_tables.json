@@ -1,0 +1,1038 @@
+{
+ "corrected_runs": {
+  "20260912_071140_core_matrix": "20260920_090509_core_matrix_classfix",
+  "20260913_133004_core_matrix_postreview": "20260920_090509_core_matrix_postreview_classfix",
+  "20260914_103252_calibration_outcomes": "20260920_090509_calibration_outcomes"
+ },
+ "checks_passed": true,
+ "checks": [
+  {
+   "check": "C1",
+   "where": "20260912_071140_core_matrix/oracle",
+   "mode": "ns_cheap_320",
+   "threshold": "0.25",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "20260912_071140_core_matrix/oracle",
+   "mode": "ns_full_640",
+   "threshold": "0.25",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C2",
+   "where": "20260912_071140_core_matrix/oracle",
+   "metrics": 4,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "20260912_071140_core_matrix/mono",
+   "mode": "ns_cheap_320",
+   "threshold": "0.25",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "20260912_071140_core_matrix/mono",
+   "mode": "ns_full_640",
+   "threshold": "0.25",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C2",
+   "where": "20260912_071140_core_matrix/mono",
+   "metrics": 4,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "20260913_133004_core_matrix_postreview/oracle",
+   "mode": "ns_cheap_320",
+   "threshold": "0.25",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "20260913_133004_core_matrix_postreview/oracle",
+   "mode": "ns_full_640",
+   "threshold": "0.25",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C2",
+   "where": "20260913_133004_core_matrix_postreview/oracle",
+   "metrics": 4,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "20260913_133004_core_matrix_postreview/mono",
+   "mode": "ns_cheap_320",
+   "threshold": "0.25",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "20260913_133004_core_matrix_postreview/mono",
+   "mode": "ns_full_640",
+   "threshold": "0.25",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C2",
+   "where": "20260913_133004_core_matrix_postreview/mono",
+   "metrics": 4,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_mono__c0.100000__f0.100000.npz",
+   "mode": "ns_cheap_320",
+   "threshold": "0.1",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_mono__c0.100000__f0.100000.npz",
+   "mode": "ns_full_640",
+   "threshold": "0.1",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_mono__c0.150000__f0.150000.npz",
+   "mode": "ns_cheap_320",
+   "threshold": "0.15",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_mono__c0.150000__f0.150000.npz",
+   "mode": "ns_full_640",
+   "threshold": "0.15",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_mono__c0.150000__f0.450000.npz",
+   "mode": "ns_cheap_320",
+   "threshold": "0.15",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_mono__c0.150000__f0.450000.npz",
+   "mode": "ns_full_640",
+   "threshold": "0.45",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_mono__c0.200000__f0.200000.npz",
+   "mode": "ns_cheap_320",
+   "threshold": "0.2",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_mono__c0.200000__f0.200000.npz",
+   "mode": "ns_full_640",
+   "threshold": "0.2",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_mono__c0.250000__f0.250000.npz",
+   "mode": "ns_cheap_320",
+   "threshold": "0.25",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_mono__c0.250000__f0.250000.npz",
+   "mode": "ns_full_640",
+   "threshold": "0.25",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_mono__c0.300000__f0.300000.npz",
+   "mode": "ns_cheap_320",
+   "threshold": "0.3",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_mono__c0.300000__f0.300000.npz",
+   "mode": "ns_full_640",
+   "threshold": "0.3",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_mono__c0.340000__f0.340000.npz",
+   "mode": "ns_cheap_320",
+   "threshold": "0.34",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_mono__c0.340000__f0.340000.npz",
+   "mode": "ns_full_640",
+   "threshold": "0.34",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_mono__c0.350000__f0.350000.npz",
+   "mode": "ns_cheap_320",
+   "threshold": "0.35",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_mono__c0.350000__f0.350000.npz",
+   "mode": "ns_full_640",
+   "threshold": "0.35",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_mono__c0.400000__f0.400000.npz",
+   "mode": "ns_cheap_320",
+   "threshold": "0.4",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_mono__c0.400000__f0.400000.npz",
+   "mode": "ns_full_640",
+   "threshold": "0.4",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_mono__c0.450000__f0.150000.npz",
+   "mode": "ns_cheap_320",
+   "threshold": "0.45",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_mono__c0.450000__f0.150000.npz",
+   "mode": "ns_full_640",
+   "threshold": "0.15",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_mono__c0.450000__f0.450000.npz",
+   "mode": "ns_cheap_320",
+   "threshold": "0.45",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_mono__c0.450000__f0.450000.npz",
+   "mode": "ns_full_640",
+   "threshold": "0.45",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_mono__c0.498047__f0.498047.npz",
+   "mode": "ns_cheap_320",
+   "threshold": "0.498046875",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_mono__c0.498047__f0.498047.npz",
+   "mode": "ns_full_640",
+   "threshold": "0.498046875",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_mono__c0.500000__f0.500000.npz",
+   "mode": "ns_cheap_320",
+   "threshold": "0.5",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_mono__c0.500000__f0.500000.npz",
+   "mode": "ns_full_640",
+   "threshold": "0.5",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_mono__c0.550000__f0.550000.npz",
+   "mode": "ns_cheap_320",
+   "threshold": "0.55",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_mono__c0.550000__f0.550000.npz",
+   "mode": "ns_full_640",
+   "threshold": "0.55",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_mono__c0.600000__f0.600000.npz",
+   "mode": "ns_cheap_320",
+   "threshold": "0.6",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_mono__c0.600000__f0.600000.npz",
+   "mode": "ns_full_640",
+   "threshold": "0.6",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_mono__c0.650000__f0.650000.npz",
+   "mode": "ns_cheap_320",
+   "threshold": "0.65",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_mono__c0.650000__f0.650000.npz",
+   "mode": "ns_full_640",
+   "threshold": "0.65",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_mono__c0.700000__f0.700000.npz",
+   "mode": "ns_cheap_320",
+   "threshold": "0.7",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_mono__c0.700000__f0.700000.npz",
+   "mode": "ns_full_640",
+   "threshold": "0.7",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_oracle__c0.100000__f0.100000.npz",
+   "mode": "ns_cheap_320",
+   "threshold": "0.1",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_oracle__c0.100000__f0.100000.npz",
+   "mode": "ns_full_640",
+   "threshold": "0.1",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_oracle__c0.150000__f0.150000.npz",
+   "mode": "ns_cheap_320",
+   "threshold": "0.15",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_oracle__c0.150000__f0.150000.npz",
+   "mode": "ns_full_640",
+   "threshold": "0.15",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_oracle__c0.200000__f0.200000.npz",
+   "mode": "ns_cheap_320",
+   "threshold": "0.2",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_oracle__c0.200000__f0.200000.npz",
+   "mode": "ns_full_640",
+   "threshold": "0.2",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_oracle__c0.250000__f0.250000.npz",
+   "mode": "ns_cheap_320",
+   "threshold": "0.25",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_oracle__c0.250000__f0.250000.npz",
+   "mode": "ns_full_640",
+   "threshold": "0.25",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_oracle__c0.300000__f0.300000.npz",
+   "mode": "ns_cheap_320",
+   "threshold": "0.3",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_oracle__c0.300000__f0.300000.npz",
+   "mode": "ns_full_640",
+   "threshold": "0.3",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_oracle__c0.340000__f0.340000.npz",
+   "mode": "ns_cheap_320",
+   "threshold": "0.34",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_oracle__c0.340000__f0.340000.npz",
+   "mode": "ns_full_640",
+   "threshold": "0.34",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_oracle__c0.350000__f0.350000.npz",
+   "mode": "ns_cheap_320",
+   "threshold": "0.35",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_oracle__c0.350000__f0.350000.npz",
+   "mode": "ns_full_640",
+   "threshold": "0.35",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_oracle__c0.400000__f0.400000.npz",
+   "mode": "ns_cheap_320",
+   "threshold": "0.4",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_oracle__c0.400000__f0.400000.npz",
+   "mode": "ns_full_640",
+   "threshold": "0.4",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_oracle__c0.450000__f0.450000.npz",
+   "mode": "ns_cheap_320",
+   "threshold": "0.45",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_oracle__c0.450000__f0.450000.npz",
+   "mode": "ns_full_640",
+   "threshold": "0.45",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_oracle__c0.498047__f0.498047.npz",
+   "mode": "ns_cheap_320",
+   "threshold": "0.498046875",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_oracle__c0.498047__f0.498047.npz",
+   "mode": "ns_full_640",
+   "threshold": "0.498046875",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_oracle__c0.500000__f0.500000.npz",
+   "mode": "ns_cheap_320",
+   "threshold": "0.5",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_oracle__c0.500000__f0.500000.npz",
+   "mode": "ns_full_640",
+   "threshold": "0.5",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_oracle__c0.550000__f0.550000.npz",
+   "mode": "ns_cheap_320",
+   "threshold": "0.55",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_oracle__c0.550000__f0.550000.npz",
+   "mode": "ns_full_640",
+   "threshold": "0.55",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_oracle__c0.600000__f0.600000.npz",
+   "mode": "ns_cheap_320",
+   "threshold": "0.6",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_oracle__c0.600000__f0.600000.npz",
+   "mode": "ns_full_640",
+   "threshold": "0.6",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_oracle__c0.650000__f0.650000.npz",
+   "mode": "ns_cheap_320",
+   "threshold": "0.65",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_oracle__c0.650000__f0.650000.npz",
+   "mode": "ns_full_640",
+   "threshold": "0.65",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_oracle__c0.700000__f0.700000.npz",
+   "mode": "ns_cheap_320",
+   "threshold": "0.7",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C1",
+   "where": "nusc_oracle__c0.700000__f0.700000.npz",
+   "mode": "ns_full_640",
+   "threshold": "0.7",
+   "columns_compared": 6,
+   "columns_differing": "{}",
+   "ok": true
+  },
+  {
+   "check": "C3",
+   "where": "nusc_oracle__c0.250000__f0.250000.npz",
+   "columns": 25,
+   "columns_differing": "[]",
+   "ok": true
+  },
+  {
+   "check": "C3",
+   "where": "nusc_mono__c0.250000__f0.250000.npz",
+   "columns": 25,
+   "columns_differing": "[]",
+   "ok": true
+  }
+ ],
+ "files": [
+  {
+   "file": "20260920_090509_core_matrix_classfix/nuScenes__YOLOv8s__ns_cheap_320tons_full_640__oracle.pkl",
+   "rows": 3376,
+   "columns_changed": [
+    "cheap_cls",
+    "dE_E3_class_aware",
+    "dE_E5_combined",
+    "dE_E5_fp_heavy",
+    "dE_E5_loc_heavy",
+    "full_cls"
+   ],
+   "rows_changed_per_column": {
+    "cheap_cls": 557,
+    "full_cls": 991,
+    "dE_E3_class_aware": 774,
+    "dE_E5_combined": 808,
+    "dE_E5_fp_heavy": 804,
+    "dE_E5_loc_heavy": 803
+   }
+  },
+  {
+   "file": "20260920_090509_core_matrix_classfix/nuScenes__YOLOv8s__ns_cheap_320tons_full_640__mono.pkl",
+   "rows": 3376,
+   "columns_changed": [
+    "cheap_cls",
+    "dE_E3_class_aware",
+    "dE_E5_combined",
+    "dE_E5_fp_heavy",
+    "dE_E5_loc_heavy",
+    "full_cls"
+   ],
+   "rows_changed_per_column": {
+    "cheap_cls": 557,
+    "full_cls": 991,
+    "dE_E3_class_aware": 774,
+    "dE_E5_combined": 808,
+    "dE_E5_fp_heavy": 804,
+    "dE_E5_loc_heavy": 803
+   }
+  },
+  {
+   "file": "20260920_090509_core_matrix_postreview_classfix/nuScenes__YOLOv8s__ns_cheap_320tons_full_640__oracle.pkl",
+   "rows": 3376,
+   "columns_changed": [
+    "cheap_cls",
+    "dE_E3_class_aware",
+    "dE_E5_combined",
+    "dE_E5_fp_heavy",
+    "dE_E5_loc_heavy",
+    "full_cls"
+   ],
+   "rows_changed_per_column": {
+    "cheap_cls": 557,
+    "full_cls": 991,
+    "dE_E3_class_aware": 774,
+    "dE_E5_combined": 808,
+    "dE_E5_fp_heavy": 804,
+    "dE_E5_loc_heavy": 803
+   }
+  },
+  {
+   "file": "20260920_090509_core_matrix_postreview_classfix/nuScenes__YOLOv8s__ns_cheap_320tons_full_640__mono.pkl",
+   "rows": 3376,
+   "columns_changed": [
+    "cheap_cls",
+    "dE_E3_class_aware",
+    "dE_E5_combined",
+    "dE_E5_fp_heavy",
+    "dE_E5_loc_heavy",
+    "full_cls"
+   ],
+   "rows_changed_per_column": {
+    "cheap_cls": 557,
+    "full_cls": 991,
+    "dE_E3_class_aware": 774,
+    "dE_E5_combined": 808,
+    "dE_E5_fp_heavy": 804,
+    "dE_E5_loc_heavy": 803
+   }
+  },
+  {
+   "file": "20260920_090509_calibration_outcomes/outcomes/nusc_mono__c0.100000__f0.100000.npz",
+   "rows": 3376,
+   "rows_changed_per_column": {
+    "cheap_cls": 717,
+    "full_cls": 1158
+   }
+  },
+  {
+   "file": "20260920_090509_calibration_outcomes/outcomes/nusc_mono__c0.150000__f0.150000.npz",
+   "rows": 3376,
+   "rows_changed_per_column": {
+    "cheap_cls": 656,
+    "full_cls": 1094
+   }
+  },
+  {
+   "file": "20260920_090509_calibration_outcomes/outcomes/nusc_mono__c0.150000__f0.450000.npz",
+   "rows": 3376,
+   "rows_changed_per_column": {
+    "cheap_cls": 656,
+    "full_cls": 847
+   }
+  },
+  {
+   "file": "20260920_090509_calibration_outcomes/outcomes/nusc_mono__c0.200000__f0.200000.npz",
+   "rows": 3376,
+   "rows_changed_per_column": {
+    "cheap_cls": 600,
+    "full_cls": 1040
+   }
+  },
+  {
+   "file": "20260920_090509_calibration_outcomes/outcomes/nusc_mono__c0.250000__f0.250000.npz",
+   "rows": 3376,
+   "rows_changed_per_column": {
+    "cheap_cls": 557,
+    "full_cls": 991
+   }
+  },
+  {
+   "file": "20260920_090509_calibration_outcomes/outcomes/nusc_mono__c0.300000__f0.300000.npz",
+   "rows": 3376,
+   "rows_changed_per_column": {
+    "cheap_cls": 511,
+    "full_cls": 950
+   }
+  },
+  {
+   "file": "20260920_090509_calibration_outcomes/outcomes/nusc_mono__c0.340000__f0.340000.npz",
+   "rows": 3376,
+   "rows_changed_per_column": {
+    "cheap_cls": 467,
+    "full_cls": 921
+   }
+  },
+  {
+   "file": "20260920_090509_calibration_outcomes/outcomes/nusc_mono__c0.350000__f0.350000.npz",
+   "rows": 3376,
+   "rows_changed_per_column": {
+    "cheap_cls": 460,
+    "full_cls": 915
+   }
+  },
+  {
+   "file": "20260920_090509_calibration_outcomes/outcomes/nusc_mono__c0.400000__f0.400000.npz",
+   "rows": 3376,
+   "rows_changed_per_column": {
+    "cheap_cls": 421,
+    "full_cls": 883
+   }
+  },
+  {
+   "file": "20260920_090509_calibration_outcomes/outcomes/nusc_mono__c0.450000__f0.150000.npz",
+   "rows": 3376,
+   "rows_changed_per_column": {
+    "cheap_cls": 393,
+    "full_cls": 1094
+   }
+  },
+  {
+   "file": "20260920_090509_calibration_outcomes/outcomes/nusc_mono__c0.450000__f0.450000.npz",
+   "rows": 3376,
+   "rows_changed_per_column": {
+    "cheap_cls": 393,
+    "full_cls": 847
+   }
+  },
+  {
+   "file": "20260920_090509_calibration_outcomes/outcomes/nusc_mono__c0.498047__f0.498047.npz",
+   "rows": 3376,
+   "rows_changed_per_column": {
+    "cheap_cls": 354,
+    "full_cls": 812
+   }
+  },
+  {
+   "file": "20260920_090509_calibration_outcomes/outcomes/nusc_mono__c0.500000__f0.500000.npz",
+   "rows": 3376,
+   "rows_changed_per_column": {
+    "cheap_cls": 353,
+    "full_cls": 809
+   }
+  },
+  {
+   "file": "20260920_090509_calibration_outcomes/outcomes/nusc_mono__c0.550000__f0.550000.npz",
+   "rows": 3376,
+   "rows_changed_per_column": {
+    "cheap_cls": 311,
+    "full_cls": 762
+   }
+  },
+  {
+   "file": "20260920_090509_calibration_outcomes/outcomes/nusc_mono__c0.600000__f0.600000.npz",
+   "rows": 3376,
+   "rows_changed_per_column": {
+    "cheap_cls": 274,
+    "full_cls": 707
+   }
+  },
+  {
+   "file": "20260920_090509_calibration_outcomes/outcomes/nusc_mono__c0.650000__f0.650000.npz",
+   "rows": 3376,
+   "rows_changed_per_column": {
+    "cheap_cls": 223,
+    "full_cls": 626
+   }
+  },
+  {
+   "file": "20260920_090509_calibration_outcomes/outcomes/nusc_mono__c0.700000__f0.700000.npz",
+   "rows": 3376,
+   "rows_changed_per_column": {
+    "cheap_cls": 168,
+    "full_cls": 517
+   }
+  },
+  {
+   "file": "20260920_090509_calibration_outcomes/outcomes/nusc_oracle__c0.100000__f0.100000.npz",
+   "rows": 3376,
+   "rows_changed_per_column": {
+    "cheap_cls": 717,
+    "full_cls": 1158
+   }
+  },
+  {
+   "file": "20260920_090509_calibration_outcomes/outcomes/nusc_oracle__c0.150000__f0.150000.npz",
+   "rows": 3376,
+   "rows_changed_per_column": {
+    "cheap_cls": 656,
+    "full_cls": 1094
+   }
+  },
+  {
+   "file": "20260920_090509_calibration_outcomes/outcomes/nusc_oracle__c0.200000__f0.200000.npz",
+   "rows": 3376,
+   "rows_changed_per_column": {
+    "cheap_cls": 600,
+    "full_cls": 1040
+   }
+  },
+  {
+   "file": "20260920_090509_calibration_outcomes/outcomes/nusc_oracle__c0.250000__f0.250000.npz",
+   "rows": 3376,
+   "rows_changed_per_column": {
+    "cheap_cls": 557,
+    "full_cls": 991
+   }
+  },
+  {
+   "file": "20260920_090509_calibration_outcomes/outcomes/nusc_oracle__c0.300000__f0.300000.npz",
+   "rows": 3376,
+   "rows_changed_per_column": {
+    "cheap_cls": 511,
+    "full_cls": 950
+   }
+  },
+  {
+   "file": "20260920_090509_calibration_outcomes/outcomes/nusc_oracle__c0.340000__f0.340000.npz",
+   "rows": 3376,
+   "rows_changed_per_column": {
+    "cheap_cls": 467,
+    "full_cls": 921
+   }
+  },
+  {
+   "file": "20260920_090509_calibration_outcomes/outcomes/nusc_oracle__c0.350000__f0.350000.npz",
+   "rows": 3376,
+   "rows_changed_per_column": {
+    "cheap_cls": 460,
+    "full_cls": 915
+   }
+  },
+  {
+   "file": "20260920_090509_calibration_outcomes/outcomes/nusc_oracle__c0.400000__f0.400000.npz",
+   "rows": 3376,
+   "rows_changed_per_column": {
+    "cheap_cls": 421,
+    "full_cls": 883
+   }
+  },
+  {
+   "file": "20260920_090509_calibration_outcomes/outcomes/nusc_oracle__c0.450000__f0.450000.npz",
+   "rows": 3376,
+   "rows_changed_per_column": {
+    "cheap_cls": 393,
+    "full_cls": 847
+   }
+  },
+  {
+   "file": "20260920_090509_calibration_outcomes/outcomes/nusc_oracle__c0.498047__f0.498047.npz",
+   "rows": 3376,
+   "rows_changed_per_column": {
+    "cheap_cls": 354,
+    "full_cls": 812
+   }
+  },
+  {
+   "file": "20260920_090509_calibration_outcomes/outcomes/nusc_oracle__c0.500000__f0.500000.npz",
+   "rows": 3376,
+   "rows_changed_per_column": {
+    "cheap_cls": 353,
+    "full_cls": 809
+   }
+  },
+  {
+   "file": "20260920_090509_calibration_outcomes/outcomes/nusc_oracle__c0.550000__f0.550000.npz",
+   "rows": 3376,
+   "rows_changed_per_column": {
+    "cheap_cls": 311,
+    "full_cls": 762
+   }
+  },
+  {
+   "file": "20260920_090509_calibration_outcomes/outcomes/nusc_oracle__c0.600000__f0.600000.npz",
+   "rows": 3376,
+   "rows_changed_per_column": {
+    "cheap_cls": 274,
+    "full_cls": 707
+   }
+  },
+  {
+   "file": "20260920_090509_calibration_outcomes/outcomes/nusc_oracle__c0.650000__f0.650000.npz",
+   "rows": 3376,
+   "rows_changed_per_column": {
+    "cheap_cls": 223,
+    "full_cls": 626
+   }
+  },
+  {
+   "file": "20260920_090509_calibration_outcomes/outcomes/nusc_oracle__c0.700000__f0.700000.npz",
+   "rows": 3376,
+   "rows_changed_per_column": {
+    "cheap_cls": 168,
+    "full_cls": 517
+   }
+  }
+ ]
+}

@@ -78,6 +78,16 @@ CACHED = [
      "PYTHONHASHSEED=0 {py} scripts/130_streaming_controllers.py", ["results/final/streaming_controllers.csv"]),
     ("C24", "realism controls on the KITTI core track: detection persistence and reference geometry for every pair", EDGE,
      "scripts/135_realism_controls.py", ["results/final/persistence_sweep.csv", "results/final/reference_geometry_sweep.csv"]),
+    ("C25", "the nuScenes class-error fix: every figure it moves, old beside new, and the identity check outside nuScenes",
+     EDGE, "PYTHONHASHSEED=0 {py} scripts/137_class_error_figures.py "
+           "--before results/raw/20260920_090509_class_error_fix/before "
+           "--fix_run results/raw/20260920_090509_class_error_fix", ["results/final/class_error_fix.csv"]),
+    ("C26", "the causal nuScenes ego speed: every figure it moves, the sanity gate and the first-frame sensitivity",
+     EDGE, "PYTHONHASHSEED=0 {py} scripts/139_causal_ego_figures.py "
+           "--run results/raw/20260920_110647_causal_ego_speed", ["results/final/causal_ego_speed.csv"]),
+    ("C27", "the camera-to-ego translation in the monocular lift: the five sign-variation quantities per setting",
+     EDGE, "PYTHONHASHSEED=0 {py} scripts/141_lift_offset_sensitivity.py",
+     ["results/final/lift_offset_sensitivity.csv"]),
 ]
 
 # the full pipeline from raw data, in the order the results were produced; D = needs datasets, H = hardware-dependent
@@ -169,6 +179,12 @@ FULL = [
      "scripts/130_streaming_controllers.py --fit_once"),
     ("N4", "[D] KITTI per-frame braking and Planner B outcomes under persistence and reference geometry (read by C24)",
      EDGE, "scripts/134_realism_outcomes.py"),
+    ("N5", "[D] recompute the nuScenes class primitives under the corrected coarse labels and check C1-C3 (read by C25)",
+     EDGE, "PYTHONHASHSEED=0 {py} scripts/136_class_error_fix.py --check_end_to_end"),
+    ("N6", "[D] tabulate the causal nuScenes ego speed and check KITTI and nuPlan use no future data (read by C26)",
+     EDGE, "PYTHONHASHSEED=0 {py} scripts/138_causal_ego_speed.py"),
+    ("N7", "[D] KITTI and nuScenes per-frame outcomes with and without the camera-to-ego translation (read by C27)",
+     EDGE, "PYTHONHASHSEED=0 {py} scripts/140_lift_offset_outcomes.py"),
 ]
 
 

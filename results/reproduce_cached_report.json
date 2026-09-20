@@ -1,0 +1,10 @@
+[
+ {
+  "stage": "C27",
+  "returncode": 0,
+  "seconds": 9,
+  "outputs": {
+   "results/final/lift_offset_sensitivity.csv": "identical"
+  }
+ }
+]

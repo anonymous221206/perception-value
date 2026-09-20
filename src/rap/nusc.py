@@ -30,6 +30,21 @@ EVAL_PREFIXES = ("vehicle.car", "vehicle.truck", "vehicle.bus", "vehicle.trailer
                  "vehicle.bicycle")
 
 
+def coarse_class(category: str) -> str:
+    """The detector's coarse class of a nuScenes category.
+
+    The category prefix alone cannot decide it: `vehicle.bicycle` and `vehicle.motorcycle` are what the detector
+    calls a cyclist, while every other `vehicle.*` is a vehicle.  Mapping the prefix (as KITTI's `TYPE_TO_COARSE`
+    did until 2026-09-20) labelled every nuScenes object `vehicle`, so every correctly detected pedestrian or
+    cyclist counted as a class error in E3 and the E5 variants.
+    """
+    if category.startswith("human."):
+        return "person"
+    if category.startswith(("vehicle.bicycle", "vehicle.motorcycle")):
+        return "cyclist"
+    return "vehicle"
+
+
 class NuScenesDB:
     def __init__(self, dataroot: str | Path, version: str = "v1.0-mini"):
         self.root = Path(dataroot)
@@ -115,6 +130,35 @@ class NuScenesDB:
             v[i] = np.linalg.norm(pos[b] - pos[a]) / dt if dt > 1e-6 else 0.0
         return v
 
+    @functools.lru_cache(maxsize=256)
+    def ego_speeds_causal(self, scene: str, window_s: float = 0.5) -> np.ndarray:
+        """Forward speed per keyframe from past and current poses only (Task 22 Part B).
+
+        `v[i] = ||pos[i] - pos[j]|| / (t[i] - t[j])`, with `j < i` the past keyframe whose gap is closest to
+        `window_s`.  Keyframe spacing is nominally 2 Hz but actually 0.40-0.65 s (63% of the gaps are under 0.5 s),
+        so "the largest j at least window_s in the past" would reach back two keyframes on most frames and measure
+        a full second; the nearest-to-window rule keeps the 0.5 s the definition asks for and gives `j = i - 1`
+        everywhere in this data.  The first keyframe of a scene has no earlier pose in the log, and its speed is
+        defined to be 0 -- the only value that uses no future data.
+
+        `ego_speeds` above is a *centred* difference and reads the pose half a second ahead.  It stays as the
+        vehicle's own state in the decision cost, where CHEAP and FULL see the same number and the more accurate
+        estimate is the better one; an allocation signal must use this one.
+        """
+        toks = self.samples(scene)
+        pos, ts = [], []
+        for tk in toks:
+            _, t = self._global_to_ego(tk)
+            pos.append(t)
+            ts.append(self._t["sample"][tk]["timestamp"] / 1e6)
+        pos, ts = np.array(pos), np.array(ts)
+        v = np.zeros(len(toks))
+        for i in range(1, len(toks)):
+            j = int(np.argmin(np.abs((ts[i] - ts[:i]) - window_s)))
+            dt = ts[i] - ts[j]
+            v[i] = np.linalg.norm(pos[i] - pos[j]) / dt if dt > 1e-6 else 0.0
+        return v
+
     # ---- geometry ----------------------------------------------------------
     def sequence_geometry(self, scene: str, min_pts: int = 1) -> np.ndarray:
         """Same structured array `rap.geometry.sequence_geometry` returns for KITTI."""
@@ -164,7 +208,7 @@ class NuScenesDB:
                 if (x2 - x1) < 4 or (y2 - y1) < 4:
                     continue
                 rows.append((self.scene_name(scene), fi, a["instance_token"],
-                             cat.split(".")[0],
+                             cat.split(".")[0], coarse_class(cat),
                              x1, y1, x2, y2, 0.0, 0,
                              foot_ego[:, 0].min(), foot_ego[:, 0].mean(),
                              foot_ego[:, 1].mean(), foot_ego[:, 1].min(),
@@ -179,11 +223,11 @@ class NuScenesDB:
         out = np.zeros(len(rows), dtype=GEOM_FIELDS)
         for i, r in enumerate(rows):
             out[i]["seq"], out[i]["frame"], out[i]["track_id"] = r[0], r[1], inst[r[2]]
-            out[i]["type"] = r[3]
+            out[i]["type"], out[i]["coarse"] = r[3], r[4]
             for j, c in enumerate(("x1", "y1", "x2", "y2", "truncated", "occluded",
                                    "long_near", "long_cen", "lat_cen", "lat_min",
                                    "lat_max", "range_rate")):
-                out[i][c] = r[4 + j]
+                out[i][c] = r[5 + j]
             out[i]["ttc"] = np.inf
         _fill_range_rate(out, halfwidth=1, dt=FRAME_DT)   # 2 Hz keyframes, tight window
         return out

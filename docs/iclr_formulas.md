@@ -363,17 +363,17 @@ An untaken reference object records its best IoU with **any** detection.
 | cls | $\sum_{g:\,\text{hit}_g} \mathbb 1[\kappa(\arg\max_k \text{IoU}(k,g)) \ne \kappa_g]$ | `:36-41` |
 | crit_fn | $\sum_{g:\,\neg\text{hit}_g} c_g$, with $c_g$ the composite criticality of §5.3 on reference geometry | `:43` |
 
-**Class error on nuScenes is not what its definition says.** Reference classes come from
-`TYPE_TO_COARSE.get(type, "vehicle")` (`scripts/50_percep_metrics.py:58`; the same pattern at
-`scripts/100_calibration_outcomes.py:114` and `src/rap/tables.py:23`). That map knows KITTI's type names only
-(`kitti.py:31-35`). On nuScenes the reference `type` is the category prefix, `vehicle` or `human` (`nusc.py:167`), so every
-nuScenes reference object is labelled `vehicle`.
-* A correctly detected pedestrian (detector class `person`), bicycle or motorcycle (`cyclist`) therefore counts as a
-  class error.
-* This affects `cls`, and with it E3 and the three E5 variants on nuScenes: `dE_E5_combined`, the benchmark's combined
+**Class error on nuScenes was not what its definition says, and has been corrected.** Reference classes came from
+`TYPE_TO_COARSE.get(type, "vehicle")`, a map that knows KITTI's type names only (`kitti.py:31-35`). On nuScenes the
+reference `type` is the category prefix, `vehicle` or `human`, so every nuScenes reference object was labelled
+`vehicle` and a correctly detected pedestrian, bicycle or motorcycle counted as a class error.
+* It affected `cls`, and with it E3 and the three E5 variants on nuScenes: `dE_E5_combined`, the benchmark's combined
   gain and Task 9's primary perception-gain label on its nuScenes cells.
-* It does not affect E1, E2, E4, E6, the exact FN count, matching (class-agnostic), or any KITTI quantity.
-* Found while writing this document. Nothing has been re-run.
+* It did not affect E1, E2, E4, E6, the exact FN count, matching (class-agnostic), or any KITTI or nuPlan quantity.
+* Found while writing this document; **fixed in Task 22 Part A (2026-09-20)**. The geometry now carries a `coarse`
+  field, filled from the full nuScenes category (`human.*` → person, `vehicle.bicycle`/`vehicle.motorcycle` →
+  cyclist), and `rap.geometry.coarse_classes` reads it. Every official output that uses E3 or E5 on nuScenes was
+  re-run against corrected tables; what moved, and by how much, is in `docs/iclr_class_error_fix.md`.
 
 ### 5.2 Named losses and gains
 
