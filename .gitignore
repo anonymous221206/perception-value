@@ -13,6 +13,10 @@ configs/nuplan_mini_sensor.txt
 third_party/*
 !third_party/PROVENANCE.md
 
+# written by reproduce.py on every run, never a result
+results/reproduce_*_report.json
+results/.shipped_outputs/
+
 # regenerated, device-specific or large artefacts
 *.engine
 *.onnx

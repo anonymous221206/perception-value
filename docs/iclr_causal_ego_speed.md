@@ -61,7 +61,9 @@ nuScenes (that source exists for the nuPlan real-perception gate only), so no ga
 | B1 | the causal value is the backward difference over the previous keyframe | 0 frames deviate; 85 coincide with the centred value (the last frame of each scene, where the centred formula degenerates to a backward difference) |
 | B2, B3 | KITTI and nuPlan use no future data | as in the table above |
 
-A fourth file, `results/final/statistical_tests.csv`, is deliberately **not** rewritten; see "A stale artefact" below.
+A fourth file, `statistical_tests.csv`, is deliberately **not** rewritten; see "A stale artefact" below. It is a
+Phase 0E by-product that this release does not ship, and the evidence for section 5 is the pair of 53 runs kept in
+the Part B run directory.
 
 ## OLD → NEW
 
@@ -128,11 +130,11 @@ of 0 already puts those frames at the bottom of the ranking.
 ## A stale artefact, found by the sanity gate
 
 The gate compared the centred column through the new plumbing against the shipped files. Three matched exactly. The
-fourth, `results/final/statistical_tests.csv`, did not — but **not in the ego-speed rows**: all 16 `ego speed` rows
+fourth, `statistical_tests.csv`, did not — but **not in the ego-speed rows**: all 16 `ego speed` rows
 and all 16 `criticality` rows reproduce exactly, while 14 of 16 `perception oracle` rows differ, on KITTI as much as
 on nuScenes. That policy reads `dE`, which this part does not touch. The file is a Phase 0E artefact last written by
 an older `53_finalize.py` run and has drifted from the current tables — the same thing found in
-`results/final/headline_table.csv` earlier the same day.
+`headline_table.csv` earlier the same day. Neither file is part of this release: no stage reads them.
 
 It is therefore left untouched: regenerating it would silently move 14 KITTI rows this part does not own, and its
 `holm_p` column is a Holm adjustment over every row jointly, so even a partial splice would move the rest. The two

@@ -151,8 +151,9 @@ unchanged in all four rows; the best single metric's own nDG moves only where th
   operating points and the sweep are functions of J alone, so the class error never touched them.
 * `calibration_pr_curves.csv` is not regenerated and does not move: its inputs are `fn`, `fp`, `n_det` and `n_gt`,
   which C1 proves unchanged at every threshold.
-* `results/final/statistical_tests.csv` does not move either: its four policies are `dE`, uncertainty, criticality
-  and ego speed.
+* Two Phase 0E by-products, `headline_table.csv` and `statistical_tests.csv`, do not move either — the latter's
+  four policies are `dE`, uncertainty, criticality and ego speed. Neither is part of this release: no stage reads
+  them and they had already drifted from `core_matrix.csv` before any of this work.
 * The Task 9 **audit** (`129_target_swap_audit.py`) was re-run against the regenerated table, because its exploratory
   statistics quote the primary G label. It still reproduces 122's pooled CIs exactly and still finds no computation
   error (nDG identical in all 84 rows, 252 / 252 recomputed nDG values equal). One exploratory number changes in a
@@ -182,7 +183,7 @@ wrong mean sign. After the correction:
 | the corrected per-frame tables | in place in `20260912_071140_core_matrix` and `20260913_133004_core_matrix_postreview`; each run carries a `CLASS_ERROR_FIX.md` saying so |
 | the corrected per-mode outcomes (32 nuScenes files) | in place in `20260914_103252_calibration_outcomes` |
 | the corrected planning metric, both geometries | in place in `20260913_211441_phase0g_eta_fde_oracle` and `20260913_214436_phase0g_eta_fde_mono` |
-| C1–C3, and the pre-fix copy of every official file | `20260920_090509_class_error_fix` (`checks.csv`, `before/`) |
+| C1–C3, and the pre-fix copy of every file this part changed or checked | `20260920_090509_class_error_fix` (`checks.csv`, `before/`: the 11 files C4 compares, the target-swap summary, and `calibration_tables.md`, the one generated table that moved) |
 | figures and C4 | `results/final/class_error_fix.csv`; stage **C25** recomputes both |
 
 This release ships the corrected tables in the run directories that first produced them, rather than a second copy

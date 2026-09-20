@@ -85,19 +85,32 @@ Markers:
 | `116_nuplan_real_cells.py`, `117_nuplan_real_markdown.py` | cells, reading, tables | |
 | `119_nuplan_real_features.py` | allocation inputs from the real CHEAP branch | nuPlan, D |
 | `120_nuplan_real_allocation.py` | allocation track on real-perception decision values | |
+
+## Robustness, controls and corrections
+
+Each of these answers one question asked of the benchmark after its first results, and writes its own table.
+
+| script | what | marker |
+|---|---|---|
+| `122_target_swap.py` | the same allocators trained on perception gain instead of decision value | |
 | `124_causal_threshold.py` | causal streaming allocation with a threshold frozen before the test stream | |
 | `125_statistics_hardening.py` | raw-gain intervals, leave-one-unit-out influence, trivial baselines | |
 | `126_consumer_transfer.py` | consumer transfer matrix across the consumers of each track | |
 | `127_objective_swap.py` | which allocator a decision-value and a perception-gain objective each select | |
 | `128_skip_accounting.py` | the pixel router under skipping cost accounting, beside the cascade | |
-| `122_target_swap.py` | the same allocators trained on perception gain instead of decision value | |
 | `129_target_swap_audit.py` | audit of the target swap: label, refit, degeneracy and bootstrap checks | |
 | `130_streaming_controllers.py` | causal streaming allocation with rate controllers on frozen saved scores | |
 | `131_budget_feasibility.py` | marks allocators whose overhead exceeds the budget headroom as infeasible in every measured-budget table | |
 | `132_allocator_rails.py` | every power rail over idle while the gate, R1 and R2 workloads run | H, D |
+| `133_energy_module_budgets.py` | every energy-budget result under one rail convention for detectors and allocators | |
 | `134_realism_outcomes.py` | KITTI per-frame outcomes under detection persistence and reference geometry | D |
 | `135_realism_controls.py` | persistence and reference-geometry sweeps, sanity gates and readings | |
-| `133_energy_module_budgets.py` | every energy-budget result under one rail convention for detectors and allocators | |
+| `136_class_error_fix.py` | recomputes the nuScenes class primitives under the corrected coarse labels; checks C1–C3 | D |
+| `137_class_error_figures.py` | every figure that fix moves, old beside new, and the identity check outside nuScenes | |
+| `138_causal_ego_speed.py` | tabulates the causal nuScenes ego speed; checks that KITTI and nuPlan use no future data | D |
+| `139_causal_ego_figures.py` | every figure the causal ego speed moves, the sanity gate and the first-frame sensitivity | |
+| `140_lift_offset_outcomes.py` | KITTI and nuScenes per-frame outcomes with and without the camera-to-ego translation in the lift | D |
+| `141_lift_offset_sensitivity.py` | the five sign-variation quantities per setting, the sanity gate and the reading | |
 
 ## Figure data
 
