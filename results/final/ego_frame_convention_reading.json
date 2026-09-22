@@ -1519,7 +1519,7 @@
    "rows": 264,
    "reordered": false,
    "rows_moved": 200,
-   "cells_moved": 1848,
+   "cells_moved": 1868,
    "largest_abs_change": 22.0,
    "largest_column": "boot_dropped",
    "largest_row": "KITTI | mono | traj | JB | test | R1_gbm_clf | 0.5",

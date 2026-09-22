@@ -19193,7 +19193,7 @@ group,file,item,statistic,old,new,delta,note
 9 every file,benchmark_table_routers.csv,file,rows,,264,,
 9 every file,benchmark_table_routers.csv,file,reordered,,False,,
 9 every file,benchmark_table_routers.csv,file,rows_moved,,200,,
-9 every file,benchmark_table_routers.csv,file,cells_moved,,1848,,
+9 every file,benchmark_table_routers.csv,file,cells_moved,,1868,,
 9 every file,benchmark_table_routers.csv,file,largest_abs_change,,22.0,,
 9 every file,benchmark_table_routers.csv,file,largest_column,,boot_dropped,,
 9 every file,benchmark_table_routers.csv,file,largest_row,,KITTI | mono | traj | JB | test | R1_gbm_clf | 0.5,,
