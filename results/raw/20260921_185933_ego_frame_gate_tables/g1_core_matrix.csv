@@ -1,0 +1,9 @@
+file,status,identical
+KITTI__RT-DETR-l__rt_cheap_320tort_full_640__mono.pkl,compared,True
+KITTI__RT-DETR-l__rt_mid_480tort_full_640__mono.pkl,compared,True
+KITTI__YOLOv8s__cheap_320tofull_640__mono.pkl,compared,True
+KITTI__YOLOv8s__cheap_320tofull_640__oracle.pkl,compared,True
+KITTI__YOLOv8s__cheap_384tofull_640__mono.pkl,compared,True
+KITTI__YOLOv8s__cheap_512tofull_640__mono.pkl,compared,True
+nuScenes__YOLOv8s__ns_cheap_320tons_full_640__mono.pkl,compared,True
+nuScenes__YOLOv8s__ns_cheap_320tons_full_640__oracle.pkl,compared,True

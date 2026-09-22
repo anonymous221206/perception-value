@@ -17,7 +17,7 @@
  },
  "a_req": {
   "cheap": 0.0,
-  "full": 5.373398839452471,
+  "full": 5.845921254185245,
   "reference": 3.9027709488629285
  },
  "cheap_boxes": [
@@ -32,10 +32,10 @@
    "class": "vehicle",
    "conf": 0.92431640625,
    "matched_gt_id": 8,
-   "x_lateral_m": 4.187312126159668,
-   "z_forward_m": 11.131319046020508,
-   "lat_min_m": 1.2251619100570679,
-   "lat_max_m": 7.149462699890137,
+   "x_lateral_m": 4.086836338043213,
+   "z_forward_m": 12.333688735961914,
+   "lat_min_m": 1.2490381002426147,
+   "lat_max_m": 6.92463493347168,
    "in_corridor": false,
    "considered_by_controller": false,
    "a_req_obj": 0.0
@@ -53,13 +53,13 @@
    "class": "vehicle",
    "conf": 0.91650390625,
    "matched_gt_id": 8,
-   "x_lateral_m": 3.9569568634033203,
-   "z_forward_m": 10.865852355957031,
-   "lat_min_m": 0.9245141744613647,
-   "lat_max_m": 6.989399433135986,
+   "x_lateral_m": 3.868820905685425,
+   "z_forward_m": 12.091720581054688,
+   "lat_min_m": 0.9605757594108582,
+   "lat_max_m": 6.777066230773926,
    "in_corridor": true,
    "considered_by_controller": true,
-   "a_req_obj": 5.373398839452471
+   "a_req_obj": 5.845921254185245
   }
  ],
  "gt_boxes": [

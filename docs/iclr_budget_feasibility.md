@@ -1,5 +1,7 @@
 # Infeasible measured budgets
 
+> **Frame convention.** The figures quoted in this report were computed with the monocular lift in the camera frame, the convention before Task 23. Every table in `results/final/` is now computed in the ego frame; `docs/iclr_ego_frame_convention.md` and `results/final/ego_frame_convention.csv` give each registered quantity old beside new, and the camera-frame convention stays selectable with `--frame camera`.
+
 **What changed.** Every measured-budget table charged an allocator the escalated share
 $f = \max\big((b - C_c - C_S)/C_f,\; 0\big)$ at budget $b(\alpha) = C_c + \alpha C_f$. When the allocator's own
 per-input overhead $C_S$ exceeds the headroom $b - C_c = \alpha C_f$, it cannot run within the budget at all. Such a

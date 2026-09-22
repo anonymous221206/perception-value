@@ -1,5 +1,7 @@
 # Causal streaming allocation with rate controllers
 
+> **Frame convention.** The figures quoted in this report were computed with the monocular lift in the camera frame, the convention before Task 23. Every table in `results/final/` is now computed in the ego frame; `docs/iclr_ego_frame_convention.md` and `results/final/ego_frame_convention.csv` give each registered quantity old beside new, and the camera-frame convention stays selectable with `--frame camera`.
+
 **Question.** Scored as a whole-split ranking (C), the benchmark's learned allocators are hindsight top-k.
 `docs/iclr_causal_threshold.md` found:
 * a threshold frozen before the test stream (A) is close to C;

@@ -35,6 +35,8 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+from rap import frames                                                           # noqa: E402
+from rap import runs as rap_runs                                                 # noqa: E402
 from rap import runmeta                                                         # noqa: E402
 from rap.paths import RESULTS                                                   # noqa: E402
 
@@ -63,11 +65,25 @@ SHIPPED = {"B_minus_C_point": -0.089, "B_minus_C_ci": (-0.14, -0.02), "A_minus_C
 KEYCOLS = ("seq", "frame", "scenario", "iteration")
 
 
+def reference() -> dict:
+    """124's pooled figures the saved scores must reproduce, at the same roundings.  Camera frame: the shipped values
+    above.  Any other frame (Task 23): the same figures from that frame's own 124 run -- the pooled B - C row, and
+    A - C as the mean nDG of policy A (V1) minus that of policy C over the pooled cells and learned signals."""
+    if frames.current() == "camera":
+        return SHIPPED
+    t = pd.read_csv(rap_runs.latest("causal_threshold") / "causal_threshold.csv")
+    at = np.isclose(t.rate_target, POOLED_RATE)
+    bc = t[at & (t.track == "pooled") & (t.variant == "V1") & (t.signal == "all_learned") & (t.policy == "B-C")].iloc[0]
+    x = t[at & t.signal.isin(LEARNED) & (t.track != "pooled") & t.budget_level.isna()]
+    x = x[(x.track != "nuPlan") | (x.system == "pdm_closed")]
+    a_c = x[(x.variant == "V1") & (x.policy == "A")].ndg.mean() - x[x.policy == "C"].ndg.mean()
+    return {"B_minus_C_point": round(float(bc.ndg), 3), "B_minus_C_ci": (round(float(bc.ndg_lo), 2), round(float(bc.ndg_hi), 2)),
+            "A_minus_C_point": round(float(a_c), 3)}
+
+
 def _latest(tag):
-    d = [p for p in sorted(RAW.glob(f"*_{tag}")) if p.name.split("_", 2)[-1] == tag]
-    if not d:
-        raise SystemExit(f"no results/raw/*_{tag} run found")
-    return d[-1]
+    """The newest run of `tag` in the current lift frame (rap.runs)."""
+    return rap_runs.latest(tag)
 
 
 def stable_seed(*parts):
@@ -310,9 +326,10 @@ def sanity(cells):
     pooled = np.nanmean(np.array(per_signal), axis=0)
     lo, hi = t92.ci(pooled)
     res = {"B_minus_C_point": float(np.nanmean(pooled)), "B_minus_C_lo": lo, "B_minus_C_hi": hi, "A_minus_C_point": a_minus_c}
-    res["match_B_point_3dp"] = round(res["B_minus_C_point"], 3) == SHIPPED["B_minus_C_point"]
-    res["match_B_ci_2dp"] = (round(lo, 2), round(hi, 2)) == SHIPPED["B_minus_C_ci"]
-    res["match_A_point_2dp"] = round(a_minus_c, 2) == round(SHIPPED["A_minus_C_point"], 2)
+    ref = reference()
+    res["match_B_point_3dp"] = round(res["B_minus_C_point"], 3) == ref["B_minus_C_point"]
+    res["match_B_ci_2dp"] = (round(lo, 2), round(hi, 2)) == ref["B_minus_C_ci"]
+    res["match_A_point_2dp"] = round(a_minus_c, 2) == round(ref["A_minus_C_point"], 2)
     res["passed"] = bool(res["match_B_point_3dp"] and res["match_B_ci_2dp"] and res["match_A_point_2dp"])
     res["ties_at_threshold_rows"] = int(sum(
         has_ties(cells[ci]["v1"][s][cells[ci]["te"]], cells[ci]["v1"][s][cells[ci]["va"]]) for ci in pooled_cells for s in LEARNED))
@@ -402,7 +419,9 @@ def choose(cells, k, policy, grid):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--fit_once", action="store_true")
+    frames.add_argument(ap)
     args = ap.parse_args()
+    frames.configure(args)
     t_all = time.time()
     cells, gate_run = load_cells()
     if args.fit_once:
@@ -413,10 +432,10 @@ def main():
     rows = []
 
     # ---- sanity gate
-    san = sanity(cells)
+    san, ref = sanity(cells), reference()
     rows.append({"section": "sanity", "signal": "all_learned", "rate_target": POOLED_RATE, "variant": "V1",
-                 "shipped_B_minus_C_point": SHIPPED["B_minus_C_point"], "shipped_B_minus_C_lo": SHIPPED["B_minus_C_ci"][0],
-                 "shipped_B_minus_C_hi": SHIPPED["B_minus_C_ci"][1], "shipped_A_minus_C_point": SHIPPED["A_minus_C_point"],
+                 "shipped_B_minus_C_point": ref["B_minus_C_point"], "shipped_B_minus_C_lo": ref["B_minus_C_ci"][0],
+                 "shipped_B_minus_C_hi": ref["B_minus_C_ci"][1], "shipped_A_minus_C_point": ref["A_minus_C_point"],
                  **{k: v for k, v in san.items()}, "gate_scores_run": gate_run, "v1_scores_run": v1_run})
     print(f"  sanity: B - C {san['B_minus_C_point']:+.4f} [{san['B_minus_C_lo']:+.4f}, {san['B_minus_C_hi']:+.4f}], "
           f"A - C {san['A_minus_C_point']:+.4f}; passed {san['passed']}", flush=True)

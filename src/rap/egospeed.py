@@ -55,6 +55,8 @@ def attach(d: pd.DataFrame, dataset: str, col: str = COL, mode: str | None = Non
         raise ValueError(f"unknown ego-speed mode {mode!r}; expected one of {MODES}")
     if col in d.columns:
         return d
+    # a copy: the caller's table must not grow a column behind its back (52 pickles the table it passes in)
+    d = d.copy()
     if dataset != "nuScenes" or mode == "centred":
         d[col] = d["v_ego"].to_numpy(float)
         return d

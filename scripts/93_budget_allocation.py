@@ -35,6 +35,8 @@ if __name__ == "__main__":
     from rap.device import warn_if_not_reference                          # noqa: E402
     warn_if_not_reference("93_budget_allocation.py", strict=True)
 from rap.paths import DATASETS as _DS, MODELS as _MD                      # noqa: E402
+from rap import frames                                                           # noqa: E402
+from rap import runs as rap_runs                                                 # noqa: E402
 from rap import features as F, geometry as G, power, predict, runmeta          # noqa: E402
 from rap.budget import flag_multifidelity, flag_two_level                       # noqa: E402
 from rap.cache import DetCache                                                  # noqa: E402
@@ -229,7 +231,7 @@ def measure_router_overheads(n_frames=400):
     busy = _rails_during(r1_work, 8.0)
     res["r1_cpu_mw_over_idle"] = float(busy.get("CPU", np.nan) - idle.get("CPU", np.nan))
 
-    runs = sorted(_g.glob(str(ROOT / "results" / "raw" / "*_router_r2")))
+    runs = [str(p) for p in rap_runs.frame_runs("router_r2")]
     if runs:
         dev = torch.device("cuda:0")
         paths = {"nuScenes": sorted(_g.glob(str(_DS / "nuscenes/trainval/samples/CAM_FRONT/*.jpg")))[:200],
@@ -273,7 +275,7 @@ def load_router_scores():
     import glob as _g
     out = {}
     for tag in ("routers_r1", "router_r2"):
-        runs = sorted(_g.glob(str(ROOT / "results" / "raw" / f"*_{tag}")))
+        runs = [str(p) for p in rap_runs.frame_runs(tag)]
         if not runs:
             continue
         for f in sorted(_g.glob(runs[-1] + "/scores__*.npz")):
@@ -546,7 +548,9 @@ def main():
                     help="take allocator overheads from this benchmark_budget_overheads*.json instead of measuring them")
     ap.add_argument("--routers", action="store_true",
                     help="Task 2: add R1, R2 and the batched-inference GBM gate; two-level tables only")
+    frames.add_argument(ap)
     args = ap.parse_args()
+    frames.configure(args)
     run = runmeta.new_run(args.tag, vars(args))
     rng = np.random.default_rng(0)
 

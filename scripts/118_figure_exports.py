@@ -24,6 +24,7 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 from rap.paths import DATASETS as _DS, MODELS as _MD                      # noqa: E402
+from rap import runs as rap_runs                                                 # noqa: E402
 from rap import decision, geometry as G, planner as P                         # noqa: E402
 from rap.budget import budget_curves                                           # noqa: E402
 from rap.cache import DetCache                                                 # noqa: E402
@@ -37,8 +38,7 @@ RAW = ROOT / "results" / "raw"
 FINAL = ROOT / "results" / "final"
 DET = Path(CACHE) / "nusc_det_tv"
 CHEAP, FULL = "ns_cheap_320", "ns_full_640"
-JOINED = {"oracle": RAW / "20260913_211441_phase0g_eta_fde_oracle" / "joined_frames.pkl",
-          "mono": RAW / "20260913_214436_phase0g_eta_fde_mono" / "joined_frames.pkl"}
+JOINED = {geom: rap_runs.latest(f"phase0g_eta_fde_{geom}") / "joined_frames.pkl" for geom in ("oracle", "mono")}
 FIGURE1_EXCLUDE = {("scene-0032", 9), ("scene-0048", 3)}
 EPS = 1e-9
 
@@ -310,6 +310,8 @@ def main():
     # ---------------------------------------------------------------- B: gallery
     gal = FINAL / "fig_gallery"
     gal.mkdir(parents=True, exist_ok=True)
+    for old in list(gal.glob("negative_*")) + list(gal.glob("positive_*")):
+        old.unlink()                                       # a new selection replaces the old one; no stale frame stays
     jm = pd.read_pickle(JOINED["mono"])
     jm["V"] = jm.J_cheap - jm.J_full
     jm = jm[(jm.V.abs() > EPS) & ~jm.apply(lambda r: (r.seq, int(r.frame)) in FIGURE1_EXCLUDE, axis=1)]
@@ -394,7 +396,7 @@ def write_budget_curves():
     out = budget_curves(pd.read_csv(FINAL / "benchmark_budget_routers.csv"))
     out.to_csv(FINAL / "fig_budget_curves.csv", index=False)
     cells, med = (out.row_type == "cell").sum(), (out.row_type == "median_over_cells").sum()
-    print(f"  budget curves: {len(cells)} cell rows, {len(med)} median rows")
+    print(f"  budget curves: {cells} cell rows, {med} median rows")
 
 
 if __name__ == "__main__":

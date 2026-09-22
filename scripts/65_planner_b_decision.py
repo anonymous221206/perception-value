@@ -22,6 +22,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 from rap.paths import DATASETS as _DS, MODELS as _MD                      # noqa: E402
 
+from rap import frames                                                           # noqa: E402
 from rap import planner_b as B, runmeta                                         # noqa: E402
 from rap.risk import RiskConfig                                                 # noqa: E402
 from rap.decision import DetCache, KittiAdapter, _apply_range_source            # noqa: E402
@@ -86,7 +87,9 @@ def main():
     ap.add_argument("--params", default="default", choices=list(B.PARAMS_B))
     ap.add_argument("--costs", default="default", choices=list(B.COSTS_B))
     ap.add_argument("--kitti_only", action="store_true")
+    frames.add_argument(ap)
     args = ap.parse_args()
+    frames.configure(args)
     run = runmeta.new_run(args.tag, vars(args))
     cfg = RiskConfig()
     pb, cb = B.PARAMS_B[args.params], B.COSTS_B[args.costs]

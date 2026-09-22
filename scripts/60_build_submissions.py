@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 from rap.paths import DATASETS as _DS, MODELS as _MD                      # noqa: E402
 
+from rap import frames                                                           # noqa: E402
 from rap import nusc_submission as NS, runmeta          # noqa: E402
 from rap.cache import DetCache                          # noqa: E402
 from rap.nusc import NuScenesDB, make_adapter           # noqa: E402
@@ -33,8 +34,10 @@ def main():
     ap.add_argument("--op_conf_full", type=float, default=None)
     ap.add_argument("--variants", nargs="+", default=["oracle", "mono"])
     ap.add_argument("--scenes", type=int, default=0)
-    ap.add_argument("--out", default=str(CACHE / "nusc_submissions"))
+    ap.add_argument("--out", default=str(CACHE / frames.cache_name("nusc_submissions")))
+    frames.add_argument(ap)
     args = ap.parse_args()
+    frames.configure(args)
 
     run = runmeta.new_run("submissions", vars(args))
     cfg = RiskConfig(op_conf=args.op_conf, op_conf_full=args.op_conf_full)

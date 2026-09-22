@@ -30,6 +30,7 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+from rap import frames                                                           # noqa: E402
 from rap import runmeta                                                          # noqa: E402
 from rap.budget import infeasible                                                # noqa: E402
 from rap.paths import RESULTS                                                    # noqa: E402
@@ -228,7 +229,9 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--nboot", type=int, default=1000)
     ap.add_argument("--debug", action="store_true", help="write only to the run directory")
+    frames.add_argument(ap)
     args = ap.parse_args()
+    frames.configure(args)
     run = runmeta.new_run("skip_accounting", vars(args))
     splits = json.loads((ROOT / "configs" / "benchmark_splits.json").read_text())
     ov = json.loads((FINAL / "benchmark_budget_overheads_routers.json").read_text())["overheads"]

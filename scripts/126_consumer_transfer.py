@@ -23,6 +23,8 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+from rap import frames                                                           # noqa: E402
+from rap import runs as rap_runs                                                 # noqa: E402
 from rap import predict, runmeta                                                # noqa: E402
 from rap.paths import RESULTS                                                    # noqa: E402
 
@@ -44,16 +46,8 @@ R1 = ["R1_mlp_reg", "R1_mlp_clf", "R1_gbm_reg", "R1_gbm_clf"]
 GATES = ["gate_ridge", "gate_gbm"]
 SIGNALS = GATES + R1
 NBOOT = 1000
-def _latest(tag):
-    """The newest run of a tag, so a re-run of the full tier does not break this stage."""
-    d = [p for p in sorted(RAW.glob(f"*_{tag}")) if p.name.split("_", 2)[-1] == tag]
-    if not d:
-        raise SystemExit(f"no results/raw/*_{tag} run found")
-    return d[-1]
-
-
-R1_RUN = _latest("routers_r1")
-NR_RUN = _latest("nuplan_real_allocation")
+R1_RUN = rap_runs.latest("routers_r1")
+NR_RUN = rap_runs.latest("nuplan_real_allocation")
 NUPLAN_CONSUMERS = [("pdm_closed", "safety"), ("pdm_closed", "scalar_J"), ("idm", "scalar_J")]
 
 
@@ -133,7 +127,9 @@ def official_diagonal():
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--nboot", type=int, default=NBOOT)
+    frames.add_argument(ap)
     args = ap.parse_args()
+    frames.configure(args)
     run = runmeta.new_run("consumer_transfer", vars(args))
     splits = json.loads((ROOT / "configs" / "benchmark_splits.json").read_text())
     nr_fcols, _ = t120.register_features()

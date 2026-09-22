@@ -1,5 +1,7 @@
 # Consumer transfer: how much of an allocator's value survives a change of consumer
 
+> **Frame convention.** The figures quoted in this report were computed with the monocular lift in the camera frame, the convention before Task 23. Every table in `results/final/` is now computed in the ego frame; `docs/iclr_ego_frame_convention.md` and `results/final/ego_frame_convention.csv` give each registered quantity old beside new, and the camera-frame convention stays selectable with `--frame camera`.
+
 **What this is.** Entry (A, B) is the allocator trained for consumer A, evaluated against consumer B's decision
 value on B's frozen test split, with the benchmark's exact tie expectation. The diagonal is the official held-out
 result.

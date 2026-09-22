@@ -1,0 +1,3 @@
+The results/final directory of this release as it stood before Task 23 (commit 5b50077): the camera-frame
+convention, exactly as shipped. scripts/147_ego_frame_convention.py compares it (OLD) with the regenerated
+results/final (NEW, ego frame) and writes results/final/ego_frame_convention*.

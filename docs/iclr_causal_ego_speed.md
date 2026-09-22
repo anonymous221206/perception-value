@@ -1,5 +1,7 @@
 # A causal ego speed on nuScenes: the defect, the fix, and every figure it moves
 
+> **Frame convention.** The figures quoted in this report were computed in the camera frame, before Task 23. The shipped `results/final/causal_ego_speed.csv` re-expresses the same comparison (centred against causal ego speed) on the ego-frame tables. See `docs/iclr_ego_frame_convention.md`.
+
 Pre-registration: the pre-registration record (not part of this release), 2026-09-20 11:05 (Task 22 Part B), committed before the code was written,
 with one amendment at 11:10 (the length of the window) and one at 11:20 (a second stale Phase 0E artefact), both
 logged before any figure was read. Every number below is a row of `results/final/causal_ego_speed.csv`.

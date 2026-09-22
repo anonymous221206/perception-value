@@ -26,6 +26,7 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+from rap import frames                                                           # noqa: E402
 from rap import runs as rap_runs                                                 # noqa: E402
 from rap import predict, runmeta                                                # noqa: E402
 from rap.paths import CACHE, RESULTS                                            # noqa: E402
@@ -114,7 +115,9 @@ def main():
     ap.add_argument("--mode", default="ns_cheap_320")
     ap.add_argument("--nboot", type=int, default=400)
     ap.add_argument("--tag", default="deployable_gate_checks")
+    frames.add_argument(ap)
     args = ap.parse_args()
+    frames.configure(args)
     run = runmeta.new_run(args.tag, vars(args))
     rng = np.random.default_rng(0)
 
@@ -129,7 +132,7 @@ def main():
     for variant in ("oracle", "mono"):
         b = pd.read_pickle(cm / f"nuScenes__YOLOv8s__ns_cheap_320tons_full_640__{variant}.pkl")
         sfx = "" if variant == "oracle" else f"_{variant}"
-        p = pd.read_csv(Path(CACHE) / "planner_d" / f"planC_vs_truth{sfx}.csv")
+        p = pd.read_csv(Path(CACHE) / frames.cache_name("planner_d") / f"planC_vs_truth{sfx}.csv")
         extra = [c for c, _ in TABLE_SIGNALS.values() if c in b and c not in feats]
         base = b[["seq", "frame", "J_cheap", "J_full"] + extra].merge(
             feats, on=["seq", "frame"], how="inner", validate="one_to_one")

@@ -33,6 +33,8 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+from rap import frames                                                           # noqa: E402
+from rap import runs as rap_runs                                                 # noqa: E402
 from rap import runmeta                                                         # noqa: E402
 from rap.budget import flag_multifidelity, flag_two_level                       # noqa: E402
 from rap.paths import RESULTS                                                   # noqa: E402
@@ -62,10 +64,8 @@ t128 = _load("t128", "128_skip_accounting.py")
 
 
 def _latest(tag):
-    d = [p for p in sorted(RAW.glob(f"*_{tag}")) if p.name.split("_", 2)[-1] == tag]
-    if not d:
-        raise SystemExit(f"no results/raw/*_{tag} run found")
-    return d[-1]
+    """The newest run of `tag` in the current lift frame (rap.runs)."""
+    return rap_runs.latest(tag)
 
 
 def read(path):
@@ -235,6 +235,19 @@ TWO_KEYS = ["track", "geometry", "system", "target", "unit", "budget_level", "si
 MF_KEYS = ["system", "unit", "budget_level", "signal"]
 
 
+def as_93_writes(df, kind):
+    """A 93 table as 93 writes it since Task 19 Part A: with the feasibility rule applied.
+
+    93's runs from before that rule (the shipped camera-frame runs) were written unflagged and later flagged by 131;
+    runs written since (Task 23's ego-frame runs) are flagged by 93 itself.  The rule is idempotent, so applying it to
+    both sides of a comparison compares every value the benchmark reports, whichever code wrote the run.
+    """
+    if kind == "two_level":
+        return flag_two_level(df)
+    kc = t93.profile_costs("KITTI")["cheap"]
+    return flag_multifidelity(df, {"ms": kc["ms"], "mJ": kc["mJ"]})
+
+
 def check_scores(cells):
     prov, levels, run_name = load_gate_scores()
     res = {"gate_scores_run": run_name}
@@ -247,13 +260,14 @@ def check_scores(cells):
         two = pd.DataFrame(t93.two_level(cells, ov, NBOOT, rng, routers if with_routers else None, gate_scores=prov))
         sfx = "" if table != "1thread" else "_1thread"
         name = "benchmark_budget_routers.csv" if with_routers else f"benchmark_budget_two_level{sfx}.csv"
-        old = read(raw / name)
-        two = read_back(two)
+        old = read_back(as_93_writes(read(raw / name), "two_level"))
+        two = read_back(as_93_writes(two, "two_level"))
         res[f"{table}__two_level"] = compare_frames(two, old, TWO_KEYS)
         print(f"  S {table} two-level: {res[f'{table}__two_level']} [{time.time() - t0:.0f}s]", flush=True)
         if not with_routers:
-            multi = read_back(pd.DataFrame(t93.multi_fidelity(ov, NBOOT, rng, level_preds=levels)))
-            res[f"{table}__multifidelity"] = compare_frames(multi, read(raw / f"benchmark_budget_multifidelity{sfx}.csv"), MF_KEYS)
+            multi = read_back(as_93_writes(pd.DataFrame(t93.multi_fidelity(ov, NBOOT, rng, level_preds=levels)), "mf"))
+            old_mf = read_back(as_93_writes(read(raw / f"benchmark_budget_multifidelity{sfx}.csv"), "mf"))
+            res[f"{table}__multifidelity"] = compare_frames(multi, old_mf, MF_KEYS)
             print(f"  S {table} multi-fidelity: {res[f'{table}__multifidelity']}", flush=True)
     res["ok"] = all(v["ok"] for k, v in res.items() if isinstance(v, dict))
     (FINAL / "energy_module_score_check.json").write_text(json.dumps(res, indent=1))
@@ -291,7 +305,9 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--save_gate_scores", action="store_true")
     ap.add_argument("--check_scores", action="store_true")
+    frames.add_argument(ap)
     args = ap.parse_args()
+    frames.configure(args)
     t_all = time.time()
     if args.save_gate_scores or args.check_scores:
         cells = core_cells()
@@ -347,8 +363,10 @@ def main():
     # S4: skipping two_level's draws leaves multi_fidelity on the shipped continuation (primary run, shipped convention)
     rng = np.random.default_rng(0)
     advance_past_two_level(cells, NBOOT, rng)
-    s4 = compare_frames(read_back(pd.DataFrame(t93.multi_fidelity(ovs["primary"], NBOOT, rng, level_preds=levels))),
-                        read(_latest("benchmark_budget") / "benchmark_budget_multifidelity.csv"), MF_KEYS)
+    s4 = compare_frames(read_back(as_93_writes(pd.DataFrame(t93.multi_fidelity(ovs["primary"], NBOOT, rng,
+                                                                                 level_preds=levels)), "mf")),
+                        read_back(as_93_writes(read(_latest("benchmark_budget") / "benchmark_budget_multifidelity.csv"),
+                                               "mf")), MF_KEYS)
     costs_doc["checks"]["S4_multifidelity_draws"] = s4
     print(f"  S4 multi-fidelity draws: {s4}", flush=True)
     assert s4["ok"], "advancing past two_level's draws does not reproduce the shipped multi-fidelity rows"

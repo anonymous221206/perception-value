@@ -1,5 +1,7 @@
 # The camera-to-ego translation in the monocular lift: a sensitivity
 
+> **Superseded by Task 23.** This report measured the camera-to-ego *translation* as a default-off sensitivity on the camera-frame lift. The lift now reports its geometry in the ego frame, with the rotation as well (`docs/iclr_ego_frame_convention.md`, `docs/iclr_formulas.md` §1.9), and the shipped `results/final/lift_offset_sensitivity.csv` restates the same 14 settings as the cost of the old convention: ego frame as the base, camera frame as the alternative. The figures below are the Task 22 version.
+
 Pre-registration: the pre-registration record (not part of this release), 2026-09-20 12:05 (Task 22 Part C), committed before the code was written.
 **Sensitivity only — no official output is changed.** The one new file is
 `results/final/lift_offset_sensitivity.csv`.

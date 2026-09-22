@@ -1,5 +1,7 @@
 # Target swap: the same allocators trained on perception gain instead of decision value
 
+> **Frame convention.** The figures quoted in this report were computed with the monocular lift in the camera frame, the convention before Task 23. Every table in `results/final/` is now computed in the ego frame; `docs/iclr_ego_frame_convention.md` and `results/final/ego_frame_convention.csv` give each registered quantity old beside new, and the camera-frame convention stays selectable with `--frame camera`.
+
 **Question.** Does the allocation advantage come from the decision-value objective, or from the architecture?
 
 **Method.** Each learned allocator is scored against V = J(CHEAP) − J(FULL) twice:

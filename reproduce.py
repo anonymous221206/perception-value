@@ -60,7 +60,7 @@ CACHED = [
     ("C18", "skipping cost accounting for the pixel router, beside the cascade", EDGE,
      "scripts/128_skip_accounting.py", ["results/final/skip_accounting.csv"]),
     ("C19", "target swap: the same allocators trained on perception gain instead of decision value", EDGE,
-     "PYTHONHASHSEED=0 {py} scripts/122_target_swap.py --reuse_gscores results/raw/20260915_214330_target_swap",
+     "PYTHONHASHSEED=0 {py} scripts/122_target_swap.py --reuse_gscores results/raw/20260922_131832_target_swap_ego",
      ["results/final/benchmark_target_swap.csv", "results/final/benchmark_target_swap_summary.json"]),
     ("C20", "measured budgets: allocators whose overhead exceeds the budget headroom marked infeasible", EDGE,
      "scripts/131_budget_feasibility.py",
@@ -80,14 +80,18 @@ CACHED = [
      "scripts/135_realism_controls.py", ["results/final/persistence_sweep.csv", "results/final/reference_geometry_sweep.csv"]),
     ("C25", "the nuScenes class-error fix: every figure it moves, old beside new, and the identity check outside nuScenes",
      EDGE, "PYTHONHASHSEED=0 {py} scripts/137_class_error_figures.py "
-           "--before results/raw/20260920_090509_class_error_fix/before "
+           "--before results/raw/20260922_145941_class_error_fix_ego/before "
            "--fix_run results/raw/20260920_090509_class_error_fix", ["results/final/class_error_fix.csv"]),
     ("C26", "the causal nuScenes ego speed: every figure it moves, the sanity gate and the first-frame sensitivity",
      EDGE, "PYTHONHASHSEED=0 {py} scripts/139_causal_ego_figures.py "
-           "--run results/raw/20260920_110647_causal_ego_speed", ["results/final/causal_ego_speed.csv"]),
-    ("C27", "the camera-to-ego translation in the monocular lift: the five sign-variation quantities per setting",
+           "--run results/raw/20260922_134139_causal_ego_speed_ego --no_sanity", ["results/final/causal_ego_speed.csv"]),
+    ("C27", "the cost of the camera-frame convention: the five sign-variation quantities, ego frame against camera frame",
      EDGE, "PYTHONHASHSEED=0 {py} scripts/141_lift_offset_sensitivity.py",
      ["results/final/lift_offset_sensitivity.csv"]),
+    ("C28", "the lift in the ego frame: every registered quantity old (camera frame, as first shipped) beside new",
+     EDGE, "PYTHONHASHSEED=0 {py} scripts/147_ego_frame_convention.py",
+     ["results/final/ego_frame_convention.csv", "results/final/ego_frame_convention_detail.csv.gz",
+      "results/final/ego_frame_convention_reading.json"]),
 ]
 
 # the full pipeline from raw data, in the order the results were produced; D = needs datasets, H = hardware-dependent
@@ -183,8 +187,16 @@ FULL = [
      EDGE, "PYTHONHASHSEED=0 {py} scripts/136_class_error_fix.py --check_end_to_end"),
     ("N6", "[D] tabulate the causal nuScenes ego speed and check KITTI and nuPlan use no future data (read by C26)",
      EDGE, "PYTHONHASHSEED=0 {py} scripts/138_causal_ego_speed.py"),
-    ("N7", "[D] KITTI and nuScenes per-frame outcomes with and without the camera-to-ego translation (read by C27)",
+    ("N7", "[D] KITTI and nuScenes per-frame outcomes, ego-frame lift against camera frame (read by C27)",
      EDGE, "PYTHONHASHSEED=0 {py} scripts/140_lift_offset_outcomes.py"),
+    ("N8", "[D] every unit's camera -> ego transform and intrinsics, read by every ego-frame re-lift "
+           "(data/cache/cam_to_ego.json; ships with the release)", EDGE, "scripts/143_cam_to_ego_table.py"),
+    ("N9", "[D] the gates of the ego-frame lift: G1 geometry, G2, B, D; then, after the ego-frame tables, G4 and G5",
+     EDGE, "{py} scripts/144_ego_frame_gates.py g1geo && {py} scripts/144_ego_frame_gates.py g2 && "
+           "{py} scripts/144_ego_frame_gates.py b && {py} scripts/144_ego_frame_gates.py d && "
+           "{py} scripts/145_ego_frame_table_gates.py g4 && {py} scripts/145_ego_frame_table_gates.py g5"),
+    ("N10", "the pre-fix nuScenes class labels in the ego-frame tables, C25's before (read by C25)", EDGE,
+     "scripts/146_class_error_prefix_tables.py"),
 ]
 
 

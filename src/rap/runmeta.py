@@ -47,6 +47,12 @@ def environment() -> dict:
 
 
 def new_run(tag: str, config: dict) -> Path:
+    """A new run directory.  A stage whose output depends on the monocular lift gets its frame's suffix on its tag
+    (`rap.runs.LIFT_TAGS`, `rap.frames`), so camera-frame and ego-frame runs never share a name, and every run records
+    the frame it was made in."""
+    from . import frames, runs
+    tag = runs.resolve_tag(tag)
+    config = {**config, "lift_frame": frames.current()}
     run = RAW / f"{time.strftime('%Y%m%d_%H%M%S')}_{tag}"
     run.mkdir(parents=True, exist_ok=True)
     (run / "config.json").write_text(json.dumps(config, indent=2, default=str))

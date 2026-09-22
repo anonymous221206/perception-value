@@ -7,13 +7,15 @@ writes docs/routers_tables.md.
 """
 from __future__ import annotations
 
-import glob, json
+import json, sys
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
+from rap import runs as rap_runs                                                 # noqa: E402
 FINAL = ROOT / "results" / "final"
 KEY = ["track", "geometry", "system", "target"]
 ROUTERS = ["R1_mlp_reg", "R1_mlp_clf", "R1_gbm_reg", "R1_gbm_clf", "R2_cnn_clf"]
@@ -67,7 +69,7 @@ def main():
                   f" | {x.cell.nunique()} |")
     md.append("")
 
-    r2 = sorted(glob.glob(str(ROOT / "results" / "raw" / "*_router_r2")))
+    r2 = [str(p) for p in rap_runs.frame_runs("router_r2")]     # this frame's R2 runs (rap.runs)
     if r2:
         md += ["## R2 network", "", "| dataset | width multiplier | GFLOPs @128² | train frames | heads | TensorRT vs PyTorch Spearman (min over heads) |",
                "|---|---|---|---|---|---|"]

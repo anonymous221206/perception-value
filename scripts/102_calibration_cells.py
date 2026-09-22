@@ -27,6 +27,7 @@ from scipy import stats
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+from rap import runs as rap_runs                                                 # noqa: E402
 from rap import percep_metrics as PM, runmeta                                   # noqa: E402
 from rap.paths import CACHE, RESULTS                                            # noqa: E402
 
@@ -163,7 +164,7 @@ def s4_threshold(S, cell, role, trval):
 
 
 def main():
-    orun, prun = latest("*_calibration_outcomes"), latest("*_calibration_plan")
+    orun, prun = rap_runs.latest("calibration_outcomes"), rap_runs.latest("calibration_plan")
     for r in (orun, prun):
         ch = json.loads((r / "checks.json").read_text())
         assert ch["all_pass"], f"equivalence checks failed in {r.name}; nothing may be scored"

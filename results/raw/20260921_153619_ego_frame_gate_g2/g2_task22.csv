@@ -1,0 +1,17 @@
+file,rows,identical
+outcomes__Y8_320__mono__off.csv.gz,8008,True
+outcomes__Y8_320__mono__on.csv.gz,8008,True
+outcomes__Y8_384__mono__off.csv.gz,8008,True
+outcomes__Y8_384__mono__on.csv.gz,8008,True
+outcomes__Y8_512__mono__off.csv.gz,8008,True
+outcomes__Y8_512__mono__on.csv.gz,8008,True
+outcomes__RT_320__mono__off.csv.gz,8008,True
+outcomes__RT_320__mono__on.csv.gz,8008,True
+outcomes__RT_480__mono__off.csv.gz,8008,True
+outcomes__RT_480__mono__on.csv.gz,8008,True
+outcomes__Y8_320__oracle__off.csv.gz,8008,True
+outcomes__Y8_320__oracle__on.csv.gz,8008,True
+outcomes__NS_320__mono__off.csv.gz,3376,True
+outcomes__NS_320__mono__on.csv.gz,3376,True
+outcomes__NS_320__oracle__off.csv.gz,3376,True
+outcomes__NS_320__oracle__on.csv.gz,3376,True

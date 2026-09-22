@@ -15,6 +15,7 @@ from scipy import stats
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from rap.paths import DATASETS as _DS, MODELS as _MD                      # noqa: E402
+from rap import frames                                                           # noqa: E402
 from rap import budget, decision, egospeed, geometry as G, planner as P, predict, runmeta  # noqa: E402
 from rap import percep_metrics as PM                                             # noqa: E402
 from rap.cache import DetCache                                                   # noqa: E402
@@ -187,7 +188,9 @@ def main():
     ap.add_argument("--merge_into", default=None,
                     help="with --rows_only: keep every row of this CSV whose dataset is not recomputed")
     egospeed.add_argument(ap)
+    frames.add_argument(ap)
     args = ap.parse_args()
+    frames.configure(args)
     egospeed.configure(args)
     run = runmeta.new_run(args.tag, vars(args))
     if args.rows_only:

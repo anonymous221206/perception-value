@@ -25,6 +25,7 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+from rap import frames                                                           # noqa: E402
 from rap import decision, geometry as G, planner as P, runmeta                   # noqa: E402
 from rap.cache import DetCache                                                  # noqa: E402
 from rap.mono import box_iou                                                    # noqa: E402
@@ -96,7 +97,9 @@ def configurations():
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--resume", default=None, help="an existing run directory to complete")
+    frames.add_argument(ap)
     args = ap.parse_args()
+    frames.configure(args)
     run = Path(args.resume) if args.resume else runmeta.new_run("realism_outcomes", vars(args))
     cfg, pp, cp = RiskConfig(), P.PlannerParams(), P.CostParams()
     pb, cb = b65.B.PARAMS_B["static_obstacles"], b65.B.COSTS_B["default"]

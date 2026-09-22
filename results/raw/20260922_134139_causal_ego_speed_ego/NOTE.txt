@@ -1,0 +1,1 @@
+Task 23: C26 re-expressed on the ego-frame tables (results/raw/20260921_194128_core_matrix_ego). before/ = --ego_speed centred; sanity_centred/ holds only the centred 53 per-sequence tests, which 139 reads as the old column (no sanity gate in the ego frame: 139 --no_sanity); causal_full_statistical_tests.csv = the causal 53 run.

@@ -23,6 +23,7 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+from rap import frames                                                           # noqa: E402
 from rap import decision, geometry as G, kitti, mono, planner as P, runmeta      # noqa: E402
 from rap.cache import DetCache                                                   # noqa: E402
 from rap.nusc import NuScenesDB, make_adapter                                    # noqa: E402
@@ -38,6 +39,11 @@ KITTI_PAIRS = {"Y8_320": ("det", "cheap_320", "full_640"), "Y8_384": ("det", "ch
                "RT_320": ("rtdetr_kitti", "rt_cheap_320", "rt_full_640"),
                "RT_480": ("rtdetr_kitti_mid", "rt_mid_480", "rt_full_640")}
 KITTI_SETTINGS = [(p, "mono") for p in KITTI_PAIRS] + [("Y8_320", "oracle")]
+# (file flag, lift frame) of the two tables built per setting.  In the camera frame this is Task 22 Part C exactly --
+# the camera-frame lift against the translation-only shift, which gate G2 of Task 23 proved the frame-aware cache
+# reproduces byte for byte.  In the ego frame (Task 23, C27 restated) the base is the ego-frame lift and the
+# alternative the camera frame, so the same 14 settings measure the cost of the old convention.
+FLAGS = {"camera": (("off", "camera"), ("on", "task22")), "ego": (("ego", "ego"), ("camera", "camera"))}
 NUSC_PAIR = ("nusc_det_tv", "ns_cheap_320", "ns_full_640")
 
 
@@ -102,7 +108,10 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--resume", default=None)
     ap.add_argument("--skip_nuscenes", action="store_true")
+    frames.add_argument(ap)
     args = ap.parse_args()
+    frames.configure(args)
+    flags = FLAGS[frames.current()]
     run = Path(args.resume) if args.resume else runmeta.new_run("lift_offset_outcomes", vars(args))
     cfg, pp, cp = RiskConfig(), P.PlannerParams(), P.CostParams()
     pb, cb = b65.B.PARAMS_B["static_obstacles"], b65.B.COSTS_B["default"]
@@ -116,13 +125,13 @@ def main():
     for pair, geo in KITTI_SETTINGS:
         dd, cm, fm = KITTI_PAIRS[pair]
         dd = Path(CACHE) / dd
-        for flag in ("off", "on"):
+        for flag, fr in flags:
             out = run / f"outcomes__{pair}__{geo}__{flag}.csv.gz"
             if out.exists():
                 print(f"  skip {out.name}", flush=True)
                 continue
             t0 = time.time()
-            fac = factory(koff if flag == "on" else None)
+            fac = lambda path, tag, fr=fr: DetCache(Path(path), frame=fr)
             a = decision.build(dd, cm, fm, kseqs, cfg, pp, cp, G.PRIMARY, range_source=geo,
                                adapter=decision.KittiAdapter, cache_factory=fac)
             b = b65.build_b(dd, cm, fm, kseqs, cfg, decision.KittiAdapter, geo, pb, cb, cache_factory=fac)
@@ -141,13 +150,13 @@ def main():
               f"{max(v[1] for v in noff.values()):+.3f} m", flush=True)
         dd = Path(CACHE) / NUSC_PAIR[0]
         for geo in ("mono", "oracle"):
-            for flag in ("off", "on"):
+            for flag, fr in flags:
                 out = run / f"outcomes__NS_320__{geo}__{flag}.csv.gz"
                 if out.exists():
                     print(f"  skip {out.name}", flush=True)
                     continue
                 t0 = time.time()
-                fac = factory(noff if flag == "on" else None)
+                fac = lambda path, tag, fr=fr: DetCache(Path(path), frame=fr)
                 a = decision.build(dd, NUSC_PAIR[1], NUSC_PAIR[2], nseqs, cfg, pp, cp, G.PRIMARY,
                                    range_source=geo, adapter=ad, cache_factory=fac)
                 t = a[["seq", "frame", "v_ego", "J_cheap", "J_full", "n_cheap", "n_full"]].copy()

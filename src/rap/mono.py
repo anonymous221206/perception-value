@@ -113,10 +113,11 @@ def box_iou(a: np.ndarray, b: np.ndarray) -> np.ndarray:
     return np.where(union > 0, inter / np.maximum(union, 1e-9), 0.0)
 
 
-# The lift measures range along the camera optical axis and lateral extent about the camera axis, and the planners
-# read those as ego-frame quantities.  The camera is not at the ego origin (KITTI's cam2 is ~1.1 m forward and
-# ~0.32 m right of the IMU origin; nuScenes's CAM_FRONT is 1.70 m forward).  `cam_offset` applies that translation.
-# It is off by default: every shipped result uses the camera frame, and Task 22 Part C measures the sensitivity.
+# The camera-frame lift measures range along the camera optical axis and lateral extent about the camera axis, and
+# the planners read those as ego-frame quantities.  The camera is not at the ego origin (KITTI's cam2 is ~1.1 m
+# forward and ~0.26 m right of the IMU origin; nuScenes's CAM_FRONT is 1.70 m forward) and is not level.  Task 22
+# Part C shifted the result by the translation (`cam_offset`, kept for reproducibility); Task 23 made the ego frame the
+# shipped convention (`cam_to_ego`, see `_lift_ego`), chosen through `rap.frames`.
 GEOM_SHIFT_Z = ("z", "z_ground", "z_height")
 GEOM_SHIFT_LAT = ("lat_min", "lat_max")
 
@@ -139,12 +140,65 @@ def apply_cam_offset(geo: dict, cam_offset) -> dict:
     return out
 
 
-def predicted_geometry(det: dict, prev_det: dict | None, calib: Calib,
-                       cam_h: float = CAMERA_HEIGHT, dt: float = FRAME_DT, cam_offset=None) -> dict:
-    """Per-detection estimated ego geometry: range, lateral extent, TTC.
+def _ego_x(R, t, X, Y, Z):
+    """Ego-frame x of camera-frame points, written out so the identity transform is exact."""
+    return R[0, 0] * X + R[0, 1] * Y + R[0, 2] * Z + t[0]
 
-    `cam_offset=(t_x, t_y)` moves the result from the camera frame to the ego frame (default: off, see above).
+
+def _ego_y(R, t, X, Y, Z):
+    return R[1, 0] * X + R[1, 1] * Y + R[1, 2] * Z + t[1]
+
+
+def _lift_ego(x1, y1, x2, y2, coarse, calib: Calib, cam_h: float, R, t, min_px: float = 2.0) -> dict:
+    """The lift in the ego frame (Task 23; the exact definition is in the pre-registration record).
+
+    `R`, `t` take camera coordinates (x right, y down, z forward) to ego coordinates (x forward, y left, z up).
+    The camera -> ego rotation enters where the camera's attitude acts on the estimate, and only there:
+
+      * D, the pixel distance of the box bottom below the **ego** horizon, replaces `y2 - c_y` both in the ground cue
+        and in the fusion weight, so the two share one horizon.  With the road normal n = R^T (0, 0, -1) expressed in
+        camera coordinates, D = f_y * (n . ray) for the bottom-centre ray, computed in pixel units.
+      * the height cue (a ratio of pixel heights) is unchanged, and the cues are fused as camera depths along the one
+        bottom-centre ray, exactly as shipped;
+      * the fused point and the two bottom corners at that depth are then expressed in the ego frame.
+
+    Pitch therefore enters once, through D; it is never applied a second time to the fused point.  With R the pure
+    axis permutation and t = 0 every step performs the shipped operations plus exact multiplications by 0 and +-1,
+    so the result equals the camera-frame lift (gate G1); with t = (t_x, t_y, .) it equals Task 22's shift (G2).
     """
+    R = np.asarray(R, dtype=np.float64)
+    t = np.asarray(t, dtype=np.float64)
+    n0, n1, n2 = -R[2, 0], -R[2, 1], -R[2, 2]
+    uc = 0.5 * (x1 + x2)
+    dv = y2 - calib.cy
+    D = n0 * ((calib.fy / calib.fx) * (uc - calib.cx)) + n1 * dv + n2 * calib.fy
+    zg = calib.fy * cam_h / np.maximum(D, min_px)                    # the ground cue on the corrected horizon
+    zh = range_height(y1, y2, coarse, calib)                          # unchanged
+    w = np.clip((D - 5.0) / 25.0, 0.0, 1.0)                           # the same horizon as the ground cue
+    zc = np.clip(w * zg + (1 - w) * zh, 0.5, 200.0)                   # fused camera depth, as shipped
+    yb = (y2 - calib.cy) * zc / calib.fy
+    xl = (x1 - calib.cx) * zc / calib.fx
+    xr = (x2 - calib.cx) * zc / calib.fx
+    xc = (uc - calib.cx) * zc / calib.fx
+    y_left, y_right = _ego_y(R, t, xl, yb, zc), _ego_y(R, t, xr, yb, zc)
+    zgc, zhc = np.clip(zg, 0.5, 200.0), np.clip(zh, 0.5, 200.0)
+    return {"z": _ego_x(R, t, xc, yb, zc),
+            "z_ground": _ego_x(R, t, (uc - calib.cx) * zgc / calib.fx, (y2 - calib.cy) * zgc / calib.fy, zgc),
+            "z_height": _ego_x(R, t, (uc - calib.cx) * zhc / calib.fx, (y2 - calib.cy) * zhc / calib.fy, zhc),
+            "lat_min": np.minimum(y_left, y_right), "lat_max": np.maximum(y_left, y_right)}
+
+
+def predicted_geometry(det: dict, prev_det: dict | None, calib: Calib,
+                       cam_h: float = CAMERA_HEIGHT, dt: float = FRAME_DT, cam_offset=None,
+                       cam_to_ego=None) -> dict:
+    """Per-detection estimated geometry: range, lateral extent, TTC.
+
+    With neither option this is the camera-frame lift as first shipped.  `cam_to_ego=(R, t)` is the ego-frame lift of
+    Task 23 (see `_lift_ego`); `cam_offset=(t_x, t_y)` is Task 22's translation-only shift of the camera-frame result.
+    The two cannot be combined.
+    """
+    if cam_offset is not None and cam_to_ego is not None:
+        raise ValueError("cam_offset and cam_to_ego cannot be combined: the translation would be applied twice")
     xyxy = det["xyxy"].astype(np.float64)
     n = len(xyxy)
     if n == 0:
@@ -152,13 +206,19 @@ def predicted_geometry(det: dict, prev_det: dict | None, calib: Calib,
         return {"z": z, "z_ground": z, "z_height": z, "lat_min": z, "lat_max": z,
                 "ttc": z, "box_h": z}
     x1, y1, x2, y2 = xyxy.T
+    prev_h = (associate_prev(xyxy, prev_det["xyxy"].astype(np.float64))
+              if prev_det is not None else np.full(n, np.nan))
+    ttc = ttc_from_scale(y2 - y1, prev_h, dt)
+    if cam_to_ego is not None:
+        g = _lift_ego(x1, y1, x2, y2, det["coarse"], calib, cam_h, *cam_to_ego)
+        # ttc is a ratio of box heights in the image and cannot depend on a rigid transform; it is taken from the one
+        # computation above, never re-derived, and the frame-aware cache asserts it against the stored value (G3)
+        g.update({"ttc": ttc, "box_h": y2 - y1})
+        return g
     zg = range_ground(y2, calib, cam_h=cam_h)
     zh = range_height(y1, y2, det["coarse"], calib)
     z = np.clip(fuse_range(zg, zh, y2, calib), 0.5, 200.0)
     lat_min, lat_max = lateral_offset(x1, x2, z, calib)
-    prev_h = (associate_prev(xyxy, prev_det["xyxy"].astype(np.float64))
-              if prev_det is not None else np.full(n, np.nan))
-    ttc = ttc_from_scale(y2 - y1, prev_h, dt)
     g = {"z": z, "z_ground": np.clip(zg, 0.5, 200.0), "z_height": np.clip(zh, 0.5, 200.0),
          "lat_min": lat_min, "lat_max": lat_max, "ttc": ttc, "box_h": y2 - y1}
     return g if cam_offset is None else apply_cam_offset(g, cam_offset)

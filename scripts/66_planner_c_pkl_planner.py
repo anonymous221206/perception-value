@@ -47,6 +47,7 @@ from nuscenes.nuscenes import NuScenes                                         #
 from planning_centric_metrics.planning_kl import EvalLoader                    # noqa: E402
 from planning_centric_metrics.models import compile_model                      # noqa: E402
 from planning_centric_metrics.planning_kl import get_grid                      # noqa: E402
+from rap import frames                                                           # noqa: E402
 from rap import runmeta                                                        # noqa: E402
 from rap.paths import CACHE                                                    # noqa: E402
 
@@ -130,7 +131,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dataroot", default=str(_DS / "nuscenes/trainval"))
     ap.add_argument("--version", default="v1.0-trainval")
-    ap.add_argument("--subs", default=str(CACHE / "nusc_submissions"))
+    ap.add_argument("--subs", default=str(CACHE / frames.cache_name("nusc_submissions")))
     ap.add_argument("--variant", default="oracle")
     ap.add_argument("--cheap", default="ns_cheap_320")
     ap.add_argument("--full", default="ns_full_640")
@@ -143,7 +144,9 @@ def main():
     ap.add_argument("--chunk", type=int, default=0)
     ap.add_argument("--skip_existing", action="store_true")
     ap.add_argument("--tag", default="planner_c")
+    frames.add_argument(ap)
     args = ap.parse_args()
+    frames.configure(args)
 
     subs = Path(args.subs)
     suffix = "" if args.nchunks == 1 else f"_n{args.nchunks}c{args.chunk:02d}"

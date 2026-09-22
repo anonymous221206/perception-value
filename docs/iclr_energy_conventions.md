@@ -1,5 +1,7 @@
 # Energy conventions of the measured budgets
 
+> **Frame convention.** The figures quoted in this report were computed with the monocular lift in the camera frame, the convention before Task 23. Every table in `results/final/` is now computed in the ego frame; `docs/iclr_ego_frame_convention.md` and `results/final/ego_frame_convention.csv` give each registered quantity old beside new, and the camera-frame convention stays selectable with `--frame camera`.
+
 **What this is.** An audit of how detector and allocator energy were charged in the energy budgets, and every energy-budget
 result recomputed under one rail convention.
 * Code: `scripts/132_allocator_rails.py` (board measurement) and `scripts/133_energy_module_budgets.py`.

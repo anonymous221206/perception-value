@@ -15,6 +15,7 @@ import pandas as pd
 from scipy import stats
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+from rap import frames                                                           # noqa: E402
 from rap import runs as rap_runs                                                 # noqa: E402
 from rap import budget, egospeed, runmeta, viz  # noqa: E402
 from rap.paths import RAW, RESULTS              # noqa: E402
@@ -132,7 +133,9 @@ def main():
                     help="also rewrite results/final/core_matrix.csv with the Jetson cost columns. Off by "
                          "default: 52_core_matrix.py owns that file, and this stage would change its schema")
     egospeed.add_argument(ap)
+    frames.add_argument(ap)
     args = ap.parse_args()
+    frames.configure(args)
     egospeed.configure(args)
     run = runmeta.new_run(args.tag, vars(args))
     OUT.mkdir(parents=True, exist_ok=True)

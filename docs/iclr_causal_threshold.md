@@ -1,5 +1,7 @@
 # Causal streaming allocation with a calibrated threshold
 
+> **Frame convention.** The figures quoted in this report were computed with the monocular lift in the camera frame, the convention before Task 23. Every table in `results/final/` is now computed in the ego frame; `docs/iclr_ego_frame_convention.md` and `results/final/ego_frame_convention.csv` give each registered quantity old beside new, and the camera-frame convention stays selectable with `--frame camera`.
+
 **What this is.** The benchmark scores an allocator as a ranking that fills the budget over the whole test split.
 This measures the same cached scores applied causally: one threshold, frozen before the test stream, applied in
 timestamp order, with and without a running budget cap.

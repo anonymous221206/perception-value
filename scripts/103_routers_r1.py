@@ -27,6 +27,7 @@ from sklearn.preprocessing import StandardScaler
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+from rap import frames                                                           # noqa: E402
 from rap import predict, runmeta                                                # noqa: E402
 from rap.cache import COARSE_ID, DetCache                                       # noqa: E402
 from rap.paths import CACHE, RESULTS                                            # noqa: E402
@@ -94,7 +95,9 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--nboot", type=int, default=1000)
     ap.add_argument("--tag", default="routers_r1")
+    frames.add_argument(ap)
     args = ap.parse_args()
+    frames.configure(args)
     run = runmeta.new_run(args.tag, vars(args))
     splits = json.loads((ROOT / "configs" / "benchmark_splits.json").read_text())
     rng = np.random.default_rng(0)
@@ -158,7 +161,7 @@ def main():
     df = pd.DataFrame(rows)
     out = Path(RESULTS) / "final" / "benchmark_table_routers.csv"
     if out.exists():                                        # R2 rows written by 107 are kept
-        old = pd.read_csv(out)
+        old = pd.read_csv(out, keep_default_na=False, na_values=[""], float_precision="round_trip")  # lossless: nuPlan's "n/a" stays
         df = pd.concat([old[~old.signal.str.startswith("R1_")], df], ignore_index=True)
     df.to_csv(out, index=False)
     df.to_csv(run / out.name, index=False)

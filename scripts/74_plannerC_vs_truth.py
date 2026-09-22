@@ -33,6 +33,7 @@ sys.path.insert(0, str(ROOT / "third_party" / "pkl"))
 
 from planning_centric_metrics.models import compile_model                      # noqa: E402
 from planning_centric_metrics.planning_kl import get_grid                      # noqa: E402
+from rap import frames                                                           # noqa: E402
 from rap import runmeta                                                        # noqa: E402
 from rap.planner_d import ade_fde, constant_velocity                           # noqa: E402
 from rap.paths import CACHE                                                    # noqa: E402
@@ -71,14 +72,16 @@ def argmax_paths(model, masks, packed, device, bsz=16) -> np.ndarray:
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--data", default=str(CACHE / "planner_d"))
+    ap.add_argument("--data", default=str(CACHE / frames.cache_name("planner_d")))
     ap.add_argument("--modelpath", default=str(ROOT / "third_party" / "tip" / "planner.pt"))
     ap.add_argument("--mask_json",
                     default=str(ROOT / "third_party" / "tip" / "masks_trainval.json"))
     ap.add_argument("--variant", default="oracle", help="submission geometry of the rasters")
     ap.add_argument("--bsz", type=int, default=16)
     ap.add_argument("--tag", default="plannerC_vs_truth")
+    frames.add_argument(ap)
     args = ap.parse_args()
+    frames.configure(args)
     run = runmeta.new_run(args.tag, vars(args))
 
     files = sorted((Path(args.data) / "test").glob(f"chunk_{args.variant}_*.npz"))

@@ -28,6 +28,8 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+from rap import frames                                                           # noqa: E402
+from rap import runs as rap_runs                                                 # noqa: E402
 from rap import runmeta                                                         # noqa: E402
 from rap.paths import RESULTS                                                   # noqa: E402
 
@@ -45,13 +47,15 @@ CELL = {("Y8_320", "mono"): "KITTI mono Y8 320->640", ("Y8_384", "mono"): "KITTI
         ("NS_320", "oracle"): "nuScenes oracle Y8 320->640",
         ("RT_320", "mono"): "KITTI mono RT-DETR 320->640"}
 # The one setting of the sign-variation tables with no calibration row: its gate reads the shipped per-frame tables.
-SHIPPED = {("RT_320", "mono"): ("20260913_133004_core_matrix_postreview/"
-                                "KITTI__RT-DETR-l__rt_cheap_320tort_full_640__mono.pkl",
-                                "20260912_111225_planner_b_static_fixed/"
-                                "planB__KITTI__RTDETRl__rt_cheap_320tort_full_640__mono.pkl")}
+SHIPPED = {("RT_320", "mono"): (str(rap_runs.core_matrix("postreview") / "KITTI__RT-DETR-l__rt_cheap_320tort_full_640__mono.pkl"),
+                                str(rap_runs.planner_b() / "planB__KITTI__RTDETRl__rt_cheap_320tort_full_640__mono.pkl"))}
 LABEL = {"Y8_320": "YOLOv8s 320->640", "Y8_384": "YOLOv8s 384->640", "Y8_512": "YOLOv8s 512->640",
          "RT_320": "RT-DETR-l 320->640", "RT_480": "RT-DETR-l 480->640", "NS_320": "YOLOv8s 320->640"}
 HARM_TOL, RHO_TOL = 0.05, 0.05
+# (base flag, alternative flag) as 140 names its tables in each frame.  Camera frame: Task 22 Part C, base = the
+# camera-frame lift, alternative = the translation-only shift.  Ego frame (Task 23, C27 restated): base = the ego-frame
+# lift now shipped, alternative = the camera frame, so each delta is the cost of the old convention.
+FLAGS = {"camera": ("off", "on"), "ego": ("ego", "camera")}
 QPLAN_COST = ("nuScenes q_plan is Planner C's ADE/FDE against the real trajectory and needs the submissions and "
               "rasters rebuilt: submissions ~15 min, Planner C oracle + mono ~2.6 h in 12 chunks, then "
               "62_planning_metric_eta.py for both variants ~1.1 h (measured 33 + 32 min on 2026-09-20) -- about "
@@ -72,16 +76,16 @@ def five(jc, jf):
 
 
 def latest(tag):
-    d = [p for p in sorted(RAW.glob(f"*_{tag}")) if p.name.split("_", 2)[-1] == tag]
-    if not d:
-        raise SystemExit(f"no results/raw/*_{tag} run found")
-    return d[-1]
+    """The newest run of `tag` in the current lift frame (rap.runs)."""
+    return rap_runs.latest(tag)
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--outcomes", default=None)
+    frames.add_argument(ap)
     args = ap.parse_args()
+    frames.configure(args)
     run_in = Path(args.outcomes) if args.outcomes else latest("lift_offset_outcomes")
     run = runmeta.new_run("lift_offset_sensitivity", {"outcomes_run": run_in.name})
 
@@ -94,12 +98,13 @@ def main():
                 continue
             stats[(pair, geo, sysname, flag)] = {**five(t[c], t[fcol]), "n_frames": len(t)}
 
-    # ---- sanity gate: flag off against the shipped values, 3 decimals
+    base, alt = FLAGS[frames.current()]
+    # ---- sanity gate: the base convention against the shipped values, 3 decimals
     calib = pd.read_csv(FINAL / "calibration_cells.csv", low_memory=False)
     calib = calib[(calib.scheme == "S0") & (calib.split == "all")]
     san = []
     for (pair, geo, sysname, flag), st in sorted(stats.items()):
-        if flag != "off":
+        if flag != base:
             continue
         r = calib[calib.cell == f"{CELL.get((pair, geo), '')} {sysname}"]
         if len(r) == 1:
@@ -137,14 +142,14 @@ def main():
     # ---- the sensitivity table
     rows = []
     for (pair, geo, sysname, flag) in sorted(stats):
-        if flag != "off":
+        if flag != base:
             continue
-        a, b = stats[(pair, geo, sysname, "off")], stats[(pair, geo, sysname, "on")]
+        a, b = stats[(pair, geo, sysname, base)], stats[(pair, geo, sysname, alt)]
         row = {"dataset": "nuScenes" if pair.startswith("NS") else "KITTI", "pair": LABEL[pair],
                "geometry": geo, "system": sysname, "cell": CELL.get((pair, geo), f"{pair} {geo}"),
                "n_frames": a["n_frames"]}
         for k in ("affected", "harmed", "rho", "all_full", "oracle20"):
-            row[f"{k}_off"], row[f"{k}_on"] = a[k], b[k]
+            row[f"{k}_{base}"], row[f"{k}_{alt}"] = a[k], b[k]
             row[f"{k}_delta"] = b[k] - a[k]
         row["within_tolerance"] = bool(abs(row["harmed_delta"]) <= HARM_TOL and abs(row["rho_delta"]) <= RHO_TOL)
         rows.append(row)
@@ -159,7 +164,7 @@ def main():
          "settings": len(d), "settings_outside_tolerance": len(moved), "q_plan": QPLAN_COST,
          "outcomes_run": run_in.name}, indent=1))
     pd.set_option("display.width", 200)
-    print(d[["cell", "system", "harmed_off", "harmed_on", "harmed_delta", "rho_off", "rho_on",
+    print(d[["cell", "system", f"harmed_{base}", f"harmed_{alt}", "harmed_delta", f"rho_{base}", f"rho_{alt}",
              "rho_delta"]].round(4).to_string(index=False))
     print(f"\n  reading: {reading}")
     print(f"  q_plan: {QPLAN_COST}")

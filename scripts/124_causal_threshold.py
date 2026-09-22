@@ -23,6 +23,8 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+from rap import frames                                                           # noqa: E402
+from rap import runs as rap_runs                                                 # noqa: E402
 from rap import predict, runmeta                                                # noqa: E402
 from rap.budget import mark_infeasible                                          # noqa: E402
 from rap.paths import CACHE, RESULTS                                            # noqa: E402
@@ -49,17 +51,9 @@ LEARNED = GATES + R1
 PLAIN = ["uncertainty", "criticality_cheap"]
 SIGNALS = ["random"] + PLAIN + LEARNED + ["R2_cnn_clf"]
 POOLED_RATE, NBOOT, NFOLD, NRAND, MIN_AFFECTED = 0.20, 1000, 5, 32, t120.MIN_AFFECTED
-def _latest(tag):
-    """The newest run of a tag, so a re-run of the full tier does not break these stages."""
-    d = [p for p in sorted(RAW.glob(f"*_{tag}")) if p.name.split("_", 2)[-1] == tag]
-    if not d:
-        raise SystemExit(f"no results/raw/*_{tag} run found")
-    return d[-1]
-
-
-R1_RUN = _latest("routers_r1")
-NR_RUN = _latest("nuplan_real_allocation")
-_r2 = sorted(glob.glob(str(RAW / "*_router_r2")))
+R1_RUN = rap_runs.latest("routers_r1")
+NR_RUN = rap_runs.latest("nuplan_real_allocation")
+_r2 = [str(p) for p in rap_runs.frame_runs("router_r2")]
 R2_RUN = Path(_r2[-1]) if _r2 else None
 R2_REASON = "R2's cached scores cover the test frames only; calibrating a threshold would need the image model re-run"
 UNC_REASON = "no uncertainty signal exists for the real-perception nuPlan cells (unc_proxy is not among 119's signals)"
@@ -212,7 +206,9 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--nboot", type=int, default=NBOOT)
     ap.add_argument("--max_cells", type=int, default=0, help="debug only: stop after this many cells")
+    frames.add_argument(ap)
     args = ap.parse_args()
+    frames.configure(args)
     run = runmeta.new_run("causal_threshold", vars(args))
     splits = json.loads((ROOT / "configs" / "benchmark_splits.json").read_text())
     nr_fcols, _ = t120.register_features()

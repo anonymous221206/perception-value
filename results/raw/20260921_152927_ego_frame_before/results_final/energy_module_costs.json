@@ -1,0 +1,324 @@
+{
+ "allocator_rails_median_mw": {
+  "gate": {
+   "module_mw_over_idle": 8407.105949337727,
+   "all_rails_mw_over_idle": 8840.867849844351,
+   "cpu_mw_over_idle": 7393.260776170419,
+   "cpu_gpu_mw_over_idle": 7263.555957272782,
+   "median_rails_over_idle_mw": {
+    "CPU": 7393.260776170419,
+    "CV": 0.0,
+    "GPU": -129.7048188976378,
+    "SOC": 1141.9475036318145,
+    "SYS5V": 308.8806142953076,
+    "VDDRQ": 124.88128621131665
+   }
+  },
+  "r1": {
+   "module_mw_over_idle": 9982.012982259568,
+   "all_rails_mw_over_idle": 10513.550969187672,
+   "cpu_mw_over_idle": 8788.259914098971,
+   "cpu_gpu_mw_over_idle": 8788.259914098971,
+   "median_rails_over_idle_mw": {
+    "CPU": 8788.259914098971,
+    "CV": 0.0,
+    "GPU": 0.0,
+    "SOC": 1193.7530681605974,
+    "SYS5V": 381.8812631578967,
+    "VDDRQ": 131.28405012531317
+   }
+  },
+  "r2": {
+   "module_mw_over_idle": 2676.133730374614,
+   "all_rails_mw_over_idle": 3423.209567167742,
+   "cpu_mw_over_idle": 757.4623953823959,
+   "cpu_gpu_mw_over_idle": 1428.354462419471,
+   "median_rails_over_idle_mw": {
+    "CPU": 757.4623953823959,
+    "CV": 0.0,
+    "GPU": 689.7396363636362,
+    "SOC": 1247.779267955143,
+    "SYS5V": 608.2485325697921,
+    "VDDRQ": 142.23468975468978
+   }
+  }
+ },
+ "gate_scores_run": "20260917_173529_budget_gate_scores",
+ "checks": {
+  "M1": [
+   {
+    "run": "20260912_073228_profile",
+    "mode": "ns_cheap_320",
+    "field": "energy_gpu_mj_per_frame",
+    "stored": 23.70561041501833,
+    "recomputed": 23.70561041501833,
+    "ok": true
+   },
+   {
+    "run": "20260912_073228_profile",
+    "mode": "ns_cheap_320",
+    "field": "energy_module_mj_per_frame",
+    "stored": 54.55355389285198,
+    "recomputed": 54.55355389285198,
+    "ok": true
+   },
+   {
+    "run": "20260912_073228_profile",
+    "mode": "ns_full_640",
+    "field": "energy_gpu_mj_per_frame",
+    "stored": 66.66120008561128,
+    "recomputed": 66.66120008561128,
+    "ok": true
+   },
+   {
+    "run": "20260912_073228_profile",
+    "mode": "ns_full_640",
+    "field": "energy_module_mj_per_frame",
+    "stored": 132.70108643249822,
+    "recomputed": 132.70108643249824,
+    "ok": true
+   },
+   {
+    "run": "20260912_021305_profile",
+    "mode": "cheap_320",
+    "field": "energy_gpu_mj_per_frame",
+    "stored": 13.85771520826868,
+    "recomputed": 13.85771520826868,
+    "ok": true
+   },
+   {
+    "run": "20260912_021305_profile",
+    "mode": "cheap_320",
+    "field": "energy_module_mj_per_frame",
+    "stored": 41.112641173187015,
+    "recomputed": 41.112641173187015,
+    "ok": true
+   },
+   {
+    "run": "20260912_021305_profile",
+    "mode": "cheap_384",
+    "field": "energy_gpu_mj_per_frame",
+    "stored": 19.079792539552848,
+    "recomputed": 19.079792539552848,
+    "ok": true
+   },
+   {
+    "run": "20260912_021305_profile",
+    "mode": "cheap_384",
+    "field": "energy_module_mj_per_frame",
+    "stored": 47.7944060087169,
+    "recomputed": 47.79440600871689,
+    "ok": true
+   },
+   {
+    "run": "20260912_021305_profile",
+    "mode": "cheap_512",
+    "field": "energy_gpu_mj_per_frame",
+    "stored": 27.416376304233527,
+    "recomputed": 27.416376304233527,
+    "ok": true
+   },
+   {
+    "run": "20260912_021305_profile",
+    "mode": "cheap_512",
+    "field": "energy_module_mj_per_frame",
+    "stored": 61.96178928233739,
+    "recomputed": 61.96178928233739,
+    "ok": true
+   },
+   {
+    "run": "20260912_021305_profile",
+    "mode": "full_640",
+    "field": "energy_gpu_mj_per_frame",
+    "stored": 33.0498234504539,
+    "recomputed": 33.0498234504539,
+    "ok": true
+   },
+   {
+    "run": "20260912_021305_profile",
+    "mode": "full_640",
+    "field": "energy_module_mj_per_frame",
+    "stored": 84.43324887555701,
+    "recomputed": 84.43324887555701,
+    "ok": true
+   }
+  ],
+  "M2": [
+   {
+    "mode": "ns_cheap_320",
+    "stored": 44.70575240411993,
+    "recomputed": 44.70575240411993,
+    "ok": true
+   },
+   {
+    "mode": "ns_full_640",
+    "stored": 105.78773123420578,
+    "recomputed": 105.78773123420578,
+    "ok": true
+   }
+  ],
+  "M3": [
+   {
+    "overheads": "primary",
+    "stored": 7401.296314960629,
+    "recomputed": 7401.296314960629,
+    "ok": true
+   },
+   {
+    "overheads": "1thread",
+    "stored": 1534.1272643678155,
+    "recomputed": 1534.1272643678155,
+    "ok": true
+   },
+   {
+    "overheads": "routers",
+    "stored": 6717.921569736434,
+    "recomputed": 6717.921569736434,
+    "ok": true
+   }
+  ],
+  "S2_nuplan_real": {
+   "rows": 416,
+   "unmatched": 0,
+   "columns_differing": {},
+   "ok": true
+  },
+  "S3_skip_evaluation": {
+   "rows": 28,
+   "unmatched": 0,
+   "columns_differing": {},
+   "ok": true
+  },
+  "S4_multifidelity_draws": {
+   "rows": 112,
+   "unmatched": 0,
+   "columns_differing": {},
+   "ok": true
+  }
+ },
+ "conventions": {
+  "module": {
+   "detector_rails": [
+    "GPU",
+    "SOC",
+    "CPU"
+   ],
+   "allocator_rails": [
+    "GPU",
+    "SOC",
+    "CPU"
+   ],
+   "detector_mJ": {
+    "nuScenes": {
+     "cheap": 54.55355389285198,
+     "640": 132.70108643249824
+    },
+    "KITTI": {
+     "cheap": 41.112641173187015,
+     "384": 47.79440600871689,
+     "512": 61.96178928233739,
+     "640": 84.43324887555701
+    }
+   },
+   "nuplan_real_detector_mJ": {
+    "cheap": 69.5124056669773,
+    "640": 143.845281707668
+   },
+   "allocator_mw_over_idle": {
+    "primary": {
+     "gate": 8574.010744094488,
+     "r1": 9982.012982259568,
+     "r2": 2676.133730374614
+    },
+    "1thread": {
+     "gate": 2567.0585134099606,
+     "r1": 9982.012982259568,
+     "r2": 2676.133730374614
+    },
+    "routers": {
+     "gate": 7888.218227100776,
+     "r1": 9982.012982259568,
+     "r2": 2676.133730374614
+    }
+   }
+  },
+  "all_rails": {
+   "detector_rails": "all",
+   "allocator_rails": "all",
+   "detector_mJ": {
+    "nuScenes": {
+     "cheap": 61.77722045959682,
+     "640": 156.53291728860071
+    },
+    "KITTI": {
+     "cheap": 47.68856377340951,
+     "384": 55.130033162694986,
+     "512": 73.4057282391546,
+     "640": 98.08486115805927
+    }
+   },
+   "nuplan_real_detector_mJ": {
+    "cheap": 88.53171917774198,
+    "640": 179.31829066718544
+   },
+   "allocator_mw_over_idle": {
+    "primary": {
+     "gate": 9085.317944881892,
+     "r1": 10513.550969187672,
+     "r2": 3423.209567167742
+    },
+    "1thread": {
+     "gate": 2989.6401269841263,
+     "r1": 10513.550969187672,
+     "r2": 3423.209567167742
+    },
+    "routers": {
+     "gate": 8423.72514331783,
+     "r1": 10513.550969187672,
+     "r2": 3423.209567167742
+    }
+   }
+  },
+  "as_specified": {
+   "detector_rails": [
+    "GPU",
+    "SOC",
+    "CPU"
+   ],
+   "allocator_rails": "all",
+   "detector_mJ": {
+    "nuScenes": {
+     "cheap": 54.55355389285198,
+     "640": 132.70108643249824
+    },
+    "KITTI": {
+     "cheap": 41.112641173187015,
+     "384": 47.79440600871689,
+     "512": 61.96178928233739,
+     "640": 84.43324887555701
+    }
+   },
+   "nuplan_real_detector_mJ": {
+    "cheap": 69.5124056669773,
+    "640": 143.845281707668
+   },
+   "allocator_mw_over_idle": {
+    "primary": {
+     "gate": 9085.317944881892,
+     "r1": 10513.550969187672,
+     "r2": 3423.209567167742
+    },
+    "1thread": {
+     "gate": 2989.6401269841263,
+     "r1": 10513.550969187672,
+     "r2": 3423.209567167742
+    },
+    "routers": {
+     "gate": 8423.72514331783,
+     "r1": 10513.550969187672,
+     "r2": 3423.209567167742
+    }
+   }
+  }
+ }
+}

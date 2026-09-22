@@ -49,6 +49,7 @@ from nuscenes.eval.detection.data_classes import DetectionBox                   
 from nuscenes.map_expansion.map_api import NuScenesMap                          # noqa: E402
 from nuscenes.nuscenes import NuScenes                                          # noqa: E402
 from planning_centric_metrics import calculate_pkl                              # noqa: E402
+from rap import frames                                                           # noqa: E402
 from rap import runmeta                                                         # noqa: E402
 from rap.paths import CACHE                                                     # noqa: E402
 
@@ -100,7 +101,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dataroot", default=str(_DS / "nuscenes/trainval"))
     ap.add_argument("--version", default="v1.0-trainval")
-    ap.add_argument("--subs", default=str(CACHE / "nusc_submissions"))
+    ap.add_argument("--subs", default=str(CACHE / frames.cache_name("nusc_submissions")))
     ap.add_argument("--variant", default="oracle")
     ap.add_argument("--cheap", default="ns_cheap_320")
     ap.add_argument("--full", default="ns_full_640")
@@ -116,7 +117,9 @@ def main():
     ap.add_argument("--chunk", type=int, default=0, help="which chunk to evaluate")
     ap.add_argument("--skip_existing", action="store_true",
                     help="return immediately if this chunk's CSV is already written")
+    frames.add_argument(ap)
     args = ap.parse_args()
+    frames.configure(args)
 
     subs = Path(args.subs)
     # Idempotent: a chunk whose CSV already exists is skipped, so an interrupted sweep can

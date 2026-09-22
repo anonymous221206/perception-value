@@ -27,6 +27,7 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+from rap import runs as rap_runs                                                 # noqa: E402
 from rap import runmeta                                                         # noqa: E402
 from rap.paths import RESULTS                                                   # noqa: E402
 
@@ -42,17 +43,15 @@ PAIR_LABEL = {"Y8_320": "YOLOv8s 320->640", "Y8_384": "YOLOv8s 384->640", "Y8_51
 CALIB_CELL = {("Y8_320", "mono"): "KITTI mono Y8 320->640", ("Y8_384", "mono"): "KITTI mono Y8 384->640",
               ("Y8_512", "mono"): "KITTI mono Y8 512->640", ("RT_480", "mono"): "KITTI mono RT-DETR 480->640",
               ("Y8_320", "oracle"): "KITTI oracle Y8 320->640"}
-SHIPPED_TABLES = {"RT_320": ("20260913_133004_core_matrix_postreview/KITTI__RT-DETR-l__rt_cheap_320tort_full_640__mono.pkl",
-                             "20260912_111225_planner_b_static_fixed/planB__KITTI__RTDETRl__rt_cheap_320tort_full_640__mono.pkl")}
+SHIPPED_TABLES = {"RT_320": (str(rap_runs.core_matrix("postreview") / "KITTI__RT-DETR-l__rt_cheap_320tort_full_640__mono.pkl"),
+                             str(rap_runs.planner_b() / "planB__KITTI__RTDETRl__rt_cheap_320tort_full_640__mono.pkl"))}
 SYSTEMS = {"q_brake": ("J_cheap", "J_full"), "q_traj": ("JB_cheap", "JB_full")}
 QUANT = ("affected", "harmed", "rho", "all_full", "oracle20")
 
 
 def _latest(tag):
-    d = [p for p in sorted(RAW.glob(f"*_{tag}")) if p.name.split("_", 2)[-1] == tag]
-    if not d:
-        raise SystemExit(f"no results/raw/*_{tag} run found")
-    return d[-1]
+    """The newest run of `tag` in the current lift frame (rap.runs)."""
+    return rap_runs.latest(tag)
 
 
 def five(jc, jf):

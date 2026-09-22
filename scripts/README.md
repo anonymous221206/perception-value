@@ -109,8 +109,14 @@ Each of these answers one question asked of the benchmark after its first result
 | `137_class_error_figures.py` | every figure that fix moves, old beside new, and the identity check outside nuScenes | |
 | `138_causal_ego_speed.py` | tabulates the causal nuScenes ego speed; checks that KITTI and nuPlan use no future data | D |
 | `139_causal_ego_figures.py` | every figure the causal ego speed moves, the sanity gate and the first-frame sensitivity | |
-| `140_lift_offset_outcomes.py` | KITTI and nuScenes per-frame outcomes with and without the camera-to-ego translation in the lift | D |
+| `140_lift_offset_outcomes.py` | KITTI and nuScenes per-frame outcomes, ego-frame lift against camera frame (Task 22: translation only) | D |
 | `141_lift_offset_sensitivity.py` | the five sign-variation quantities per setting, the sanity gate and the reading | |
+| `142_frame_transform_audit.py` | the audit behind the ego-frame pre-registration: residual rotation, lift variants against the reference | D |
+| `143_cam_to_ego_table.py` | every unit's camera -> ego transform and intrinsics, `data/cache/cam_to_ego.json` | D |
+| `144_ego_frame_gates.py` | gates G1 (geometry and tables), G2, and measurements B and D of the ego-frame lift | D (g1geo: none) |
+| `145_ego_frame_table_gates.py` | gates G4 (class primitives) and G5 (oracle geometry) on the ego-frame tables | D |
+| `146_class_error_prefix_tables.py` | the pre-fix nuScenes class labels in the ego-frame tables, C25's before | |
+| `147_ego_frame_convention.py` | every registered quantity old (camera frame) beside new (ego frame), and the reading | |
 
 ## Figure data
 

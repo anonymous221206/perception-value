@@ -1,5 +1,7 @@
 # Does a perception-centric evaluation objective pick a different allocator?
 
+> **Frame convention.** The figures quoted in this report were computed with the monocular lift in the camera frame, the convention before Task 23. Every table in `results/final/` is now computed in the ego frame; `docs/iclr_ego_frame_convention.md` and `results/final/ego_frame_convention.csv` give each registered quantity old beside new, and the camera-frame convention stays selectable with `--frame camera`.
+
 **What this is.** The benchmark ranks allocation signals by the decision value they realise at a budget. A
 perception-first author would rank the same signals by the perception gain they realise instead. This holds the
 method pool, the selection protocol, the exact tie expectation and the cluster bootstrap fixed, and changes only

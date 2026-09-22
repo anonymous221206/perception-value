@@ -23,6 +23,8 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+from rap import frames                                                           # noqa: E402
+from rap import runs as rap_runs                                                 # noqa: E402
 from rap import egospeed, runmeta                                               # noqa: E402
 from rap.paths import RESULTS                                                    # noqa: E402
 
@@ -43,17 +45,9 @@ EPS, QUOTAS = t92.EPS, t92.QUOTAS
 NBOOT = 1000
 R1 = ["R1_mlp_reg", "R1_mlp_clf", "R1_gbm_reg", "R1_gbm_clf"]
 GATES = ["gate_ridge", "gate_gbm"]
-def _latest(tag):
-    """The newest run of a tag, so a re-run of the full tier does not break these stages."""
-    d = [p for p in sorted(RAW.glob(f"*_{tag}")) if p.name.split("_", 2)[-1] == tag]
-    if not d:
-        raise SystemExit(f"no results/raw/*_{tag} run found")
-    return d[-1]
-
-
-R1_RUN = _latest("routers_r1")
-NR_RUN = _latest("nuplan_real_allocation")
-_r2 = sorted(glob.glob(str(RAW / "*_router_r2")))
+R1_RUN = rap_runs.latest("routers_r1")
+NR_RUN = rap_runs.latest("nuplan_real_allocation")
+_r2 = [str(p) for p in rap_runs.frame_runs("router_r2")]
 R2_RUN = Path(_r2[-1]) if _r2 else None
 TRIVIAL_CORE = {"trivial_ego_speed": "v_ego_causal", "trivial_n_det": "feat_n_det",
                 "trivial_risk_cheap": "feat_crit_sum", "trivial_area_max": "feat_area_frac_max"}
@@ -139,7 +133,9 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--nboot", type=int, default=NBOOT)
     egospeed.add_argument(ap)
+    frames.add_argument(ap)
     args = ap.parse_args()
+    frames.configure(args)
     egospeed.configure(args)
     run = runmeta.new_run("statistics_hardening", vars(args))
     splits = json.loads((ROOT / "configs" / "benchmark_splits.json").read_text())

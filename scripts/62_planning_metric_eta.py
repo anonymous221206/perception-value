@@ -24,6 +24,7 @@ sys.path.insert(0, str(ROOT / "src"))
 from rap.paths import DATASETS as _DS, MODELS as _MD                      # noqa: E402
 sys.path.insert(0, str(ROOT / "scripts"))
 
+from rap import frames                                                           # noqa: E402
 from rap import runs as rap_runs                                                 # noqa: E402
 from rap import budget, percep_metrics as PM, predict, runmeta                  # noqa: E402
 from rap.paths import CACHE, RESULTS                                            # noqa: E402
@@ -211,7 +212,7 @@ def main():
     ap.add_argument("--tables", default=None,
                     help="core_matrix run holding the pickled nuScenes decision tables "
                          "(default: rap.runs.core_matrix, the corrected copy where there is one)")
-    ap.add_argument("--subs", default=str(CACHE / "nusc_submissions"))
+    ap.add_argument("--subs", default=str(CACHE / frames.cache_name("nusc_submissions")))
     ap.add_argument("--variant", default="oracle", help="submission geometry variant")
     ap.add_argument("--dataroot", default=str(_DS / "nuscenes/trainval"))
     ap.add_argument("--version", default="v1.0-trainval")
@@ -228,7 +229,9 @@ def main():
                     help="skip the Planner C task even if its CSVs exist")
     ap.add_argument("--coverage", default="per_metric", choices=["per_metric", "intersect"],
                     help="evaluate on each metric's own frames, or only where all overlap")
+    frames.add_argument(ap)
     args = ap.parse_args()
+    frames.configure(args)
     args.tables = args.tables or str(rap_runs.core_matrix("plain"))
     run = runmeta.new_run(args.tag, vars(args))
     subs = Path(args.subs)
@@ -262,7 +265,7 @@ def main():
 
     if args.planner_c_truth is None:
         sfx = "" if args.variant == "oracle" else f"_{args.variant}"
-        args.planner_c_truth = str(CACHE / "planner_d" / f"planC_vs_truth{sfx}.csv")
+        args.planner_c_truth = str(CACHE / frames.cache_name("planner_d") / f"planC_vs_truth{sfx}.csv")
     truth = Path(args.planner_c_truth)
     print(f"  Planner C truth-referenced costs: {truth.name}")
     if args.planner_c and truth.exists():

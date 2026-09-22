@@ -47,8 +47,29 @@ def short(row):
     return f"{d}/{det} {gap}{g}"
 
 
+def with_costs(cm):
+    """The Jetson cost ratios of figure 13, as 53_finalize.py computes them: FULL / CHEAP GPU forward time and GPU energy
+    per frame, from the profile runs.  core_matrix.csv is owned by 52 and no longer carries them (Task 22 Part B)."""
+    if "compute_ratio" in cm and "energy_ratio" in cm:
+        return cm
+    prof = {}
+    for d in sorted(glob.glob(str(RAW / "*_profile"))):
+        f = Path(d) / "profile_summary.json"
+        if f.exists():
+            prof.update({k: v for k, v in json.loads(f.read_text()).items() if not k.startswith("_")})
+
+    def cost(mode, key):
+        return prof.get(mode, {}).get(key, np.nan)
+    cm = cm.copy()
+    cm["compute_ratio"] = (cm.full_mode.map(lambda m: cost(m, "lat_fwd_ms_median"))
+                           / cm.cheap_mode.map(lambda m: cost(m, "lat_fwd_ms_median")))
+    cm["energy_ratio"] = (cm.full_mode.map(lambda m: cost(m, "energy_gpu_mj_per_frame"))
+                          / cm.cheap_mode.map(lambda m: cost(m, "energy_gpu_mj_per_frame")))
+    return cm
+
+
 def main():
-    cm = pd.read_csv(Path(RESULTS) / "final" / "core_matrix.csv")
+    cm = with_costs(pd.read_csv(Path(RESULTS) / "final" / "core_matrix.csv"))
     cmr = rap_runs.core_matrix("plain")
     tables = {p.stem: pd.read_pickle(p).reset_index(drop=True) for p in sorted(cmr.glob("*.pkl"))}
     cm["label"] = cm.apply(short, axis=1)

@@ -1,5 +1,7 @@
 # Statistics hardening: raw gain, single-unit influence, trivial baselines
 
+> **Frame convention.** The figures quoted in this report were computed with the monocular lift in the camera frame, the convention before Task 23. Every table in `results/final/` is now computed in the ego frame; `docs/iclr_ego_frame_convention.md` and `results/final/ego_frame_convention.csv` give each registered quantity old beside new, and the camera-frame convention stays selectable with `--frame camera`.
+
 **What this is.** Three stress tests of the held-out conclusions, plus a second harm reading. Do the results
 survive without the prize denominator, without one dominant test unit, and against predictors that use one
 number?

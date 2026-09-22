@@ -1,5 +1,7 @@
 # Two realism controls on the KITTI core track: detection persistence and reference geometry
 
+> **Frame convention.** The figures quoted in this report were computed with the monocular lift in the camera frame, the convention before Task 23. Every table in `results/final/` is now computed in the ego frame; `docs/iclr_ego_frame_convention.md` and `results/final/ego_frame_convention.csv` give each registered quantity old beside new, and the camera-frame convention stays selectable with `--frame camera`.
+
 **Objections tested.**
 1. The controllers act on single-frame detections, while real stacks require a detection to persist before acting.
    A persistence requirement might remove the transient false positives that drive harm.

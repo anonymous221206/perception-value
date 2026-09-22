@@ -23,6 +23,8 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+from rap import frames                                                           # noqa: E402
+from rap import runs as rap_runs                                                 # noqa: E402
 from rap import runmeta                                                         # noqa: E402
 from rap.budget import infeasible, mark_infeasible                              # noqa: E402
 from rap.paths import CACHE, RESULTS                                            # noqa: E402
@@ -47,16 +49,8 @@ ARCH = GATES + R1
 BUDGET_ARCH = ARCH + ["gate_gbm_batched"]                  # same scores as gate_gbm, batched inference overhead
 G_VARIANTS = ["primary", "dE_exact", "dE_E6_risk_weighted"]
 CORE_G = {"primary": "dE_E5_combined", "dE_exact": "dE", "dE_E6_risk_weighted": "dE_E6_risk_weighted"}
-def _latest(tag):
-    """The newest run of a tag, so a re-run of the full tier does not break this stage."""
-    d = [p for p in sorted(RAW.glob(f"*_{tag}")) if p.name.split("_", 2)[-1] == tag]
-    if not d:
-        raise SystemExit(f"no results/raw/*_{tag} run found")
-    return d[-1]
-
-
-R1_RUN = _latest("routers_r1")
-NR_RUN = _latest("nuplan_real_allocation")
+R1_RUN = rap_runs.latest("routers_r1")
+NR_RUN = rap_runs.latest("nuplan_real_allocation")
 BUDGET_UNIT, BUDGET_LEVEL, POOLED_QUOTA = "ms", 0.2, 0.2
 
 
@@ -199,9 +193,12 @@ def main():
     ap.add_argument("--nboot", type=int, default=1000)
     ap.add_argument("--reuse_gscores", default=None,
                     help="an earlier run of this script: reuse its G-target scores wherever the label is unchanged")
+    frames.add_argument(ap)
     args = ap.parse_args()
+    frames.configure(args)
     for tag, run_dir in (("routers_r1", R1_RUN), ("nuplan_real_allocation", NR_RUN)):
-        assert sorted(RAW.glob(f"*_{tag}"))[-1] == run_dir, f"{run_dir.name} is not the latest official {tag} run"
+        # resolved by frame (rap.runs): a bare glob of *_routers_r1 never matches the ego frame's *_routers_r1_ego
+        assert rap_runs.latest(tag) == run_dir, f"{run_dir.name} is not the latest official {tag} run"
     run = runmeta.new_run("target_swap", vars(args))
     splits = json.loads((ROOT / "configs" / "benchmark_splits.json").read_text())
     nr_fcols, _ = t120.register_features()

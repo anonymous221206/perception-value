@@ -37,6 +37,7 @@ from pyquaternion import Quaternion                                            #
 from planning_centric_metrics.planning_kl import (get_grid, get_local_map,     # noqa: E402
                                                  get_other_objs, raster_render,
                                                  samp2ego, samp2mapname)
+from rap import frames                                                           # noqa: E402
 from rap import runmeta                                                        # noqa: E402
 from rap.ego_traj import ego_velocity, future_waypoints                        # noqa: E402
 from rap.planner_d import HORIZONS                                             # noqa: E402
@@ -97,11 +98,11 @@ def main():
     ap.add_argument("--split", required=True, choices=["train", "val", "test"])
     ap.add_argument("--dataroot", default=str(_DS / "nuscenes/trainval"))
     ap.add_argument("--version", default="v1.0-trainval")
-    ap.add_argument("--subs", default=str(CACHE / "nusc_submissions"))
+    ap.add_argument("--subs", default=str(CACHE / frames.cache_name("nusc_submissions")))
     ap.add_argument("--variant", default="oracle", help="submission geometry, test split only")
     ap.add_argument("--cheap", default="ns_cheap_320")
     ap.add_argument("--full", default="ns_full_640")
-    ap.add_argument("--out", default=str(CACHE / "planner_d"))
+    ap.add_argument("--out", default=str(CACHE / frames.cache_name("planner_d")))
     ap.add_argument("--nchunks", type=int, default=1)
     ap.add_argument("--chunk", type=int, default=0)
     ap.add_argument("--skip_existing", action="store_true")
@@ -109,7 +110,9 @@ def main():
                     help="keep frames whose horizon runs past the end of the scene")
     ap.add_argument("--max_train_scenes", type=int, default=200)
     ap.add_argument("--tag", default="planner_d_data")
+    frames.add_argument(ap)
     args = ap.parse_args()
+    frames.configure(args)
 
     out = Path(args.out) / args.split
     out.mkdir(parents=True, exist_ok=True)

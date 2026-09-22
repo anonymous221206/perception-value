@@ -34,6 +34,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 from rap.paths import DATASETS as _DS, MODELS as _MD                      # noqa: E402
 sys.path.insert(0, str(ROOT / "third_party" / "pkl"))
+from rap import frames                                                           # noqa: E402
+from rap import runs as rap_runs                                                 # noqa: E402
 from rap import runmeta                                                        # noqa: E402
 from rap.paths import CACHE                                                    # noqa: E402
 
@@ -44,7 +46,7 @@ NX = NY = 256
 
 
 def chunk_tokens(variant):
-    files = sorted((CACHE / "planner_d" / "test").glob(f"chunk_{variant}_*.npz"))
+    files = sorted((CACHE / frames.cache_name("planner_d") / "test").glob(f"chunk_{variant}_*.npz"))
     toks = [np.load(f, allow_pickle=False)["sample_token"] for f in files]
     return [str(t) for t in np.concatenate([t for t in toks if len(t)])]
 
@@ -113,10 +115,10 @@ def stage_plan(args):
     m74 = importlib.util.module_from_spec(_s)
     _s.loader.exec_module(m74)
 
-    boxes_run = Path(args.boxes) if args.boxes else Path(sorted(glob.glob(str(ROOT / "results/raw/*_calibration_plan_boxes")))[-1])
+    boxes_run = Path(args.boxes) if args.boxes else rap_runs.latest("calibration_plan_boxes")
     carried = json.loads((boxes_run / "checks.json").read_text())
     assert carried["all_pass"], f"check 3 failed in {boxes_run.name}"
-    oc = Path(args.outcomes) if args.outcomes else Path(sorted(glob.glob(str(ROOT / "results/raw/*_calibration_outcomes")))[-1])
+    oc = Path(args.outcomes) if args.outcomes else rap_runs.latest("calibration_outcomes")
     thr = json.loads((oc / "thresholds_S0_S3.json").read_text())
     extra_full = sorted({thr[k][s][1] for k in ("nusc_oracle", "nusc_mono") for s in ("S1", "S3")})
     tlist = {"cheap": list(GRID05), "full": sorted(set(GRID05) | set(extra_full))}
@@ -134,7 +136,7 @@ def stage_plan(args):
     checks, index = list(carried["checks"]), []
     ncell = 5 * NX * NY
     for variant in VARIANTS:
-        files = sorted((CACHE / "planner_d" / "test").glob(f"chunk_{variant}_*.npz"))
+        files = sorted((CACHE / frames.cache_name("planner_d") / "test").glob(f"chunk_{variant}_*.npz"))
         acc = {k: [] for k in ("sample_token", "scene", "target", "packed_gt", "packed_cheap", "packed_full")}
         for f in files:
             z = np.load(f, allow_pickle=False)
@@ -144,7 +146,7 @@ def stage_plan(args):
                 acc[k].append(z[k])
         d = {k: np.concatenate(v) for k, v in acc.items()}
         tokens = [str(t) for t in d["sample_token"]]
-        ref = pd.read_csv(CACHE / "planner_d" / f"planC_vs_truth{'' if variant == 'oracle' else '_' + variant}.csv")
+        ref = pd.read_csv(CACHE / frames.cache_name("planner_d") / f"planC_vs_truth{'' if variant == 'oracle' else '_' + variant}.csv")
         ref = ref.set_index("sample_token").loc[tokens]
         for role in MODES:
             bz = np.load(boxes_run / f"boxes__{variant}__{role}.npz", allow_pickle=False)
@@ -190,13 +192,15 @@ def main():
     ap.add_argument("--stage", required=True, choices=["boxes", "plan"])
     ap.add_argument("--dataroot", default=str(_DS / "nuscenes/trainval"))
     ap.add_argument("--version", default="v1.0-trainval")
-    ap.add_argument("--subs010", default=str(CACHE / "nusc_submissions_calib"))
-    ap.add_argument("--subs025", default=str(CACHE / "nusc_submissions"))
+    ap.add_argument("--subs010", default=str(CACHE / frames.cache_name("nusc_submissions_calib")))
+    ap.add_argument("--subs025", default=str(CACHE / frames.cache_name("nusc_submissions")))
     ap.add_argument("--boxes", default=None, help="calibration_plan_boxes run dir (stage plan)")
     ap.add_argument("--outcomes", default=None, help="calibration_outcomes run dir (for S1/S3 FULL thresholds)")
     ap.add_argument("--bsz", type=int, default=16)
     ap.add_argument("--tag", default="calibration_plan")
+    frames.add_argument(ap)
     args = ap.parse_args()
+    frames.configure(args)
     stage_boxes(args) if args.stage == "boxes" else stage_plan(args)
 
 

@@ -24,6 +24,7 @@ from scipy.stats import spearmanr
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+from rap import runs as rap_runs                                                 # noqa: E402
 from rap import runmeta                                                         # noqa: E402
 from rap.paths import RESULTS                                                   # noqa: E402
 
@@ -65,7 +66,7 @@ def official_ci():
 
 
 def main():
-    swap = sorted(RAW.glob("*_target_swap"))[-1]
+    swap = rap_runs.latest("target_swap")
     run = runmeta.new_run("target_swap_audit", {"swap_run": swap.name})
     splits = json.loads((ROOT / "configs" / "benchmark_splits.json").read_text())
     nr_fcols, _ = t120.register_features()

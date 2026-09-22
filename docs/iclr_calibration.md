@@ -1,5 +1,7 @@
 # Does sign-varying decision value survive per-mode operating points?
 
+> **Frame convention.** The figures quoted in this report were computed with the monocular lift in the camera frame, the convention before Task 23. Every table in `results/final/` is now computed in the ego frame; `docs/iclr_ego_frame_convention.md` and `results/final/ego_frame_convention.csv` give each registered quantity old beside new, and the camera-frame convention stays selectable with `--frame camera`.
+
 Pre-registration: the pre-registration record (not part of this release), 2026-09-14 "Task 1 pre-registration" (commit `bb1a270`, before any
 run), with two documented corrections before any scheme was scored (10:32 Planner B preset; 11:03 q_plan
 split). Every table at every scheme, split and sweep point: `docs/calibration_tables.md`, generated from

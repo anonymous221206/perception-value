@@ -1,0 +1,12 @@
+track,mode,units,detections,fields_differing_bitwise,g3_ttc_asserted_identity_and_ego,ok
+KITTI,det/cheap_320,21,54085,0,True,True
+KITTI,det/cheap_384,21,65700,0,True,True
+KITTI,det/full_640,21,81563,0,True,True
+KITTI,det512/cheap_512,21,77333,0,True,True
+KITTI,det512/full_640,21,81563,0,True,True
+KITTI,rtdetr_kitti/rt_cheap_320,21,347105,0,True,True
+KITTI,rtdetr_kitti/rt_full_640,21,413997,0,True,True
+KITTI,rtdetr_kitti_mid/rt_mid_480,21,432946,0,True,True
+KITTI,rtdetr_kitti_mid/rt_full_640,21,413997,0,True,True
+nuScenes,nusc_det_tv/ns_cheap_320,85,16773,0,True,True
+nuScenes,nusc_det_tv/ns_full_640,85,23846,0,True,True

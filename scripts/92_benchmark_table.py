@@ -30,6 +30,7 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+from rap import frames                                                           # noqa: E402
 from rap import runs as rap_runs                                                 # noqa: E402
 from rap import egospeed, predict, runmeta                                      # noqa: E402
 from rap.paths import CACHE, RESULTS                                            # noqa: E402
@@ -52,7 +53,7 @@ RAW = ROOT / "results" / "raw"
 # labels; see CLASS_ERROR_FIX.md in each run directory and docs/iclr_class_error_fix.md.
 NUSC_JOINED = {geom: rap_runs.latest(f"phase0g_eta_fde_{geom}") / "joined_frames.pkl" for geom in ("oracle", "mono")}
 CORE = rap_runs.core_matrix("postreview")
-PLANB = RAW / "20260912_111225_planner_b_static_fixed"
+PLANB = rap_runs.planner_b()
 NUPLAN_SIGNALS = Path(RESULTS) / "final" / "benchmark_nuplan_signals.csv"
 QUOTAS = (0.10, 0.20, 0.30, 0.50)
 EPS = 1e-9
@@ -198,7 +199,7 @@ def kitti_cells(splits):
               .merge(feats, on=["seq", "frame"], how="inner", validate="one_to_one"))
         assert len(d) == 8008, len(d)
         d["unit"], d["split"] = d.seq, d.seq.map(split_of)
-        egospeed.attach(d, "KITTI")                        # already causal: the OXTS velocity of the frame itself
+        d = egospeed.attach(d, "KITTI")                    # already causal: the OXTS velocity of the frame itself
         for system, cc, cf in (("brake", "J_cheap", "J_full"), ("traj", "JB_cheap", "JB_full")):
             yield dict(track="KITTI", geometry=geom, system=system, target=cc.replace("_cheap", ""),
                        d=d, cheap=cc, full=cf, fcols=fcols, cols=cols, na=na)
@@ -254,7 +255,9 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--nboot", type=int, default=1000)
     ap.add_argument("--tag", default="benchmark_table")
+    frames.add_argument(ap)
     args = ap.parse_args()
+    frames.configure(args)
     run = runmeta.new_run(args.tag, vars(args))
     splits = json.loads((ROOT / "configs" / "benchmark_splits.json").read_text())
     rng = np.random.default_rng(0)

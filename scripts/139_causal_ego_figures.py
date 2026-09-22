@@ -164,12 +164,17 @@ def per_sequence(run_dir: Path, rows: list):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--run", required=True, help="the 138 run directory, holding before/ and sanity_centred/")
+    ap.add_argument("--no_sanity", action="store_true",
+                    help="skip the sanity gate: for the ego-frame re-expression (Task 23), where `before/` is itself the "
+                         "centred run on the ego-frame tables and there is no shipped ego-frame file to reproduce; the "
+                         "plumbing was proven in the camera frame by Task 22")
     args = ap.parse_args()
     run = runmeta.new_run("causal_ego_figures", vars(args))
     rd = Path(args.run)
 
     checks: list = []
-    compare_files(rd / "before", rd / "sanity_centred", "sanity centred", checks, nusc_must_be_equal=True)
+    if not args.no_sanity:
+        compare_files(rd / "before", rd / "sanity_centred", "sanity centred", checks, nusc_must_be_equal=True)
     compare_files(rd / "before", FINAL, "C4 causal", checks, nusc_must_be_equal=False)
     c = pd.DataFrame(checks)
     c.to_csv(run / "sanity_and_c4.csv", index=False)

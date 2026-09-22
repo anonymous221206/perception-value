@@ -26,7 +26,7 @@ data/             dataset instructions and helpers; data/cache/ holds the shippe
 docs/             result reports and generated tables
 environment/      pins, setup scripts, a device check, and interpreter wrappers in environment/bin/
 results/final/    every final table, check file and figure-data export (18 MB)
-results/raw/      the intermediate runs that later stages read (188 MB)
+results/raw/      the intermediate runs that later stages read (343 MB)
 scripts/          the pipeline, numbered in run order; the index is scripts/README.md,
                   and scripts/legacy/ holds early exploration that no stage calls
 src/rap/          library code
@@ -115,15 +115,17 @@ the fits are reproducible on a different one is untested, and `docs/iclr_causal_
 | realism controls on KITTI (detection persistence, reference geometry) | `results/final/persistence_sweep.csv`, `reference_geometry_sweep.csv`, `docs/iclr_realism_controls.md` | C24 (per-frame tables: N4) |
 | the nuScenes class-error fix: every figure it moves, old beside new | `results/final/class_error_fix.csv`, `docs/iclr_class_error_fix.md` | C25 (corrected primitives: N5) |
 | a causal nuScenes ego speed: the allocation signal stops reading a future pose | `results/final/causal_ego_speed.csv`, `docs/iclr_causal_ego_speed.md` | C26 (speed table: N6) |
-| the camera-to-ego translation in the monocular lift, as a sensitivity | `results/final/lift_offset_sensitivity.csv`, `docs/iclr_lift_offset_sensitivity.md` | C27 (per-frame tables: N7) |
+| the cost of the camera-frame convention: the same settings, ego frame against camera frame | `results/final/lift_offset_sensitivity.csv`, `docs/iclr_lift_offset_sensitivity.md` | C27 (per-frame tables: N7) |
+| the monocular lift in the ego frame: every registered quantity old beside new, the gates and the reading | `results/final/ego_frame_convention*.csv/json`, `docs/iclr_ego_frame_convention.md` | C28 (transform table: N8; gates: N9; C25's pre-fix tables: N10) |
 | measured latency and energy budgets | `results/final/benchmark_budget_two_level*.csv`, `benchmark_budget_routers.csv` | full tier (F3, H4) |
 | figure data (BEV objects, gallery, budget curves) | `results/final/fig_*` | full tier (L1); budget curves also C20 |
 | exact formulas (monocular lifting, reference geometry, controllers, perception gains, ego speed) | `docs/iclr_formulas.md` | — |
-| target-swap audit (writes no compared output) | `results/raw/20260915_221911_target_swap_audit/`; run `scripts/129_target_swap_audit.py` after C19 | — |
+| target-swap audit (writes no compared output) | `results/raw/20260922_133242_target_swap_audit_ego/`; run `scripts/129_target_swap_audit.py` after C19 | — |
 
 Reports that interpret these tables: `docs/iclr_budget_feasibility.md`, `iclr_calibration.md`,
 `iclr_causal_ego_speed.md`, `iclr_causal_threshold.md`, `iclr_class_error_fix.md`, `iclr_consumer_transfer.md`,
-`iclr_energy_conventions.md`, `iclr_formulas.md`, `iclr_idm_route_fix.md`, `iclr_lift_offset_sensitivity.md`,
+`iclr_ego_frame_convention.md`, `iclr_energy_conventions.md`, `iclr_formulas.md`, `iclr_idm_route_fix.md`,
+`iclr_lift_offset_sensitivity.md`,
 `iclr_nuplan_real_allocation.md`, `iclr_nuplan_real_perception.md`, `iclr_objective_swap.md`,
 `iclr_phase0g_external_planners.md`, `iclr_realism_controls.md`, `iclr_routers.md`, `iclr_skip_accounting.md`,
 `iclr_statistics.md`, `iclr_streaming_controllers.md`, `iclr_target_swap.md`. The rest of `docs/` is generated
@@ -150,7 +152,7 @@ tables (`*_tables.md`, `gate_spec.md`).
 4. **Environments.** Python 3.8 with NVIDIA's Jetson PyTorch and JetPack's TensorRT
    (`environment/requirements-edge.txt`); the nuPlan simulation environment comes from
    `bash environment/setup_nuplan_env.sh`.
-5. **Run.** `python reproduce.py --tier full --list` prints all 51 stages in order; `--tier full` runs them, and
+5. **Run.** `python reproduce.py --tier full --list` prints all 54 stages in order; `--tier full` runs them, and
    `--from <id>` resumes.
 
 Stage markers: `[D]` needs datasets, `[H]` is hardware-dependent. The full pipeline takes several days on the
@@ -186,9 +188,12 @@ new one and the checks that bound what moved.
 | nuScenes reference objects were all labelled `vehicle`, so correctly detected pedestrians and cyclists counted as class errors | the `cls` primitive, and through it E3 and the three E5 variants, on nuScenes only | `docs/iclr_class_error_fix.md` |
 | the nuScenes ego-speed signal was a centred difference and read a pose half a second in the future | the ego-speed allocation signal; the decision values themselves are unchanged by construction | `docs/iclr_causal_ego_speed.md` |
 | the causal-threshold bootstrap was seeded from `hash()`, which Python salts per process | C14's per-row numbers varied between runs; the seed is now a stable digest | `docs/iclr_causal_threshold.md` |
+| the monocular lift reported camera-frame geometry, which every controller and planner read as ego-frame | every table built on the lift, all regenerated in the ego frame; two registered readings reverse and are restated; `--frame camera` selects the old convention | `docs/iclr_ego_frame_convention.md` |
 
-The monocular lift measures range in the camera frame rather than the ego frame. That is a modelling choice rather
-than a defect, so it is shipped as a default-off flag and measured: `docs/iclr_lift_offset_sensitivity.md`.
+The per-task reports in `docs/iclr_*.md` were written before the ego-frame correction, and each says so at its top;
+their tables are superseded by the ego-frame files in `results/final/`, and `docs/iclr_ego_frame_convention.md`
+gives every registered quantity old beside new. The ego-frame range estimate carries a near-range bias of about
++1.2 m (0–15 m), which the camera frame had cancelled; it is reported there, not corrected.
 
 ## Third-party code and data
 

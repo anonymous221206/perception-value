@@ -33,6 +33,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 from rap.paths import DATASETS as _DS, MODELS as _MD                      # noqa: E402
 sys.path.insert(0, str(ROOT / "scripts"))
+from rap import frames as rap_frames                                              # noqa: E402
 from rap import runs as rap_runs                                                 # noqa: E402
 from rap import percep_metrics as PM, runmeta                                   # noqa: E402
 from rap.cache import DetCache                                                  # noqa: E402
@@ -42,7 +43,7 @@ from rap.tables import match_detection_counts                                   
 
 RAW = ROOT / "results" / "raw"
 CORE = rap_runs.core_matrix("postreview")      # the corrected tables when there are some; see rap.runs
-PLANB = RAW / "20260912_111225_planner_b_static_fixed"
+PLANB = rap_runs.planner_b()
 NUSC_ROOT, NUSC_VER = str(_DS / "nuscenes/trainval"), "v1.0-trainval"
 GRID05 = [round(0.10 + 0.05 * i, 2) for i in range(13)]
 GRID01 = [round(0.10 + 0.01 * i, 2) for i in range(61)]
@@ -204,7 +205,9 @@ def main():
     ap.add_argument("--reuse_run", default=None,
                     help="an earlier run of this script: keep its curves, thresholds and every non-Planner-B "
                          "column, recompute Planner B with PLANNER_B_PARAMS, then run the checks again")
+    rap_frames.add_argument(ap)
     args = ap.parse_args()
+    rap_frames.configure(args)
     run = runmeta.new_run(args.tag, vars(args))
     outdir = run / "outcomes"
     outdir.mkdir()

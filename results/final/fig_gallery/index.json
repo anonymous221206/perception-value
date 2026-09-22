@@ -2,25 +2,25 @@
  "selection": "q_brake mono, 6 most negative and 6 most positive V, excluding scene-0032 frame 9 and scene-0048 frame 3, at most one frame per scene (across all 12), ties broken by scene then frame",
  "frames": [
   {
-   "scene": "scene-0053",
-   "frame": 20,
-   "sample_token": "1e65fa62bee34256809a762821cae323",
-   "V": -10.112777429437061,
-   "image_copy": "negative_1_scene-0053_20.jpg",
+   "scene": "scene-0055",
+   "frame": 3,
+   "sample_token": "ee535106a1c546d2b99f9eeacc41066e",
+   "V": -4.44,
+   "image_copy": "negative_1_scene-0055_03.jpg",
    "sign": "negative",
    "rank": 1,
    "action": {
-    "cheap": "DECELERATE",
-    "full": "KEEP",
-    "reference": "DECELERATE"
+    "cheap": "KEEP",
+    "full": "HARD_BRAKE",
+    "reference": "KEEP"
    }
   },
   {
-   "scene": "scene-0049",
-   "frame": 6,
-   "sample_token": "2dd4c5b2adbb4c26aed327997b9ffd62",
+   "scene": "scene-0098",
+   "frame": 22,
+   "sample_token": "a3037fd8331e47d48357d5250fbd8aa6",
    "V": -4.44,
-   "image_copy": "negative_2_scene-0049_06.jpg",
+   "image_copy": "negative_2_scene-0098_22.jpg",
    "sign": "negative",
    "rank": 2,
    "action": {
@@ -30,11 +30,11 @@
    }
   },
   {
-   "scene": "scene-0055",
-   "frame": 3,
-   "sample_token": "ee535106a1c546d2b99f9eeacc41066e",
+   "scene": "scene-0101",
+   "frame": 38,
+   "sample_token": "67b146ff35ba4f84b3e6276a8e8ff65a",
    "V": -4.44,
-   "image_copy": "negative_3_scene-0055_03.jpg",
+   "image_copy": "negative_3_scene-0101_38.jpg",
    "sign": "negative",
    "rank": 3,
    "action": {
@@ -44,11 +44,11 @@
    }
   },
   {
-   "scene": "scene-0094",
-   "frame": 8,
-   "sample_token": "abccb4eda68e441d893861429fdd5605",
-   "V": -4.44,
-   "image_copy": "negative_4_scene-0094_08.jpg",
+   "scene": "scene-0102",
+   "frame": 32,
+   "sample_token": "ce77d3d2915543dc8b8b2408d407f7b5",
+   "V": -4.390000000000001,
+   "image_copy": "negative_4_scene-0102_32.jpg",
    "sign": "negative",
    "rank": 4,
    "action": {
@@ -58,11 +58,11 @@
    }
   },
   {
-   "scene": "scene-0067",
-   "frame": 25,
-   "sample_token": "d7f023cebff64a64956e486bc608383d",
-   "V": -4.430891720407086,
-   "image_copy": "negative_5_scene-0067_25.jpg",
+   "scene": "scene-0052",
+   "frame": 6,
+   "sample_token": "cd1e3935cdc940b397670c0f6b6822a5",
+   "V": -4.340000000000001,
+   "image_copy": "negative_5_scene-0052_06.jpg",
    "sign": "negative",
    "rank": 5,
    "action": {
@@ -72,11 +72,11 @@
    }
   },
   {
-   "scene": "scene-0035",
-   "frame": 2,
-   "sample_token": "60341918a107414c9c44a9bfe169c9e4",
-   "V": -4.390000000000001,
-   "image_copy": "negative_6_scene-0035_02.jpg",
+   "scene": "scene-0067",
+   "frame": 1,
+   "sample_token": "2f11637660c6491c9cf31dfbd0f7afb0",
+   "V": -4.32455109706322,
+   "image_copy": "negative_6_scene-0067_01.jpg",
    "sign": "negative",
    "rank": 6,
    "action": {
@@ -114,11 +114,11 @@
    }
   },
   {
-   "scene": "scene-0102",
-   "frame": 34,
-   "sample_token": "e26feac8d43d4eed9a11e739b0d4264b",
-   "V": 7.988052427442403,
-   "image_copy": "positive_3_scene-0102_34.jpg",
+   "scene": "scene-0053",
+   "frame": 25,
+   "sample_token": "ea6cabba3a024639b223b292a3f745bc",
+   "V": 6.190644148169405,
+   "image_copy": "positive_3_scene-0053_25.jpg",
    "sign": "positive",
    "rank": 3,
    "action": {
@@ -142,11 +142,11 @@
    }
   },
   {
-   "scene": "scene-0054",
-   "frame": 30,
-   "sample_token": "9e5c937cc7d74b3ca32eba79df6912c9",
-   "V": 4.573511988143277,
-   "image_copy": "positive_5_scene-0054_30.jpg",
+   "scene": "scene-0048",
+   "frame": 8,
+   "sample_token": "cca4562b799b4fbe84bb8599ae816638",
+   "V": 4.94773756595787,
+   "image_copy": "positive_5_scene-0048_08.jpg",
    "sign": "positive",
    "rank": 5,
    "action": {
@@ -156,17 +156,17 @@
    }
   },
   {
-   "scene": "scene-0018",
-   "frame": 19,
-   "sample_token": "81f15cced544486daa6aa4d6b6bf17d9",
-   "V": 4.44,
-   "image_copy": "positive_6_scene-0018_19.jpg",
+   "scene": "scene-0054",
+   "frame": 30,
+   "sample_token": "9e5c937cc7d74b3ca32eba79df6912c9",
+   "V": 4.573511988143277,
+   "image_copy": "positive_6_scene-0054_30.jpg",
    "sign": "positive",
    "rank": 6,
    "action": {
-    "cheap": "HARD_BRAKE",
-    "full": "KEEP",
-    "reference": "KEEP"
+    "cheap": "KEEP",
+    "full": "DECELERATE",
+    "reference": "DECELERATE"
    }
   }
  ]

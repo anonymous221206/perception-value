@@ -40,6 +40,7 @@ if __name__ == "__main__":
     from rap.device import warn_if_not_reference                          # noqa: E402
     warn_if_not_reference("107_router_r2.py", strict=True)
 from rap.paths import DATASETS as _DS, MODELS as _MD                      # noqa: E402
+from rap import frames                                                           # noqa: E402
 from rap import runmeta                                                         # noqa: E402
 from rap.paths import CACHE, RESULTS                                            # noqa: E402
 
@@ -276,7 +277,7 @@ def stage_export(args):
     df.to_csv(run / f"r2_{dataset}_rows.csv", index=False)
     out = Path(RESULTS) / "final" / "benchmark_table_routers.csv"
     if out.exists():
-        old = pd.read_csv(out)
+        old = pd.read_csv(out, keep_default_na=False, na_values=[""], float_precision="round_trip")  # lossless: nuPlan's "n/a" stays
         keep = ~(old.signal.str.startswith("R2_") & (old.track == dataset))
         df = pd.concat([old[keep], df], ignore_index=True)
     df.to_csv(out, index=False)
@@ -290,7 +291,9 @@ def main():
     ap.add_argument("--run", default=None, help="router_r2 run dir shared by the train and export stages")
     ap.add_argument("--reuse_pt", default=None, help="stage train: load finished weights instead of training")
     ap.add_argument("--tag", default="router_r2")
+    frames.add_argument(ap)
     args = ap.parse_args()
+    frames.configure(args)
     if args.stage == "cache":
         stage_cache()
     elif args.stage == "train":

@@ -1,0 +1,2409 @@
+{
+ "before": "results/raw/20260921_152927_ego_frame_before/results_final",
+ "after": "results/final",
+ "reading_old": {
+  "Q1": {
+   "holds": true,
+   "rows": 40,
+   "min_harmed": 0.3832923832923833,
+   "min_rho": 0.2081050218078653,
+   "failing": []
+  },
+  "Q2": {
+   "holds": true,
+   "min_sign_disagreement": 0.2923976608187134,
+   "max_spearman": 0.1010680843072239,
+   "failing": []
+  },
+  "Q3": {
+   "holds": true,
+   "nuScenes_rows_above_random_at_20": []
+  },
+  "Q4": {
+   "holds": true,
+   "readings": {
+    "primary": "architecture-driven",
+    "dE_exact": "architecture-driven",
+    "dE_E6_risk_weighted": "architecture-driven"
+   },
+   "pooled_intervals_excluding_zero": []
+  },
+  "Q5": {
+   "holds": true,
+   "B_minus_C": [
+    -0.0889373723350577,
+    -0.1424493041172575,
+    -0.0236863406239151
+   ],
+   "B_minus_C_reading": "inconclusive",
+   "controllers": {
+    "D": "does not recover",
+    "E": "does not recover"
+   }
+  },
+  "Q6": {
+   "holds": true,
+   "uniform_stronger_cells": 11,
+   "cells": 14,
+   "allocator_wins": [
+    "nuPlan idm scalar_J",
+    "nuScenes oracle brake J",
+    "nuScenes oracle plan_fde JC_fde"
+   ],
+   "per_cell": [
+    {
+     "cell": "KITTI mono brake J",
+     "uniform_full": 0.1014724992622636,
+     "best_feasible_allocator": 0.0555876707636648,
+     "uniform_stronger": true
+    },
+    {
+     "cell": "KITTI mono traj JB",
+     "uniform_full": 0.1637496393435671,
+     "best_feasible_allocator": 0.1225897531517875,
+     "uniform_stronger": true
+    },
+    {
+     "cell": "KITTI oracle brake J",
+     "uniform_full": 0.2649403626912378,
+     "best_feasible_allocator": 0.160516650142927,
+     "uniform_stronger": true
+    },
+    {
+     "cell": "KITTI oracle traj JB",
+     "uniform_full": 0.5177014669711844,
+     "best_feasible_allocator": 0.3055478001890782,
+     "uniform_stronger": true
+    },
+    {
+     "cell": "nuPlan idm safety",
+     "uniform_full": 0.0357600983211953,
+     "best_feasible_allocator": 6.735948521410303e-06,
+     "uniform_stronger": true
+    },
+    {
+     "cell": "nuPlan idm scalar_J",
+     "uniform_full": 0.030542107791494,
+     "best_feasible_allocator": 0.0308904205521043,
+     "uniform_stronger": false
+    },
+    {
+     "cell": "nuPlan pdm_closed safety",
+     "uniform_full": 0.2516452278776619,
+     "best_feasible_allocator": 0.1381279300226764,
+     "uniform_stronger": true
+    },
+    {
+     "cell": "nuPlan pdm_closed scalar_J",
+     "uniform_full": 0.2208248768933189,
+     "best_feasible_allocator": 0.2177113011059935,
+     "uniform_stronger": true
+    },
+    {
+     "cell": "nuScenes mono brake J",
+     "uniform_full": 0.0905336019049066,
+     "best_feasible_allocator": 0.0807386932735014,
+     "uniform_stronger": true
+    },
+    {
+     "cell": "nuScenes mono plan_ade JC_ade",
+     "uniform_full": 0.02617909763817,
+     "best_feasible_allocator": 0.0206728580748318,
+     "uniform_stronger": true
+    },
+    {
+     "cell": "nuScenes mono plan_fde JC_fde",
+     "uniform_full": 0.0274049551943284,
+     "best_feasible_allocator": 0.0103057656520355,
+     "uniform_stronger": true
+    },
+    {
+     "cell": "nuScenes oracle brake J",
+     "uniform_full": 0.0820626822358782,
+     "best_feasible_allocator": 0.082738921556704,
+     "uniform_stronger": false
+    },
+    {
+     "cell": "nuScenes oracle plan_ade JC_ade",
+     "uniform_full": 0.0025815981096205,
+     "best_feasible_allocator": 0.0001122232356697,
+     "uniform_stronger": true
+    },
+    {
+     "cell": "nuScenes oracle plan_fde JC_fde",
+     "uniform_full": 0.0130031355160911,
+     "best_feasible_allocator": 0.0141711798237153,
+     "uniform_stronger": false
+    }
+   ]
+  },
+  "Q7": {
+   "holds": true,
+   "schemes": [
+    "S0",
+    "S1",
+    "S2",
+    "S3"
+   ],
+   "max_rho": 0.1915241550514586,
+   "max_rho_S4_reported_only": 0.3150406572486852,
+   "failing": []
+  },
+  "Q8": {
+   "holds": true,
+   "per_variant": {
+    "E_perc_dE": {
+     "argmax_differs": 42,
+     "comparisons": 52
+    },
+    "E_perc_risk": {
+     "argmax_differs": 40,
+     "comparisons": 52
+    }
+   }
+  }
+ },
+ "reading_new": {
+  "Q1": {
+   "holds": true,
+   "rows": 40,
+   "min_harmed": 0.3583938487825716,
+   "min_rho": 0.3423234011965865,
+   "failing": []
+  },
+  "Q2": {
+   "holds": true,
+   "min_sign_disagreement": 0.2945205479452055,
+   "max_spearman": 0.0815760739686162,
+   "failing": []
+  },
+  "Q3": {
+   "holds": false,
+   "nuScenes_rows_above_random_at_20": [
+    "benchmark_table.csv: mono brake J gate_gbm nDG 0.397 [+0.028, +0.604] vs random",
+    "benchmark_table_routers.csv: mono brake J R1_mlp_reg nDG 0.309 [+0.024, +0.419] vs random",
+    "benchmark_table_routers.csv: mono brake J R1_gbm_reg nDG 0.380 [+0.060, +0.480] vs random"
+   ]
+  },
+  "Q4": {
+   "holds": true,
+   "readings": {
+    "primary": "architecture-driven",
+    "dE_exact": "architecture-driven",
+    "dE_E6_risk_weighted": "architecture-driven"
+   },
+   "pooled_intervals_excluding_zero": []
+  },
+  "Q5": {
+   "holds": true,
+   "B_minus_C": [
+    -0.0641715552036168,
+    -0.1281436920292322,
+    0.0143279548817495
+   ],
+   "B_minus_C_reading": "inconclusive",
+   "controllers": {
+    "D": "does not recover",
+    "E": "does not recover"
+   }
+  },
+  "Q6": {
+   "holds": true,
+   "uniform_stronger_cells": 11,
+   "cells": 14,
+   "allocator_wins": [
+    "KITTI mono traj JB",
+    "nuPlan idm scalar_J",
+    "nuScenes oracle plan_ade JC_ade"
+   ],
+   "per_cell": [
+    {
+     "cell": "KITTI mono brake J",
+     "uniform_full": 0.1121757248519841,
+     "best_feasible_allocator": 0.0526981020092093,
+     "uniform_stronger": true
+    },
+    {
+     "cell": "KITTI mono traj JB",
+     "uniform_full": -0.0229208302051773,
+     "best_feasible_allocator": 0.011287921224848,
+     "uniform_stronger": false
+    },
+    {
+     "cell": "KITTI oracle brake J",
+     "uniform_full": 0.2710167683338455,
+     "best_feasible_allocator": 0.1349945536368752,
+     "uniform_stronger": true
+    },
+    {
+     "cell": "KITTI oracle traj JB",
+     "uniform_full": 0.5200728015329603,
+     "best_feasible_allocator": 0.261003975162971,
+     "uniform_stronger": true
+    },
+    {
+     "cell": "nuPlan idm safety",
+     "uniform_full": 0.0357600983211953,
+     "best_feasible_allocator": 6.735948521410303e-06,
+     "uniform_stronger": true
+    },
+    {
+     "cell": "nuPlan idm scalar_J",
+     "uniform_full": 0.030542107791494,
+     "best_feasible_allocator": 0.0308904205521043,
+     "uniform_stronger": false
+    },
+    {
+     "cell": "nuPlan pdm_closed safety",
+     "uniform_full": 0.2516452278776619,
+     "best_feasible_allocator": 0.1381279300226764,
+     "uniform_stronger": true
+    },
+    {
+     "cell": "nuPlan pdm_closed scalar_J",
+     "uniform_full": 0.2208248768933189,
+     "best_feasible_allocator": 0.2177113011059935,
+     "uniform_stronger": true
+    },
+    {
+     "cell": "nuScenes mono brake J",
+     "uniform_full": 0.1665708735235427,
+     "best_feasible_allocator": 0.1255036173443288,
+     "uniform_stronger": true
+    },
+    {
+     "cell": "nuScenes mono plan_ade JC_ade",
+     "uniform_full": 0.0263852725564619,
+     "best_feasible_allocator": 0.0080143407161798,
+     "uniform_stronger": true
+    },
+    {
+     "cell": "nuScenes mono plan_fde JC_fde",
+     "uniform_full": 0.0303939088935203,
+     "best_feasible_allocator": 0.0261824438493244,
+     "uniform_stronger": true
+    },
+    {
+     "cell": "nuScenes oracle brake J",
+     "uniform_full": 0.1443073759453345,
+     "best_feasible_allocator": 0.102482880940783,
+     "uniform_stronger": true
+    },
+    {
+     "cell": "nuScenes oracle plan_ade JC_ade",
+     "uniform_full": -0.0008377967267429,
+     "best_feasible_allocator": -5.246840793301445e-05,
+     "uniform_stronger": false
+    },
+    {
+     "cell": "nuScenes oracle plan_fde JC_fde",
+     "uniform_full": 0.0140096831374956,
+     "best_feasible_allocator": 0.009650291587506,
+     "uniform_stronger": true
+    }
+   ]
+  },
+  "Q7": {
+   "holds": false,
+   "schemes": [
+    "S0",
+    "S1",
+    "S2",
+    "S3"
+   ],
+   "max_rho": 0.3410821019256435,
+   "max_rho_S4_reported_only": 0.693936989785071,
+   "failing": [
+    "KITTI mono Y8 320->640 q_traj S0 rho 0.276",
+    "KITTI mono Y8 320->640 q_traj S1 rho 0.341",
+    "KITTI mono Y8 320->640 q_traj S2 rho 0.340",
+    "KITTI mono Y8 320->640 q_traj S3 rho 0.278"
+   ]
+  },
+  "Q8": {
+   "holds": true,
+   "per_variant": {
+    "E_perc_dE": {
+     "argmax_differs": 43,
+     "comparisons": 52
+    },
+    "E_perc_risk": {
+     "argmax_differs": 40,
+     "comparisons": 52
+    }
+   }
+  }
+ },
+ "reversed": [
+  "Q3",
+  "Q7"
+ ],
+ "calibration_outside_task22_tolerance": [
+  "nuScenes oracle Y8 320->640 q_brake S0 (harmed -0.081, rho -0.181)",
+  "nuScenes oracle Y8 320->640 q_brake S2 (harmed -0.071, rho -0.121)",
+  "nuScenes oracle Y8 320->640 q_brake S3 (harmed -0.065, rho -0.117)",
+  "nuScenes oracle Y8 320->640 q_brake S4 (harmed +0.017, rho -0.093)",
+  "nuScenes oracle Y8 320->640 q_plan S0 (harmed -0.005, rho -0.121)",
+  "nuScenes oracle Y8 320->640 q_plan S1 (harmed -0.013, rho -0.107)",
+  "nuScenes oracle Y8 320->640 q_plan S2 (harmed -0.010, rho -0.114)",
+  "nuScenes oracle Y8 320->640 q_plan S3 (harmed -0.016, rho -0.144)",
+  "nuScenes oracle Y8 320->640 q_plan S4 (harmed -0.016, rho -0.154)",
+  "nuScenes mono Y8 320->640 q_brake S0 (harmed -0.032, rho -0.123)",
+  "nuScenes mono Y8 320->640 q_brake S1 (harmed -0.018, rho -0.058)",
+  "nuScenes mono Y8 320->640 q_brake S2 (harmed -0.014, rho -0.070)",
+  "nuScenes mono Y8 320->640 q_brake S3 (harmed -0.019, rho -0.083)",
+  "nuScenes mono Y8 320->640 q_brake S4 (harmed -0.017, rho -0.055)",
+  "nuScenes mono Y8 320->640 q_plan S1 (harmed -0.020, rho +0.065)",
+  "nuScenes mono Y8 320->640 q_plan S4 (harmed -0.043, rho +0.080)",
+  "KITTI mono Y8 320->640 q_traj S0 (harmed +0.067, rho +0.213)",
+  "KITTI mono Y8 320->640 q_traj S1 (harmed +0.103, rho +0.232)",
+  "KITTI mono Y8 320->640 q_traj S2 (harmed +0.065, rho +0.261)",
+  "KITTI mono Y8 320->640 q_traj S3 (harmed +0.076, rho +0.218)",
+  "KITTI mono Y8 320->640 q_traj S4 (harmed +0.106, rho +0.527)",
+  "KITTI mono Y8 384->640 q_traj S0 (harmed -0.017, rho +0.246)",
+  "KITTI mono Y8 384->640 q_traj S1 (harmed +0.007, rho +0.240)",
+  "KITTI mono Y8 384->640 q_traj S2 (harmed -0.003, rho +0.258)",
+  "KITTI mono Y8 384->640 q_traj S3 (harmed -0.009, rho +0.258)",
+  "KITTI mono Y8 384->640 q_traj S4 (harmed +0.133, rho +0.359)",
+  "KITTI mono Y8 384->640 q_brake S0 (harmed -0.040, rho -0.078)",
+  "KITTI mono Y8 384->640 q_brake S1 (harmed -0.029, rho -0.056)",
+  "KITTI mono Y8 384->640 q_brake S2 (harmed -0.035, rho -0.063)",
+  "KITTI mono Y8 384->640 q_brake S3 (harmed -0.039, rho -0.071)",
+  "KITTI mono Y8 512->640 q_traj S0 (harmed +0.071, rho +0.674)",
+  "KITTI mono Y8 512->640 q_traj S1 (harmed +0.084, rho +0.732)",
+  "KITTI mono Y8 512->640 q_traj S2 (harmed +0.070, rho +0.734)",
+  "KITTI mono Y8 512->640 q_traj S3 (harmed +0.074, rho +0.698)",
+  "KITTI mono Y8 512->640 q_traj S4 (harmed +0.201, rho +0.590)",
+  "KITTI mono Y8 512->640 q_brake S0 (harmed -0.027, rho -0.062)",
+  "KITTI mono Y8 512->640 q_brake S3 (harmed -0.027, rho -0.059)",
+  "KITTI mono RT-DETR 480->640 q_traj S2 (harmed +0.029, rho +0.094)",
+  "KITTI mono RT-DETR 480->640 q_traj S4 (harmed -0.206, rho +0.640)",
+  "KITTI mono RT-DETR 480->640 q_brake S0 (harmed -0.018, rho -0.084)",
+  "KITTI mono RT-DETR 480->640 q_brake S1 (harmed -0.020, rho -0.097)",
+  "KITTI mono RT-DETR 480->640 q_brake S3 (harmed -0.018, rho -0.084)",
+  "KITTI oracle Y8 320->640 q_traj S0 (harmed -0.053, rho -0.000)"
+ ],
+ "ci_side_changes": [
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | oracle | plan_ade | JC_ade | test | criticality_cheap | 0.1",
+   "old": "includes random",
+   "new": "below random",
+   "note": "interval changes side"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | oracle | plan_ade | JC_ade | test | criticality_cheap | 0.2",
+   "old": "includes random",
+   "new": "below random",
+   "note": "interval changes side"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | mono | brake | J | test | gate_gbm | 0.2",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | mono | brake | J | all | criticality_cheap | 0.1",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | mono | brake | J | all | criticality_cheap | 0.3",
+   "old": "above random",
+   "new": "includes random",
+   "note": "win disappears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | mono | plan_ade | JC_ade | test | uncertainty | 0.2",
+   "old": "below random",
+   "new": "includes random",
+   "note": "interval changes side"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | mono | plan_ade | JC_ade | test | criticality_cheap | 0.2",
+   "old": "includes random",
+   "new": "below random",
+   "note": "interval changes side"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | mono | plan_ade | JC_ade | test | criticality_cheap | 0.3",
+   "old": "below random",
+   "new": "includes random",
+   "note": "interval changes side"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | mono | plan_ade | JC_ade | test | criticality_cheap | 0.5",
+   "old": "below random",
+   "new": "includes random",
+   "note": "interval changes side"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | mono | plan_fde | JC_fde | test | uncertainty | 0.2",
+   "old": "below random",
+   "new": "includes random",
+   "note": "interval changes side"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | mono | plan_fde | JC_fde | test | uncertainty | 0.3",
+   "old": "below random",
+   "new": "includes random",
+   "note": "interval changes side"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | mono | plan_fde | JC_fde | test | gate_ridge | 0.1",
+   "old": "includes random",
+   "new": "below random",
+   "note": "interval changes side"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | oracle | brake | J | test | uncertainty | 0.1",
+   "old": "includes random",
+   "new": "below random",
+   "note": "interval changes side"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | oracle | brake | J | test | uncertainty | 0.2",
+   "old": "includes random",
+   "new": "below random",
+   "note": "interval changes side"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | oracle | brake | J | test | uncertainty | 0.3",
+   "old": "includes random",
+   "new": "below random",
+   "note": "interval changes side"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | oracle | brake | J | test | uncertainty | 0.5",
+   "old": "includes random",
+   "new": "below random",
+   "note": "interval changes side"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | oracle | brake | J | test | gate_gbm | 0.3",
+   "old": "above random",
+   "new": "includes random",
+   "note": "win disappears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | brake | J | test | gate_gbm | 0.5",
+   "old": "above random",
+   "new": "includes random",
+   "note": "win disappears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | brake | J | all | criticality_cheap | 0.1",
+   "old": "includes random",
+   "new": "below random",
+   "note": "interval changes side"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | traj | JB | test | uncertainty | 0.3",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | traj | JB | test | gate_gbm | 0.5",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | traj | JB | all | uncertainty | 0.3",
+   "old": "below random",
+   "new": "includes random",
+   "note": "interval changes side"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | traj | JB | all | criticality_cheap | 0.1",
+   "old": "below random",
+   "new": "includes random",
+   "note": "interval changes side"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | traj | JB | all | criticality_cheap | 0.2",
+   "old": "below random",
+   "new": "includes random",
+   "note": "interval changes side"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | traj | JB | all | criticality_cheap | 0.3",
+   "old": "below random",
+   "new": "includes random",
+   "note": "interval changes side"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | traj | JB | all | criticality_cheap | 0.5",
+   "old": "below random",
+   "new": "includes random",
+   "note": "interval changes side"
+  },
+  {
+   "file": "benchmark_table_routers.csv",
+   "item": "nuScenes | oracle | brake | J | test | R2_cnn_clf | 0.1",
+   "old": "includes random",
+   "new": "below random",
+   "note": "interval changes side"
+  },
+  {
+   "file": "benchmark_table_routers.csv",
+   "item": "nuScenes | oracle | brake | J | test | R2_cnn_clf | 0.3",
+   "old": "below random",
+   "new": "includes random",
+   "note": "interval changes side"
+  },
+  {
+   "file": "benchmark_table_routers.csv",
+   "item": "nuScenes | oracle | brake | J | test | R2_cnn_clf | 0.5",
+   "old": "below random",
+   "new": "includes random",
+   "note": "interval changes side"
+  },
+  {
+   "file": "benchmark_table_routers.csv",
+   "item": "nuScenes | mono | brake | J | test | R2_cnn_clf | 0.1",
+   "old": "includes random",
+   "new": "below random",
+   "note": "interval changes side"
+  },
+  {
+   "file": "benchmark_table_routers.csv",
+   "item": "nuScenes | mono | brake | J | test | R2_cnn_clf | 0.2",
+   "old": "includes random",
+   "new": "below random",
+   "note": "interval changes side"
+  },
+  {
+   "file": "benchmark_table_routers.csv",
+   "item": "nuScenes | mono | brake | J | test | R2_cnn_clf | 0.3",
+   "old": "includes random",
+   "new": "below random",
+   "note": "interval changes side"
+  },
+  {
+   "file": "benchmark_table_routers.csv",
+   "item": "nuScenes | mono | brake | J | test | R2_cnn_clf | 0.5",
+   "old": "includes random",
+   "new": "below random",
+   "note": "interval changes side"
+  },
+  {
+   "file": "benchmark_table_routers.csv",
+   "item": "KITTI | oracle | traj | JB | test | R2_cnn_clf | 0.5",
+   "old": "below random",
+   "new": "includes random",
+   "note": "interval changes side"
+  },
+  {
+   "file": "benchmark_table_routers.csv",
+   "item": "nuScenes | oracle | brake | J | test | R1_mlp_reg | 0.5",
+   "old": "above random",
+   "new": "includes random",
+   "note": "win disappears"
+  },
+  {
+   "file": "benchmark_table_routers.csv",
+   "item": "nuScenes | oracle | brake | J | test | R1_gbm_reg | 0.5",
+   "old": "above random",
+   "new": "includes random",
+   "note": "win disappears"
+  },
+  {
+   "file": "benchmark_table_routers.csv",
+   "item": "nuScenes | oracle | plan_ade | JC_ade | test | R1_gbm_reg | 0.1",
+   "old": "includes random",
+   "new": "below random",
+   "note": "interval changes side"
+  },
+  {
+   "file": "benchmark_table_routers.csv",
+   "item": "nuScenes | oracle | plan_fde | JC_fde | test | R1_mlp_clf | 0.1",
+   "old": "above random",
+   "new": "includes random",
+   "note": "win disappears"
+  },
+  {
+   "file": "benchmark_table_routers.csv",
+   "item": "nuScenes | mono | brake | J | test | R1_mlp_reg | 0.2",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table_routers.csv",
+   "item": "nuScenes | mono | brake | J | test | R1_mlp_reg | 0.3",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table_routers.csv",
+   "item": "nuScenes | mono | brake | J | test | R1_gbm_reg | 0.2",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table_routers.csv",
+   "item": "nuScenes | mono | plan_ade | JC_ade | test | R1_mlp_clf | 0.5",
+   "old": "above random",
+   "new": "includes random",
+   "note": "win disappears"
+  },
+  {
+   "file": "benchmark_table_routers.csv",
+   "item": "nuScenes | mono | plan_ade | JC_ade | test | R1_gbm_reg | 0.1",
+   "old": "includes random",
+   "new": "below random",
+   "note": "interval changes side"
+  },
+  {
+   "file": "benchmark_table_routers.csv",
+   "item": "nuScenes | mono | plan_ade | JC_ade | test | R1_gbm_reg | 0.2",
+   "old": "includes random",
+   "new": "below random",
+   "note": "interval changes side"
+  },
+  {
+   "file": "benchmark_table_routers.csv",
+   "item": "nuScenes | mono | plan_ade | JC_ade | test | R1_gbm_reg | 0.3",
+   "old": "includes random",
+   "new": "below random",
+   "note": "interval changes side"
+  },
+  {
+   "file": "benchmark_table_routers.csv",
+   "item": "nuScenes | mono | plan_ade | JC_ade | test | R1_gbm_reg | 0.5",
+   "old": "includes random",
+   "new": "below random",
+   "note": "interval changes side"
+  },
+  {
+   "file": "benchmark_table_routers.csv",
+   "item": "nuScenes | mono | plan_fde | JC_fde | test | R1_gbm_reg | 0.1",
+   "old": "includes random",
+   "new": "below random",
+   "note": "interval changes side"
+  },
+  {
+   "file": "benchmark_table_routers.csv",
+   "item": "KITTI | oracle | brake | J | test | R1_mlp_reg | 0.5",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table_routers.csv",
+   "item": "KITTI | oracle | brake | J | test | R1_mlp_clf | 0.1",
+   "old": "above random",
+   "new": "includes random",
+   "note": "win disappears"
+  },
+  {
+   "file": "benchmark_table_routers.csv",
+   "item": "KITTI | oracle | brake | J | test | R1_mlp_clf | 0.2",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table_routers.csv",
+   "item": "KITTI | oracle | brake | J | test | R1_mlp_clf | 0.3",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table_routers.csv",
+   "item": "KITTI | oracle | traj | JB | test | R1_mlp_reg | 0.5",
+   "old": "above random",
+   "new": "includes random",
+   "note": "win disappears"
+  },
+  {
+   "file": "benchmark_table_routers.csv",
+   "item": "KITTI | mono | brake | J | test | R1_mlp_reg | 0.2",
+   "old": "above random",
+   "new": "includes random",
+   "note": "win disappears"
+  },
+  {
+   "file": "benchmark_table_routers.csv",
+   "item": "KITTI | mono | brake | J | test | R1_mlp_clf | 0.3",
+   "old": "above random",
+   "new": "includes random",
+   "note": "win disappears"
+  },
+  {
+   "file": "benchmark_table_routers.csv",
+   "item": "KITTI | mono | brake | J | test | R1_gbm_reg | 0.1",
+   "old": "above random",
+   "new": "includes random",
+   "note": "win disappears"
+  },
+  {
+   "file": "benchmark_table_routers.csv",
+   "item": "KITTI | mono | brake | J | test | R1_gbm_clf | 0.1",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table_routers.csv",
+   "item": "KITTI | mono | brake | J | test | R1_gbm_clf | 0.2",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table_routers.csv",
+   "item": "KITTI | mono | brake | J | test | R1_gbm_clf | 0.3",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table_routers.csv",
+   "item": "KITTI | mono | brake | J | test | R1_gbm_clf | 0.5",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table_routers.csv",
+   "item": "KITTI | mono | traj | JB | test | R1_gbm_clf | 0.1",
+   "old": "includes random",
+   "new": "below random",
+   "note": "interval changes side"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | oracle | brake | J | test | dE_exact | 0.3",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | oracle | brake | J | test | dE_exact | 0.5",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | oracle | brake | J | test | dE_E1_fn_only | 0.3",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | oracle | brake | J | test | dE_E1_fn_only | 0.5",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | oracle | brake | J | test | dE_E3_class_aware | 0.3",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | oracle | brake | J | test | dE_E3_class_aware | 0.5",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | oracle | brake | J | test | dE_E4_localization | 0.3",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | oracle | brake | J | test | dE_E4_localization | 0.5",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | oracle | brake | J | test | dE_E6_risk_weighted | 0.3",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | oracle | brake | J | test | dE_E6_risk_weighted | 0.5",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | oracle | brake | J | all | PKL | 0.1",
+   "old": "above random",
+   "new": "includes random",
+   "note": "win disappears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | oracle | plan_ade | JC_ade | test | dE_E5_fp_heavy | 0.3",
+   "old": "includes random",
+   "new": "below random",
+   "note": "interval changes side"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | oracle | plan_ade | JC_ade | all | dE_exact | 0.3",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | oracle | plan_ade | JC_ade | all | dE_E1_fn_only | 0.3",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | oracle | plan_ade | JC_ade | all | dE_E2_fn_fp | 0.3",
+   "old": "above random",
+   "new": "includes random",
+   "note": "win disappears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | oracle | plan_ade | JC_ade | all | dE_E2_fn_fp | 0.5",
+   "old": "above random",
+   "new": "includes random",
+   "note": "win disappears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | oracle | plan_ade | JC_ade | all | dE_E3_class_aware | 0.3",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | oracle | plan_ade | JC_ade | all | dE_E4_localization | 0.1",
+   "old": "above random",
+   "new": "includes random",
+   "note": "win disappears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | oracle | plan_ade | JC_ade | all | dE_E5_fp_heavy | 0.2",
+   "old": "above random",
+   "new": "includes random",
+   "note": "win disappears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | oracle | plan_fde | JC_fde | all | dE_E2_fn_fp | 0.2",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | oracle | plan_fde | JC_fde | all | dE_E2_fn_fp | 0.5",
+   "old": "above random",
+   "new": "includes random",
+   "note": "win disappears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | oracle | plan_fde | JC_fde | all | dE_E5_combined | 0.1",
+   "old": "above random",
+   "new": "includes random",
+   "note": "win disappears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | oracle | plan_fde | JC_fde | all | dE_E5_combined | 0.2",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | oracle | plan_fde | JC_fde | all | dE_E5_loc_heavy | 0.3",
+   "old": "above random",
+   "new": "includes random",
+   "note": "win disappears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | oracle | plan_fde | JC_fde | all | PKL | 0.2",
+   "old": "above random",
+   "new": "includes random",
+   "note": "win disappears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | oracle | plan_fde | JC_fde | all | TIP | 0.3",
+   "old": "above random",
+   "new": "includes random",
+   "note": "win disappears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | oracle | plan_fde | JC_fde | all | TIP | 0.5",
+   "old": "above random",
+   "new": "includes random",
+   "note": "win disappears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | mono | brake | J | test | dE_E5_loc_heavy | 0.1",
+   "old": "below random",
+   "new": "includes random",
+   "note": "interval changes side"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | mono | brake | J | test | TIP | 0.5",
+   "old": "below random",
+   "new": "includes random",
+   "note": "interval changes side"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | mono | brake | J | all | PKL | 0.2",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | mono | brake | J | all | PKL | 0.3",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | mono | brake | J | all | TIP | 0.1",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | mono | brake | J | all | TIP | 0.3",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | mono | plan_ade | JC_ade | test | criticality_gt | 0.2",
+   "old": "includes random",
+   "new": "below random",
+   "note": "interval changes side"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | mono | plan_ade | JC_ade | all | dE_E5_combined | 0.5",
+   "old": "above random",
+   "new": "includes random",
+   "note": "win disappears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | mono | plan_ade | JC_ade | all | dE_E6_risk_weighted | 0.2",
+   "old": "above random",
+   "new": "includes random",
+   "note": "win disappears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | mono | plan_fde | JC_fde | test | criticality_gt | 0.3",
+   "old": "includes random",
+   "new": "below random",
+   "note": "interval changes side"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | oracle | brake | J | test | dE_E2_fn_fp | 0.1",
+   "old": "above random",
+   "new": "includes random",
+   "note": "win disappears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | oracle | brake | J | test | dE_E2_fn_fp | 0.2",
+   "old": "above random",
+   "new": "includes random",
+   "note": "win disappears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | oracle | brake | J | test | dE_E2_fn_fp | 0.5",
+   "old": "above random",
+   "new": "includes random",
+   "note": "win disappears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | oracle | brake | J | all | criticality_gt | 0.1",
+   "old": "includes random",
+   "new": "below random",
+   "note": "interval changes side"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | oracle | traj | JB | test | dE_E5_loc_heavy | 0.1",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | brake | J | test | dE_E2_fn_fp | 0.5",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | brake | J | test | dE_E4_localization | 0.3",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | brake | J | test | dE_E5_combined | 0.1",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | brake | J | test | dE_E5_combined | 0.2",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | traj | JB | test | criticality_gt | 0.1",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | traj | JB | test | criticality_gt | 0.2",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | traj | JB | test | criticality_gt | 0.3",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | traj | JB | test | dE_exact | 0.1",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | traj | JB | test | dE_exact | 0.2",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | traj | JB | test | dE_exact | 0.3",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | traj | JB | test | dE_E1_fn_only | 0.1",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | traj | JB | test | dE_E1_fn_only | 0.2",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | traj | JB | test | dE_E1_fn_only | 0.3",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | traj | JB | test | dE_E2_fn_fp | 0.1",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | traj | JB | test | dE_E2_fn_fp | 0.2",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | traj | JB | test | dE_E2_fn_fp | 0.3",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | traj | JB | test | dE_E3_class_aware | 0.1",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | traj | JB | test | dE_E3_class_aware | 0.2",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | traj | JB | test | dE_E3_class_aware | 0.3",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | traj | JB | test | dE_E4_localization | 0.1",
+   "old": "above random",
+   "new": "includes random",
+   "note": "win disappears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | traj | JB | test | dE_E4_localization | 0.2",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | traj | JB | test | dE_E5_combined | 0.1",
+   "old": "above random",
+   "new": "includes random",
+   "note": "win disappears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | traj | JB | test | dE_E5_combined | 0.3",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | traj | JB | test | dE_E6_risk_weighted | 0.1",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | traj | JB | test | dE_E6_risk_weighted | 0.2",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | traj | JB | test | dE_E6_risk_weighted | 0.3",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | traj | JB | test | dE_E6_risk_weighted | 0.5",
+   "old": "above random",
+   "new": "includes random",
+   "note": "win disappears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | traj | JB | all | dE_exact | 0.5",
+   "old": "above random",
+   "new": "includes random",
+   "note": "win disappears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | traj | JB | all | dE_E1_fn_only | 0.5",
+   "old": "above random",
+   "new": "includes random",
+   "note": "win disappears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | traj | JB | all | dE_E2_fn_fp | 0.2",
+   "old": "above random",
+   "new": "includes random",
+   "note": "win disappears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | traj | JB | all | dE_E2_fn_fp | 0.3",
+   "old": "above random",
+   "new": "includes random",
+   "note": "win disappears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | traj | JB | all | dE_E3_class_aware | 0.5",
+   "old": "above random",
+   "new": "includes random",
+   "note": "win disappears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | traj | JB | all | dE_E5_combined | 0.2",
+   "old": "above random",
+   "new": "includes random",
+   "note": "win disappears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | traj | JB | all | dE_E5_combined | 0.3",
+   "old": "above random",
+   "new": "includes random",
+   "note": "win disappears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | traj | JB | all | dE_E5_fp_heavy | 0.5",
+   "old": "above random",
+   "new": "includes random",
+   "note": "win disappears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | traj | JB | all | dE_E5_loc_heavy | 0.2",
+   "old": "above random",
+   "new": "includes random",
+   "note": "win disappears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | traj | JB | all | dE_E5_loc_heavy | 0.3",
+   "old": "above random",
+   "new": "includes random",
+   "note": "win disappears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | traj | JB | all | dE_E5_loc_heavy | 0.5",
+   "old": "above random",
+   "new": "includes random",
+   "note": "win disappears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "KITTI | mono | traj | JB | all | dE_E6_risk_weighted | 0.3",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  }
+ ],
+ "inventory": [
+  {
+   "file": "allocator_rails.json",
+   "status": "byte-identical"
+  },
+  {
+   "file": "benchmark_budget_multifidelity.csv",
+   "status": "values moved",
+   "rows": 112,
+   "reordered": false,
+   "rows_moved": 112,
+   "cells_moved": 355,
+   "largest_abs_change": 327.00058641648116,
+   "largest_column": "gain",
+   "largest_row": "traj | mJ | oracle (640 only) | 0.5",
+   "largest_old": "579.0727879103533",
+   "largest_new": "252.07220149387217"
+  },
+  {
+   "file": "benchmark_budget_multifidelity_1thread.csv",
+   "status": "values moved",
+   "rows": 112,
+   "reordered": false,
+   "rows_moved": 112,
+   "cells_moved": 383,
+   "largest_abs_change": 327.00058641648116,
+   "largest_column": "gain",
+   "largest_row": "traj | mJ | oracle (640 only) | 0.5",
+   "largest_old": "579.0727879103533",
+   "largest_new": "252.07220149387217"
+  },
+  {
+   "file": "benchmark_budget_nuplan_real.csv",
+   "status": "byte-identical"
+  },
+  {
+   "file": "benchmark_budget_overheads.json",
+   "status": "byte-identical"
+  },
+  {
+   "file": "benchmark_budget_overheads_1thread.json",
+   "status": "byte-identical"
+  },
+  {
+   "file": "benchmark_budget_overheads_routers.json",
+   "status": "byte-identical"
+  },
+  {
+   "file": "benchmark_budget_routers.csv",
+   "status": "values moved",
+   "rows": 1712,
+   "reordered": false,
+   "rows_moved": 874,
+   "cells_moved": 3570,
+   "largest_abs_change": 22.0,
+   "largest_column": "boot_dropped",
+   "largest_row": "KITTI | mono | traj | JB | mJ | R2_cnn_clf | 0.5",
+   "largest_old": "30.0",
+   "largest_new": "8.0"
+  },
+  {
+   "file": "benchmark_budget_two_level.csv",
+   "status": "values moved",
+   "rows": 1072,
+   "reordered": false,
+   "rows_moved": 446,
+   "cells_moved": 1871,
+   "largest_abs_change": 22.0,
+   "largest_column": "boot_dropped",
+   "largest_row": "KITTI | mono | traj | JB | mJ | criticality_cheap | 0.5",
+   "largest_old": "30.0",
+   "largest_new": "8.0"
+  },
+  {
+   "file": "benchmark_budget_two_level_1thread.csv",
+   "status": "values moved",
+   "rows": 1072,
+   "reordered": false,
+   "rows_moved": 458,
+   "cells_moved": 2191,
+   "largest_abs_change": 22.0,
+   "largest_column": "boot_dropped",
+   "largest_row": "KITTI | mono | traj | JB | mJ | criticality_cheap | 0.5",
+   "largest_old": "30.0",
+   "largest_new": "8.0"
+  },
+  {
+   "file": "benchmark_cells.csv",
+   "status": "values moved",
+   "rows": 28,
+   "reordered": false,
+   "rows_moved": 20,
+   "cells_moved": 200,
+   "largest_abs_change": 2269.8774092141666,
+   "largest_column": "gross_benefit",
+   "largest_row": "KITTI | mono | traj | JB | Planner B, rollout planner (ours) | all",
+   "largest_old": "5951.940273995566",
+   "largest_new": "3682.062864781399"
+  },
+  {
+   "file": "benchmark_gate_inference_batch_timing.json",
+   "status": "byte-identical"
+  },
+  {
+   "file": "benchmark_nuplan_signals.csv",
+   "status": "byte-identical"
+  },
+  {
+   "file": "benchmark_nuplan_signals.json",
+   "status": "byte-identical"
+  },
+  {
+   "file": "benchmark_self_agreement.csv",
+   "status": "values moved",
+   "rows": 64,
+   "reordered": false,
+   "rows_moved": 64,
+   "cells_moved": 320,
+   "largest_abs_change": 0.45273364745202405,
+   "largest_column": "S_hi",
+   "largest_row": "nuScenes | oracle | plan_fde | JC_fde | PKL's published planner vs real trajectory; FAILS viability (worse than constant velocity) | test | TIP | 0.5",
+   "largest_old": "1.5248401553992192",
+   "largest_new": "1.9775738028512433"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "status": "values moved",
+   "rows": 1668,
+   "reordered": false,
+   "rows_moved": 1296,
+   "cells_moved": 14150,
+   "largest_abs_change": 2682.0881158432076,
+   "largest_column": "gain",
+   "largest_row": "KITTI | mono | traj | JB | Planner B, rollout planner (ours) | all | dE_E5_loc_heavy | 0.5",
+   "largest_old": "4774.233272341058",
+   "largest_new": "2092.1451564978506"
+  },
+  {
+   "file": "benchmark_table_nuplan_real.csv",
+   "status": "byte-identical"
+  },
+  {
+   "file": "benchmark_table_routers.csv",
+   "status": "values moved",
+   "rows": 264,
+   "reordered": false,
+   "rows_moved": 200,
+   "cells_moved": 1848,
+   "largest_abs_change": 22.0,
+   "largest_column": "boot_dropped",
+   "largest_row": "KITTI | mono | traj | JB | test | R1_gbm_clf | 0.5",
+   "largest_old": "30",
+   "largest_new": "8"
+  },
+  {
+   "file": "benchmark_target_swap.csv",
+   "status": "values moved",
+   "rows": 1106,
+   "reordered": false,
+   "rows_moved": 790,
+   "cells_moved": 18470,
+   "largest_abs_change": 230.0,
+   "largest_column": "sign_agree_fit_n",
+   "largest_row": "KITTI | mono | traj | JB | R1_gbm_clf | dE_E6_risk_weighted | quota | 0.5",
+   "largest_old": "716",
+   "largest_new": "486"
+  },
+  {
+   "file": "benchmark_target_swap_summary.json",
+   "status": "bytes differ"
+  },
+  {
+   "file": "calibration_brake_vs_plan.csv",
+   "status": "values moved",
+   "rows": 20,
+   "reordered": false,
+   "rows_moved": 20,
+   "cells_moved": 36,
+   "largest_abs_change": 25.0,
+   "largest_column": "both_nonzero",
+   "largest_row": "oracle | all | S0",
+   "largest_old": "153",
+   "largest_new": "128"
+  },
+  {
+   "file": "calibration_cells.csv",
+   "status": "values moved",
+   "rows": 140,
+   "reordered": false,
+   "rows_moved": 140,
+   "cells_moved": 2367,
+   "largest_abs_change": 456.0,
+   "largest_column": "FN_FP_n_both_nonzero",
+   "largest_row": "nuScenes mono Y8 320->640 q_plan | nuScenes | mono | plan | all | S4 | 0.3 | 0.45",
+   "largest_old": "1009.0",
+   "largest_new": "1465.0"
+  },
+  {
+   "file": "calibration_pr_curves.csv",
+   "status": "byte-identical"
+  },
+  {
+   "file": "calibration_reading.json",
+   "status": "bytes differ"
+  },
+  {
+   "file": "calibration_sweep.csv",
+   "status": "values moved",
+   "rows": 350,
+   "reordered": false,
+   "rows_moved": 350,
+   "cells_moved": 1050,
+   "largest_abs_change": 503.0,
+   "largest_column": "affected",
+   "largest_row": "KITTI mono Y8 320->640 q_traj | 0.55 | 0.15",
+   "largest_old": "1735",
+   "largest_new": "1232"
+  },
+  {
+   "file": "calibration_thresholds.csv",
+   "status": "values moved",
+   "rows": 70,
+   "reordered": false,
+   "rows_moved": 11,
+   "cells_moved": 16,
+   "largest_abs_change": 0.24999999999999997,
+   "largest_column": "t_full",
+   "largest_row": "KITTI mono Y8 512->640 q_traj | S4 | 0.1 | 0.35",
+   "largest_old": "0.35",
+   "largest_new": "0.1"
+  },
+  {
+   "file": "causal_ego_speed.csv",
+   "status": "values moved",
+   "rows": 104,
+   "reordered": false,
+   "rows_moved": 74,
+   "cells_moved": 163,
+   "largest_abs_change": 7.0,
+   "largest_column": "new",
+   "largest_row": "6 sensitivity: a scene's first frame dropped, not zeroed | all tracks | rows where ego speed beats random | reported causal -> first frame dropped",
+   "largest_old": "3",
+   "largest_new": "10"
+  },
+  {
+   "file": "causal_threshold.csv",
+   "status": "values moved",
+   "rows": 3464,
+   "reordered": false,
+   "rows_moved": 2568,
+   "cells_moved": 27609,
+   "largest_abs_change": 2339.121772283302,
+   "largest_column": "all_cheap_loss",
+   "largest_row": "KITTI | mono | traj | JB | V2 | B | R2_cnn_clf | 0.5",
+   "largest_old": "2354.531002945589",
+   "largest_new": "4693.652775228891"
+  },
+  {
+   "file": "class_error_fix.csv",
+   "status": "values moved",
+   "rows": 119,
+   "reordered": false,
+   "rows_moved": 110,
+   "cells_moved": 260,
+   "largest_abs_change": 54.0,
+   "largest_column": "new",
+   "largest_row": "3 scatter and overall share | nuScenes oracle q_brake | frames plotted (gain and V both non-zero) | scatter, E5_combined, oracle S0",
+   "largest_old": "289.0",
+   "largest_new": "235.0"
+  },
+  {
+   "file": "consumer_transfer.csv",
+   "status": "values moved",
+   "rows": 845,
+   "reordered": false,
+   "rows_moved": 628,
+   "cells_moved": 7191,
+   "largest_abs_change": 651.3032478974416,
+   "largest_column": "delta_hi_all_draws",
+   "largest_row": "KITTI mono | KITTI | mono | gate_gbm | traj/JB | brake/J | 0.5",
+   "largest_old": "721.5773514687751",
+   "largest_new": "70.27410357133351"
+  },
+  {
+   "file": "core_matrix.csv",
+   "status": "values moved",
+   "rows": 16,
+   "reordered": false,
+   "rows_moved": 16,
+   "cells_moved": 253,
+   "largest_abs_change": 1.0446839269268795,
+   "largest_column": "eta_perception_oracle_50",
+   "largest_row": "KITTI | oracle | YOLOv8s | cheap_320 | full_640 | lateral",
+   "largest_old": "-0.800362923473543",
+   "largest_new": "-1.8450468504004225"
+  },
+  {
+   "file": "energy_module_budget_multifidelity.csv",
+   "status": "values moved",
+   "rows": 336,
+   "reordered": false,
+   "rows_moved": 336,
+   "cells_moved": 1104,
+   "largest_abs_change": 327.00058641648116,
+   "largest_column": "gain",
+   "largest_row": "traj | mJ | 1thread | as_specified | oracle (640 only) | 0.5",
+   "largest_old": "579.0727879103533",
+   "largest_new": "252.07220149387217"
+  },
+  {
+   "file": "energy_module_budget_nuplan_real.csv",
+   "status": "byte-identical"
+  },
+  {
+   "file": "energy_module_budget_two_level.csv",
+   "status": "values moved",
+   "rows": 1928,
+   "reordered": false,
+   "rows_moved": 894,
+   "cells_moved": 4074,
+   "largest_abs_change": 22.0,
+   "largest_column": "boot_dropped",
+   "largest_row": "KITTI | mono | traj | JB | mJ | routers | module | R2_cnn_clf | 0.5",
+   "largest_old": "30.0",
+   "largest_new": "8.0"
+  },
+  {
+   "file": "energy_module_claims.csv",
+   "status": "values moved",
+   "rows": 39,
+   "reordered": false,
+   "rows_moved": 15,
+   "cells_moved": 28,
+   "largest_abs_change": 0.0025452488687782715,
+   "largest_column": "value",
+   "largest_row": "b | as_specified | braking oracle share at 384: energy budget vs latency budget | 0.5",
+   "largest_old": "0.1165158371040724",
+   "largest_new": "0.11906108597285067"
+  },
+  {
+   "file": "energy_module_costs.json",
+   "status": "bytes differ"
+  },
+  {
+   "file": "energy_module_score_check.json",
+   "status": "bytes differ"
+  },
+  {
+   "file": "energy_module_skip_accounting.csv",
+   "status": "values moved",
+   "rows": 108,
+   "reordered": false,
+   "rows_moved": 78,
+   "cells_moved": 1806,
+   "largest_abs_change": 2339.121772283302,
+   "largest_column": "all_cheap_loss",
+   "largest_row": "evaluation | KITTI | mono | traj | JB | mJ | as_specified | R2_cnn_clf | 0.5",
+   "largest_old": "2354.531002945589",
+   "largest_new": "4693.652775228891"
+  },
+  {
+   "file": "fig_bev_constants.json",
+   "status": "bytes differ"
+  },
+  {
+   "file": "fig_bev_objects.csv.gz",
+   "status": "structure differs",
+   "rows_old": 12773,
+   "rows_new": 11768
+  },
+  {
+   "file": "fig_budget_curves.csv",
+   "status": "values moved",
+   "rows": 1036,
+   "reordered": false,
+   "rows_moved": 350,
+   "cells_moved": 1596,
+   "largest_abs_change": 1.511370447492038,
+   "largest_column": "eta_lo",
+   "largest_row": "KITTI | mono | traj | JB | cell | uncertainty | 0.5",
+   "largest_old": "0.1883675339589174",
+   "largest_new": "-1.3230029135331205"
+  },
+  {
+   "file": "fig_gallery/index.json",
+   "status": "bytes differ"
+  },
+  {
+   "file": "fig_gallery/negative_1_scene-0053_20.jpg",
+   "status": "only in OLD"
+  },
+  {
+   "file": "fig_gallery/negative_1_scene-0053_20.json",
+   "status": "only in OLD"
+  },
+  {
+   "file": "fig_gallery/negative_1_scene-0055_03.jpg",
+   "status": "only in NEW"
+  },
+  {
+   "file": "fig_gallery/negative_1_scene-0055_03.json",
+   "status": "only in NEW"
+  },
+  {
+   "file": "fig_gallery/negative_2_scene-0049_06.jpg",
+   "status": "only in OLD"
+  },
+  {
+   "file": "fig_gallery/negative_2_scene-0049_06.json",
+   "status": "only in OLD"
+  },
+  {
+   "file": "fig_gallery/negative_2_scene-0098_22.jpg",
+   "status": "only in NEW"
+  },
+  {
+   "file": "fig_gallery/negative_2_scene-0098_22.json",
+   "status": "only in NEW"
+  },
+  {
+   "file": "fig_gallery/negative_3_scene-0055_03.jpg",
+   "status": "only in OLD"
+  },
+  {
+   "file": "fig_gallery/negative_3_scene-0055_03.json",
+   "status": "only in OLD"
+  },
+  {
+   "file": "fig_gallery/negative_3_scene-0101_38.jpg",
+   "status": "only in NEW"
+  },
+  {
+   "file": "fig_gallery/negative_3_scene-0101_38.json",
+   "status": "only in NEW"
+  },
+  {
+   "file": "fig_gallery/negative_4_scene-0094_08.jpg",
+   "status": "only in OLD"
+  },
+  {
+   "file": "fig_gallery/negative_4_scene-0094_08.json",
+   "status": "only in OLD"
+  },
+  {
+   "file": "fig_gallery/negative_4_scene-0102_32.jpg",
+   "status": "only in NEW"
+  },
+  {
+   "file": "fig_gallery/negative_4_scene-0102_32.json",
+   "status": "only in NEW"
+  },
+  {
+   "file": "fig_gallery/negative_5_scene-0052_06.jpg",
+   "status": "only in NEW"
+  },
+  {
+   "file": "fig_gallery/negative_5_scene-0052_06.json",
+   "status": "only in NEW"
+  },
+  {
+   "file": "fig_gallery/negative_5_scene-0067_25.jpg",
+   "status": "only in OLD"
+  },
+  {
+   "file": "fig_gallery/negative_5_scene-0067_25.json",
+   "status": "only in OLD"
+  },
+  {
+   "file": "fig_gallery/negative_6_scene-0035_02.jpg",
+   "status": "only in OLD"
+  },
+  {
+   "file": "fig_gallery/negative_6_scene-0035_02.json",
+   "status": "only in OLD"
+  },
+  {
+   "file": "fig_gallery/negative_6_scene-0067_01.jpg",
+   "status": "only in NEW"
+  },
+  {
+   "file": "fig_gallery/negative_6_scene-0067_01.json",
+   "status": "only in NEW"
+  },
+  {
+   "file": "fig_gallery/positive_1_scene-0099_16.jpg",
+   "status": "byte-identical"
+  },
+  {
+   "file": "fig_gallery/positive_1_scene-0099_16.json",
+   "status": "bytes differ"
+  },
+  {
+   "file": "fig_gallery/positive_2_scene-0044_14.jpg",
+   "status": "byte-identical"
+  },
+  {
+   "file": "fig_gallery/positive_2_scene-0044_14.json",
+   "status": "bytes differ"
+  },
+  {
+   "file": "fig_gallery/positive_3_scene-0053_25.jpg",
+   "status": "only in NEW"
+  },
+  {
+   "file": "fig_gallery/positive_3_scene-0053_25.json",
+   "status": "only in NEW"
+  },
+  {
+   "file": "fig_gallery/positive_3_scene-0102_34.jpg",
+   "status": "only in OLD"
+  },
+  {
+   "file": "fig_gallery/positive_3_scene-0102_34.json",
+   "status": "only in OLD"
+  },
+  {
+   "file": "fig_gallery/positive_4_scene-0065_24.jpg",
+   "status": "byte-identical"
+  },
+  {
+   "file": "fig_gallery/positive_4_scene-0065_24.json",
+   "status": "bytes differ"
+  },
+  {
+   "file": "fig_gallery/positive_5_scene-0048_08.jpg",
+   "status": "only in NEW"
+  },
+  {
+   "file": "fig_gallery/positive_5_scene-0048_08.json",
+   "status": "only in NEW"
+  },
+  {
+   "file": "fig_gallery/positive_5_scene-0054_30.jpg",
+   "status": "only in OLD"
+  },
+  {
+   "file": "fig_gallery/positive_5_scene-0054_30.json",
+   "status": "only in OLD"
+  },
+  {
+   "file": "fig_gallery/positive_6_scene-0018_19.jpg",
+   "status": "only in OLD"
+  },
+  {
+   "file": "fig_gallery/positive_6_scene-0018_19.json",
+   "status": "only in OLD"
+  },
+  {
+   "file": "fig_gallery/positive_6_scene-0054_30.jpg",
+   "status": "only in NEW"
+  },
+  {
+   "file": "fig_gallery/positive_6_scene-0054_30.json",
+   "status": "only in NEW"
+  },
+  {
+   "file": "figures/01_perception_vs_decision_scatter.pdf",
+   "status": "bytes differ"
+  },
+  {
+   "file": "figures/01_perception_vs_decision_scatter.png",
+   "status": "bytes differ"
+  },
+  {
+   "file": "figures/02_oracle_gap_lateral.pdf",
+   "status": "bytes differ"
+  },
+  {
+   "file": "figures/02_oracle_gap_lateral.png",
+   "status": "bytes differ"
+  },
+  {
+   "file": "figures/02_oracle_gap_longitudinal.pdf",
+   "status": "bytes differ"
+  },
+  {
+   "file": "figures/02_oracle_gap_longitudinal.png",
+   "status": "bytes differ"
+  },
+  {
+   "file": "figures/03_perception_metric_robustness.pdf",
+   "status": "bytes differ"
+  },
+  {
+   "file": "figures/03_perception_metric_robustness.png",
+   "status": "byte-identical"
+  },
+  {
+   "file": "figures/04_task_conditionality.pdf",
+   "status": "bytes differ"
+  },
+  {
+   "file": "figures/04_task_conditionality.png",
+   "status": "bytes differ"
+  },
+  {
+   "file": "figures/07_09_generalization.pdf",
+   "status": "bytes differ"
+  },
+  {
+   "file": "figures/07_09_generalization.png",
+   "status": "bytes differ"
+  },
+  {
+   "file": "figures/10_geometry_control.pdf",
+   "status": "bytes differ"
+  },
+  {
+   "file": "figures/10_geometry_control.png",
+   "status": "bytes differ"
+  },
+  {
+   "file": "figures/11_temporal_replay.pdf",
+   "status": "bytes differ"
+  },
+  {
+   "file": "figures/11_temporal_replay.png",
+   "status": "byte-identical"
+  },
+  {
+   "file": "figures/12_trivial_heuristics.pdf",
+   "status": "bytes differ"
+  },
+  {
+   "file": "figures/12_trivial_heuristics.png",
+   "status": "bytes differ"
+  },
+  {
+   "file": "figures/13_jetson_tradeoff.pdf",
+   "status": "bytes differ"
+  },
+  {
+   "file": "figures/13_jetson_tradeoff.png",
+   "status": "bytes differ"
+  },
+  {
+   "file": "figures/14_counterexamples.pdf",
+   "status": "bytes differ"
+  },
+  {
+   "file": "figures/14_counterexamples.png",
+   "status": "bytes differ"
+  },
+  {
+   "file": "figures/fig0f1_eta_vs_quota.pdf",
+   "status": "byte-identical"
+  },
+  {
+   "file": "figures/fig0f1_eta_vs_quota.png",
+   "status": "byte-identical"
+  },
+  {
+   "file": "figures/fig0f2_signal_vs_dJ_lateral.pdf",
+   "status": "byte-identical"
+  },
+  {
+   "file": "figures/fig0f2_signal_vs_dJ_lateral.png",
+   "status": "byte-identical"
+  },
+  {
+   "file": "figures/fig0f2_signal_vs_dJ_longitudinal.pdf",
+   "status": "byte-identical"
+  },
+  {
+   "file": "figures/fig0f2_signal_vs_dJ_longitudinal.png",
+   "status": "byte-identical"
+  },
+  {
+   "file": "figures/fig0f2_signal_vs_dJ_plannerC_path_dev.pdf",
+   "status": "byte-identical"
+  },
+  {
+   "file": "figures/fig0f2_signal_vs_dJ_plannerC_path_dev.png",
+   "status": "byte-identical"
+  },
+  {
+   "file": "figures/fig0f3_top20_overlap_lateral.pdf",
+   "status": "byte-identical"
+  },
+  {
+   "file": "figures/fig0f3_top20_overlap_lateral.png",
+   "status": "byte-identical"
+  },
+  {
+   "file": "figures/fig0f3_top20_overlap_longitudinal.pdf",
+   "status": "byte-identical"
+  },
+  {
+   "file": "figures/fig0f3_top20_overlap_longitudinal.png",
+   "status": "byte-identical"
+  },
+  {
+   "file": "figures/fig0f3_top20_overlap_plannerC_path_dev.pdf",
+   "status": "byte-identical"
+  },
+  {
+   "file": "figures/fig0f3_top20_overlap_plannerC_path_dev.png",
+   "status": "byte-identical"
+  },
+  {
+   "file": "idm_route_fix_comparison.json",
+   "status": "byte-identical"
+  },
+  {
+   "file": "lift_offset_sensitivity.csv",
+   "status": "structure differs",
+   "rows_old": 14,
+   "rows_new": 14
+  },
+  {
+   "file": "mechanism_table.csv",
+   "status": "values moved",
+   "rows": 6,
+   "reordered": false,
+   "rows_moved": 6,
+   "cells_moved": 36,
+   "largest_abs_change": 75.0,
+   "largest_column": "n_frames",
+   "largest_row": "unaffected | self control (plannerC_path_dev) | _dJ_plannerC_path_dev",
+   "largest_old": "1888",
+   "largest_new": "1963"
+  },
+  {
+   "file": "nuplan_real_perception_cells.csv",
+   "status": "byte-identical"
+  },
+  {
+   "file": "nuplan_real_perception_checks.json",
+   "status": "byte-identical"
+  },
+  {
+   "file": "nuplan_real_perception_idm_raw.csv",
+   "status": "byte-identical"
+  },
+  {
+   "file": "nuplan_real_perception_overlays/00_2021.06.09.12.39.51_veh-26_05620_06003_00009841879a5bb9_309.jpg",
+   "status": "byte-identical"
+  },
+  {
+   "file": "nuplan_real_perception_overlays/01_2021.06.09.17.37.09_veh-12_00404_00864_087f4978523b5cdd_137.jpg",
+   "status": "byte-identical"
+  },
+  {
+   "file": "nuplan_real_perception_overlays/02_2021.07.16.18.06.21_veh-38_04471_04922_1112f279a18757c6_150.jpg",
+   "status": "byte-identical"
+  },
+  {
+   "file": "nuplan_real_perception_overlays/03_2021.06.09.14.03.17_veh-12_02584_02970_2aecc6e7811955b6_137.jpg",
+   "status": "byte-identical"
+  },
+  {
+   "file": "nuplan_real_perception_overlays/04_2021.07.24.23.50.16_veh-17_01696_02071_44c871f95ff8522d_4.jpg",
+   "status": "byte-identical"
+  },
+  {
+   "file": "nuplan_real_perception_overlays/05_2021.06.03.12.02.06_veh-35_00233_00609_4d1b8ab237fc55c4_83.jpg",
+   "status": "byte-identical"
+  },
+  {
+   "file": "nuplan_real_perception_overlays/06_2021.07.16.18.06.21_veh-38_04933_05307_8043e6bb538552bc_17.jpg",
+   "status": "byte-identical"
+  },
+  {
+   "file": "nuplan_real_perception_overlays/07_2021.07.16.18.06.21_veh-38_04933_05307_8043e6bb538552bc_97.jpg",
+   "status": "byte-identical"
+  },
+  {
+   "file": "nuplan_real_perception_overlays/08_2021.08.17.16.57.11_veh-08_01200_01636_88e8cefccbc255ec_176.jpg",
+   "status": "byte-identical"
+  },
+  {
+   "file": "nuplan_real_perception_overlays/09_2021.08.17.17.17.01_veh-45_02314_02798_8d33c13f8e8f5caa_176.jpg",
+   "status": "byte-identical"
+  },
+  {
+   "file": "nuplan_real_perception_overlays/10_2021.06.28.16.57.59_veh-26_00016_00484_9a05535281e759fb_70.jpg",
+   "status": "byte-identical"
+  },
+  {
+   "file": "nuplan_real_perception_overlays/11_2021.10.01.19.16.42_veh-28_03307_03808_9e459adbfed65132_229.jpg",
+   "status": "byte-identical"
+  },
+  {
+   "file": "nuplan_real_perception_overlays/12_2021.10.01.19.16.42_veh-28_03307_03808_9e459adbfed65132_269.jpg",
+   "status": "byte-identical"
+  },
+  {
+   "file": "nuplan_real_perception_overlays/13_2021.06.08.16.31.33_veh-38_01589_02072_a2a956641a6d5a7f_229.jpg",
+   "status": "byte-identical"
+  },
+  {
+   "file": "nuplan_real_perception_overlays/14_2021.08.17.16.57.11_veh-08_01200_01636_b79740f1b23b5d7c_202.jpg",
+   "status": "byte-identical"
+  },
+  {
+   "file": "nuplan_real_perception_overlays/15_2021.10.01.19.16.42_veh-28_03307_03808_ccd895fd3f845df1_137.jpg",
+   "status": "byte-identical"
+  },
+  {
+   "file": "nuplan_real_perception_overlays/16_2021.06.09.14.58.55_veh-35_01894_02311_d55d5f01e7815651_110.jpg",
+   "status": "byte-identical"
+  },
+  {
+   "file": "nuplan_real_perception_overlays/17_2021.10.06.17.43.07_veh-28_00508_00877_e678935a15825e5a_149.jpg",
+   "status": "byte-identical"
+  },
+  {
+   "file": "nuplan_real_perception_overlays/18_2021.06.09.14.58.55_veh-35_01894_02311_eedf395db7ee57f0_30.jpg",
+   "status": "byte-identical"
+  },
+  {
+   "file": "nuplan_real_perception_overlays/19_2021.10.01.19.16.42_veh-28_03307_03808_f76b305f024a5bc1_17.jpg",
+   "status": "byte-identical"
+  },
+  {
+   "file": "nuplan_real_perception_pdm_closed_raw.csv",
+   "status": "byte-identical"
+  },
+  {
+   "file": "nuplan_real_perception_recall.csv",
+   "status": "byte-identical"
+  },
+  {
+   "file": "objective_swap.csv",
+   "status": "values moved",
+   "rows": 3388,
+   "reordered": false,
+   "rows_moved": 2078,
+   "cells_moved": 7505,
+   "largest_abs_change": 2339.121772283302,
+   "largest_column": "cheap_loss_total",
+   "largest_row": "compare | KITTI | mono | traj | JB | E_perc_risk | all | 0.5",
+   "largest_old": "2354.531002945589",
+   "largest_new": "4693.652775228891"
+  },
+  {
+   "file": "persistence_sweep.csv",
+   "status": "values moved",
+   "rows": 49,
+   "reordered": false,
+   "rows_moved": 48,
+   "cells_moved": 348,
+   "largest_abs_change": 398.0,
+   "largest_column": "shipped_affected",
+   "largest_row": "sanity | mono | q_traj | YOLOv8s 320->640 | 1 | calibration_cells.csv S0 all",
+   "largest_old": "1355.0",
+   "largest_new": "957.0"
+  },
+  {
+   "file": "phase0f_planner_b_summary.csv",
+   "status": "values moved",
+   "rows": 6,
+   "reordered": false,
+   "rows_moved": 6,
+   "cells_moved": 66,
+   "largest_abs_change": 10338.322762515148,
+   "largest_column": "JB_all_cheap",
+   "largest_row": "KITTI | mono | RT-DETR-l | rt_mid_480 | rt_full_640",
+   "largest_old": "7542.097549105504",
+   "largest_new": "17880.42031162065"
+  },
+  {
+   "file": "phase0f_planning_metric_eta.csv",
+   "status": "values moved",
+   "rows": 80,
+   "reordered": false,
+   "rows_moved": 80,
+   "cells_moved": 1681,
+   "largest_abs_change": 0.6460151727557615,
+   "largest_column": "eta_50_lo",
+   "largest_row": "lateral | mono | multimetric_dE_oracle [scene-z]",
+   "largest_old": "-0.5299378018835015",
+   "largest_new": "0.11607737087226006"
+  },
+  {
+   "file": "phase0g_cross_target_mono.csv",
+   "status": "values moved",
+   "rows": 25,
+   "reordered": false,
+   "rows_moved": 23,
+   "cells_moved": 83,
+   "largest_abs_change": 55490.0,
+   "largest_column": "n",
+   "largest_row": "mono | 876352 | strict_pairs gamma",
+   "largest_old": "876352",
+   "largest_new": "820862"
+  },
+  {
+   "file": "phase0g_cross_target_oracle.csv",
+   "status": "values moved",
+   "rows": 25,
+   "reordered": false,
+   "rows_moved": 23,
+   "cells_moved": 83,
+   "largest_abs_change": 71370.0,
+   "largest_column": "n",
+   "largest_row": "oracle | 464238 | strict_pairs gamma",
+   "largest_old": "464238",
+   "largest_new": "392868"
+  },
+  {
+   "file": "phase0g_deployable_gate.csv",
+   "status": "values moved",
+   "rows": 60,
+   "reordered": false,
+   "rows_moved": 48,
+   "cells_moved": 120,
+   "largest_abs_change": 0.2573676324523311,
+   "largest_column": "lo",
+   "largest_row": "oracle | brake | gbm (OOF by scene) | 0.3",
+   "largest_old": "0.01270933730560917",
+   "largest_new": "0.27007696975794027"
+  },
+  {
+   "file": "phase0g_deployable_gate_checks.csv",
+   "status": "values moved",
+   "rows": 108,
+   "reordered": false,
+   "rows_moved": 108,
+   "cells_moved": 923,
+   "largest_abs_change": 0.8375,
+   "largest_column": "p_le_random",
+   "largest_row": "mono | plan | linear (OOF by scene) [escalate only pred>0] | 0.1",
+   "largest_old": "0.9525",
+   "largest_new": "0.115"
+  },
+  {
+   "file": "phase0g_deployable_gate_importance.csv",
+   "status": "values moved",
+   "rows": 60,
+   "reordered": false,
+   "rows_moved": 60,
+   "cells_moved": 112,
+   "largest_abs_change": 0.27820480879650145,
+   "largest_column": "weight",
+   "largest_row": "oracle | brake",
+   "largest_old": "-0.20095002629050343",
+   "largest_new": "0.07725478250599799"
+  },
+  {
+   "file": "phase0g_external_2x2.csv",
+   "status": "byte-identical"
+  },
+  {
+   "file": "phase0g_external_idm_raw.csv",
+   "status": "byte-identical"
+  },
+  {
+   "file": "phase0g_external_idm_sanity_raw.csv",
+   "status": "byte-identical"
+  },
+  {
+   "file": "phase0g_external_pdm_closed_raw.csv",
+   "status": "byte-identical"
+  },
+  {
+   "file": "phase0g_external_planner_stats.json",
+   "status": "byte-identical"
+  },
+  {
+   "file": "phase0g_external_planner_summary.csv",
+   "status": "byte-identical"
+  },
+  {
+   "file": "phase0g_external_planner_transfer.csv",
+   "status": "byte-identical"
+  },
+  {
+   "file": "phase0g_planner_d_seeds.csv",
+   "status": "byte-identical"
+  },
+  {
+   "file": "reference_geometry_sweep.csv",
+   "status": "values moved",
+   "rows": 14,
+   "reordered": false,
+   "rows_moved": 13,
+   "cells_moved": 143,
+   "largest_abs_change": 398.0,
+   "largest_column": "mono_affected",
+   "largest_row": "q_traj | YOLOv8s 320->640",
+   "largest_old": "1355.0",
+   "largest_new": "957.0"
+  },
+  {
+   "file": "run_manifest.csv",
+   "status": "byte-identical"
+  },
+  {
+   "file": "skip_accounting.csv",
+   "status": "values moved",
+   "rows": 126,
+   "reordered": false,
+   "rows_moved": 56,
+   "cells_moved": 787,
+   "largest_abs_change": 2339.121772283302,
+   "largest_column": "all_cheap_loss",
+   "largest_row": "evaluation | KITTI | mono | traj | JB | mJ | R2_cnn_clf | 0.5",
+   "largest_old": "2354.531002945589",
+   "largest_new": "4693.652775228891"
+  },
+  {
+   "file": "statistics_hardening.csv",
+   "status": "values moved",
+   "rows": 2552,
+   "reordered": false,
+   "rows_moved": 2088,
+   "cells_moved": 17544,
+   "largest_abs_change": 2339.121772283302,
+   "largest_column": "all_cheap_loss",
+   "largest_row": "paired_gain | KITTI | mono | traj | JB | oracle | 0.5",
+   "largest_old": "2354.531002945589",
+   "largest_new": "4693.652775228891"
+  },
+  {
+   "file": "streaming_controllers.csv",
+   "status": "values moved",
+   "rows": 1737,
+   "reordered": false,
+   "rows_moved": 1289,
+   "cells_moved": 13618,
+   "largest_abs_change": 433.9629606342105,
+   "largest_column": "gain",
+   "largest_row": "row | KITTI | mono | traj | JB | V1 | A | R1_gbm_clf | 0.5",
+   "largest_old": "272.2520681667374",
+   "largest_new": "-161.71089246747314"
+  }
+ ],
+ "gate_runs": {
+  "b": "20260921_155858_ego_frame_gate_b",
+  "d": "20260921_160718_ego_frame_gate_d",
+  "g5": "20260921_221721_ego_frame_gate_g5",
+  "g4": "20260921_221709_ego_frame_gate_g4"
+ }
+}

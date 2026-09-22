@@ -22,9 +22,10 @@ import numpy as np
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+from rap import runs as rap_runs                                                 # noqa: E402
 from rap.paths import RAW, RESULTS                                              # noqa: E402
 
-FRAMES = RAW / "20260913_211441_phase0g_eta_fde_oracle" / "joined_frames.pkl"
+FRAMES = rap_runs.latest("phase0g_eta_fde_oracle") / "joined_frames.pkl"
 DECISIONS = {"brake": "_dJ_longitudinal", "self control (plannerC_path_dev)": "_dJ_plannerC_path_dev"}
 EPS = 1e-9
 

@@ -1,5 +1,7 @@
 # The pixel router under skipping cost accounting
 
+> **Frame convention.** The figures quoted in this report were computed with the monocular lift in the camera frame, the convention before Task 23. Every table in `results/final/` is now computed in the ego frame; `docs/iclr_ego_frame_convention.md` and `results/final/ego_frame_convention.csv` give each registered quantity old beside new, and the camera-frame convention stays selectable with `--frame camera`.
+
 **What this is.** The benchmark charges allocators as a cascade: every input pays the allocator and CHEAP, and an
 escalated input also runs FULL. A skipping router instead decides before CHEAP runs and, on an escalated input,
 runs FULL *instead of* CHEAP. This adds that accounting as a second variant for the pixel router (R2), next to the

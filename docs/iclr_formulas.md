@@ -1,8 +1,11 @@
 # Exact formulas: monocular lifting, reference geometry, controllers, perception gains, ego speed
 
-Task 19 Part C. Documentation only: nothing here was run or changed. Every statement cites the code that implements it.
-Line numbers refer to the code release (`src/rap/*.py` there is identical to the development copy; scripts may differ
-in their header lines). Constants carry their value and unit. Equations are LaTeX.
+Task 19 Part C, updated for the ego-frame lift (Task 23). Documentation only. Every statement cites the code that
+implements it, by line number in this release. Constants carry their value and unit. Equations are LaTeX.
+
+**Frame convention.** Since Task 23 the lift reports its geometry in the ego frame (§1.9), and that is what every
+table in `results/final/` is computed from. §1.2–§1.6 describe the lift as first shipped, in the camera frame, which
+`--frame camera` reproduces; §1.9 gives exactly where the ego-frame lift departs from it.
 
 Notation: a CHEAP or FULL detection is a 2D box $(x_1, y_1, x_2, y_2)$ in original image pixels, with confidence $p$
 and coarse class $\kappa \in \{\text{vehicle}, \text{person}, \text{cyclist}\}$. A frame keeps the detections with
@@ -16,7 +19,9 @@ $p \ge \theta$, where $\theta = 0.25$ for both fidelities (`RiskConfig.op_conf`,
 ### 1.1 Where it runs, and on which detections
 
 * The lift runs once per detection when the detection cache is built. It stores `z`, `lat_min`, `lat_max`, `ttc`
-  next to every box (`src/rap/mono.py:116-134`).
+  next to every box (`mono.predicted_geometry`, `src/rap/mono.py:191-224`), in the camera frame. Every consumer reads
+  the geometry through `rap.cache.DetCache`, which re-lifts the cached boxes in the current frame on read
+  (`src/rap/cache.py:105-124`; §1.9).
   * KITTI: `scripts/02_run_detection.py:59,72`, with `calib = kitti.load_calib(seq)` and the defaults
     $h_\text{cam} = 1.65$ m and $\Delta t = 0.1$ s.
   * nuScenes: `scripts/40_nusc_detect.py:54,62`, with the calibration of the scene's first keyframe,
@@ -35,14 +40,14 @@ $p \ge \theta$, where $\theta = 0.25$ for both fidelities (`RiskConfig.op_conf`,
 * **nuScenes.** $P = [K \mid 0]$, with $K$ the `camera_intrinsic` of CAM_FRONT's `calibrated_sensor` row. The
   rectification and extrinsic slots are identities (`nusc.py:80-86`). The first keyframe's $K$ is used for the whole
   scene (`40_nusc_detect.py:54`).
-* **Extrinsics.** None enter the lift.
+* **Extrinsics.** None enter the camera-frame lift (§1.9 for the ego frame).
   * The ground-plane cue assumes the optical axis is parallel to a flat road: zero pitch and roll, camera at a fixed
     height $h_\text{cam}$.
   * No camera-to-ego rotation or translation is applied to the lifted quantities (§1.6).
 
 ### 1.3 Range: which pixel anchors depth
 
-Two cues are combined (`mono.py:26-46`, applied at `mono.py:126-128`).
+Two cues are combined (`mono.py:26-46`, applied at `mono.py:218-220`).
 
 **Ground-plane cue.** The bottom edge $y_2$ is taken as the object's contact point with the road:
 
@@ -97,7 +102,7 @@ full box, `nusc_submission.py:33-36,106-129`:
 
 ### 1.6 Transform to the ego frame
 
-**The lift applies none.** $\hat z$ is a depth along the camera axis, and $\hat y$ is measured from the camera's
+**The camera-frame lift applies none** (`--frame camera`; the shipped convention applies the one in §1.9). $\hat z$ is a depth along the camera axis, and $\hat y$ is measured from the camera's
 optical centre. The code states that a constant lateral mounting offset is absorbed into the principal point
 (`mono.py:52-54`). No longitudinal offset is applied either.
 
@@ -133,12 +138,46 @@ A box with no match, and every box of a sequence's first frame, gets $10^3$ s.
 
 ### 1.8 Clipping and failure handling
 
-* Pixel denominators are floored at 2 px (`mono.py:29,36`), and $\hat z$ is clipped to $[0.5, 200]$ m (`mono.py:128`).
-* An empty detection list returns empty arrays (`mono.py:121-124`).
+* Pixel denominators are floored at 2 px (`mono.py:29,36`), and $\hat z$ is clipped to $[0.5, 200]$ m (`mono.py:220`).
+* An empty detection list returns empty arrays (`mono.py:204-207`).
 * A box at or above the horizon ($y_2 \le c_y + 5$) is ranged by the height cue alone. No box is rejected.
 * Detector boxes are clamped to the image before lifting (`detect.py:166-167`).
 * The braking controller ignores objects beyond 80 m (`src/rap/planner.py:34,62`); the trajectory controller does the
   same, and also drops non-finite ranges (`src/rap/planner_b.py:43,85-88`).
+
+### 1.9 The ego-frame lift (the shipped convention since Task 23)
+
+`mono._lift_ego`, `src/rap/mono.py:152-188`, called from `predicted_geometry` with `cam_to_ego=(R, t)`
+(`mono.py:212-217`); `DetCache` passes each unit's transform (`cache.py:110-115`). $R, t$ take camera coordinates
+($x$ right, $y$ down, $z$ forward) to ego coordinates ($x$ forward, $y$ left, $z$ up), tabulated once in
+`data/cache/cam_to_ego.json` (`scripts/143_cam_to_ego_table.py`):
+* KITTI: $R$ from $T_{\text{cam}\to\text{imu}}$ (§1.6); $t$ is cam2's centre in the IMU frame, the rectified-cam0 origin
+  plus the rotated baseline $-K^{-1}P_2[:,3]$ (1.08–1.14 m forward).
+* nuScenes: CAM_FRONT's `calibrated_sensor` of the scene's first sample (1.70–1.72 m forward).
+
+With the road normal in camera coordinates $n = R^\top(0, 0, -1)^\top$ and the bottom-centre pixel
+$u_c = (x_1 + x_2)/2$, the box bottom's distance below the **ego** horizon, in pixels, is
+
+$$D = n_0\,\frac{f_y}{f_x}\,(u_c - c_x) + n_1\,(y_2 - c_y) + n_2\,f_y .$$
+
+$D$ replaces $y_2 - c_y$ in the ground cue and in the fusion weight, so both share one horizon; the height cue is
+unchanged:
+
+$$z_g = \frac{f_y\,h_\text{cam}}{\max(D,\;2\,\text{px})},\qquad
+w = \operatorname{clip}\!\left(\frac{D - 5}{25},\,0,\,1\right),\qquad
+\hat z_c = \operatorname{clip}\big(w\,z_g + (1-w)\,z_h,\; 0.5\ \text{m},\; 200\ \text{m}\big).$$
+
+$\hat z_c$ is a camera depth along the bottom-centre ray. The point
+$P = \big((u_c - c_x)\hat z_c/f_x,\; (y_2 - c_y)\hat z_c/f_y,\; \hat z_c\big)$ and the two bottom corners at the same
+depth are then expressed in the ego frame:
+
+$$\hat z = [R P + t]_x,\qquad \{\hat y_\text{min}, \hat y_\text{max}\} = \{\min, \max\}\big([R P_{x_1} + t]_y,\; [R P_{x_2} + t]_y\big).$$
+
+The pitch enters once, through $D$, and is never applied a second time to the fused point. TTC is the same ratio of
+box heights (§1.7). With $R$ the axis permutation and $t = 0$ every step reduces to §1.3–§1.5 exactly (gate G1 of
+`docs/iclr_ego_frame_convention.md`, bitwise on 2,008,908 cached detections). Against the matched reference the
+ego-frame range reads **+1.16 to +1.31 m long** at 0–15 m on both tracks and both fidelities (the camera frame's
+forward offset had cancelled that near-range bias); beyond 15 m its error is smaller than the camera frame's.
 
 ---
 

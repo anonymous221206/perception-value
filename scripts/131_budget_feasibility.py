@@ -33,6 +33,8 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+from rap import frames                                                           # noqa: E402
+from rap import runs as rap_runs                                                 # noqa: E402
 from rap import budget, runmeta                                                  # noqa: E402
 from rap.paths import RESULTS                                                    # noqa: E402
 
@@ -43,11 +45,8 @@ KEYS = ["track", "geometry", "system", "target", "g_variant", "arch", "setting",
 
 
 def _latest(tag):
-    """The newest run of a tag (exact tag, so *_benchmark_budget does not pick up *_benchmark_budget_1thread)."""
-    d = [p for p in sorted(RAW.glob(f"*_{tag}")) if p.name.split("_", 2)[-1] == tag]
-    if not d:
-        raise SystemExit(f"no results/raw/*_{tag} run found")
-    return d[-1]
+    """The newest run of `tag` in the current lift frame (rap.runs)."""
+    return rap_runs.latest(tag)
 
 
 def read(path):
@@ -127,7 +126,9 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--flag_shipped", action="store_true")
     ap.add_argument("--validate_against", default=None)
+    frames.add_argument(ap)
     args = ap.parse_args()
+    frames.configure(args)
     run = runmeta.new_run("budget_feasibility", vars(args))
     outs = flag_shipped() if args.flag_shipped else derive()
     summary = {}
