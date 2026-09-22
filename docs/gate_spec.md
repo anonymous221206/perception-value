@@ -12,42 +12,42 @@ from the CHEAP detector cache only: detections, their monocular geometry `mono.p
 
 | # | feature | group | source | defining line (features.py) |
 |---|---|---|---|---|
-| 1 | `feat_conf_max` | conf | cheap_det | L94: `_reg("feat_conf_max", "conf", "cheap_det"): _safe(np.max, conf),` |
-| 2 | `feat_conf_mean` | conf | cheap_det | L95: `_reg("feat_conf_mean", "conf", "cheap_det"): _safe(np.mean, conf),` |
-| 3 | `feat_conf_min` | conf | cheap_det | L96: `_reg("feat_conf_min", "conf", "cheap_det"): _safe(np.min, conf, 1.0),` |
-| 4 | `feat_conf_std` | conf | cheap_det | L97: `_reg("feat_conf_std", "conf", "cheap_det"): _safe(np.std, conf),` |
-| 5 | `feat_conf_p25` | conf | cheap_det | L98: `_reg("feat_conf_p25", "conf", "cheap_det"): _q(conf, 25),` |
-| 6 | `feat_conf_median` | conf | cheap_det | L99: `_reg("feat_conf_median", "conf", "cheap_det"): _q(conf, 50),` |
-| 7 | `feat_conf_inv_sum` | conf | cheap_det | L100: `_reg("feat_conf_inv_sum", "conf", "cheap_det"): float(np.sum(1.0 - conf)),` |
-| 8 | `feat_conf_n_low` | conf | cheap_det | L101: `_reg("feat_conf_n_low", "conf", "cheap_det"): float(np.sum(conf < 0.4)),` |
-| 9 | `feat_conf_frac_low` | conf | cheap_det | L102: `_reg("feat_conf_frac_low", "conf", "cheap_det"): _safe(lambda a: np.mean(a < 0.4), conf),` |
-| 10 | `feat_conf_none` | conf | cheap_det | L103: `_reg("feat_conf_none", "conf", "cheap_det"): float(len(conf) == 0),` |
-| 11 | `feat_ent_mean` | unc | cheap_det | L113: `_reg("feat_ent_mean", "unc", "cheap_det"): _safe(np.mean, ent),` |
-| 12 | `feat_ent_max` | unc | cheap_det | L114: `_reg("feat_ent_max", "unc", "cheap_det"): _safe(np.max, ent),` |
-| 13 | `feat_ent_sum` | unc | cheap_det | L115: `_reg("feat_ent_sum", "unc", "cheap_det"): float(np.sum(ent)),` |
-| 14 | `feat_margin_mean` | unc | cheap_det | L116: `_reg("feat_margin_mean", "unc", "cheap_det"): _safe(np.mean, marg, 1.0),` |
-| 15 | `feat_margin_min` | unc | cheap_det | L117: `_reg("feat_margin_min", "unc", "cheap_det"): _safe(np.min, marg, 1.0),` |
-| 16 | `feat_binent_mean` | unc | cheap_det | L118: `_reg("feat_binent_mean", "unc", "cheap_det"): _safe(np.mean, bent),` |
-| 17 | `feat_binent_max` | unc | cheap_det | L119: `_reg("feat_binent_max", "unc", "cheap_det"): _safe(np.max, bent),` |
-| 18 | `feat_binent_sum` | unc | cheap_det | L120: `_reg("feat_binent_sum", "unc", "cheap_det"): float(np.sum(bent)),` |
-| 19 | `feat_nms_ratio` | unc | cheap_det | L122: `_reg("feat_nms_ratio", "unc", "cheap_det"): float(det["n_cand"]) / n_post,` |
-| 20 | `feat_n_cand` | unc | cheap_det | L123: `_reg("feat_n_cand", "unc", "cheap_det"): float(det["n_cand"]),` |
-| 21 | `feat_n_cand_raw` | unc | cheap_det | L124: `_reg("feat_n_cand_raw", "unc", "cheap_det"): float(det["n_cand_raw"]),` |
-| 22 | `feat_n_borderline` | unc | cheap_det | L126: `_reg("feat_n_borderline", "unc", "cheap_det"): float(len(below)),` |
-| 23 | `feat_borderline_max` | unc | cheap_det | L127: `_reg("feat_borderline_max", "unc", "cheap_det"): _safe(np.max, below),` |
-| 24 | `feat_borderline_gap` | unc | cheap_det | L128: `_reg("feat_borderline_gap", "unc", "cheap_det"): op_conf - _safe(np.max, below),` |
-| 25 | `feat_n_det` | complex | cheap_det | L148: `_reg("feat_n_det", "complex", "cheap_det"): float(len(xyxy)),` |
-| 26 | `feat_area_frac_sum` | complex | cheap_det | L149: `_reg("feat_area_frac_sum", "complex", "cheap_det"): float(area.sum() / img_area),` |
-| 27 | `feat_area_frac_mean` | complex | cheap_det | L150: `_reg("feat_area_frac_mean", "complex", "cheap_det"): _safe(np.mean, area / img_area),` |
-| 28 | `feat_area_frac_max` | complex | cheap_det | L151: `_reg("feat_area_frac_max", "complex", "cheap_det"): _safe(np.max, area / img_area),` |
-| 29 | `feat_area_frac_std` | complex | cheap_det | L152: `_reg("feat_area_frac_std", "complex", "cheap_det"): _safe(np.std, area / img_area),` |
-| 30 | `feat_h_min_px` | complex | cheap_det | L153: `_reg("feat_h_min_px", "complex", "cheap_det"): _safe(np.min, h, 0.0),` |
-| 31 | `feat_h_median_px` | complex | cheap_det | L154: `_reg("feat_h_median_px", "complex", "cheap_det"): _q(h, 50),` |
-| 32 | `feat_n_small` | complex | cheap_det | L155: `_reg("feat_n_small", "complex", "cheap_det"): float(np.sum(h < 40)),` |
-| 33 | `feat_overlap_pairs` | complex | cheap_det | L156: `_reg("feat_overlap_pairs", "complex", "cheap_det"): overlap_pairs,` |
-| 34 | `feat_overlap_max` | complex | cheap_det | L157: `_reg("feat_overlap_max", "complex", "cheap_det"): overlap_max,` |
-| 35 | `feat_spread_x` | complex | cheap_det | L158: `_reg("feat_spread_x", "complex", "cheap_det"): _safe(np.std, cx),` |
-| 36 | `feat_spread_y` | complex | cheap_det | L159: `_reg("feat_spread_y", "complex", "cheap_det"): _safe(np.std, cy),` |
+| 1 | `feat_conf_max` | conf | cheap_det | L104: `_reg("feat_conf_max", "conf", "cheap_det"): _safe(np.max, conf),` |
+| 2 | `feat_conf_mean` | conf | cheap_det | L105: `_reg("feat_conf_mean", "conf", "cheap_det"): _safe(np.mean, conf),` |
+| 3 | `feat_conf_min` | conf | cheap_det | L106: `_reg("feat_conf_min", "conf", "cheap_det"): _safe(np.min, conf, 1.0),` |
+| 4 | `feat_conf_std` | conf | cheap_det | L107: `_reg("feat_conf_std", "conf", "cheap_det"): _safe(np.std, conf),` |
+| 5 | `feat_conf_p25` | conf | cheap_det | L108: `_reg("feat_conf_p25", "conf", "cheap_det"): _q(conf, 25),` |
+| 6 | `feat_conf_median` | conf | cheap_det | L109: `_reg("feat_conf_median", "conf", "cheap_det"): _q(conf, 50),` |
+| 7 | `feat_conf_inv_sum` | conf | cheap_det | L110: `_reg("feat_conf_inv_sum", "conf", "cheap_det"): float(np.sum(1.0 - conf)),` |
+| 8 | `feat_conf_n_low` | conf | cheap_det | L111: `_reg("feat_conf_n_low", "conf", "cheap_det"): float(np.sum(conf < 0.4)),` |
+| 9 | `feat_conf_frac_low` | conf | cheap_det | L112: `_reg("feat_conf_frac_low", "conf", "cheap_det"): _safe(lambda a: np.mean(a < 0.4), conf),` |
+| 10 | `feat_conf_none` | conf | cheap_det | L113: `_reg("feat_conf_none", "conf", "cheap_det"): float(len(conf) == 0),` |
+| 11 | `feat_ent_mean` | unc | cheap_det | L123: `_reg("feat_ent_mean", "unc", "cheap_det"): _safe(np.mean, ent),` |
+| 12 | `feat_ent_max` | unc | cheap_det | L124: `_reg("feat_ent_max", "unc", "cheap_det"): _safe(np.max, ent),` |
+| 13 | `feat_ent_sum` | unc | cheap_det | L125: `_reg("feat_ent_sum", "unc", "cheap_det"): float(np.sum(ent)),` |
+| 14 | `feat_margin_mean` | unc | cheap_det | L126: `_reg("feat_margin_mean", "unc", "cheap_det"): _safe(np.mean, marg, 1.0),` |
+| 15 | `feat_margin_min` | unc | cheap_det | L127: `_reg("feat_margin_min", "unc", "cheap_det"): _safe(np.min, marg, 1.0),` |
+| 16 | `feat_binent_mean` | unc | cheap_det | L128: `_reg("feat_binent_mean", "unc", "cheap_det"): _safe(np.mean, bent),` |
+| 17 | `feat_binent_max` | unc | cheap_det | L129: `_reg("feat_binent_max", "unc", "cheap_det"): _safe(np.max, bent),` |
+| 18 | `feat_binent_sum` | unc | cheap_det | L130: `_reg("feat_binent_sum", "unc", "cheap_det"): float(np.sum(bent)),` |
+| 19 | `feat_nms_ratio` | unc | cheap_det | L132: `_reg("feat_nms_ratio", "unc", "cheap_det"): float(det["n_cand"]) / n_post,` |
+| 20 | `feat_n_cand` | unc | cheap_det | L133: `_reg("feat_n_cand", "unc", "cheap_det"): float(det["n_cand"]),` |
+| 21 | `feat_n_cand_raw` | unc | cheap_det | L134: `_reg("feat_n_cand_raw", "unc", "cheap_det"): float(det["n_cand_raw"]),` |
+| 22 | `feat_n_borderline` | unc | cheap_det | L136: `_reg("feat_n_borderline", "unc", "cheap_det"): float(len(below)),` |
+| 23 | `feat_borderline_max` | unc | cheap_det | L137: `_reg("feat_borderline_max", "unc", "cheap_det"): _safe(np.max, below),` |
+| 24 | `feat_borderline_gap` | unc | cheap_det | L138: `_reg("feat_borderline_gap", "unc", "cheap_det"): op_conf - _safe(np.max, below),` |
+| 25 | `feat_n_det` | complex | cheap_det | L158: `_reg("feat_n_det", "complex", "cheap_det"): float(len(xyxy)),` |
+| 26 | `feat_area_frac_sum` | complex | cheap_det | L159: `_reg("feat_area_frac_sum", "complex", "cheap_det"): float(area.sum() / img_area),` |
+| 27 | `feat_area_frac_mean` | complex | cheap_det | L160: `_reg("feat_area_frac_mean", "complex", "cheap_det"): _safe(np.mean, area / img_area),` |
+| 28 | `feat_area_frac_max` | complex | cheap_det | L161: `_reg("feat_area_frac_max", "complex", "cheap_det"): _safe(np.max, area / img_area),` |
+| 29 | `feat_area_frac_std` | complex | cheap_det | L162: `_reg("feat_area_frac_std", "complex", "cheap_det"): _safe(np.std, area / img_area),` |
+| 30 | `feat_h_min_px` | complex | cheap_det | L163: `_reg("feat_h_min_px", "complex", "cheap_det"): _safe(np.min, h, 0.0),` |
+| 31 | `feat_h_median_px` | complex | cheap_det | L164: `_reg("feat_h_median_px", "complex", "cheap_det"): _q(h, 50),` |
+| 32 | `feat_n_small` | complex | cheap_det | L165: `_reg("feat_n_small", "complex", "cheap_det"): float(np.sum(h < 40)),` |
+| 33 | `feat_overlap_pairs` | complex | cheap_det | L166: `_reg("feat_overlap_pairs", "complex", "cheap_det"): overlap_pairs,` |
+| 34 | `feat_overlap_max` | complex | cheap_det | L167: `_reg("feat_overlap_max", "complex", "cheap_det"): overlap_max,` |
+| 35 | `feat_spread_x` | complex | cheap_det | L168: `_reg("feat_spread_x", "complex", "cheap_det"): _safe(np.std, cx),` |
+| 36 | `feat_spread_y` | complex | cheap_det | L169: `_reg("feat_spread_y", "complex", "cheap_det"): _safe(np.std, cy),` |
 | 37 | `feat_img_bright_mean` | complex | cheap_image | LNone: `` |
 | 38 | `feat_img_bright_std` | complex | cheap_image | LNone: `` |
 | 39 | `feat_img_dark_frac` | complex | cheap_image | LNone: `` |
@@ -58,25 +58,25 @@ from the CHEAP detector cache only: detections, their monocular geometry `mono.p
 | 44 | `feat_motion_mean` | complex | cheap_prev | LNone: `` |
 | 45 | `feat_motion_p95` | complex | cheap_prev | LNone: `` |
 | 46 | `feat_motion_first` | complex | cheap_prev | LNone: `` |
-| 47 | `feat_crit_sum` | crit | cheap_det | L188: `_reg("feat_crit_sum", "crit", "cheap_det"): csum,` |
-| 48 | `feat_crit_max` | crit | cheap_det | L189: `_reg("feat_crit_max", "crit", "cheap_det"): _safe(np.max, crit),` |
-| 49 | `feat_crit_mean` | crit | cheap_det | L190: `_reg("feat_crit_mean", "crit", "cheap_det"): _safe(np.mean, crit),` |
-| 50 | `feat_crit_p90` | crit | cheap_det | L191: `_reg("feat_crit_p90", "crit", "cheap_det"): _q(crit, 90),` |
-| 51 | `feat_n_in_corridor` | crit | cheap_det | L192: `_reg("feat_n_in_corridor", "crit", "cheap_det"): float(in_corr.sum()),` |
-| 52 | `feat_crit_sum_corridor` | crit | cheap_det | L193: `_reg("feat_crit_sum_corridor", "crit", "cheap_det"): float(crit[in_corr].sum()) if len(z) else 0.0,` |
-| 53 | `feat_z_min` | crit | cheap_det | L194: `_reg("feat_z_min", "crit", "cheap_det"): _safe(np.min, z, 200.0),` |
-| 54 | `feat_z_min_corridor` | crit | cheap_det | L195: `_reg("feat_z_min_corridor", "crit", "cheap_det"): _safe(np.min, z[in_corr], 200.0) if len(z) else 200.0,` |
-| 55 | `feat_z_p25` | crit | cheap_det | L196: `_reg("feat_z_p25", "crit", "cheap_det"): _q(z, 25, 200.0),` |
-| 56 | `feat_lat_abs_min` | crit | cheap_det | L197: `_reg("feat_lat_abs_min", "crit", "cheap_det"): (` |
-| 57 | `feat_ttc_min` | crit | cheap_prev | L199: `_reg("feat_ttc_min", "crit", "cheap_prev"): float(np.min(np.minimum(ttc, 1e3))) if len(z) else 1e3,` |
-| 58 | `feat_n_ttc_lt4` | crit | cheap_prev | L200: `_reg("feat_n_ttc_lt4", "crit", "cheap_prev"): float(np.sum(ttc < 4.0)),` |
-| 59 | `feat_n_ttc_lt2` | crit | cheap_prev | L201: `_reg("feat_n_ttc_lt2", "crit", "cheap_prev"): float(np.sum(ttc < 2.0)),` |
-| 60 | `feat_riskw_unc_sum` | crit | cheap_det | L203: `_reg("feat_riskw_unc_sum", "crit", "cheap_det"): float(np.sum(crit * (1.0 - conf))),` |
-| 61 | `feat_riskw_unc_mean` | crit | cheap_det | L204: `_reg("feat_riskw_unc_mean", "crit", "cheap_det"): float(` |
-| 62 | `feat_riskw_ent_sum` | crit | cheap_det | L206: `_reg("feat_riskw_ent_sum", "crit", "cheap_det"): float(np.sum(crit * bent)),` |
-| 63 | `feat_crit_small_sum` | crit | cheap_det | L208: `_reg("feat_crit_small_sum", "crit", "cheap_det"): float(crit[box_h < 40].sum()) if len(z) else 0.0,` |
-| 64 | `feat_crit_borderline_sum` | crit | cheap_det | L209: `_reg("feat_crit_borderline_sum", "crit", "cheap_det"): float(crit_b.sum()),` |
-| 65 | `feat_crit_borderline_max` | crit | cheap_det | L210: `_reg("feat_crit_borderline_max", "crit", "cheap_det"): _safe(np.max, crit_b),` |
+| 47 | `feat_crit_sum` | crit | cheap_det | L198: `_reg("feat_crit_sum", "crit", "cheap_det"): csum,` |
+| 48 | `feat_crit_max` | crit | cheap_det | L199: `_reg("feat_crit_max", "crit", "cheap_det"): _safe(np.max, crit),` |
+| 49 | `feat_crit_mean` | crit | cheap_det | L200: `_reg("feat_crit_mean", "crit", "cheap_det"): _safe(np.mean, crit),` |
+| 50 | `feat_crit_p90` | crit | cheap_det | L201: `_reg("feat_crit_p90", "crit", "cheap_det"): _q(crit, 90),` |
+| 51 | `feat_n_in_corridor` | crit | cheap_det | L202: `_reg("feat_n_in_corridor", "crit", "cheap_det"): float(in_corr.sum()),` |
+| 52 | `feat_crit_sum_corridor` | crit | cheap_det | L203: `_reg("feat_crit_sum_corridor", "crit", "cheap_det"): float(crit[in_corr].sum()) if len(z) else 0.0,` |
+| 53 | `feat_z_min` | crit | cheap_det | L204: `_reg("feat_z_min", "crit", "cheap_det"): _safe(np.min, z, 200.0),` |
+| 54 | `feat_z_min_corridor` | crit | cheap_det | L205: `_reg("feat_z_min_corridor", "crit", "cheap_det"): _safe(np.min, z[in_corr], 200.0) if len(z) else 200.0,` |
+| 55 | `feat_z_p25` | crit | cheap_det | L206: `_reg("feat_z_p25", "crit", "cheap_det"): _q(z, 25, 200.0),` |
+| 56 | `feat_lat_abs_min` | crit | cheap_det | L207: `_reg("feat_lat_abs_min", "crit", "cheap_det"): (` |
+| 57 | `feat_ttc_min` | crit | cheap_prev | L209: `_reg("feat_ttc_min", "crit", "cheap_prev"): float(np.min(np.minimum(ttc, 1e3))) if len(z) else 1e3,` |
+| 58 | `feat_n_ttc_lt4` | crit | cheap_prev | L210: `_reg("feat_n_ttc_lt4", "crit", "cheap_prev"): float(np.sum(ttc < 4.0)),` |
+| 59 | `feat_n_ttc_lt2` | crit | cheap_prev | L211: `_reg("feat_n_ttc_lt2", "crit", "cheap_prev"): float(np.sum(ttc < 2.0)),` |
+| 60 | `feat_riskw_unc_sum` | crit | cheap_det | L213: `_reg("feat_riskw_unc_sum", "crit", "cheap_det"): float(np.sum(crit * (1.0 - conf))),` |
+| 61 | `feat_riskw_unc_mean` | crit | cheap_det | L214: `_reg("feat_riskw_unc_mean", "crit", "cheap_det"): float(` |
+| 62 | `feat_riskw_ent_sum` | crit | cheap_det | L216: `_reg("feat_riskw_ent_sum", "crit", "cheap_det"): float(np.sum(crit * bent)),` |
+| 63 | `feat_crit_small_sum` | crit | cheap_det | L218: `_reg("feat_crit_small_sum", "crit", "cheap_det"): float(crit[box_h < 40].sum()) if len(z) else 0.0,` |
+| 64 | `feat_crit_borderline_sum` | crit | cheap_det | L219: `_reg("feat_crit_borderline_sum", "crit", "cheap_det"): float(crit_b.sum()),` |
+| 65 | `feat_crit_borderline_max` | crit | cheap_det | L220: `_reg("feat_crit_borderline_max", "crit", "cheap_det"): _safe(np.max, crit_b),` |
 
 Features per group: conf 10, unc 14, complex 22, crit 19.
 
