@@ -118,6 +118,16 @@ Each of these answers one question asked of the benchmark after its first result
 | `146_class_error_prefix_tables.py` | the pre-fix nuScenes class labels in the ego-frame tables, C25's before | |
 | `147_ego_frame_convention.py` | every registered quantity old (camera frame) beside new (ego frame), and the reading | |
 
+## The published objectives, the submission path and the evidence pack
+
+| script | what | marker |
+|---|---|---|
+| `148_published_objective_labels.py` | Task 24: the CHEAP/FULL detection dump, the published objectives as per-frame labels (Qiu's ORIC, Geng's ΔAP, from the official code), and their checks | D (dump) |
+| `149_published_objective_routers.py` | Task 24: R1 and R2 refit on those labels, the budget-adaptive arbiter, and the scoring against the V-trained counterparts | |
+| `150_submission_tables.py` | Task 25: the decision values and bootstrap plans the submission path needs, the labels-free inputs export, and gate G1 | D (inputs) |
+| `151_profile_allocator.py` | Task 25: measures an allocator's own per-input latency and energy for the measured-budget track | H |
+| `152_evidence_pack.py` | Task 26: the evidence pack, the claims check, and the 3A/3B tables | |
+
 ## Figure data
 
 | script | what | marker |

@@ -1,0 +1,81 @@
+cell,model,coef_shapes,ok
+KITTI mono brake J,R1_mlp_reg__Q,"[(225, 64), (64, 64), (64, 1)]",True
+KITTI mono brake J,R1_mlp_clf__Q,"[(225, 64), (64, 64), (64, 1)]",True
+KITTI mono brake J,R1_gbm_reg__Q,gbm parameters,True
+KITTI mono brake J,R1_gbm_clf__Q,gbm parameters,True
+KITTI mono brake J,R1_mlp_reg__G,"[(225, 64), (64, 64), (64, 1)]",True
+KITTI mono brake J,R1_mlp_clf__G,"[(225, 64), (64, 64), (64, 1)]",True
+KITTI mono brake J,R1_gbm_reg__G,gbm parameters,True
+KITTI mono brake J,R1_gbm_clf__G,gbm parameters,True
+KITTI mono traj JB,R1_mlp_reg__Q,"[(225, 64), (64, 64), (64, 1)]",True
+KITTI mono traj JB,R1_mlp_clf__Q,"[(225, 64), (64, 64), (64, 1)]",True
+KITTI mono traj JB,R1_gbm_reg__Q,gbm parameters,True
+KITTI mono traj JB,R1_gbm_clf__Q,gbm parameters,True
+KITTI mono traj JB,R1_mlp_reg__G,"[(225, 64), (64, 64), (64, 1)]",True
+KITTI mono traj JB,R1_mlp_clf__G,"[(225, 64), (64, 64), (64, 1)]",True
+KITTI mono traj JB,R1_gbm_reg__G,gbm parameters,True
+KITTI mono traj JB,R1_gbm_clf__G,gbm parameters,True
+KITTI oracle brake J,R1_mlp_reg__Q,"[(225, 64), (64, 64), (64, 1)]",True
+KITTI oracle brake J,R1_mlp_clf__Q,"[(225, 64), (64, 64), (64, 1)]",True
+KITTI oracle brake J,R1_gbm_reg__Q,gbm parameters,True
+KITTI oracle brake J,R1_gbm_clf__Q,gbm parameters,True
+KITTI oracle brake J,R1_mlp_reg__G,"[(225, 64), (64, 64), (64, 1)]",True
+KITTI oracle brake J,R1_mlp_clf__G,"[(225, 64), (64, 64), (64, 1)]",True
+KITTI oracle brake J,R1_gbm_reg__G,gbm parameters,True
+KITTI oracle brake J,R1_gbm_clf__G,gbm parameters,True
+KITTI oracle traj JB,R1_mlp_reg__Q,"[(225, 64), (64, 64), (64, 1)]",True
+KITTI oracle traj JB,R1_mlp_clf__Q,"[(225, 64), (64, 64), (64, 1)]",True
+KITTI oracle traj JB,R1_gbm_reg__Q,gbm parameters,True
+KITTI oracle traj JB,R1_gbm_clf__Q,gbm parameters,True
+KITTI oracle traj JB,R1_mlp_reg__G,"[(225, 64), (64, 64), (64, 1)]",True
+KITTI oracle traj JB,R1_mlp_clf__G,"[(225, 64), (64, 64), (64, 1)]",True
+KITTI oracle traj JB,R1_gbm_reg__G,gbm parameters,True
+KITTI oracle traj JB,R1_gbm_clf__G,gbm parameters,True
+nuScenes mono brake J,R1_mlp_reg__Q,"[(225, 64), (64, 64), (64, 1)]",True
+nuScenes mono brake J,R1_mlp_clf__Q,"[(225, 64), (64, 64), (64, 1)]",True
+nuScenes mono brake J,R1_gbm_reg__Q,gbm parameters,True
+nuScenes mono brake J,R1_gbm_clf__Q,gbm parameters,True
+nuScenes mono brake J,R1_mlp_reg__G,"[(225, 64), (64, 64), (64, 1)]",True
+nuScenes mono brake J,R1_mlp_clf__G,"[(225, 64), (64, 64), (64, 1)]",True
+nuScenes mono brake J,R1_gbm_reg__G,gbm parameters,True
+nuScenes mono brake J,R1_gbm_clf__G,gbm parameters,True
+nuScenes mono plan_ade JC_ade,R1_mlp_reg__Q,"[(225, 64), (64, 64), (64, 1)]",True
+nuScenes mono plan_ade JC_ade,R1_mlp_clf__Q,"[(225, 64), (64, 64), (64, 1)]",True
+nuScenes mono plan_ade JC_ade,R1_gbm_reg__Q,gbm parameters,True
+nuScenes mono plan_ade JC_ade,R1_gbm_clf__Q,gbm parameters,True
+nuScenes mono plan_ade JC_ade,R1_mlp_reg__G,"[(225, 64), (64, 64), (64, 1)]",True
+nuScenes mono plan_ade JC_ade,R1_mlp_clf__G,"[(225, 64), (64, 64), (64, 1)]",True
+nuScenes mono plan_ade JC_ade,R1_gbm_reg__G,gbm parameters,True
+nuScenes mono plan_ade JC_ade,R1_gbm_clf__G,gbm parameters,True
+nuScenes mono plan_fde JC_fde,R1_mlp_reg__Q,"[(225, 64), (64, 64), (64, 1)]",True
+nuScenes mono plan_fde JC_fde,R1_mlp_clf__Q,"[(225, 64), (64, 64), (64, 1)]",True
+nuScenes mono plan_fde JC_fde,R1_gbm_reg__Q,gbm parameters,True
+nuScenes mono plan_fde JC_fde,R1_gbm_clf__Q,gbm parameters,True
+nuScenes mono plan_fde JC_fde,R1_mlp_reg__G,"[(225, 64), (64, 64), (64, 1)]",True
+nuScenes mono plan_fde JC_fde,R1_mlp_clf__G,"[(225, 64), (64, 64), (64, 1)]",True
+nuScenes mono plan_fde JC_fde,R1_gbm_reg__G,gbm parameters,True
+nuScenes mono plan_fde JC_fde,R1_gbm_clf__G,gbm parameters,True
+nuScenes oracle brake J,R1_mlp_reg__Q,"[(225, 64), (64, 64), (64, 1)]",True
+nuScenes oracle brake J,R1_mlp_clf__Q,"[(225, 64), (64, 64), (64, 1)]",True
+nuScenes oracle brake J,R1_gbm_reg__Q,gbm parameters,True
+nuScenes oracle brake J,R1_gbm_clf__Q,gbm parameters,True
+nuScenes oracle brake J,R1_mlp_reg__G,"[(225, 64), (64, 64), (64, 1)]",True
+nuScenes oracle brake J,R1_mlp_clf__G,"[(225, 64), (64, 64), (64, 1)]",True
+nuScenes oracle brake J,R1_gbm_reg__G,gbm parameters,True
+nuScenes oracle brake J,R1_gbm_clf__G,gbm parameters,True
+nuScenes oracle plan_ade JC_ade,R1_mlp_reg__Q,"[(225, 64), (64, 64), (64, 1)]",True
+nuScenes oracle plan_ade JC_ade,R1_mlp_clf__Q,"[(225, 64), (64, 64), (64, 1)]",True
+nuScenes oracle plan_ade JC_ade,R1_gbm_reg__Q,gbm parameters,True
+nuScenes oracle plan_ade JC_ade,R1_gbm_clf__Q,gbm parameters,True
+nuScenes oracle plan_ade JC_ade,R1_mlp_reg__G,"[(225, 64), (64, 64), (64, 1)]",True
+nuScenes oracle plan_ade JC_ade,R1_mlp_clf__G,"[(225, 64), (64, 64), (64, 1)]",True
+nuScenes oracle plan_ade JC_ade,R1_gbm_reg__G,gbm parameters,True
+nuScenes oracle plan_ade JC_ade,R1_gbm_clf__G,gbm parameters,True
+nuScenes oracle plan_fde JC_fde,R1_mlp_reg__Q,"[(225, 64), (64, 64), (64, 1)]",True
+nuScenes oracle plan_fde JC_fde,R1_mlp_clf__Q,"[(225, 64), (64, 64), (64, 1)]",True
+nuScenes oracle plan_fde JC_fde,R1_gbm_reg__Q,gbm parameters,True
+nuScenes oracle plan_fde JC_fde,R1_gbm_clf__Q,gbm parameters,True
+nuScenes oracle plan_fde JC_fde,R1_mlp_reg__G,"[(225, 64), (64, 64), (64, 1)]",True
+nuScenes oracle plan_fde JC_fde,R1_mlp_clf__G,"[(225, 64), (64, 64), (64, 1)]",True
+nuScenes oracle plan_fde JC_fde,R1_gbm_reg__G,gbm parameters,True
+nuScenes oracle plan_fde JC_fde,R1_gbm_clf__G,gbm parameters,True

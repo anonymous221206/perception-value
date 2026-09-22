@@ -132,3 +132,18 @@ modified. It took five fixes, none of which touches the planners or their config
 limited to 4 scenarios. IDMPlanner 4/4 succeeded, PDM-Closed 4/4 succeeded, on the **same**
 scenario tokens (`000d90717e5e569d`, `3ec7324424685846`, …), which is what the PDM-vs-IDM
 comparison requires. Official nuPlan metrics were written for both.
+
+## edgeml-object-detection (ORIC / ORIE) — Qiu, Wang, Hu, Guérin, Lu, SEC 2024 (Task 24)
+- repo: https://github.com/qiujiaming315/edgeml-object-detection
+- commit: `859f70240aa090359ba827b374b68ca7821b7d55` (2025-03-07)
+- used via: `reward.py:compute_orie`, called directly for every frame (the official code draws its context unseeded;
+  148 calls `np.random.seed(42)` once before the loop), with `lib/metrics.py:box_correct` building its inputs from the
+  benchmark's cached detections; unmodified (`scripts/148_published_objective_labels.py`)
+
+## bgt-ada (ΔAP / MORIC / OffloadBin) — Geng, Mohan, Ott, NAIC '26 (Task 24)
+- repo: https://github.com/ViGeng/bgt-ada
+- commit: `6669ab0089a04fbe6257ebdc2601de13ed0e5398` (2026-06-30)
+- used via: `src/proxy_metrics.py:compute_dataset_wide_oric` (and the helpers it imports from `src/metrics.py` and
+  `src/error_decomposition.py`), unmodified, on the benchmark's cached detections. The package `__init__` is not
+  executed: it imports `src/features.py`, whose Python 3.9 annotations fail on the Python 3.8 environment, and which
+  nothing here uses (148 `_geng`).

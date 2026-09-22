@@ -70,6 +70,16 @@ def assert_no_leakage(columns) -> None:
         raise ValueError(f"features with illegal provenance: {bad}")
 
 
+def check_provenance(provenance: dict) -> None:
+    """A third party's own features, declared as {column: source}: the rule `assert_no_leakage` applies to ours.
+
+    Every source must be one of LEGAL_SOURCES. It checks declarations, as the registry does; docs/SUBMITTING.md says
+    how to make them structural (compute test-time features only from `rap.submission.inputs`)."""
+    unknown = {c: s for c, s in provenance.items() if s not in LEGAL_SOURCES}
+    if unknown:
+        raise ValueError(f"features with illegal provenance (legal: {sorted(LEGAL_SOURCES)}): {unknown}")
+
+
 def columns_for(arm: str) -> list[str]:
     groups = ARMS[arm]
     cols = [c for c, (g, _) in _REGISTRY.items() if g in groups]

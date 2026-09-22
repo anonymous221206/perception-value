@@ -25,6 +25,8 @@ met a process still holding its CUDA context on unified memory.  So:
   --stage train    --dataset D: labels, FLOP count, training (or --reuse_pt), PyTorch scores; exits
   --stage export   --dataset D --run R: ONNX on CPU, trtexec with the workspace capped, TensorRT
                    scores on test frames, evaluation; writes the dataset's rows
+  --stage rescore  --dataset D --run R: the rows again from the run's saved TensorRT scores (no GPU), written
+                   losslessly; each shipped value must be the recomputed one or its lossy re-read
 """
 from __future__ import annotations
 
@@ -143,7 +145,21 @@ def stage_train(args):
     lab.to_pickle(run / f"r2_{dataset}_labels.pkl")
     X = _images(dataset, lab)
     Y = np.stack([np.where(np.isnan(lab[f"V__{h}"]), np.nan, (lab[f"V__{h}"] > 1e-9).astype(float)) for h in heads], 1)
-    fit = lab.split.isin(["train", "val"]).to_numpy()
+    if args.objective != "V":
+        # Task 24: the same heads trained on a published objective's binary label instead of 1[V > 0]
+        Y = np.full_like(Y, np.nan)
+        col = {"Q": "Q_bin", "G": "G_bin"}[args.objective]
+        if args.fit_units == "train":                  # labels computed on the train units alone (148)
+            assert args.objective == "G", "only G's budget arbiter fits on the train units alone"
+            col = "G_bin_train"
+        for hi, h in enumerate(heads):
+            z = np.load(Path(args.label_run) / f"labels__{dataset}__{h}.npz", allow_pickle=False)
+            t = pd.DataFrame({"seq": z["seq"].astype(str), "frame": z["frame"].astype(int), "y": z[col]})
+            j = lab[["seq", "frame"]].merge(t, on=["seq", "frame"], how="left", validate="one_to_one")
+            scope = (lab.split == "train").to_numpy() if args.fit_units == "train" else np.ones(len(lab), bool)
+            assert (j.y.notna().to_numpy() == ~np.isnan(lab[f"V__{h}"].to_numpy(float)))[scope].all(), h
+            Y[:, hi] = j.y.to_numpy(float)
+    fit = lab.split.isin(["train", "val"] if args.fit_units == "trainval" else ["train"]).to_numpy()
     flops = {w: count_flops(torchvision.models.mobilenet_v2(width_mult=w, num_classes=len(heads))) for w in WIDTHS}
     width = min(WIDTHS, key=lambda w: abs(flops[w] - TARGET_FLOPS))
     model = torchvision.models.mobilenet_v2(width_mult=width, num_classes=len(heads)).to(dev)
@@ -192,13 +208,13 @@ def stage_train(args):
     (run / f"r2_{dataset}_meta.json").write_text(json.dumps(
         {"width_mult": width, "gflops": flops[width] / 1e9, "flops_by_width": flops, "heads": heads,
          "pos_weight": pos_weight.cpu().tolist(), "train_frames": int(fit.sum()), "epochs": EPOCHS,
-         "weights_reused_from": reused}, indent=1))
+         "weights_reused_from": reused, "objective": args.objective, "label_run": args.label_run,
+         "fit_units": args.fit_units}, indent=1))
     print(f"  wrote {run}", flush=True)
 
 
 def stage_export(args):
     import torch, torchvision
-    from scipy import stats
     run = Path(args.run)
     dataset = args.dataset
     meta = json.loads((run / f"r2_{dataset}_meta.json").read_text())
@@ -248,33 +264,48 @@ def stage_export(args):
         geometry, system, target = h.split("__")
         v = lab[f"V__{h}"].to_numpy(float)
         m = test & ~np.isnan(v)
-        rho = float(stats.spearmanr(trt_scores[m, hi], torch_scores[m, hi]).correlation)
-        ks, prize0, point, draws, dropped = t92.evaluate(v[m], lab.unit.to_numpy()[m],
-                                                         {"random": None, "R2_cnn_clf": trt_scores[m, hi]}, 1000, rng)
         np.savez_compressed(run / f"scores__{dataset}__{geometry}__{system}__{target}.npz",
                             seq=lab.seq.to_numpy().astype("U32")[m], frame=lab.frame.to_numpy()[m],
                             unit=lab.unit.to_numpy().astype("U40")[m], split=lab.split.to_numpy().astype("U8")[m],
                             V=v[m], J_cheap=lab[f"Jc__{h}"].to_numpy(float)[m], R2_cnn_clf=trt_scores[m, hi],
                             R2_cnn_clf_torch=torch_scores[m, hi])
-        for qi, q in enumerate(t92.QUOTAS):
-            dr = draws["R2_cnn_clf"][:, qi] - draws["random"][:, qi]
-            lo, hi_ = t92.ci(draws["R2_cnn_clf"][:, qi]); dlo, dhi = t92.ci(dr)
-            rows.append({"track": dataset, "geometry": geometry, "system": system, "target": target, "split": "test",
-                         "signal": "R2_cnn_clf", "deployable": True, "input_dim": 3 * SIDE * SIDE,
-                         "width_mult": meta["width_mult"], "gflops": meta["gflops"], "trt_vs_torch_spearman": rho,
-                         "quota": q, "k": int(ks[qi]), "eta": float(point["R2_cnn_clf"]["eta"][qi]),
-                         "eta_lo": lo, "eta_hi": hi_, "minus_random": float(np.nanmean(dr)),
-                         "minus_random_lo": dlo, "minus_random_hi": dhi,
-                         "p_le_random": float(np.mean(dr[np.isfinite(dr)] <= 0)),
-                         "tie_frac": float(point["R2_cnn_clf"]["tie"][qi]),
-                         "responsive_frac": float(point["R2_cnn_clf"]["resp"][qi]),
-                         "boot_dropped": int(dropped[qi]), "n_units": int(len(np.unique(lab.unit[m]))),
-                         "n_frames": int(m.sum())})
-        r = [x for x in rows if x["quota"] == 0.2][-1]
-        print(f"  {dataset:8s} {h:30s} @20 {r['eta']:+.3f} (vs random {r['minus_random']:+.3f} "
-              f"[{r['minus_random_lo']:+.3f}, {r['minus_random_hi']:+.3f}])  TRT~torch rho {rho:.4f}", flush=True)
+        rows += head_rows(t92, dataset, h, v[m], lab.unit.to_numpy()[m], trt_scores[m, hi], torch_scores[m, hi], meta, rng)
+    write_rows(run, dataset, rows, args.no_official)
+
+
+def head_rows(t92, dataset, h, v, units, trt, torch_s, meta, rng):
+    """One head's rows: eta at every quota on the test frames, paired against random within each draw."""
+    from scipy import stats
+    geometry, system, target = h.split("__")
+    rho = float(stats.spearmanr(trt, torch_s).correlation)
+    ks, prize0, point, draws, dropped = t92.evaluate(v, units, {"random": None, "R2_cnn_clf": trt}, 1000, rng)
+    rows = []
+    for qi, q in enumerate(t92.QUOTAS):
+        dr = draws["R2_cnn_clf"][:, qi] - draws["random"][:, qi]
+        lo, hi_ = t92.ci(draws["R2_cnn_clf"][:, qi]); dlo, dhi = t92.ci(dr)
+        rows.append({"track": dataset, "geometry": geometry, "system": system, "target": target, "split": "test",
+                     "signal": "R2_cnn_clf", "deployable": True, "input_dim": 3 * SIDE * SIDE,
+                     "width_mult": meta["width_mult"], "gflops": meta["gflops"], "trt_vs_torch_spearman": rho,
+                     "quota": q, "k": int(ks[qi]), "eta": float(point["R2_cnn_clf"]["eta"][qi]),
+                     "eta_lo": lo, "eta_hi": hi_, "minus_random": float(np.nanmean(dr)),
+                     "minus_random_lo": dlo, "minus_random_hi": dhi,
+                     "p_le_random": float(np.mean(dr[np.isfinite(dr)] <= 0)),
+                     "tie_frac": float(point["R2_cnn_clf"]["tie"][qi]),
+                     "responsive_frac": float(point["R2_cnn_clf"]["resp"][qi]),
+                     "boot_dropped": int(dropped[qi]), "n_units": int(len(np.unique(units))),
+                     "n_frames": int(len(v))})
+    r = rows[t92.QUOTAS.index(0.20)]
+    print(f"  {dataset:8s} {h:30s} @20 {r['eta']:+.3f} (vs random {r['minus_random']:+.3f} "
+          f"[{r['minus_random_lo']:+.3f}, {r['minus_random_hi']:+.3f}])  TRT~torch rho {rho:.4f}", flush=True)
+    return rows
+
+
+def write_rows(run, dataset, rows, no_official):
     df = pd.DataFrame(rows)
     df.to_csv(run / f"r2_{dataset}_rows.csv", index=False)
+    if no_official:                                        # Task 24's refits write their run only
+        print("  results/final left alone (--no_official)")
+        return
     out = Path(RESULTS) / "final" / "benchmark_table_routers.csv"
     if out.exists():
         old = pd.read_csv(out, keep_default_na=False, na_values=[""], float_precision="round_trip")  # lossless: nuPlan's "n/a" stays
@@ -284,13 +315,65 @@ def stage_export(args):
     print("  wrote", out)
 
 
+def stage_rescore(args):
+    """Recompute a run's rows from its saved TensorRT scores (no GPU, no refit), exactly as the export stage computed
+    them, and write them losslessly.
+
+    Task 25's gate G1 found the shipped nuScenes rows a few ulps away from their own computation: they had been re-read
+    through pandas' default float parser (not round-trip) when the KITTI export merged its rows, before that read was
+    made lossless. This stage restores them; every shipped value must equal either the recomputed one or exactly what
+    pandas' default parser returns for it, which checks the cause value by value."""
+    run = Path(args.run)
+    dataset = args.dataset
+    meta = json.loads((run / f"r2_{dataset}_meta.json").read_text())
+    _s = importlib.util.spec_from_file_location("t92", ROOT / "scripts" / "92_benchmark_table.py")
+    t92 = importlib.util.module_from_spec(_s)
+    _s.loader.exec_module(t92)
+    rng = np.random.default_rng(0)
+    rows = []
+    for h in meta["heads"]:
+        geometry, system, target = h.split("__")
+        z = np.load(run / f"scores__{dataset}__{geometry}__{system}__{target}.npz", allow_pickle=False)
+        rows += head_rows(t92, dataset, h, z["V"], z["unit"], z["R2_cnn_clf"], z["R2_cnn_clf_torch"], meta, rng)
+    new = pd.DataFrame(rows)
+    out = Path(RESULTS) / "final" / "benchmark_table_routers.csv"
+    old = pd.read_csv(out, keep_default_na=False, na_values=[""], float_precision="round_trip")
+    old = old[old.signal.str.startswith("R2_") & (old.track == dataset)]
+    key = ["geometry", "system", "target", "quota"]
+    j = new.merge(old, on=key, how="outer", suffixes=("", "_shipped"), validate="one_to_one", indicator=True)
+    assert (j._merge == "both").all(), "the rescored rows do not cover the shipped rows"
+    # the cause, checked exactly: a shipped value is the recomputed one, or what pandas' default parser returns for it
+    import io
+    lossy = pd.read_csv(io.StringIO(new.to_csv(index=False)), keep_default_na=False, na_values=[""])
+    lossy[key] = new[key].to_numpy()                   # same rows, same order; keys taken as written
+    lossy = j[key].merge(lossy, on=key, how="left", validate="one_to_one")
+    moved = 0
+    for c in [c for c in new.columns if c not in key and pd.api.types.is_float_dtype(new[c])]:
+        a, b, lz = j[c].to_numpy(float), j[f"{c}_shipped"].to_numpy(float), lossy[c].to_numpy(float)
+        same = (a == b) | (np.isnan(a) & np.isnan(b))
+        parsed = lz == b
+        assert (same | parsed).all(), (c, j.loc[~(same | parsed), key + [c, f"{c}_shipped"]].head())
+        moved += int((~same).sum())
+    print(f"  {dataset}: {len(new)} rows recomputed from the saved scores of {run.name}; {moved} values differ from "
+          f"the shipped ones, and each shipped value is exactly the recomputed one read back by pandas' default parser",
+          flush=True)
+    out_run = runmeta.new_run(f"{args.tag}_rescore", vars(args))              # the scored run itself stays untouched
+    write_rows(out_run, dataset, rows, args.no_official)
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--stage", required=True, choices=["cache", "train", "export"])
+    ap.add_argument("--stage", required=True, choices=["cache", "train", "export", "rescore"])
     ap.add_argument("--dataset", choices=["nuScenes", "KITTI"])
     ap.add_argument("--run", default=None, help="router_r2 run dir shared by the train and export stages")
     ap.add_argument("--reuse_pt", default=None, help="stage train: load finished weights instead of training")
     ap.add_argument("--tag", default="router_r2")
+    ap.add_argument("--objective", default="V", choices=["V", "Q", "G"],
+                    help="train: the label; V is the benchmark's 1[V > 0], Q and G the published objectives (Task 24)")
+    ap.add_argument("--label_run", default=None, help="train, with --objective Q or G: the labels run of scripts/148")
+    ap.add_argument("--fit_units", default="trainval", choices=["trainval", "train"],
+                    help="train: fit on train + val (as shipped) or on train only (Task 24's budget arbiter)")
+    ap.add_argument("--no_official", action="store_true", help="export: write the run only, not results/final")
     frames.add_argument(ap)
     args = ap.parse_args()
     frames.configure(args)
@@ -298,6 +381,8 @@ def main():
         stage_cache()
     elif args.stage == "train":
         stage_train(args)
+    elif args.stage == "rescore":
+        stage_rescore(args)
     else:
         stage_export(args)
 

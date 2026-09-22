@@ -1,0 +1,35 @@
+check,cell,ok,set,official,independent,abs_diff,frames_differing,differing_with_cross_frame_conf_tie,offloadbin_flips,note
+targets only on fit units,KITTI mono brake J,True,,,,,,,,
+G base AP: official vs independent,KITTI mono brake J,True,fit,0.3589117095548008,0.3589117095547975,3.2751579226442118e-15,,,,
+G dAP: 50 swaps recomputed independently,KITTI mono brake J,False,fit,,,9.391659336799307e-05,1.0,1.0,0.0,"stable re-sort: at equal confidence the swapped frame keeps its frame-order place; reported, not a stop (see docs/iclr_published_objectives.md, Phase B)"
+"G dAP: 50 swaps, official tie order, AP_swap = base + dAP/N",KITTI mono brake J,True,fit,,,1.3600232051658168e-14,,,,"FULL detections of the swapped frame before CHEAP detections of equal confidence, as the official merge orders them; compared in AP units, as registered"
+Q ORIC: 50 images recomputed independently,KITTI mono brake J,True,fit,,,0.0,,,,
+G base AP: official vs independent,KITTI mono brake J,True,test,0.40558717220286145,0.4055871722028731,1.1657341758564144e-14,,,,
+G dAP: 50 swaps recomputed independently,KITTI mono brake J,True,test,,,9.225509245425201e-11,0.0,0.0,0.0,"stable re-sort: at equal confidence the swapped frame keeps its frame-order place; reported, not a stop (see docs/iclr_published_objectives.md, Phase B)"
+"G dAP: 50 swaps, official tie order, AP_swap = base + dAP/N",KITTI mono brake J,True,test,,,2.609024107869118e-14,,,,"FULL detections of the swapped frame before CHEAP detections of equal confidence, as the official merge orders them; compared in AP units, as registered"
+Q ORIC: 50 images recomputed independently,KITTI mono brake J,True,test,,,0.0,,,,
+targets only on fit units,KITTI mono traj JB,True,,,,,,,,
+targets only on fit units,KITTI oracle brake J,True,,,,,,,,
+targets only on fit units,KITTI oracle traj JB,True,,,,,,,,
+targets only on fit units,nuScenes mono brake J,True,,,,,,,,
+G base AP: official vs independent,nuScenes mono brake J,True,fit,0.26885399101113283,0.26885399101113283,0.0,,,,
+G dAP: 50 swaps recomputed independently,nuScenes mono brake J,False,fit,,,0.0025994206580171597,41.0,41.0,0.0,"stable re-sort: at equal confidence the swapped frame keeps its frame-order place; reported, not a stop (see docs/iclr_published_objectives.md, Phase B)"
+"G dAP: 50 swaps, official tie order, AP_swap = base + dAP/N",nuScenes mono brake J,True,fit,,,3.2751579226442118e-15,,,,"FULL detections of the swapped frame before CHEAP detections of equal confidence, as the official merge orders them; compared in AP units, as registered"
+Q ORIC: 50 images recomputed independently,nuScenes mono brake J,True,fit,,,0.0,,,,
+G base AP: official vs independent,nuScenes mono brake J,True,test,0.2657769407395942,0.2657769407395939,2.7755575615628914e-16,,,,
+G dAP: 50 swaps recomputed independently,nuScenes mono brake J,False,test,,,0.008173231945514559,23.0,23.0,0.0,"stable re-sort: at equal confidence the swapped frame keeps its frame-order place; reported, not a stop (see docs/iclr_published_objectives.md, Phase B)"
+"G dAP: 50 swaps, official tie order, AP_swap = base + dAP/N",nuScenes mono brake J,True,test,,,2.886579864025407e-15,,,,"FULL detections of the swapped frame before CHEAP detections of equal confidence, as the official merge orders them; compared in AP units, as registered"
+Q ORIC: 50 images recomputed independently,nuScenes mono brake J,True,test,,,0.0,,,,
+targets only on fit units,nuScenes mono plan_ade JC_ade,True,,,,,,,,
+G base AP: official vs independent,nuScenes mono plan_ade JC_ade,True,fit,0.258731866245174,0.25873186624517447,4.440892098500626e-16,,,,
+G dAP: 50 swaps recomputed independently,nuScenes mono plan_ade JC_ade,False,fit,,,0.003478713799732025,32.0,32.0,0.0,"stable re-sort: at equal confidence the swapped frame keeps its frame-order place; reported, not a stop (see docs/iclr_published_objectives.md, Phase B)"
+"G dAP: 50 swaps, official tie order, AP_swap = base + dAP/N",nuScenes mono plan_ade JC_ade,True,fit,,,3.164135620181696e-15,,,,"FULL detections of the swapped frame before CHEAP detections of equal confidence, as the official merge orders them; compared in AP units, as registered"
+Q ORIC: 50 images recomputed independently,nuScenes mono plan_ade JC_ade,True,fit,,,0.0,,,,
+G base AP: official vs independent,nuScenes mono plan_ade JC_ade,True,test,0.2534797324973503,0.2534797324973497,6.106226635438361e-16,,,,
+G dAP: 50 swaps recomputed independently,nuScenes mono plan_ade JC_ade,False,test,,,0.007314258075629354,25.0,25.0,0.0,"stable re-sort: at equal confidence the swapped frame keeps its frame-order place; reported, not a stop (see docs/iclr_published_objectives.md, Phase B)"
+"G dAP: 50 swaps, official tie order, AP_swap = base + dAP/N",nuScenes mono plan_ade JC_ade,True,test,,,1.5543122344752192e-15,,,,"FULL detections of the swapped frame before CHEAP detections of equal confidence, as the official merge orders them; compared in AP units, as registered"
+Q ORIC: 50 images recomputed independently,nuScenes mono plan_ade JC_ade,True,test,,,0.0,,,,
+targets only on fit units,nuScenes mono plan_fde JC_fde,True,,,,,,,,
+targets only on fit units,nuScenes oracle brake J,True,,,,,,,,
+targets only on fit units,nuScenes oracle plan_ade JC_ade,True,,,,,,,,
+targets only on fit units,nuScenes oracle plan_fde JC_fde,True,,,,,,,,

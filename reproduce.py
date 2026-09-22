@@ -92,6 +92,34 @@ CACHED = [
      EDGE, "PYTHONHASHSEED=0 {py} scripts/147_ego_frame_convention.py",
      ["results/final/ego_frame_convention.csv", "results/final/ego_frame_convention_detail.csv.gz",
       "results/final/ego_frame_convention_reading.json"]),
+    ("C29", "the published routing objectives: the labels checked against the official code, and their correlation "
+     "with the perception-gain labels", EDGE,
+     "bash environment/setup_third_party.sh edgeml-object-detection bgt-ada && PYTHONHASHSEED=0 {py} "
+     "scripts/148_published_objective_labels.py --stage checks --label_run results/raw/20260922_193146_published_objective_labels --dump_run results/raw/20260922_192602_published_objective_dump",
+     ["results/final/published_objective_labels.csv"]),
+    ("C30", "the published objectives on R1 and R2: the refits, the budget-adaptive arbiter and the scoring", EDGE,
+     "PYTHONHASHSEED=0 {py} scripts/149_published_objective_routers.py --stage r1 --label_run results/raw/20260922_193146_published_objective_labels && "
+     "PYTHONHASHSEED=0 {py} scripts/149_published_objective_routers.py --stage score --label_run results/raw/20260922_193146_published_objective_labels "
+     "--r1_run $(ls -d results/raw/*_published_objective_r1 | tail -1) "
+     "--r2_q results/raw/20260922_224841_router_r2_ego_pubQ --r2_g results/raw/20260922_231042_router_r2_ego_pubG "
+     "--r2_arbiter results/raw/20260922_233230_router_r2_ego_arbG --dump_run results/raw/20260922_192602_published_objective_dump",
+     ["results/final/published_objective_routers.csv", "results/final/published_objective_arbiter.csv",
+      "results/final/published_objective_reading.json"]),
+    ("C31", "the submission path: every cell's decision values and each official table's bootstrap plan", EDGE,
+     "PYTHONHASHSEED=0 {py} scripts/150_submission_tables.py --stage values",
+     ["results/final/benchmark_decision_values.csv.gz", "results/final/benchmark_bootstrap_plans.json"]),
+    ("C32", "gate G1: every official signal scored through the submission path, and the pixel router's rows rebuilt "
+     "from its saved scores", EDGE,
+     "PYTHONHASHSEED=0 {py} scripts/107_router_r2.py --stage rescore --dataset nuScenes --run results/raw/20260922_102405_router_r2_ego "
+     "--tag router_r2_ego && PYTHONHASHSEED=0 {py} scripts/107_router_r2.py --stage rescore --dataset KITTI "
+     "--run results/raw/20260922_102405_router_r2_ego --tag router_r2_ego && PYTHONHASHSEED=0 {py} scripts/150_submission_tables.py --stage g1",
+     ["results/final/benchmark_table_routers.csv", "results/final/submission_path_g1.csv"]),
+    ("C33", "the two example submissions, end to end through the CLI", EDGE,
+     "PYTHONHASHSEED=0 {py} examples/random_allocator.py && PYTHONHASHSEED=0 {py} examples/confidence_heuristic.py",
+     ["examples/submissions/random_scored.csv", "examples/submissions/confidence_scored.csv"]),
+    ("C34", "the evidence pack and the claims check: every quantity a write-up may quote, and the verdicts", EDGE,
+     "PYTHONHASHSEED=0 {py} scripts/152_evidence_pack.py",
+     ["results/final/paper_evidence_pack.csv", "results/final/claims_check.csv"]),
 ]
 
 # the full pipeline from raw data, in the order the results were produced; D = needs datasets, H = hardware-dependent
@@ -195,6 +223,17 @@ FULL = [
      EDGE, "{py} scripts/144_ego_frame_gates.py g1geo && {py} scripts/144_ego_frame_gates.py g2 && "
            "{py} scripts/144_ego_frame_gates.py b && {py} scripts/144_ego_frame_gates.py d && "
            "{py} scripts/145_ego_frame_table_gates.py g4 && {py} scripts/145_ego_frame_table_gates.py g5"),
+    ("N11", "[D] the CHEAP and FULL detections and reference objects of every cell, for the published objectives", EDGE,
+     "scripts/148_published_objective_labels.py --stage dump"),
+    ("N12", "the published-objective labels themselves (Q and G per frame; about three hours)", EDGE,
+     "PYTHONHASHSEED=0 {py} scripts/148_published_objective_labels.py --stage labels"),
+    ("N13", "[H] R2 refit on each published objective and on the arbiter's train-only target, and exported", EDGE,
+     "for o in Q G; do {py} scripts/107_router_r2.py --stage train --dataset nuScenes --objective $o "
+     "--label_run results/raw/20260922_193146_published_objective_labels --tag router_r2_ego_pub$o; done   # then --stage export per dataset, see docs/iclr_published_objectives.md"),
+    ("N14", "[D] the labels-free inputs a submission may read", EDGE,
+     "scripts/150_submission_tables.py --stage inputs"),
+    ("N15", "[H] the cost profile of the confidence example, measured by the harness on the reference board", EDGE,
+     "scripts/151_profile_allocator.py examples/confidence_heuristic.py --out examples/submissions/confidence_cost_profile.json"),
     ("N10", "the pre-fix nuScenes class labels in the ego-frame tables, C25's before (read by C25)", EDGE,
      "scripts/146_class_error_prefix_tables.py"),
 ]

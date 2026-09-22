@@ -1,0 +1,179 @@
+signal,field,rows,differing,max_abs_diff
+random,k,56,0,0.0
+random,eta,56,0,0.0
+random,eta_lo,56,0,0.0
+random,eta_hi,56,0,0.0
+random,minus_random,56,0,0.0
+random,minus_random_lo,56,0,0.0
+random,minus_random_hi,56,0,0.0
+random,p_le_random,56,0,0.0
+random,gain,56,0,0.0
+random,prize,56,0,0.0
+random,reduction_frac,56,0,0.0
+random,tie_frac,56,0,0.0
+random,responsive_frac,56,0,0.0
+random,boot_dropped,56,0,0.0
+random,n_units,56,0,0.0
+random,n_frames,56,0,0.0
+uncertainty,k,56,0,0.0
+uncertainty,eta,56,0,0.0
+uncertainty,eta_lo,56,0,0.0
+uncertainty,eta_hi,56,0,0.0
+uncertainty,minus_random,56,0,0.0
+uncertainty,minus_random_lo,56,0,0.0
+uncertainty,minus_random_hi,56,0,0.0
+uncertainty,p_le_random,56,0,0.0
+uncertainty,gain,56,0,0.0
+uncertainty,prize,56,0,0.0
+uncertainty,reduction_frac,56,0,0.0
+uncertainty,tie_frac,56,0,0.0
+uncertainty,responsive_frac,56,0,0.0
+uncertainty,boot_dropped,56,0,0.0
+uncertainty,n_units,56,0,0.0
+uncertainty,n_frames,56,0,0.0
+criticality_cheap,k,56,0,0.0
+criticality_cheap,eta,56,0,0.0
+criticality_cheap,eta_lo,56,0,0.0
+criticality_cheap,eta_hi,56,0,0.0
+criticality_cheap,minus_random,56,0,0.0
+criticality_cheap,minus_random_lo,56,0,0.0
+criticality_cheap,minus_random_hi,56,0,0.0
+criticality_cheap,p_le_random,56,0,0.0
+criticality_cheap,gain,56,0,0.0
+criticality_cheap,prize,56,0,0.0
+criticality_cheap,reduction_frac,56,0,0.0
+criticality_cheap,tie_frac,56,0,0.0
+criticality_cheap,responsive_frac,56,0,0.0
+criticality_cheap,boot_dropped,56,0,0.0
+criticality_cheap,n_units,56,0,0.0
+criticality_cheap,n_frames,56,0,0.0
+gate_ridge,k,56,0,0.0
+gate_ridge,eta,56,0,0.0
+gate_ridge,eta_lo,56,0,0.0
+gate_ridge,eta_hi,56,0,0.0
+gate_ridge,minus_random,56,0,0.0
+gate_ridge,minus_random_lo,56,0,0.0
+gate_ridge,minus_random_hi,56,0,0.0
+gate_ridge,p_le_random,56,0,0.0
+gate_ridge,gain,56,0,0.0
+gate_ridge,prize,56,0,0.0
+gate_ridge,reduction_frac,56,0,0.0
+gate_ridge,tie_frac,56,0,0.0
+gate_ridge,responsive_frac,56,0,0.0
+gate_ridge,boot_dropped,56,0,0.0
+gate_ridge,n_units,56,0,0.0
+gate_ridge,n_frames,56,0,0.0
+gate_gbm,k,56,0,0.0
+gate_gbm,eta,56,0,0.0
+gate_gbm,eta_lo,56,0,0.0
+gate_gbm,eta_hi,56,0,0.0
+gate_gbm,minus_random,56,0,0.0
+gate_gbm,minus_random_lo,56,0,0.0
+gate_gbm,minus_random_hi,56,0,0.0
+gate_gbm,p_le_random,56,0,0.0
+gate_gbm,gain,56,0,0.0
+gate_gbm,prize,56,0,0.0
+gate_gbm,reduction_frac,56,0,0.0
+gate_gbm,tie_frac,56,0,0.0
+gate_gbm,responsive_frac,56,0,0.0
+gate_gbm,boot_dropped,56,0,0.0
+gate_gbm,n_units,56,0,0.0
+gate_gbm,n_frames,56,0,0.0
+R1_mlp_reg (routers_r1),k,56,0,0.0
+R1_mlp_reg (routers_r1),eta,56,0,0.0
+R1_mlp_reg (routers_r1),eta_lo,56,0,0.0
+R1_mlp_reg (routers_r1),eta_hi,56,0,0.0
+R1_mlp_reg (routers_r1),minus_random,56,0,0.0
+R1_mlp_reg (routers_r1),minus_random_lo,56,0,0.0
+R1_mlp_reg (routers_r1),minus_random_hi,56,0,0.0
+R1_mlp_reg (routers_r1),p_le_random,56,0,0.0
+R1_mlp_reg (routers_r1),tie_frac,56,0,0.0
+R1_mlp_reg (routers_r1),responsive_frac,56,0,0.0
+R1_mlp_reg (routers_r1),boot_dropped,56,0,0.0
+R1_mlp_reg (routers_r1),n_units,56,0,0.0
+R1_mlp_reg (routers_r1),n_frames,56,0,0.0
+R1_mlp_clf (routers_r1),k,56,0,0.0
+R1_mlp_clf (routers_r1),eta,56,0,0.0
+R1_mlp_clf (routers_r1),eta_lo,56,0,0.0
+R1_mlp_clf (routers_r1),eta_hi,56,0,0.0
+R1_mlp_clf (routers_r1),minus_random,56,0,0.0
+R1_mlp_clf (routers_r1),minus_random_lo,56,0,0.0
+R1_mlp_clf (routers_r1),minus_random_hi,56,0,0.0
+R1_mlp_clf (routers_r1),p_le_random,56,0,0.0
+R1_mlp_clf (routers_r1),tie_frac,56,0,0.0
+R1_mlp_clf (routers_r1),responsive_frac,56,0,0.0
+R1_mlp_clf (routers_r1),boot_dropped,56,0,0.0
+R1_mlp_clf (routers_r1),n_units,56,0,0.0
+R1_mlp_clf (routers_r1),n_frames,56,0,0.0
+R1_gbm_reg (routers_r1),k,56,0,0.0
+R1_gbm_reg (routers_r1),eta,56,0,0.0
+R1_gbm_reg (routers_r1),eta_lo,56,0,0.0
+R1_gbm_reg (routers_r1),eta_hi,56,0,0.0
+R1_gbm_reg (routers_r1),minus_random,56,0,0.0
+R1_gbm_reg (routers_r1),minus_random_lo,56,0,0.0
+R1_gbm_reg (routers_r1),minus_random_hi,56,0,0.0
+R1_gbm_reg (routers_r1),p_le_random,56,0,0.0
+R1_gbm_reg (routers_r1),tie_frac,56,0,0.0
+R1_gbm_reg (routers_r1),responsive_frac,56,0,0.0
+R1_gbm_reg (routers_r1),boot_dropped,56,0,0.0
+R1_gbm_reg (routers_r1),n_units,56,0,0.0
+R1_gbm_reg (routers_r1),n_frames,56,0,0.0
+R1_gbm_clf (routers_r1),k,56,0,0.0
+R1_gbm_clf (routers_r1),eta,56,0,0.0
+R1_gbm_clf (routers_r1),eta_lo,56,0,0.0
+R1_gbm_clf (routers_r1),eta_hi,56,0,0.0
+R1_gbm_clf (routers_r1),minus_random,56,0,0.0
+R1_gbm_clf (routers_r1),minus_random_lo,56,0,0.0
+R1_gbm_clf (routers_r1),minus_random_hi,56,0,0.0
+R1_gbm_clf (routers_r1),p_le_random,56,0,0.0
+R1_gbm_clf (routers_r1),tie_frac,56,0,0.0
+R1_gbm_clf (routers_r1),responsive_frac,56,0,0.0
+R1_gbm_clf (routers_r1),boot_dropped,56,0,0.0
+R1_gbm_clf (routers_r1),n_units,56,0,0.0
+R1_gbm_clf (routers_r1),n_frames,56,0,0.0
+R2_cnn_clf (router_r2:nuScenes),k,24,0,0.0
+R2_cnn_clf (router_r2:nuScenes),eta,24,0,0.0
+R2_cnn_clf (router_r2:nuScenes),eta_lo,24,0,0.0
+R2_cnn_clf (router_r2:nuScenes),eta_hi,24,0,0.0
+R2_cnn_clf (router_r2:nuScenes),minus_random,24,0,0.0
+R2_cnn_clf (router_r2:nuScenes),minus_random_lo,24,0,0.0
+R2_cnn_clf (router_r2:nuScenes),minus_random_hi,24,0,0.0
+R2_cnn_clf (router_r2:nuScenes),p_le_random,24,0,0.0
+R2_cnn_clf (router_r2:nuScenes),tie_frac,24,0,0.0
+R2_cnn_clf (router_r2:nuScenes),responsive_frac,24,0,0.0
+R2_cnn_clf (router_r2:nuScenes),boot_dropped,24,0,0.0
+R2_cnn_clf (router_r2:nuScenes),n_units,24,0,0.0
+R2_cnn_clf (router_r2:nuScenes),n_frames,24,0,0.0
+R2_cnn_clf (router_r2:KITTI),k,16,0,0.0
+R2_cnn_clf (router_r2:KITTI),eta,16,0,0.0
+R2_cnn_clf (router_r2:KITTI),eta_lo,16,0,0.0
+R2_cnn_clf (router_r2:KITTI),eta_hi,16,0,0.0
+R2_cnn_clf (router_r2:KITTI),minus_random,16,0,0.0
+R2_cnn_clf (router_r2:KITTI),minus_random_lo,16,0,0.0
+R2_cnn_clf (router_r2:KITTI),minus_random_hi,16,0,0.0
+R2_cnn_clf (router_r2:KITTI),p_le_random,16,0,0.0
+R2_cnn_clf (router_r2:KITTI),tie_frac,16,0,0.0
+R2_cnn_clf (router_r2:KITTI),responsive_frac,16,0,0.0
+R2_cnn_clf (router_r2:KITTI),boot_dropped,16,0,0.0
+R2_cnn_clf (router_r2:KITTI),n_units,16,0,0.0
+R2_cnn_clf (router_r2:KITTI),n_frames,16,0,0.0
+random (measured budget),feasible,112,0,0.0
+random (measured budget),overhead,112,0,0.0
+random (measured budget),escalated_frac,112,0,0.0
+random (measured budget),eta,112,0,0.0
+random (measured budget),eta_lo,112,0,0.0
+random (measured budget),eta_hi,112,0,0.0
+random (measured budget),minus_random,112,0,0.0
+random (measured budget),minus_random_lo,112,0,0.0
+random (measured budget),minus_random_hi,112,0,0.0
+random (measured budget),boot_dropped,112,0,0.0
+gate_gbm (measured budget),feasible,112,0,0.0
+gate_gbm (measured budget),overhead,112,0,0.0
+gate_gbm (measured budget),escalated_frac,112,0,0.0
+gate_gbm (measured budget),eta,112,0,0.0
+gate_gbm (measured budget),eta_lo,112,0,0.0
+gate_gbm (measured budget),eta_hi,112,0,0.0
+gate_gbm (measured budget),minus_random,112,0,0.0
+gate_gbm (measured budget),minus_random_lo,112,0,0.0
+gate_gbm (measured budget),minus_random_hi,112,0,0.0
+gate_gbm (measured budget),boot_dropped,112,0,0.0

@@ -1,0 +1,29 @@
+{
+ "route": "harness",
+ "harness": "scripts/151_profile_allocator.py",
+ "allocator": "confidence_heuristic.py",
+ "frames": 400,
+ "rails": [
+  "CPU"
+ ],
+ "power_available": true,
+ "ms": {
+  "KITTI": 0.018304999684914947,
+  "nuScenes": 0.017921003745868802
+ },
+ "mJ": {
+  "KITTI": 0.02945237336783033,
+  "nuScenes": 0.026628431462032334
+ },
+ "power_mw_over_idle": {
+  "KITTI": 1608.9797254736843,
+  "nuScenes": 1485.8783492063492
+ },
+ "device_check": {
+  "available": true,
+  "exit_code": 0,
+  "reference_platform": true,
+  "stdout": "this machine: {\n \"machine\": \"aarch64\",\n \"model\": \"Jetson-AGX\",\n \"compatible\": \"nvidia,galen nvidia,jetson-xavier nvidia,p2822-0000+p2888-0001 nvidia,tegra194\",\n \"l4t\": \"R35.6.5\",\n \"tensorrt\": \"8.5.2.2\",\n \"torch\": \"2.1.0a0+41361538.nv23.06\",\n \"cuda\": \"11.4\"\n}\nreference:    {\n \"soc\": \"tegra194 (Jetson AGX Xavier)\",\n \"l4t\": \"R35.6.5\",\n \"tensorrt\": \"8.5.2.2\",\n \"cuda\": \"11.4\",\n \"torch\": \"2.1.0a0+41361538.nv23.6\"\n}\n\nreference platform: hardware-dependent steps should reproduce the paper's numbers\n",
+  "stderr": ""
+ }
+}

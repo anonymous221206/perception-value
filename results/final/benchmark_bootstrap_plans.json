@@ -1,0 +1,456 @@
+{
+ "benchmark_table": [
+  {
+   "cell": "nuScenes|oracle|brake|J",
+   "split": "test",
+   "n_units": 24,
+   "scored": true
+  },
+  {
+   "cell": "nuScenes|oracle|brake|J",
+   "split": "all",
+   "n_units": 85,
+   "scored": false
+  },
+  {
+   "cell": "nuScenes|oracle|plan_ade|JC_ade",
+   "split": "test",
+   "n_units": 24,
+   "scored": true
+  },
+  {
+   "cell": "nuScenes|oracle|plan_ade|JC_ade",
+   "split": "test S(M)",
+   "n_units": 24,
+   "scored": false
+  },
+  {
+   "cell": "nuScenes|oracle|plan_ade|JC_ade",
+   "split": "all",
+   "n_units": 85,
+   "scored": false
+  },
+  {
+   "cell": "nuScenes|oracle|plan_ade|JC_ade",
+   "split": "all S(M)",
+   "n_units": 85,
+   "scored": false
+  },
+  {
+   "cell": "nuScenes|oracle|plan_fde|JC_fde",
+   "split": "test",
+   "n_units": 24,
+   "scored": true
+  },
+  {
+   "cell": "nuScenes|oracle|plan_fde|JC_fde",
+   "split": "test S(M)",
+   "n_units": 24,
+   "scored": false
+  },
+  {
+   "cell": "nuScenes|oracle|plan_fde|JC_fde",
+   "split": "all",
+   "n_units": 85,
+   "scored": false
+  },
+  {
+   "cell": "nuScenes|oracle|plan_fde|JC_fde",
+   "split": "all S(M)",
+   "n_units": 85,
+   "scored": false
+  },
+  {
+   "cell": "nuScenes|mono|brake|J",
+   "split": "test",
+   "n_units": 24,
+   "scored": true
+  },
+  {
+   "cell": "nuScenes|mono|brake|J",
+   "split": "all",
+   "n_units": 85,
+   "scored": false
+  },
+  {
+   "cell": "nuScenes|mono|plan_ade|JC_ade",
+   "split": "test",
+   "n_units": 24,
+   "scored": true
+  },
+  {
+   "cell": "nuScenes|mono|plan_ade|JC_ade",
+   "split": "test S(M)",
+   "n_units": 24,
+   "scored": false
+  },
+  {
+   "cell": "nuScenes|mono|plan_ade|JC_ade",
+   "split": "all",
+   "n_units": 85,
+   "scored": false
+  },
+  {
+   "cell": "nuScenes|mono|plan_ade|JC_ade",
+   "split": "all S(M)",
+   "n_units": 85,
+   "scored": false
+  },
+  {
+   "cell": "nuScenes|mono|plan_fde|JC_fde",
+   "split": "test",
+   "n_units": 24,
+   "scored": true
+  },
+  {
+   "cell": "nuScenes|mono|plan_fde|JC_fde",
+   "split": "test S(M)",
+   "n_units": 24,
+   "scored": false
+  },
+  {
+   "cell": "nuScenes|mono|plan_fde|JC_fde",
+   "split": "all",
+   "n_units": 85,
+   "scored": false
+  },
+  {
+   "cell": "nuScenes|mono|plan_fde|JC_fde",
+   "split": "all S(M)",
+   "n_units": 85,
+   "scored": false
+  },
+  {
+   "cell": "KITTI|oracle|brake|J",
+   "split": "test",
+   "n_units": 6,
+   "scored": true
+  },
+  {
+   "cell": "KITTI|oracle|brake|J",
+   "split": "all",
+   "n_units": 21,
+   "scored": false
+  },
+  {
+   "cell": "KITTI|oracle|traj|JB",
+   "split": "test",
+   "n_units": 6,
+   "scored": true
+  },
+  {
+   "cell": "KITTI|oracle|traj|JB",
+   "split": "all",
+   "n_units": 21,
+   "scored": false
+  },
+  {
+   "cell": "KITTI|mono|brake|J",
+   "split": "test",
+   "n_units": 6,
+   "scored": true
+  },
+  {
+   "cell": "KITTI|mono|brake|J",
+   "split": "all",
+   "n_units": 21,
+   "scored": false
+  },
+  {
+   "cell": "KITTI|mono|traj|JB",
+   "split": "test",
+   "n_units": 6,
+   "scored": true
+  },
+  {
+   "cell": "KITTI|mono|traj|JB",
+   "split": "all",
+   "n_units": 21,
+   "scored": false
+  },
+  {
+   "cell": "nuPlan|n/a|pdm_closed|safety",
+   "split": "test",
+   "n_units": 9,
+   "scored": true
+  },
+  {
+   "cell": "nuPlan|n/a|pdm_closed|safety",
+   "split": "all",
+   "n_units": 34,
+   "scored": false
+  },
+  {
+   "cell": "nuPlan|n/a|pdm_closed|scalar_J",
+   "split": "test",
+   "n_units": 9,
+   "scored": true
+  },
+  {
+   "cell": "nuPlan|n/a|pdm_closed|scalar_J",
+   "split": "all",
+   "n_units": 34,
+   "scored": false
+  },
+  {
+   "cell": "nuPlan|n/a|idm|safety",
+   "split": "test",
+   "n_units": 9,
+   "scored": true
+  },
+  {
+   "cell": "nuPlan|n/a|idm|safety",
+   "split": "all",
+   "n_units": 34,
+   "scored": false
+  },
+  {
+   "cell": "nuPlan|n/a|idm|scalar_J",
+   "split": "test",
+   "n_units": 9,
+   "scored": true
+  },
+  {
+   "cell": "nuPlan|n/a|idm|scalar_J",
+   "split": "all",
+   "n_units": 34,
+   "scored": false
+  }
+ ],
+ "routers_r1": [
+  {
+   "cell": "nuScenes|oracle|brake|J",
+   "split": "test",
+   "n_units": 24,
+   "scored": true
+  },
+  {
+   "cell": "nuScenes|oracle|plan_ade|JC_ade",
+   "split": "test",
+   "n_units": 24,
+   "scored": true
+  },
+  {
+   "cell": "nuScenes|oracle|plan_fde|JC_fde",
+   "split": "test",
+   "n_units": 24,
+   "scored": true
+  },
+  {
+   "cell": "nuScenes|mono|brake|J",
+   "split": "test",
+   "n_units": 24,
+   "scored": true
+  },
+  {
+   "cell": "nuScenes|mono|plan_ade|JC_ade",
+   "split": "test",
+   "n_units": 24,
+   "scored": true
+  },
+  {
+   "cell": "nuScenes|mono|plan_fde|JC_fde",
+   "split": "test",
+   "n_units": 24,
+   "scored": true
+  },
+  {
+   "cell": "KITTI|oracle|brake|J",
+   "split": "test",
+   "n_units": 6,
+   "scored": true
+  },
+  {
+   "cell": "KITTI|oracle|traj|JB",
+   "split": "test",
+   "n_units": 6,
+   "scored": true
+  },
+  {
+   "cell": "KITTI|mono|brake|J",
+   "split": "test",
+   "n_units": 6,
+   "scored": true
+  },
+  {
+   "cell": "KITTI|mono|traj|JB",
+   "split": "test",
+   "n_units": 6,
+   "scored": true
+  },
+  {
+   "cell": "nuPlan|n/a|pdm_closed|safety",
+   "split": "test",
+   "n_units": 9,
+   "scored": true
+  },
+  {
+   "cell": "nuPlan|n/a|pdm_closed|scalar_J",
+   "split": "test",
+   "n_units": 9,
+   "scored": true
+  },
+  {
+   "cell": "nuPlan|n/a|idm|safety",
+   "split": "test",
+   "n_units": 9,
+   "scored": true
+  },
+  {
+   "cell": "nuPlan|n/a|idm|scalar_J",
+   "split": "test",
+   "n_units": 9,
+   "scored": true
+  }
+ ],
+ "benchmark_budget": [
+  {
+   "cell": "nuScenes|oracle|brake|J",
+   "split": "test",
+   "n_units": 24,
+   "scored": true
+  },
+  {
+   "cell": "nuScenes|oracle|plan_ade|JC_ade",
+   "split": "test",
+   "n_units": 24,
+   "scored": true
+  },
+  {
+   "cell": "nuScenes|oracle|plan_fde|JC_fde",
+   "split": "test",
+   "n_units": 24,
+   "scored": true
+  },
+  {
+   "cell": "nuScenes|mono|brake|J",
+   "split": "test",
+   "n_units": 24,
+   "scored": true
+  },
+  {
+   "cell": "nuScenes|mono|plan_ade|JC_ade",
+   "split": "test",
+   "n_units": 24,
+   "scored": true
+  },
+  {
+   "cell": "nuScenes|mono|plan_fde|JC_fde",
+   "split": "test",
+   "n_units": 24,
+   "scored": true
+  },
+  {
+   "cell": "KITTI|oracle|brake|J",
+   "split": "test",
+   "n_units": 6,
+   "scored": true
+  },
+  {
+   "cell": "KITTI|oracle|traj|JB",
+   "split": "test",
+   "n_units": 6,
+   "scored": true
+  },
+  {
+   "cell": "KITTI|mono|brake|J",
+   "split": "test",
+   "n_units": 6,
+   "scored": true
+  },
+  {
+   "cell": "KITTI|mono|traj|JB",
+   "split": "test",
+   "n_units": 6,
+   "scored": true
+  },
+  {
+   "cell": "nuPlan|n/a|pdm_closed|safety",
+   "split": "test",
+   "n_units": 9,
+   "scored": true
+  },
+  {
+   "cell": "nuPlan|n/a|pdm_closed|scalar_J",
+   "split": "test",
+   "n_units": 9,
+   "scored": true
+  },
+  {
+   "cell": "nuPlan|n/a|idm|safety",
+   "split": "test",
+   "n_units": 9,
+   "scored": true
+  },
+  {
+   "cell": "nuPlan|n/a|idm|scalar_J",
+   "split": "test",
+   "n_units": 9,
+   "scored": true
+  }
+ ],
+ "router_r2:nuScenes": [
+  {
+   "cell": "nuScenes|oracle|brake|J",
+   "split": "test",
+   "n_units": 24,
+   "scored": true
+  },
+  {
+   "cell": "nuScenes|oracle|plan_ade|JC_ade",
+   "split": "test",
+   "n_units": 24,
+   "scored": true
+  },
+  {
+   "cell": "nuScenes|oracle|plan_fde|JC_fde",
+   "split": "test",
+   "n_units": 24,
+   "scored": true
+  },
+  {
+   "cell": "nuScenes|mono|brake|J",
+   "split": "test",
+   "n_units": 24,
+   "scored": true
+  },
+  {
+   "cell": "nuScenes|mono|plan_ade|JC_ade",
+   "split": "test",
+   "n_units": 24,
+   "scored": true
+  },
+  {
+   "cell": "nuScenes|mono|plan_fde|JC_fde",
+   "split": "test",
+   "n_units": 24,
+   "scored": true
+  }
+ ],
+ "router_r2:KITTI": [
+  {
+   "cell": "KITTI|oracle|brake|J",
+   "split": "test",
+   "n_units": 6,
+   "scored": true
+  },
+  {
+   "cell": "KITTI|oracle|traj|JB",
+   "split": "test",
+   "n_units": 6,
+   "scored": true
+  },
+  {
+   "cell": "KITTI|mono|brake|J",
+   "split": "test",
+   "n_units": 6,
+   "scored": true
+  },
+  {
+   "cell": "KITTI|mono|traj|JB",
+   "split": "test",
+   "n_units": 6,
+   "scored": true
+  }
+ ]
+}

@@ -1,0 +1,161 @@
+cell,units,label,against,spearman,n
+KITTI mono brake J,fit,Q,dE_exact,0.5086663713326097,4472
+KITTI mono brake J,fit,Q,dE_E5_combined,0.6174420023531895,4472
+KITTI mono brake J,fit,Q,dE_E6_risk_weighted,0.33834767986735614,4472
+KITTI mono brake J,fit,G,dE_exact,0.7679517968367199,4472
+KITTI mono brake J,fit,G,dE_E5_combined,0.7456472006485657,4472
+KITTI mono brake J,fit,G,dE_E6_risk_weighted,0.5320327692756325,4472
+KITTI mono brake J,fit,Q,G,0.6658719876242798,4472
+KITTI mono brake J,fit,G,G context 1000 (code default),0.9988204665832,4472
+KITTI mono brake J,test,Q,dE_exact,0.5519364462090854,3536
+KITTI mono brake J,test,Q,dE_E5_combined,0.6374173429175877,3536
+KITTI mono brake J,test,Q,dE_E6_risk_weighted,0.4620180863098383,3536
+KITTI mono brake J,test,G,dE_exact,0.6958974012106215,3536
+KITTI mono brake J,test,G,dE_E5_combined,0.6181749858036694,3536
+KITTI mono brake J,test,G,dE_E6_risk_weighted,0.5827348112864735,3536
+KITTI mono brake J,test,Q,G,0.6966667583581732,3536
+KITTI mono brake J,test,G,G context 1000 (code default),0.9966669424240481,3536
+KITTI mono traj JB,fit,Q,dE_exact,0.5086663713326097,4472
+KITTI mono traj JB,fit,Q,dE_E5_combined,0.6174420023531895,4472
+KITTI mono traj JB,fit,Q,dE_E6_risk_weighted,0.33834767986735614,4472
+KITTI mono traj JB,fit,G,dE_exact,0.7679517968367199,4472
+KITTI mono traj JB,fit,G,dE_E5_combined,0.7456472006485657,4472
+KITTI mono traj JB,fit,G,dE_E6_risk_weighted,0.5320327692756325,4472
+KITTI mono traj JB,fit,Q,G,0.6658719876242798,4472
+KITTI mono traj JB,fit,G,G context 1000 (code default),0.9988204665832,4472
+KITTI mono traj JB,test,Q,dE_exact,0.5519364462090854,3536
+KITTI mono traj JB,test,Q,dE_E5_combined,0.6374173429175877,3536
+KITTI mono traj JB,test,Q,dE_E6_risk_weighted,0.4620180863098383,3536
+KITTI mono traj JB,test,G,dE_exact,0.6958974012106215,3536
+KITTI mono traj JB,test,G,dE_E5_combined,0.6181749858036694,3536
+KITTI mono traj JB,test,G,dE_E6_risk_weighted,0.5827348112864735,3536
+KITTI mono traj JB,test,Q,G,0.6966667583581732,3536
+KITTI mono traj JB,test,G,G context 1000 (code default),0.9966669424240481,3536
+KITTI oracle brake J,fit,Q,dE_exact,0.5086663713326097,4472
+KITTI oracle brake J,fit,Q,dE_E5_combined,0.6174420023531895,4472
+KITTI oracle brake J,fit,Q,dE_E6_risk_weighted,0.33834767986735614,4472
+KITTI oracle brake J,fit,G,dE_exact,0.7679517968367199,4472
+KITTI oracle brake J,fit,G,dE_E5_combined,0.7456472006485657,4472
+KITTI oracle brake J,fit,G,dE_E6_risk_weighted,0.5320327692756325,4472
+KITTI oracle brake J,fit,Q,G,0.6658719876242798,4472
+KITTI oracle brake J,fit,G,G context 1000 (code default),0.9988204665832,4472
+KITTI oracle brake J,test,Q,dE_exact,0.5519364462090854,3536
+KITTI oracle brake J,test,Q,dE_E5_combined,0.6374173429175877,3536
+KITTI oracle brake J,test,Q,dE_E6_risk_weighted,0.4620180863098383,3536
+KITTI oracle brake J,test,G,dE_exact,0.6958974012106215,3536
+KITTI oracle brake J,test,G,dE_E5_combined,0.6181749858036694,3536
+KITTI oracle brake J,test,G,dE_E6_risk_weighted,0.5827348112864735,3536
+KITTI oracle brake J,test,Q,G,0.6966667583581732,3536
+KITTI oracle brake J,test,G,G context 1000 (code default),0.9966669424240481,3536
+KITTI oracle traj JB,fit,Q,dE_exact,0.5086663713326097,4472
+KITTI oracle traj JB,fit,Q,dE_E5_combined,0.6174420023531895,4472
+KITTI oracle traj JB,fit,Q,dE_E6_risk_weighted,0.33834767986735614,4472
+KITTI oracle traj JB,fit,G,dE_exact,0.7679517968367199,4472
+KITTI oracle traj JB,fit,G,dE_E5_combined,0.7456472006485657,4472
+KITTI oracle traj JB,fit,G,dE_E6_risk_weighted,0.5320327692756325,4472
+KITTI oracle traj JB,fit,Q,G,0.6658719876242798,4472
+KITTI oracle traj JB,fit,G,G context 1000 (code default),0.9988204665832,4472
+KITTI oracle traj JB,test,Q,dE_exact,0.5519364462090854,3536
+KITTI oracle traj JB,test,Q,dE_E5_combined,0.6374173429175877,3536
+KITTI oracle traj JB,test,Q,dE_E6_risk_weighted,0.4620180863098383,3536
+KITTI oracle traj JB,test,G,dE_exact,0.6958974012106215,3536
+KITTI oracle traj JB,test,G,dE_E5_combined,0.6181749858036694,3536
+KITTI oracle traj JB,test,G,dE_E6_risk_weighted,0.5827348112864735,3536
+KITTI oracle traj JB,test,Q,G,0.6966667583581732,3536
+KITTI oracle traj JB,test,G,G context 1000 (code default),0.9966669424240481,3536
+nuScenes mono brake J,fit,Q,dE_exact,0.444172396285799,2421
+nuScenes mono brake J,fit,Q,dE_E5_combined,0.5649148837191532,2421
+nuScenes mono brake J,fit,Q,dE_E6_risk_weighted,0.3821470980662344,2421
+nuScenes mono brake J,fit,G,dE_exact,0.7255279017605376,2421
+nuScenes mono brake J,fit,G,dE_E5_combined,0.6415477214099927,2421
+nuScenes mono brake J,fit,G,dE_E6_risk_weighted,0.6253529145097876,2421
+nuScenes mono brake J,fit,Q,G,0.5991607965508546,2421
+nuScenes mono brake J,fit,G,G context 1000 (code default),0.997138808691258,2421
+nuScenes mono brake J,test,Q,dE_exact,0.49950847288307715,955
+nuScenes mono brake J,test,Q,dE_E5_combined,0.5541071008850416,955
+nuScenes mono brake J,test,Q,dE_E6_risk_weighted,0.41793006256504633,955
+nuScenes mono brake J,test,G,dE_exact,0.7182589147042243,955
+nuScenes mono brake J,test,G,dE_E5_combined,0.6138195067407322,955
+nuScenes mono brake J,test,G,dE_E6_risk_weighted,0.6080746139785262,955
+nuScenes mono brake J,test,Q,G,0.6491097217019882,955
+nuScenes mono brake J,test,G,G context 1000 (code default),1.0,955
+nuScenes mono plan_ade JC_ade,fit,Q,dE_exact,0.46286408770012183,1903
+nuScenes mono plan_ade JC_ade,fit,Q,dE_E5_combined,0.5735794845853291,1903
+nuScenes mono plan_ade JC_ade,fit,Q,dE_E6_risk_weighted,0.40203398064793383,1903
+nuScenes mono plan_ade JC_ade,fit,G,dE_exact,0.7262149552525369,1903
+nuScenes mono plan_ade JC_ade,fit,G,dE_E5_combined,0.6489251526153547,1903
+nuScenes mono plan_ade JC_ade,fit,G,dE_E6_risk_weighted,0.6263067003001799,1903
+nuScenes mono plan_ade JC_ade,fit,Q,G,0.613396402415194,1903
+nuScenes mono plan_ade JC_ade,fit,G,G context 1000 (code default),0.9977639670285599,1903
+nuScenes mono plan_ade JC_ade,test,Q,dE_exact,0.4866348218417677,752
+nuScenes mono plan_ade JC_ade,test,Q,dE_E5_combined,0.5614174902028568,752
+nuScenes mono plan_ade JC_ade,test,Q,dE_E6_risk_weighted,0.39380995421543524,752
+nuScenes mono plan_ade JC_ade,test,G,dE_exact,0.7121975274115409,752
+nuScenes mono plan_ade JC_ade,test,G,dE_E5_combined,0.6365013262106946,752
+nuScenes mono plan_ade JC_ade,test,G,dE_E6_risk_weighted,0.5935920353986051,752
+nuScenes mono plan_ade JC_ade,test,Q,G,0.633752904841342,752
+nuScenes mono plan_ade JC_ade,test,G,G context 1000 (code default),1.0,752
+nuScenes mono plan_fde JC_fde,fit,Q,dE_exact,0.46286408770012183,1903
+nuScenes mono plan_fde JC_fde,fit,Q,dE_E5_combined,0.5735794845853291,1903
+nuScenes mono plan_fde JC_fde,fit,Q,dE_E6_risk_weighted,0.40203398064793383,1903
+nuScenes mono plan_fde JC_fde,fit,G,dE_exact,0.7262149552525369,1903
+nuScenes mono plan_fde JC_fde,fit,G,dE_E5_combined,0.6489251526153547,1903
+nuScenes mono plan_fde JC_fde,fit,G,dE_E6_risk_weighted,0.6263067003001799,1903
+nuScenes mono plan_fde JC_fde,fit,Q,G,0.613396402415194,1903
+nuScenes mono plan_fde JC_fde,fit,G,G context 1000 (code default),0.9977639670285599,1903
+nuScenes mono plan_fde JC_fde,test,Q,dE_exact,0.4866348218417677,752
+nuScenes mono plan_fde JC_fde,test,Q,dE_E5_combined,0.5614174902028568,752
+nuScenes mono plan_fde JC_fde,test,Q,dE_E6_risk_weighted,0.39380995421543524,752
+nuScenes mono plan_fde JC_fde,test,G,dE_exact,0.7121975274115409,752
+nuScenes mono plan_fde JC_fde,test,G,dE_E5_combined,0.6365013262106946,752
+nuScenes mono plan_fde JC_fde,test,G,dE_E6_risk_weighted,0.5935920353986051,752
+nuScenes mono plan_fde JC_fde,test,Q,G,0.633752904841342,752
+nuScenes mono plan_fde JC_fde,test,G,G context 1000 (code default),1.0,752
+nuScenes oracle brake J,fit,Q,dE_exact,0.444172396285799,2421
+nuScenes oracle brake J,fit,Q,dE_E5_combined,0.5649148837191532,2421
+nuScenes oracle brake J,fit,Q,dE_E6_risk_weighted,0.3821470980662344,2421
+nuScenes oracle brake J,fit,G,dE_exact,0.7255279017605376,2421
+nuScenes oracle brake J,fit,G,dE_E5_combined,0.6415477214099927,2421
+nuScenes oracle brake J,fit,G,dE_E6_risk_weighted,0.6253529145097876,2421
+nuScenes oracle brake J,fit,Q,G,0.5991607965508546,2421
+nuScenes oracle brake J,fit,G,G context 1000 (code default),0.997138808691258,2421
+nuScenes oracle brake J,test,Q,dE_exact,0.49950847288307715,955
+nuScenes oracle brake J,test,Q,dE_E5_combined,0.5541071008850416,955
+nuScenes oracle brake J,test,Q,dE_E6_risk_weighted,0.41793006256504633,955
+nuScenes oracle brake J,test,G,dE_exact,0.7182589147042243,955
+nuScenes oracle brake J,test,G,dE_E5_combined,0.6138195067407322,955
+nuScenes oracle brake J,test,G,dE_E6_risk_weighted,0.6080746139785262,955
+nuScenes oracle brake J,test,Q,G,0.6491097217019882,955
+nuScenes oracle brake J,test,G,G context 1000 (code default),1.0,955
+nuScenes oracle plan_ade JC_ade,fit,Q,dE_exact,0.46286408770012183,1903
+nuScenes oracle plan_ade JC_ade,fit,Q,dE_E5_combined,0.5735794845853291,1903
+nuScenes oracle plan_ade JC_ade,fit,Q,dE_E6_risk_weighted,0.40203398064793383,1903
+nuScenes oracle plan_ade JC_ade,fit,G,dE_exact,0.7262149552525369,1903
+nuScenes oracle plan_ade JC_ade,fit,G,dE_E5_combined,0.6489251526153547,1903
+nuScenes oracle plan_ade JC_ade,fit,G,dE_E6_risk_weighted,0.6263067003001799,1903
+nuScenes oracle plan_ade JC_ade,fit,Q,G,0.613396402415194,1903
+nuScenes oracle plan_ade JC_ade,fit,G,G context 1000 (code default),0.9977639670285599,1903
+nuScenes oracle plan_ade JC_ade,test,Q,dE_exact,0.4866348218417677,752
+nuScenes oracle plan_ade JC_ade,test,Q,dE_E5_combined,0.5614174902028568,752
+nuScenes oracle plan_ade JC_ade,test,Q,dE_E6_risk_weighted,0.39380995421543524,752
+nuScenes oracle plan_ade JC_ade,test,G,dE_exact,0.7121975274115409,752
+nuScenes oracle plan_ade JC_ade,test,G,dE_E5_combined,0.6365013262106946,752
+nuScenes oracle plan_ade JC_ade,test,G,dE_E6_risk_weighted,0.5935920353986051,752
+nuScenes oracle plan_ade JC_ade,test,Q,G,0.633752904841342,752
+nuScenes oracle plan_ade JC_ade,test,G,G context 1000 (code default),1.0,752
+nuScenes oracle plan_fde JC_fde,fit,Q,dE_exact,0.46286408770012183,1903
+nuScenes oracle plan_fde JC_fde,fit,Q,dE_E5_combined,0.5735794845853291,1903
+nuScenes oracle plan_fde JC_fde,fit,Q,dE_E6_risk_weighted,0.40203398064793383,1903
+nuScenes oracle plan_fde JC_fde,fit,G,dE_exact,0.7262149552525369,1903
+nuScenes oracle plan_fde JC_fde,fit,G,dE_E5_combined,0.6489251526153547,1903
+nuScenes oracle plan_fde JC_fde,fit,G,dE_E6_risk_weighted,0.6263067003001799,1903
+nuScenes oracle plan_fde JC_fde,fit,Q,G,0.613396402415194,1903
+nuScenes oracle plan_fde JC_fde,fit,G,G context 1000 (code default),0.9977639670285599,1903
+nuScenes oracle plan_fde JC_fde,test,Q,dE_exact,0.4866348218417677,752
+nuScenes oracle plan_fde JC_fde,test,Q,dE_E5_combined,0.5614174902028568,752
+nuScenes oracle plan_fde JC_fde,test,Q,dE_E6_risk_weighted,0.39380995421543524,752
+nuScenes oracle plan_fde JC_fde,test,G,dE_exact,0.7121975274115409,752
+nuScenes oracle plan_fde JC_fde,test,G,dE_E5_combined,0.6365013262106946,752
+nuScenes oracle plan_fde JC_fde,test,G,dE_E6_risk_weighted,0.5935920353986051,752
+nuScenes oracle plan_fde JC_fde,test,Q,G,0.633752904841342,752
+nuScenes oracle plan_fde JC_fde,test,G,G context 1000 (code default),1.0,752

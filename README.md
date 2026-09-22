@@ -23,10 +23,13 @@ latency and energy budgets on an NVIDIA Jetson AGX Xavier.
 reproduce.py      every stage, in order, in two tiers
 configs/          frozen splits, the benchmark scenario list, paths.env.example
 data/             dataset instructions and helpers; data/cache/ holds the shipped intermediate caches (214 MB)
+data/submission_inputs/  what an allocator may read at test time, labels-free (10 MB; docs/SUBMITTING.md)
 docs/             result reports and generated tables
+evaluate_submission.py   score your own allocator against the frozen test split (docs/SUBMITTING.md)
+examples/         two runnable submissions and their scored output
 environment/      pins, setup scripts, a device check, and interpreter wrappers in environment/bin/
 results/final/    every final table, check file and figure-data export (18 MB)
-results/raw/      the intermediate runs that later stages read (343 MB)
+results/raw/      the intermediate runs that later stages read (370 MB)
 scripts/          the pipeline, numbered in run order; the index is scripts/README.md,
                   and scripts/legacy/ holds early exploration that no stage calls
 src/rap/          library code
@@ -61,7 +64,7 @@ pip install -r environment/requirements-cached.txt
 cp configs/paths.env.example configs/paths.env     # defaults: datasets/ and models/ here, the active environment
 source configs/paths.env
 
-python reproduce.py --tier cached --list           # the 28 stages, C1 to C28, in order
+python reproduce.py --tier cached --list           # the 34 stages, C1 to C34, in order
 python reproduce.py --tier cached --verify         # run them all and compare against the shipped files
 ```
 
@@ -117,6 +120,9 @@ the fits are reproducible on a different one is untested, and `docs/iclr_causal_
 | a causal nuScenes ego speed: the allocation signal stops reading a future pose | `results/final/causal_ego_speed.csv`, `docs/iclr_causal_ego_speed.md` | C26 (speed table: N6) |
 | the cost of the camera-frame convention: the same settings, ego frame against camera frame | `results/final/lift_offset_sensitivity.csv`, `docs/iclr_lift_offset_sensitivity.md` | C27 (per-frame tables: N7) |
 | the monocular lift in the ego frame: every registered quantity old beside new, the gates and the reading | `results/final/ego_frame_convention*.csv/json`, `docs/iclr_ego_frame_convention.md` | C28 (transform table: N8; gates: N9; C25's pre-fix tables: N10) |
+| the published routing objectives (Qiu et al.'s ORIC, Geng et al.'s ΔAP) on these routers | `results/final/published_objective_*.csv/json`, `docs/iclr_published_objectives.md` | C29–C30 (detections: N11; labels: N12; R2 refits: N13) |
+| the submission path: score your own allocator | `results/final/benchmark_decision_values.csv.gz`, `benchmark_bootstrap_plans.json`, `submission_path_g1.csv`, `docs/SUBMITTING.md`, `docs/iclr_submission_path.md` | C31–C33 (inputs export: N14; the example's cost profile: N15) |
+| the evidence pack and the claims check | `results/final/paper_evidence_pack.csv`, `claims_check.csv`, `docs/iclr_evidence_pack.md` | C34 |
 | measured latency and energy budgets | `results/final/benchmark_budget_two_level*.csv`, `benchmark_budget_routers.csv` | full tier (F3, H4) |
 | figure data (BEV objects, gallery, budget curves) | `results/final/fig_*` | full tier (L1); budget curves also C20 |
 | exact formulas (monocular lifting, reference geometry, controllers, perception gains, ego speed) | `docs/iclr_formulas.md` | — |
@@ -152,7 +158,7 @@ tables (`*_tables.md`, `gate_spec.md`).
 4. **Environments.** Python 3.8 with NVIDIA's Jetson PyTorch and JetPack's TensorRT
    (`environment/requirements-edge.txt`); the nuPlan simulation environment comes from
    `bash environment/setup_nuplan_env.sh`.
-5. **Run.** `python reproduce.py --tier full --list` prints all 54 stages in order; `--tier full` runs them, and
+5. **Run.** `python reproduce.py --tier full --list` prints all 59 stages in order; `--tier full` runs them, and
    `--from <id>` resumes.
 
 Stage markers: `[D]` needs datasets, `[H]` is hardware-dependent. The full pipeline takes several days on the
@@ -194,6 +200,20 @@ The per-task reports in `docs/iclr_*.md` were written before the ego-frame corre
 their tables are superseded by the ego-frame files in `results/final/`, and `docs/iclr_ego_frame_convention.md`
 gives every registered quantity old beside new. The ego-frame range estimate carries a near-range bias of about
 +1.2 m (0–15 m), which the camera frame had cancelled; it is reported there, not corrected.
+
+## Submitting an allocator of your own
+
+`docs/SUBMITTING.md` has the schema, the rules and the two budget tracks. In short:
+
+```bash
+python examples/random_allocator.py          # writes a submission and scores it
+python evaluate_submission.py my_scores.csv [--cost_profile my_profile.json]
+```
+
+`rap.submission.inputs(track)` returns exactly what an allocator may read at test time, labels-free
+(`data/submission_inputs/`), and `scripts/151_profile_allocator.py` measures an allocator's own per-input cost for the
+measured-budget track. Gate G1 (stage C32) checks that this path reproduces every official row exactly, with no
+tolerance: `results/final/submission_path_g1.csv`.
 
 ## Third-party code and data
 

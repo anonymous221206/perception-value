@@ -1,0 +1,11 @@
+{
+ "routers_r1_run": "20260922_163001_routers_r1_ego",
+ "dump_run": "20260922_192602_published_objective_dump",
+ "q_floor": 0.1,
+ "g_conf": 0.3,
+ "n_ensemble": 1000,
+ "g_context_sensitivity": 1000,
+ "seed": 42,
+ "qiu_commit": "859f70240aa090359ba827b374b68ca7821b7d55",
+ "geng_commit": "6669ab0089a04fbe6257ebdc2601de13ed0e5398"
+}
