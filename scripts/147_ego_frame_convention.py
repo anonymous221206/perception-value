@@ -362,10 +362,17 @@ def align(x: pd.DataFrame, y: pd.DataFrame):
     return y.iloc[order].reset_index(drop=True), keys, order != list(range(len(y)))
 
 
+# Outputs of later tasks, which this inventory is not about: it reports what moving the lift to the ego frame did to
+# the tables that existed then. They would otherwise appear here as "only in NEW".
+AFTER_TASK_23 = ("benchmark_decision_values.csv.gz", "benchmark_bootstrap_plans.json", "submission_path_g1.csv",
+                 "published_objective_labels.csv", "published_objective_routers.csv", "published_objective_arbiter.csv",
+                 "published_objective_reading.json", "paper_evidence_pack.csv", "claims_check.csv")
+
+
 def inventory(R, before: Path) -> list[dict]:
     names = sorted({p.relative_to(before).as_posix() for p in before.rglob("*") if p.is_file()} |
                    {p.relative_to(FINAL).as_posix() for p in FINAL.rglob("*") if p.is_file()})
-    names = [x for x in names if x not in (OUT_CSV, OUT_DETAIL, OUT_JSON)]
+    names = [x for x in names if x not in (OUT_CSV, OUT_DETAIL, OUT_JSON) and x not in AFTER_TASK_23]
     out = []
     for name in names:
         a, b = before / name, FINAL / name
