@@ -1,0 +1,1 @@
+nuPlan-only copy of 20260920_102935_target_swap's G-target scores, for 122 --reuse_gscores in the ego frame (Task 23): the KITTI and nuScenes gate features move with the lift, which 122's reuse check does not test.

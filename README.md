@@ -61,7 +61,7 @@ pip install -r environment/requirements-cached.txt
 cp configs/paths.env.example configs/paths.env     # defaults: datasets/ and models/ here, the active environment
 source configs/paths.env
 
-python reproduce.py --tier cached --list           # the 27 stages, C1 to C27, in order
+python reproduce.py --tier cached --list           # the 28 stages, C1 to C28, in order
 python reproduce.py --tier cached --verify         # run them all and compare against the shipped files
 ```
 

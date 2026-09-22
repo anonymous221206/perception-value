@@ -60,7 +60,7 @@ CACHED = [
     ("C18", "skipping cost accounting for the pixel router, beside the cascade", EDGE,
      "scripts/128_skip_accounting.py", ["results/final/skip_accounting.csv"]),
     ("C19", "target swap: the same allocators trained on perception gain instead of decision value", EDGE,
-     "PYTHONHASHSEED=0 {py} scripts/122_target_swap.py --reuse_gscores results/raw/20260922_131832_target_swap_ego",
+     "PYTHONHASHSEED=0 {py} scripts/122_target_swap.py --reuse_gscores results/raw/20260922_131440_target_swap_gscores_nuplan",
      ["results/final/benchmark_target_swap.csv", "results/final/benchmark_target_swap_summary.json"]),
     ("C20", "measured budgets: allocators whose overhead exceeds the budget headroom marked infeasible", EDGE,
      "scripts/131_budget_feasibility.py",
@@ -220,7 +220,7 @@ def compare(a: Path, b: Path) -> str:
         import pandas as pd
     except ImportError:
         return "identical" if a.read_bytes() == b.read_bytes() else "differs (byte comparison; install pandas for a numeric one)"
-    if a.suffix == ".csv":
+    if a.name.endswith((".csv", ".csv.gz")):             # pandas reads the gzip one by its extension
         x, y = pd.read_csv(a), pd.read_csv(b)
         if list(x.columns) != list(y.columns) or x.shape != y.shape:
             return f"DIFFERS: shape or columns {x.shape} vs {y.shape}"
