@@ -1,5 +1,7 @@
 # Statistics hardening: raw gain, single-unit influence, trivial baselines
 
+> **Pre-Task-23 run.** The numbers in this document come from the run before the ego-frame convention (Task 23, 2026-09-22) and are kept as the record of that run. `results/final/` now holds the ego-frame run; where the two differ, `results/final/` is current (Task 28 audit, `scripts/157_doc_staleness.py`).
+
 > **Frame convention.** The figures quoted in this report were computed with the monocular lift in the camera frame, the convention before Task 23. Every table in `results/final/` is now computed in the ego frame; `docs/iclr_ego_frame_convention.md` and `results/final/ego_frame_convention.csv` give each registered quantity old beside new, and the camera-frame convention stays selectable with `--frame camera`.
 
 **What this is.** Three stress tests of the held-out conclusions, plus a second harm reading. Do the results

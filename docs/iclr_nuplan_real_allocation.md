@@ -1,5 +1,7 @@
 # nuPlan allocation track on real-perception decision values
 
+> **Partly pre-Task-23.** The nuPlan real-perception numbers are current (`benchmark_table_nuplan_real.csv` and `benchmark_budget_nuplan_real.csv` did not change in Task 23). Numbers quoted from the KITTI and nuScenes tables for comparison are from the run before the ego-frame convention (Task 23, 2026-09-22); `results/final/` is current (Task 28 audit).
+
 > **Note.** IDM numbers in this document predate the IDM route fix and are superseded. In 58% of nuPlan states the pipeline gave IDM a route it could not start from. Corrected values and the before/after comparison are in `docs/iclr_idm_route_fix.md`. PDM-Closed, nuScenes and KITTI numbers are unaffected.
 
 **What this is.** A re-run of the benchmark's nuPlan cells with Task 5 real-perception labels (primary variant), so

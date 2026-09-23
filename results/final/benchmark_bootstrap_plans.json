@@ -167,54 +167,6 @@
    "split": "all",
    "n_units": 21,
    "scored": false
-  },
-  {
-   "cell": "nuPlan|n/a|pdm_closed|safety",
-   "split": "test",
-   "n_units": 9,
-   "scored": true
-  },
-  {
-   "cell": "nuPlan|n/a|pdm_closed|safety",
-   "split": "all",
-   "n_units": 34,
-   "scored": false
-  },
-  {
-   "cell": "nuPlan|n/a|pdm_closed|scalar_J",
-   "split": "test",
-   "n_units": 9,
-   "scored": true
-  },
-  {
-   "cell": "nuPlan|n/a|pdm_closed|scalar_J",
-   "split": "all",
-   "n_units": 34,
-   "scored": false
-  },
-  {
-   "cell": "nuPlan|n/a|idm|safety",
-   "split": "test",
-   "n_units": 9,
-   "scored": true
-  },
-  {
-   "cell": "nuPlan|n/a|idm|safety",
-   "split": "all",
-   "n_units": 34,
-   "scored": false
-  },
-  {
-   "cell": "nuPlan|n/a|idm|scalar_J",
-   "split": "test",
-   "n_units": 9,
-   "scored": true
-  },
-  {
-   "cell": "nuPlan|n/a|idm|scalar_J",
-   "split": "all",
-   "n_units": 34,
-   "scored": false
   }
  ],
  "routers_r1": [
@@ -277,30 +229,6 @@
    "split": "test",
    "n_units": 6,
    "scored": true
-  },
-  {
-   "cell": "nuPlan|n/a|pdm_closed|safety",
-   "split": "test",
-   "n_units": 9,
-   "scored": true
-  },
-  {
-   "cell": "nuPlan|n/a|pdm_closed|scalar_J",
-   "split": "test",
-   "n_units": 9,
-   "scored": true
-  },
-  {
-   "cell": "nuPlan|n/a|idm|safety",
-   "split": "test",
-   "n_units": 9,
-   "scored": true
-  },
-  {
-   "cell": "nuPlan|n/a|idm|scalar_J",
-   "split": "test",
-   "n_units": 9,
-   "scored": true
   }
  ],
  "benchmark_budget": [
@@ -362,30 +290,6 @@
    "cell": "KITTI|mono|traj|JB",
    "split": "test",
    "n_units": 6,
-   "scored": true
-  },
-  {
-   "cell": "nuPlan|n/a|pdm_closed|safety",
-   "split": "test",
-   "n_units": 9,
-   "scored": true
-  },
-  {
-   "cell": "nuPlan|n/a|pdm_closed|scalar_J",
-   "split": "test",
-   "n_units": 9,
-   "scored": true
-  },
-  {
-   "cell": "nuPlan|n/a|idm|safety",
-   "split": "test",
-   "n_units": 9,
-   "scored": true
-  },
-  {
-   "cell": "nuPlan|n/a|idm|scalar_J",
-   "split": "test",
-   "n_units": 9,
    "scored": true
   }
  ],
@@ -450,6 +354,82 @@
    "cell": "KITTI|mono|traj|JB",
    "split": "test",
    "n_units": 6,
+   "scored": true
+  }
+ ],
+ "nuplan_real": [
+  {
+   "cell": "nuPlan|n/a|pdm_closed|safety",
+   "split": "test",
+   "n_units": 9,
+   "scored": true
+  },
+  {
+   "cell": "nuPlan|n/a|pdm_closed|safety",
+   "split": "all",
+   "n_units": 34,
+   "scored": false
+  },
+  {
+   "cell": "nuPlan|n/a|pdm_closed|scalar_J",
+   "split": "test",
+   "n_units": 9,
+   "scored": true
+  },
+  {
+   "cell": "nuPlan|n/a|pdm_closed|scalar_J",
+   "split": "all",
+   "n_units": 34,
+   "scored": false
+  },
+  {
+   "cell": "nuPlan|n/a|idm|safety",
+   "split": "test",
+   "n_units": 9,
+   "scored": true
+  },
+  {
+   "cell": "nuPlan|n/a|idm|safety",
+   "split": "all",
+   "n_units": 34,
+   "scored": false
+  },
+  {
+   "cell": "nuPlan|n/a|idm|scalar_J",
+   "split": "test",
+   "n_units": 9,
+   "scored": true
+  },
+  {
+   "cell": "nuPlan|n/a|idm|scalar_J",
+   "split": "all",
+   "n_units": 34,
+   "scored": false
+  }
+ ],
+ "nuplan_real_budget": [
+  {
+   "cell": "nuPlan|n/a|pdm_closed|safety",
+   "split": "test",
+   "n_units": 9,
+   "scored": true
+  },
+  {
+   "cell": "nuPlan|n/a|pdm_closed|scalar_J",
+   "split": "test",
+   "n_units": 9,
+   "scored": true
+  },
+  {
+   "cell": "nuPlan|n/a|idm|safety",
+   "split": "test",
+   "n_units": 9,
+   "scored": true
+  },
+  {
+   "cell": "nuPlan|n/a|idm|scalar_J",
+   "split": "test",
+   "n_units": 9,
    "scored": true
   }
  ]

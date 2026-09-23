@@ -28,9 +28,10 @@ docs/             result reports and generated tables
 evaluate_submission.py   score your own allocator against the frozen test split (docs/SUBMITTING.md)
 examples/         two runnable submissions and their scored output
 environment/      pins, setup scripts, a device check, and interpreter wrappers in environment/bin/
-results/final/    every final table, check file and figure-data export (18 MB)
+results/final/    every final table, check file and figure-data export (42 MB)
 results/raw/      the intermediate runs that later stages read (370 MB)
 scripts/          the pipeline, numbered in run order; the index is scripts/README.md,
+                  scripts/paper_figures/ draws two of the paper's figures from release artifacts,
                   and scripts/legacy/ holds early exploration that no stage calls
 src/rap/          library code
 tests/            unit tests and negative controls
@@ -64,14 +65,15 @@ pip install -r environment/requirements-cached.txt
 cp configs/paths.env.example configs/paths.env     # defaults: datasets/ and models/ here, the active environment
 source configs/paths.env
 
-python reproduce.py --tier cached --list           # the 34 stages, C1 to C34, in order
+python reproduce.py --tier cached --list           # the 38 stages, C1 to C37 (with C30b), in order
 python reproduce.py --tier cached --verify         # run them all and compare against the shipped files
 ```
 
 Useful flags: `--only <id>` for one stage, `--from <id>` to resume. `python -m pytest tests` runs the unit tests;
 those needing KITTI files, PyTorch or OpenCV skip themselves when those are absent.
 
-Roughly three hours on the reference device, dominated by the bootstraps in C14, C19, C22 and C23.
+Roughly four hours on the reference device, dominated by the bootstraps in C14, C19, C22, C23 and C35 and the
+seed refits in C37.
 
 ## What `--verify` checks
 
@@ -92,7 +94,7 @@ is a checkout.
 | C2 | about 1e-6 | none on any figure the paper quotes |
 | C12 | `R1_gbm_clf` on PDM-Closed safety, at the 30–50% quotas | the 20% cells the paper uses are unchanged |
 
-C14 and C19 fit models inside the stage. Both are byte-identical across runs on the reference platform; whether
+C14, C19, C36 and C37 fit models inside the stage. Both are byte-identical across runs on the reference platform; whether
 the fits are reproducible on a different one is untested, and `docs/iclr_causal_threshold.md` and
 `docs/iclr_target_swap.md` say which of their quoted figures another platform could move.
 
@@ -121,8 +123,11 @@ the fits are reproducible on a different one is untested, and `docs/iclr_causal_
 | the cost of the camera-frame convention: the same settings, ego frame against camera frame | `results/final/lift_offset_sensitivity.csv`, `docs/iclr_lift_offset_sensitivity.md` | C27 (per-frame tables: N7) |
 | the monocular lift in the ego frame: every registered quantity old beside new, the gates and the reading | `results/final/ego_frame_convention*.csv/json`, `docs/iclr_ego_frame_convention.md` | C28 (transform table: N8; gates: N9; C25's pre-fix tables: N10) |
 | the published routing objectives (Qiu et al.'s ORIC, Geng et al.'s ΔAP) on these routers | `results/final/published_objective_*.csv/json`, `docs/iclr_published_objectives.md` | C29–C30 (detections: N11; labels: N12; R2 refits: N13) |
-| the submission path: score your own allocator | `results/final/benchmark_decision_values.csv.gz`, `benchmark_bootstrap_plans.json`, `submission_path_g1.csv`, `docs/SUBMITTING.md`, `docs/iclr_submission_path.md` | C31–C33 (inputs export: N14; the example's cost profile: N15) |
+| the cost registry: detector costs, energy convention, timing boundaries, allocator overheads, versioned | `results/final/cost_registry.json`, `docs/iclr_submission_sync.md` | C30b |
+| the submission path: score your own allocator, on the tracks the paper reports | `results/final/benchmark_decision_values.csv.gz`, `benchmark_bootstrap_plans.json`, `submission_path_g1.csv`, `docs/SUBMITTING.md`, `docs/iclr_submission_path.md`, `docs/iclr_submission_sync.md` | C31–C33 (inputs export: N14; the example's cost profile: N15) |
 | the evidence pack and the claims check | `results/final/paper_evidence_pack.csv`, `claims_check.csv`, `docs/iclr_evidence_pack.md` | C34 |
+| four analyses on cached scores: selection by objective, benefit and harm, overhead tolerance, gap accounting | `results/final/cached_analyses_*.csv`, `docs/iclr_cached_analyses_prereg.md`, `docs/iclr_cached_analyses.md` | C35 |
+| target transform against objective for the R1 regression routers, and training-seed variation (post hoc) | `results/final/target_transform_*.csv`, `seed_variation.csv`, `figures/target_transform_heatmap.pdf`, `docs/iclr_target_transform.md` | C36–C37 |
 | measured latency and energy budgets | `results/final/benchmark_budget_two_level*.csv`, `benchmark_budget_routers.csv` | full tier (F3, H4) |
 | figure data (BEV objects, gallery, budget curves) | `results/final/fig_*` | full tier (L1); budget curves also C20 |
 | exact formulas (monocular lifting, reference geometry, controllers, perception gains, ego speed) | `docs/iclr_formulas.md` | — |
@@ -134,8 +139,14 @@ Reports that interpret these tables: `docs/iclr_budget_feasibility.md`, `iclr_ca
 `iclr_lift_offset_sensitivity.md`,
 `iclr_nuplan_real_allocation.md`, `iclr_nuplan_real_perception.md`, `iclr_objective_swap.md`,
 `iclr_phase0g_external_planners.md`, `iclr_realism_controls.md`, `iclr_routers.md`, `iclr_skip_accounting.md`,
-`iclr_statistics.md`, `iclr_streaming_controllers.md`, `iclr_target_swap.md`. The rest of `docs/` is generated
-tables (`*_tables.md`, `gate_spec.md`).
+`iclr_statistics.md`, `iclr_streaming_controllers.md`, `iclr_target_swap.md`, `iclr_submission_sync.md`,
+`iclr_cached_analyses.md`, `iclr_target_transform.md`. The rest of `docs/` is generated tables (`*_tables.md`,
+`gate_spec.md`). Documents whose numbers predate the ego-frame lift carry a "Pre-Task-23 run" note under their
+title (`scripts/157_doc_staleness.py`); `results/final/` is current.
+
+**Paper figures.** `scripts/paper_figures/` holds two scripts that draw figures from release artifacts (usage in its
+README): `render_gallery.py` renders the qualitative gallery from `results/final/fig_gallery/` (16 JPEGs), and
+`make_fig_transform.py` writes the target-transform heatmap as TikZ from `results/final/target_transform_heatmap.csv`.
 
 ### Naming: paper and repository
 
@@ -212,8 +223,10 @@ python evaluate_submission.py my_scores.csv [--cost_profile my_profile.json]
 
 `rap.submission.inputs(track)` returns exactly what an allocator may read at test time, labels-free
 (`data/submission_inputs/`), and `scripts/151_profile_allocator.py` measures an allocator's own per-input cost for the
-measured-budget track. Gate G1 (stage C32) checks that this path reproduces every official row exactly, with no
-tolerance: `results/final/submission_path_g1.csv`.
+measured-budget track, on the energy rails of the cost registry (`results/final/cost_registry.json`, stage C30b),
+whose version every scored row carries. nuPlan is the real-perception track. Gate G1' (stage C32) checks that this
+path reproduces every row of the tables the paper uses (selection, latency and energy) exactly, with no
+tolerance: `results/final/submission_path_g1.csv`, `docs/iclr_submission_sync.md`.
 
 ## Third-party code and data
 

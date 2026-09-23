@@ -1,5 +1,13 @@
 # The submission path (Task 25)
 
+> **Superseded in part by Task 28 (`docs/iclr_submission_sync.md`).** This page describes the path as Task 25 built
+> it. Three things below no longer hold: its nuPlan cells were the transported miss-model track (the paper reports
+> the real-perception track, `benchmark_table_nuplan_real.csv`, which the path now scores, with its minimum of 10
+> affected test states); its measured budgets read `benchmark_budget_overheads.json` (nuPlan charged the KITTI
+> detector costs, energy on the old convention), where the path now reads the cost registry
+> (`results/final/cost_registry.json`, module convention); and the harness charged the CPU rail by default, where it
+> now measures the registry's rails. G1 below is replaced by G1', which compares against the tables the paper uses.
+
 What was added so that a third party can score an allocator of their own, the evidence that it scores exactly as the
 benchmark does, the cost-profile policy as implemented, and the places where writing the protocol down showed that it
 was under-specified. No experiment was added and no reported number changed.

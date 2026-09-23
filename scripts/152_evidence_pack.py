@@ -1431,7 +1431,6 @@ def section4_md(s4):
 
 
 def section5_md(g1):
-    bad = int((g1.differing > 0).sum())
     return ["What the release has (docs/SUBMITTING.md, `evaluate_submission.py`, `rap.submission`): a CSV with one row "
             "per test input of each cell entered; identifiers per track (KITTI and nuScenes `seq, frame`; nuPlan "
             "`scenario, iteration`); either one `score` column (a ranking, every quota) or `score_q10 … score_q50` "
@@ -1445,12 +1444,15 @@ def section5_md(g1):
             "Tracks: selection budget (quotas 10/20/30/50 %, any CPU); measured budget (ms and mJ, needs a cost profile "
             "from the provided harness on a device passing `environment/check_device.py`, or code profiled by us; the "
             "feasibility rule of `rap.budget.infeasible`).", "",
-            f"G1: {len(g1)} signal × field comparisons against the official tables (`benchmark_table.csv`, "
-            f"`benchmark_table_routers.csv`, and `benchmark_budget_two_level.csv` for the measured track), {bad} with any "
-            "difference, no tolerance (`results/final/submission_path_g1.csv`). On its first run G1 found the shipped "
-            "nuScenes R2 rows of `benchmark_table_routers.csv` a few ulps from their own computation (a lossy CSV re-read "
-            "inside 107); they were regenerated from the saved scores, and no printed number changed "
-            "(`docs/iclr_submission_path.md`).", ""]
+            "Cells and costs: nuPlan is the real-perception track (Task 5 labels, `benchmark_table_nuplan_real.csv`, nDG undefined "
+            "below 10 affected test states); detector costs and the energy convention come from the versioned cost "
+            "registry (`results/final/cost_registry.json`, module rails), whose version every scored row carries.", "",
+            f"G1' (Task 28): {len(g1)} table × signal × field comparisons against the tables the paper uses (selection, "
+            f"latency and energy), {int(g1.rows.sum())} compared values, {int(g1.differing.sum())} differing, no "
+            f"tolerance; {int(g1.get('structural', pd.Series(dtype=float)).fillna(0).sum())} values are structural "
+            "(the tie statistics of an official signal whose scores are all equal, which the schema scores as random). "
+            "Per-table counts and the structural gaps: `docs/iclr_submission_sync.md`; the rows: "
+            "`results/final/submission_path_g1.csv`.", ""]
 
 
 # ------------------------------------------------------------------------------------------------ main

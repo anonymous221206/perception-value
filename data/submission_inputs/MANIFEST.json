@@ -384,6 +384,8 @@
    "track24_bicycle",
    "track24_static",
    "track24_area"
-  ]
+  ],
+  "source_run": "20260914_215224_nuplan_real_features",
+  "branch": "real CHEAP perception (Task 5, 119)"
  }
 }

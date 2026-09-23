@@ -366,7 +366,8 @@ def align(x: pd.DataFrame, y: pd.DataFrame):
 # the tables that existed then. They would otherwise appear here as "only in NEW".
 AFTER_TASK_23 = ("benchmark_decision_values.csv.gz", "benchmark_bootstrap_plans.json", "submission_path_g1.csv",
                  "published_objective_labels.csv", "published_objective_routers.csv", "published_objective_arbiter.csv",
-                 "published_objective_reading.json", "paper_evidence_pack.csv", "claims_check.csv")
+                 "published_objective_reading.json", "paper_evidence_pack.csv", "claims_check.csv",
+                 "cost_registry.json")
 
 
 def inventory(R, before: Path) -> list[dict]:

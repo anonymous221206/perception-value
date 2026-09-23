@@ -1,5 +1,7 @@
 # IDM route fix: what was wrong, what was rerun, what changed
 
+> **Pre-Task-23 run.** The numbers in this document come from the run before the ego-frame convention (Task 23, 2026-09-22) and are kept as the record of that run. `results/final/` now holds the ego-frame run; where the two differ, `results/final/` is current (Task 28 audit, `scripts/157_doc_staleness.py`).
+
 **Bug.** Every nuPlan branch initialised the devkit's `IDMPlanner` with the scenario route.
 * IDM looks for the ego's lane only in the **first two** route roadblocks.
 * In 836 of the 1,440 benchmark states (58%), the ego is beyond those two.

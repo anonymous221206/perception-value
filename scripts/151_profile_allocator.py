@@ -17,8 +17,9 @@ The measurement is 93's, unchanged (`_median_ms`, `_rails_during`, `signal_overh
 
   latency  median single-input wall time over three passes of the first --frames test inputs of each track, inputs
            prepared before the clock starts (the benchmark times feature extraction and inference, not file reading)
-  energy   latency x the power over idle of --rails (default CPU, as 93 charges its CPU workloads; add GPU for an
-           allocator that runs on the GPU), with idle and busy each sampled for 8 s every 50 ms
+  energy   latency x the power over idle of --rails, with idle and busy each sampled for 8 s every 50 ms. The default
+           is the cost registry's convention (results/final/cost_registry.json: GPU + SOC + CPU, the rails the
+           detector costs are measured on, Task 28); the scorer refuses an energy profile on other rails
 
 The profile carries the output of environment/check_device.py (docs/SUBMITTING.md, measured track, route 1); a
 profile measured off the reference platform is written but marked so, and is not a measured-track result.
@@ -81,13 +82,15 @@ def main():
     ap.add_argument("--tracks", nargs="+", default=["KITTI", "nuScenes"], choices=TRACKS)
     ap.add_argument("--out", required=True)
     ap.add_argument("--frames", type=int, default=400, help="inputs timed per track (93 uses 400)")
-    ap.add_argument("--rails", nargs="+", default=["CPU"], help="rails whose power over idle is charged (93: CPU)")
+    ap.add_argument("--rails", nargs="+", default=list(S.registry()["energy_convention"]["rails"]),
+                    help="rails whose power over idle is charged (default: the cost registry's convention)")
     args = ap.parse_args()
     t93 = _load("t93", ROOT / "scripts" / "93_budget_allocation.py")
     alloc = _load("allocator", Path(args.allocator).resolve())
     check = device_check()
     prof = {"route": "harness", "harness": "scripts/151_profile_allocator.py", "allocator": Path(args.allocator).name,
-            "frames": args.frames, "rails": args.rails, "power_available": power.AVAILABLE,
+            "frames": args.frames, "rails": args.rails, "registry_version": S.registry()["version"],
+            "power_available": power.AVAILABLE,
             "ms": {}, "mJ": {}, "power_mw_over_idle": {}, "device_check": check}
     for track in args.tracks:
         items = prepared_inputs(track, args.frames)

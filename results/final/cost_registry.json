@@ -1,0 +1,621 @@
+{
+ "version": "2026-09-23.1",
+ "energy_convention": {
+  "name": "module",
+  "rails": [
+   "GPU",
+   "SOC",
+   "CPU"
+  ],
+  "definition": "per-frame energy = sum over the rails of (busy mean - idle mean) x per-frame time, for detectors and allocators alike"
+ },
+ "detectors": {
+  "KITTI": {
+   "cheap": {
+    "ms": 13.17875574932259,
+    "mJ": 41.112641173187015,
+    "mode": "cheap_320",
+    "timing_boundary": "end-to-end per frame, image decoding included (01_profile_jetson.py lat_e2e_ms_median)",
+    "ms_source": "results/raw/20260912_021305_profile/profile_summary.json [cheap_320].lat_e2e_ms_median",
+    "mJ_source": "results/raw/20260912_021305_profile/profile_rows.json + idle_baseline.json: median over kept rounds of sum over ['GPU', 'SOC', 'CPU'] of (rail mean - idle mean) x lat_e2e_ms_median"
+   },
+   "384": {
+    "ms": 14.375552998899366,
+    "mJ": 47.79440600871689,
+    "mode": "cheap_384",
+    "timing_boundary": "end-to-end per frame, image decoding included (01_profile_jetson.py lat_e2e_ms_median)",
+    "ms_source": "results/raw/20260912_021305_profile/profile_summary.json [cheap_384].lat_e2e_ms_median",
+    "mJ_source": "results/raw/20260912_021305_profile/profile_rows.json + idle_baseline.json: median over kept rounds of sum over ['GPU', 'SOC', 'CPU'] of (rail mean - idle mean) x lat_e2e_ms_median"
+   },
+   "512": {
+    "ms": 16.721777501516044,
+    "mJ": 61.96178928233739,
+    "mode": "cheap_512",
+    "timing_boundary": "end-to-end per frame, image decoding included (01_profile_jetson.py lat_e2e_ms_median)",
+    "ms_source": "results/raw/20260912_021305_profile/profile_summary.json [cheap_512].lat_e2e_ms_median",
+    "mJ_source": "results/raw/20260912_021305_profile/profile_rows.json + idle_baseline.json: median over kept rounds of sum over ['GPU', 'SOC', 'CPU'] of (rail mean - idle mean) x lat_e2e_ms_median"
+   },
+   "640": {
+    "ms": 18.469151747922297,
+    "mJ": 84.43324887555701,
+    "mode": "full_640",
+    "timing_boundary": "end-to-end per frame, image decoding included (01_profile_jetson.py lat_e2e_ms_median)",
+    "ms_source": "results/raw/20260912_021305_profile/profile_summary.json [full_640].lat_e2e_ms_median",
+    "mJ_source": "results/raw/20260912_021305_profile/profile_rows.json + idle_baseline.json: median over kept rounds of sum over ['GPU', 'SOC', 'CPU'] of (rail mean - idle mean) x lat_e2e_ms_median"
+   }
+  },
+  "nuScenes": {
+   "cheap": {
+    "ms": 12.709915251434722,
+    "mJ": 54.55355389285198,
+    "mode": "ns_cheap_320",
+    "timing_boundary": "end-to-end per frame, image decoding included (01_profile_jetson.py lat_e2e_ms_median)",
+    "ms_source": "results/raw/20260912_073228_profile/profile_summary.json [ns_cheap_320].lat_e2e_ms_median",
+    "mJ_source": "results/raw/20260912_073228_profile/profile_rows.json + idle_baseline.json: median over kept rounds of sum over ['GPU', 'SOC', 'CPU'] of (rail mean - idle mean) x lat_e2e_ms_median"
+   },
+   "640": {
+    "ms": 19.351262499185395,
+    "mJ": 132.70108643249824,
+    "mode": "ns_full_640",
+    "timing_boundary": "end-to-end per frame, image decoding included (01_profile_jetson.py lat_e2e_ms_median)",
+    "ms_source": "results/raw/20260912_073228_profile/profile_summary.json [ns_full_640].lat_e2e_ms_median",
+    "mJ_source": "results/raw/20260912_073228_profile/profile_rows.json + idle_baseline.json: median over kept rounds of sum over ['GPU', 'SOC', 'CPU'] of (rail mean - idle mean) x lat_e2e_ms_median"
+   }
+  },
+  "nuPlan": {
+   "cheap": {
+    "ms": 14.374369621276855,
+    "mJ": 69.5124056669773,
+    "mode": "ns_cheap_320",
+    "timing_boundary": "pre-processing + inference + post-processing per frame, image decoding excluded (Task 5 ms_total_median)",
+    "ms_source": "results/raw/nuplan_task5/detect_summary.json [ns_cheap_320].ms_total_median",
+    "mJ_source": "results/raw/nuplan_task5/detect_summary.json energy[ns_cheap_320]: sum over ['GPU', 'SOC', 'CPU'] of excess_mw x seconds / frames"
+   },
+   "640": {
+    "ms": 23.571229934692383,
+    "mJ": 143.845281707668,
+    "mode": "ns_full_640",
+    "timing_boundary": "pre-processing + inference + post-processing per frame, image decoding excluded (Task 5 ms_total_median)",
+    "ms_source": "results/raw/nuplan_task5/detect_summary.json [ns_full_640].ms_total_median",
+    "mJ_source": "results/raw/nuplan_task5/detect_summary.json energy[ns_full_640]: sum over ['GPU', 'SOC', 'CPU'] of excess_mw x seconds / frames"
+   }
+  }
+ },
+ "allocators": {
+  "primary": {
+   "file": "results/final/benchmark_budget_overheads.json",
+   "module_mw_over_idle": {
+    "gate": 8574.010744094488,
+    "r1": 9982.012982259568,
+    "r2": 2676.133730374614
+   },
+   "power_source": {
+    "gate": "results/final/benchmark_budget_overheads.json: rails_busy_mw - rails_idle_mw, summed over ['GPU', 'SOC', 'CPU']",
+    "r1": "results/final/allocator_rails.json median.r1.module_mw_over_idle (132)",
+    "r2": "results/final/allocator_rails.json median.r2.module_mw_over_idle (132)"
+   },
+   "tracks": {
+    "KITTI": {
+     "random": {
+      "ms": 0.0,
+      "mJ": 0.0,
+      "provenance": "no overhead",
+      "signal_overhead_source": "none"
+     },
+     "uncertainty": {
+      "ms": 0.23612250515725464,
+      "mJ": 2.0245168961408075,
+      "provenance": "measured on KITTI",
+      "signal_overhead_source": "measured"
+     },
+     "criticality_cheap": {
+      "ms": 1.4390714932233095,
+      "mJ": 12.338614444416756,
+      "provenance": "measured on KITTI",
+      "signal_overhead_source": "measured"
+     },
+     "gate_ridge": {
+      "ms": 4.238794994307682,
+      "mJ": 36.343473823208,
+      "provenance": "measured on KITTI",
+      "signal_overhead_source": "measured"
+     },
+     "gate_gbm": {
+      "ms": 19.976723502622917,
+      "mJ": 171.28064194329377,
+      "provenance": "measured on KITTI",
+      "signal_overhead_source": "measured"
+     }
+    },
+    "nuScenes": {
+     "random": {
+      "ms": 0.0,
+      "mJ": 0.0,
+      "provenance": "no overhead",
+      "signal_overhead_source": "none"
+     },
+     "uncertainty": {
+      "ms": 0.23885798873379827,
+      "mJ": 2.047970961716387,
+      "provenance": "measured on nuScenes",
+      "signal_overhead_source": "measured"
+     },
+     "criticality_cheap": {
+      "ms": 1.4298080059234053,
+      "mJ": 12.259189204779593,
+      "provenance": "measured on nuScenes",
+      "signal_overhead_source": "measured"
+     },
+     "gate_ridge": {
+      "ms": 3.9849119930295274,
+      "mJ": 34.166678242506144,
+      "provenance": "measured on nuScenes",
+      "signal_overhead_source": "measured"
+     },
+     "gate_gbm": {
+      "ms": 19.722840501344763,
+      "mJ": 169.10384636259192,
+      "provenance": "measured on nuScenes",
+      "signal_overhead_source": "measured"
+     }
+    },
+    "nuPlan": {
+     "random": {
+      "ms": 0.0,
+      "mJ": 0.0,
+      "provenance": "no overhead",
+      "signal_overhead_source": "none"
+     },
+     "uncertainty": {
+      "ms": 0.23885798873379827,
+      "mJ": 2.047970961716387,
+      "provenance": "measured on nuScenes, inherited by nuPlan as a proxy (track features not timed)",
+      "signal_overhead_source": "nuScenes feature time as proxy (track features not timed)"
+     },
+     "criticality_cheap": {
+      "ms": 1.4298080059234053,
+      "mJ": 12.259189204779593,
+      "provenance": "measured on nuScenes, inherited by nuPlan as a proxy (track features not timed)",
+      "signal_overhead_source": "nuScenes feature time as proxy (track features not timed)"
+     },
+     "gate_ridge": {
+      "ms": 3.9849119930295274,
+      "mJ": 34.166678242506144,
+      "provenance": "measured on nuScenes, inherited by nuPlan as a proxy (track features not timed)",
+      "signal_overhead_source": "nuScenes feature time as proxy (track features not timed)"
+     },
+     "gate_gbm": {
+      "ms": 19.722840501344763,
+      "mJ": 169.10384636259192,
+      "provenance": "measured on nuScenes, inherited by nuPlan as a proxy (track features not timed)",
+      "signal_overhead_source": "nuScenes feature time as proxy (track features not timed)"
+     }
+    }
+   }
+  },
+  "1thread": {
+   "file": "results/final/benchmark_budget_overheads_1thread.json",
+   "module_mw_over_idle": {
+    "gate": 2567.0585134099606,
+    "r1": 9982.012982259568,
+    "r2": 2676.133730374614
+   },
+   "power_source": {
+    "gate": "results/final/benchmark_budget_overheads_1thread.json: rails_busy_mw - rails_idle_mw, summed over ['GPU', 'SOC', 'CPU']",
+    "r1": "results/final/allocator_rails.json median.r1.module_mw_over_idle (132)",
+    "r2": "results/final/allocator_rails.json median.r2.module_mw_over_idle (132)"
+   },
+   "tracks": {
+    "KITTI": {
+     "random": {
+      "ms": 0.0,
+      "mJ": 0.0,
+      "provenance": "no overhead",
+      "signal_overhead_source": "none"
+     },
+     "uncertainty": {
+      "ms": 0.23575598606839776,
+      "mJ": 0.6051994111242406,
+      "provenance": "measured on KITTI",
+      "signal_overhead_source": "measured"
+     },
+     "criticality_cheap": {
+      "ms": 1.4295765140559524,
+      "mJ": 3.669806560978267,
+      "provenance": "measured on KITTI",
+      "signal_overhead_source": "measured"
+     },
+     "gate_ridge": {
+      "ms": 4.246503493050113,
+      "mJ": 10.901022944059429,
+      "provenance": "measured on KITTI",
+      "signal_overhead_source": "measured"
+     },
+     "gate_gbm": {
+      "ms": 16.776576987467706,
+      "mJ": 43.0664547815566,
+      "provenance": "measured on KITTI",
+      "signal_overhead_source": "measured"
+     }
+    },
+    "nuScenes": {
+     "random": {
+      "ms": 0.0,
+      "mJ": 0.0,
+      "provenance": "no overhead",
+      "signal_overhead_source": "none"
+     },
+     "uncertainty": {
+      "ms": 0.23826799588277936,
+      "mJ": 0.6116478873040182,
+      "provenance": "measured on nuScenes",
+      "signal_overhead_source": "measured"
+     },
+     "criticality_cheap": {
+      "ms": 1.4302810013759881,
+      "mJ": 3.6716150211507537,
+      "provenance": "measured on nuScenes",
+      "signal_overhead_source": "measured"
+     },
+     "gate_ridge": {
+      "ms": 3.993545993580483,
+      "mJ": 10.251666241515018,
+      "provenance": "measured on nuScenes",
+      "signal_overhead_source": "measured"
+     },
+     "gate_gbm": {
+      "ms": 16.523619487998076,
+      "mJ": 42.4170980790122,
+      "provenance": "measured on nuScenes",
+      "signal_overhead_source": "measured"
+     }
+    },
+    "nuPlan": {
+     "random": {
+      "ms": 0.0,
+      "mJ": 0.0,
+      "provenance": "no overhead",
+      "signal_overhead_source": "none"
+     },
+     "uncertainty": {
+      "ms": 0.23826799588277936,
+      "mJ": 0.6116478873040182,
+      "provenance": "measured on nuScenes, inherited by nuPlan as a proxy (track features not timed)",
+      "signal_overhead_source": "nuScenes feature time as proxy (track features not timed)"
+     },
+     "criticality_cheap": {
+      "ms": 1.4302810013759881,
+      "mJ": 3.6716150211507537,
+      "provenance": "measured on nuScenes, inherited by nuPlan as a proxy (track features not timed)",
+      "signal_overhead_source": "nuScenes feature time as proxy (track features not timed)"
+     },
+     "gate_ridge": {
+      "ms": 3.993545993580483,
+      "mJ": 10.251666241515018,
+      "provenance": "measured on nuScenes, inherited by nuPlan as a proxy (track features not timed)",
+      "signal_overhead_source": "nuScenes feature time as proxy (track features not timed)"
+     },
+     "gate_gbm": {
+      "ms": 16.523619487998076,
+      "mJ": 42.4170980790122,
+      "provenance": "measured on nuScenes, inherited by nuPlan as a proxy (track features not timed)",
+      "signal_overhead_source": "nuScenes feature time as proxy (track features not timed)"
+     }
+    }
+   }
+  },
+  "routers": {
+   "file": "results/final/benchmark_budget_overheads_routers.json",
+   "module_mw_over_idle": {
+    "gate": 7888.218227100776,
+    "r1": 9982.012982259568,
+    "r2": 2676.133730374614
+   },
+   "power_source": {
+    "gate": "results/final/benchmark_budget_overheads_routers.json: rails_busy_mw - rails_idle_mw, summed over ['GPU', 'SOC', 'CPU']",
+    "r1": "results/final/allocator_rails.json median.r1.module_mw_over_idle (132)",
+    "r2": "results/final/allocator_rails.json median.r2.module_mw_over_idle (132)"
+   },
+   "tracks": {
+    "KITTI": {
+     "random": {
+      "ms": 0.0,
+      "mJ": 0.0,
+      "provenance": "no overhead",
+      "signal_overhead_source": "none"
+     },
+     "uncertainty": {
+      "ms": 0.2125190000015209,
+      "mJ": 1.6763962494172269,
+      "provenance": "measured on KITTI",
+      "signal_overhead_source": "measured"
+     },
+     "criticality_cheap": {
+      "ms": 1.3042825000013636,
+      "mJ": 10.288464989799325,
+      "provenance": "measured on KITTI",
+      "signal_overhead_source": "measured"
+     },
+     "gate_ridge": {
+      "ms": 3.932014499980596,
+      "mJ": 31.01658844797148,
+      "provenance": "measured on KITTI",
+      "signal_overhead_source": "measured"
+     },
+     "gate_gbm": {
+      "ms": 21.38287950000972,
+      "mJ": 168.67281981987622,
+      "provenance": "measured on KITTI",
+      "signal_overhead_source": "measured"
+     },
+     "gate_gbm_batched": {
+      "ms": 3.5420919274868936,
+      "mJ": 27.940794104468633,
+      "provenance": "measured on KITTI",
+      "signal_overhead_source": "measured"
+     },
+     "R1_mlp_reg": {
+      "ms": 0.6543920000012804,
+      "mJ": 6.532149439499585,
+      "provenance": "measured on KITTI",
+      "signal_overhead_source": "measured"
+     },
+     "R1_mlp_clf": {
+      "ms": 0.6543920000012804,
+      "mJ": 6.532149439499585,
+      "provenance": "measured on KITTI",
+      "signal_overhead_source": "measured"
+     },
+     "R1_gbm_reg": {
+      "ms": 15.914492499945254,
+      "mJ": 158.85867074052607,
+      "provenance": "measured on KITTI",
+      "signal_overhead_source": "measured"
+     },
+     "R1_gbm_clf": {
+      "ms": 15.914492499945254,
+      "mJ": 158.85867074052607,
+      "provenance": "measured on KITTI",
+      "signal_overhead_source": "measured"
+     },
+     "R2_cnn_clf": {
+      "ms": 4.816622999982201,
+      "mJ": 12.889927276750532,
+      "provenance": "measured on KITTI",
+      "signal_overhead_source": "measured"
+     }
+    },
+    "nuScenes": {
+     "random": {
+      "ms": 0.0,
+      "mJ": 0.0,
+      "provenance": "no overhead",
+      "signal_overhead_source": "none"
+     },
+     "uncertainty": {
+      "ms": 0.29441049997558366,
+      "mJ": 2.322374272157252,
+      "provenance": "measured on nuScenes",
+      "signal_overhead_source": "measured"
+     },
+     "criticality_cheap": {
+      "ms": 1.4709314999947765,
+      "mJ": 11.60302866907548,
+      "provenance": "measured on nuScenes",
+      "signal_overhead_source": "measured"
+     },
+     "gate_ridge": {
+      "ms": 3.925717499981829,
+      "mJ": 30.966916337805152,
+      "provenance": "measured on nuScenes",
+      "signal_overhead_source": "measured"
+     },
+     "gate_gbm": {
+      "ms": 21.376582500010954,
+      "mJ": 168.62314770970988,
+      "provenance": "measured on nuScenes",
+      "signal_overhead_source": "measured"
+     },
+     "gate_gbm_batched": {
+      "ms": 3.5357949274881264,
+      "mJ": 27.891121994302306,
+      "provenance": "measured on nuScenes",
+      "signal_overhead_source": "measured"
+     },
+     "R1_mlp_reg": {
+      "ms": 0.6491920000541995,
+      "mJ": 6.480242972520074,
+      "provenance": "measured on nuScenes",
+      "signal_overhead_source": "measured"
+     },
+     "R1_mlp_clf": {
+      "ms": 0.6491920000541995,
+      "mJ": 6.480242972520074,
+      "provenance": "measured on nuScenes",
+      "signal_overhead_source": "measured"
+     },
+     "R1_gbm_reg": {
+      "ms": 15.909292499998173,
+      "mJ": 158.80676427354655,
+      "provenance": "measured on nuScenes",
+      "signal_overhead_source": "measured"
+     },
+     "R1_gbm_clf": {
+      "ms": 15.909292499998173,
+      "mJ": 158.80676427354655,
+      "provenance": "measured on nuScenes",
+      "signal_overhead_source": "measured"
+     },
+     "R2_cnn_clf": {
+      "ms": 9.765887999975575,
+      "mJ": 26.134822283795316,
+      "provenance": "measured on nuScenes",
+      "signal_overhead_source": "measured"
+     }
+    },
+    "nuPlan": {
+     "random": {
+      "ms": 0.0,
+      "mJ": 0.0,
+      "provenance": "no overhead",
+      "signal_overhead_source": "none"
+     },
+     "uncertainty": {
+      "ms": 0.29441049997558366,
+      "mJ": 2.322374272157252,
+      "provenance": "measured on nuScenes, inherited by nuPlan as a proxy (track features not timed)",
+      "signal_overhead_source": "nuScenes feature time as proxy (track features not timed)"
+     },
+     "criticality_cheap": {
+      "ms": 1.4709314999947765,
+      "mJ": 11.60302866907548,
+      "provenance": "measured on nuScenes, inherited by nuPlan as a proxy (track features not timed)",
+      "signal_overhead_source": "nuScenes feature time as proxy (track features not timed)"
+     },
+     "gate_ridge": {
+      "ms": 3.925717499981829,
+      "mJ": 30.966916337805152,
+      "provenance": "measured on nuScenes, inherited by nuPlan as a proxy (track features not timed)",
+      "signal_overhead_source": "nuScenes feature time as proxy (track features not timed)"
+     },
+     "gate_gbm": {
+      "ms": 21.376582500010954,
+      "mJ": 168.62314770970988,
+      "provenance": "measured on nuScenes, inherited by nuPlan as a proxy (track features not timed)",
+      "signal_overhead_source": "nuScenes feature time as proxy (track features not timed)"
+     },
+     "gate_gbm_batched": {
+      "ms": 3.5357949274881264,
+      "mJ": 27.891121994302306,
+      "provenance": "measured on nuScenes, inherited by nuPlan as a proxy (track features not timed)",
+      "signal_overhead_source": "nuScenes feature time as proxy (track features not timed)"
+     },
+     "R1_mlp_reg": {
+      "ms": 0.6491920000541995,
+      "mJ": 6.480242972520074,
+      "provenance": "measured on nuScenes, inherited by nuPlan as a proxy (track features not timed)",
+      "signal_overhead_source": "nuScenes feature time as proxy (track features not timed)"
+     },
+     "R1_mlp_clf": {
+      "ms": 0.6491920000541995,
+      "mJ": 6.480242972520074,
+      "provenance": "measured on nuScenes, inherited by nuPlan as a proxy (track features not timed)",
+      "signal_overhead_source": "nuScenes feature time as proxy (track features not timed)"
+     },
+     "R1_gbm_reg": {
+      "ms": 15.909292499998173,
+      "mJ": 158.80676427354655,
+      "provenance": "measured on nuScenes, inherited by nuPlan as a proxy (track features not timed)",
+      "signal_overhead_source": "nuScenes feature time as proxy (track features not timed)"
+     },
+     "R1_gbm_clf": {
+      "ms": 15.909292499998173,
+      "mJ": 158.80676427354655,
+      "provenance": "measured on nuScenes, inherited by nuPlan as a proxy (track features not timed)",
+      "signal_overhead_source": "nuScenes feature time as proxy (track features not timed)"
+     }
+    }
+   }
+  }
+ },
+ "tables": {
+  "benchmark_table.csv": {
+   "kind": "selection",
+   "tracks": [
+    "KITTI",
+    "nuScenes"
+   ],
+   "plan": "benchmark_table"
+  },
+  "benchmark_table_routers.csv": {
+   "kind": "selection",
+   "tracks": [
+    "KITTI",
+    "nuScenes"
+   ],
+   "plan": "routers_r1 / router_r2:<dataset>"
+  },
+  "benchmark_table_nuplan_real.csv": {
+   "kind": "selection",
+   "tracks": [
+    "nuPlan"
+   ],
+   "plan": "nuplan_real"
+  },
+  "benchmark_budget_two_level.csv": {
+   "kind": "latency",
+   "unit": "ms",
+   "tracks": [
+    "KITTI",
+    "nuScenes"
+   ],
+   "overheads": "primary",
+   "plan": "benchmark_budget"
+  },
+  "benchmark_budget_routers.csv": {
+   "kind": "latency",
+   "unit": "ms",
+   "tracks": [
+    "KITTI",
+    "nuScenes"
+   ],
+   "overheads": "routers",
+   "plan": "benchmark_budget"
+  },
+  "benchmark_budget_nuplan_real.csv": {
+   "kind": "latency",
+   "unit": "ms",
+   "tracks": [
+    "nuPlan"
+   ],
+   "overheads": "routers",
+   "plan": "nuplan_real_budget"
+  },
+  "benchmark_budget_multifidelity.csv": {
+   "kind": "latency",
+   "unit": "ms",
+   "tracks": [
+    "KITTI"
+   ],
+   "overheads": "primary",
+   "note": "multi-level rows: see the report"
+  },
+  "energy_module_budget_two_level.csv": {
+   "kind": "energy",
+   "unit": "mJ",
+   "convention": "module",
+   "tracks": [
+    "KITTI",
+    "nuScenes"
+   ],
+   "overheads": "per row: the table column (primary, 1thread, routers)",
+   "plan": "benchmark_budget"
+  },
+  "energy_module_budget_nuplan_real.csv": {
+   "kind": "energy",
+   "unit": "mJ",
+   "convention": "module",
+   "tracks": [
+    "nuPlan"
+   ],
+   "overheads": "routers",
+   "plan": "nuplan_real_budget"
+  },
+  "energy_module_budget_multifidelity.csv": {
+   "kind": "energy",
+   "unit": "mJ",
+   "convention": "module",
+   "tracks": [
+    "KITTI"
+   ],
+   "overheads": "per row: the table column",
+   "note": "multi-level rows: see the report"
+  }
+ },
+ "superseded": {
+  "benchmark_budget_overheads.json costs (mJ)": "GPU rail only for KITTI and nuScenes; nuPlan charged the KITTI detector costs. Superseded by the module convention.",
+  "benchmark_budget_two_level.csv / benchmark_budget_routers.csv mJ rows": "the old convention; the paper's energy results are the energy_module tables",
+  "benchmark_budget_nuplan_real.csv mJ rows": "CPU + GPU rails; superseded by energy_module_budget_nuplan_real.csv"
+ },
+ "content_sha256": "f1d5709aeb3baa8f9ac45758711a49b34560485b9ecc082a87bf67778fa70b79"
+}

@@ -1,7 +1,8 @@
 # Submitting an allocator
 
 This page is for scoring **your own** allocator on the benchmark, on the same frozen test split and with the same
-scorer as every signal in `results/final/benchmark_table.csv`. You need a CPU and the cached tier's environment
+scorer as every signal in the paper's tables (`results/final/benchmark_table.csv` for KITTI and nuScenes,
+`results/final/benchmark_table_nuplan_real.csv` for nuPlan). You need a CPU and the cached tier's environment
 (`environment/requirements-cached.txt`); no dataset and no GPU.
 
 ```bash
@@ -13,8 +14,10 @@ python evaluate_submission.py my_allocator.csv [--cost_profile my_profile.json]
 ## What an allocator does here
 
 Each **cell** is a pair of perception modes, CHEAP and FULL, feeding one downstream decision system, with one decision
-loss (the columns `track, geometry, system, target` of `benchmark_table.csv`; 14 cells: KITTI 4, nuScenes 6,
-nuPlan 4). For every input, the decision value `V = J(CHEAP) - J(FULL)` is how much loss escalating that input to FULL
+loss (the columns `track, geometry, system, target`; 14 cells: KITTI 4, nuScenes 6, nuPlan 4). The nuPlan cells are
+the real-perception track: decision values from Task 5's real CHEAP and FULL detector outcomes
+(`scripts/120_nuplan_real_allocation.py`), not the older transported miss-model track that `benchmark_table.csv`
+still carries for nuPlan. For every input, the decision value `V = J(CHEAP) - J(FULL)` is how much loss escalating that input to FULL
 saves. An allocator scores every input **before** escalation; the benchmark escalates the top-scored inputs up to a
 budget and reports the **nDG**: the share of the budget-constrained oracle's saving that the allocator realises.
 
@@ -70,7 +73,7 @@ The files are in `data/submission_inputs/` (written by `scripts/150_submission_t
 | `kitti_frames.csv.gz`, `nuscenes_frames.csv.gz` | frame | `seq, frame, unit, split, prev_frame` (the previous CHEAP frame of the unit, -1 for the first), `n_detections`, ego speed (`ego_speed_mps`), the image reference, and the CHEAP detector's per-frame statistics (`frame_*`: candidate counts, image statistics) |
 | `kitti_detections.csv.gz`, `nuscenes_detections.csv.gz` | CHEAP detection at confidence >= 0.10 | `seq, frame, det`, box `x1, y1, x2, y2` (pixels), `coarse` class, `conf, entropy, margin, binent`, and the monocular geometry in the ego frame (`geo_*`: range, lateral extent and height in m, time to collision in s) |
 | `calibration.json` | unit | intrinsics and the camera-to-ego transform the monocular lift uses |
-| `nuplan_states.csv.gz` | planner state | `scenario, iteration, unit, split`, the cheap-side gate features of the nuPlan cells and the CHEAP track list (up to 25 tracks, 10 values each) |
+| `nuplan_states.csv.gz` | planner state | `scenario, iteration, unit, split`, the real CHEAP branch's 18 gate features and its track list (the 25 nearest tracks, 10 values each), as the nuPlan track's own allocators read them (`scripts/119_nuplan_real_features.py`; the run is named in `MANIFEST.json`) |
 
 The operating threshold of the CHEAP detector is 0.25; detections between 0.10 and 0.25 are what it almost reported.
 Images are not redistributed: an allocator that reads pixels opens the dataset image named in the frames file.
@@ -82,7 +85,7 @@ cell it enters must be covered exactly.
 
 | column | |
 |---|---|
-| `track, geometry, system, target` | the cell, spelled as in `benchmark_table.csv` (nuPlan's geometry is the literal `n/a`) |
+| `track, geometry, system, target` | the cell, spelled as in `S.cells()` (nuPlan's geometry is the literal `n/a`) |
 | `seq, frame` | KITTI and nuScenes: sequence / scene name, frame index (integer) |
 | `scenario, iteration` | nuPlan: scenario token, iteration (integer) |
 | `score` | **ranking form**: one score per input, used at every budget |
@@ -108,15 +111,18 @@ until the file is valid.
 ## How it is scored
 
 `evaluate_submission.py` scores through `rap.scoring`, the scorer of `scripts/92_benchmark_table.py` moved into the
-library unchanged; `scripts/150_submission_tables.py --stage g1` checks that it reproduces every official row exactly
-(`results/final/submission_path_g1.csv`).
+library unchanged; `scripts/150_submission_tables.py --stage g1` checks that it reproduces every row of the paper's
+tables exactly, selection, latency and energy (gate G1', `results/final/submission_path_g1.csv`,
+`docs/iclr_submission_sync.md`).
 
 **Selection budget** (quota of inputs; any CPU). For each quota `q` in 10, 20, 30, 50 % the budget is
 `k = round(q n)` inputs (at least one) of the cell's `n` test inputs.
 
 * `ndg`: the allocator's expected saving over its top `k` inputs, divided by the saving of the `k` inputs with the
-  largest decision value (the oracle's). Undefined (empty, `ndg_defined` false) when that oracle saving is not above
-  1e-9 -- a cell where escalation saves nothing at that quota.
+  largest decision value (the oracle's). Undefined (empty, `ndg_defined` false, the reason in `undefined_reason`)
+  when the cell's test split has fewer than 10 affected inputs (`|V| > 1e-9`; the nuPlan track's rule, which no
+  KITTI or nuScenes cell comes near: nuPlan IDM safety has 4) or when that oracle saving is not above 1e-9. The
+  intervals and the comparison with random are then empty too; `gain` and `prize` are still reported.
 * `gain`: the realised saving in the cell's own loss units (summed over the escalated test inputs); `prize` is the
   oracle's, and `reduction_frac` the saving as a share of the cell's total CHEAP loss.
 * `ndg_lo, ndg_hi` and `minus_random_lo, minus_random_hi`: 95 % percentile intervals of a paired bootstrap over
@@ -126,18 +132,37 @@ library unchanged; `scripts/150_submission_tables.py --stage g1` checks that it 
 * `interval_excludes_zero`: whether the paired interval of nDG minus random excludes zero. `p_le_random` is the share
   of resamples in which the allocator does not beat random.
 
-The resamples are the ones the official table drew for that cell (`--plan`, default `benchmark_table`; also
-`routers_r1`, `router_r2:nuScenes`, `router_r2:KITTI`), replayed from `results/final/benchmark_bootstrap_plans.json`,
-so a submission and the official rows it is compared with see identical resamples.
+The resamples are the ones the official table drew for that cell, replayed from
+`results/final/benchmark_bootstrap_plans.json`, so a submission and the official rows it is compared with see
+identical resamples. By default each track uses the table the paper reports it from: `benchmark_table` for KITTI and
+nuScenes, `nuplan_real` for nuPlan; `--plan routers_r1`, `router_r2:nuScenes` or `router_r2:KITTI` shares the router
+tables' resamples instead (KITTI and nuScenes cells).
 
 **Measured budget** (latency and energy; needs the allocator's cost on the reference platform). CHEAP runs on every
 input, the allocator's own cost `o` is charged on every input, and escalated inputs additionally run FULL. With the
-detector costs `C_c, C_f` measured on the reference board (`benchmark_budget_overheads.json`), the budget at level `f`
+detector costs `C_c, C_f` of the cost registry (`results/final/cost_registry.json`, below), the budget at level `f`
 is `b = C_c + f C_f` per input, in ms or in mJ, and the allocator can escalate a share `(b - C_c - o) / C_f` of the
 inputs (`k = floor(share n)`); nDG divides its saving by the oracle's at the same level with no overhead, so an allocator's own cost shows up as escalations lost. An allocator whose overhead exceeds the headroom, `o > b - C_c`, cannot run within the
 budget: the row is marked infeasible and no nDG is reported (`rap.budget.infeasible`, the rule every official budget
 table applies). Everything else is scored as in the selection track, on the resamples of
-`benchmark_budget_two_level.csv`.
+`benchmark_budget_two_level.csv` (KITTI, nuScenes) and `benchmark_budget_nuplan_real.csv` (nuPlan).
+
+**The cost registry.** `results/final/cost_registry.json` (`scripts/156_cost_registry.py`) is the one place the
+detector costs come from: per track and mode, ms and mJ, the energy convention, the timing boundary and the run each
+value was read from; and the benchmark's own allocator overheads under the same convention, with where each was
+measured. Its `version` is written into every scored row (`registry_version`). Energy is the **module** convention:
+the sum over the GPU, SOC and CPU rails of (busy mean - idle mean) x per-input time, for detectors and allocators
+alike. Latency boundaries differ by track and are recorded: KITTI and nuScenes are end-to-end per frame with image
+decoding; nuPlan is pre-processing + inference + post-processing, without decoding.
+
+| per input (registry 2026-09-23.1) | CHEAP ms | FULL ms | CHEAP mJ | FULL mJ |
+|---|---|---|---|---|
+| KITTI | 13.179 | 18.469 | 41.113 | 84.433 |
+| nuScenes | 12.710 | 19.351 | 54.554 | 132.701 |
+| nuPlan | 14.374 | 23.571 | 69.512 | 143.845 |
+
+An allocator's energy must be measured on the same rails: the scorer refuses an `mJ` profile whose `rails` are not
+the registry's (the harness measures on them by default). Give `mJ` as `null` to score latency only.
 
 The cost profile is a JSON file, passed with `--cost_profile`:
 
@@ -145,11 +170,12 @@ For example:
 
 ```json
 {"ms": {"KITTI": 0.012, "nuScenes": 0.015}, "mJ": {"KITTI": 0.004, "nuScenes": 0.005},
- "route": "harness", "device_check": {"reference_platform": true, "stdout": "..."}}
+ "rails": ["GPU", "SOC", "CPU"], "route": "harness", "device_check": {"reference_platform": true, "stdout": "..."}}
 ```
 
 Costs are per input, either one number or one per track; a track or unit that is absent or `null` is not scored under
-measured budgets. The scored rows carry `cost_route` and `reference_platform`.
+measured budgets. The scored rows carry `cost_route`, `reference_platform`, `registry_version`, `cost_convention` and
+`timing_boundary`.
 
 There are two accepted ways to obtain the profile, and no others:
 
@@ -165,6 +191,8 @@ There are two accepted ways to obtain the profile, and no others:
 Report, for every number: the cell (`track | geometry | system | target`), the quota or budget level, the nDG and its
 paired interval against random (and whether it excludes zero), the track (selection budget, or measured budget with
 its unit, ms or mJ, and cost route), and whether the allocator is budget-conditioned (the `form`: `ranking` or
-`per-budget`). Give the `plan` if it is not `benchmark_table`, the submission's `submission_sha256` from the scored
-file, and the repository commit. Compare with the official rows of the same plan -- `benchmark_table.csv` for the
-default plan -- not with a different table's intervals.
+`per-budget`). Give the `plan` if it is not the track's default, the cost registry version for a measured-budget number, the
+submission's `submission_sha256` from the scored file, and the repository commit. Compare with the official rows of the
+same plan -- `benchmark_table.csv` (KITTI, nuScenes) and `benchmark_table_nuplan_real.csv` (nuPlan) for the default
+plans; for measured budgets, the latency tables and the `energy_module_*` tables -- not with a different table's
+intervals.

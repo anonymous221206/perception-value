@@ -4,20 +4,23 @@
  "allocator": "confidence_heuristic.py",
  "frames": 400,
  "rails": [
+  "GPU",
+  "SOC",
   "CPU"
  ],
+ "registry_version": "2026-09-23.1",
  "power_available": true,
  "ms": {
-  "KITTI": 0.018304999684914947,
-  "nuScenes": 0.017921003745868802
+  "KITTI": 0.018847989849746227,
+  "nuScenes": 0.01817700103856623
  },
  "mJ": {
-  "KITTI": 0.02945237336783033,
-  "nuScenes": 0.026628431462032334
+  "KITTI": 0.04983643802674195,
+  "nuScenes": 0.047162127438367826
  },
  "power_mw_over_idle": {
-  "KITTI": 1608.9797254736843,
-  "nuScenes": 1485.8783492063492
+  "KITTI": 2644.124833684212,
+  "nuScenes": 2594.604431077696
  },
  "device_check": {
   "available": true,

@@ -105,11 +105,14 @@ CACHED = [
      "--r2_arbiter results/raw/20260922_233230_router_r2_ego_arbG --dump_run results/raw/20260922_192602_published_objective_dump",
      ["results/final/published_objective_routers.csv", "results/final/published_objective_arbiter.csv",
       "results/final/published_objective_reading.json"]),
+    ("C30b", "the cost registry: detector costs, energy convention, timing boundaries and allocator overheads, "
+     "versioned (Task 28)", EDGE, "PYTHONHASHSEED=0 {py} scripts/156_cost_registry.py",
+     ["results/final/cost_registry.json"]),
     ("C31", "the submission path: every cell's decision values and each official table's bootstrap plan", EDGE,
      "PYTHONHASHSEED=0 {py} scripts/150_submission_tables.py --stage values",
      ["results/final/benchmark_decision_values.csv.gz", "results/final/benchmark_bootstrap_plans.json"]),
-    ("C32", "gate G1: every official signal scored through the submission path, and the pixel router's rows rebuilt "
-     "from its saved scores", EDGE,
+    ("C32", "gate G1': every official signal scored through the submission path against the tables the paper uses, "
+     "and the pixel router's rows rebuilt from its saved scores", EDGE,
      "PYTHONHASHSEED=0 {py} scripts/107_router_r2.py --stage rescore --dataset nuScenes --run results/raw/20260922_102405_router_r2_ego "
      "--tag router_r2_ego && PYTHONHASHSEED=0 {py} scripts/107_router_r2.py --stage rescore --dataset KITTI "
      "--run results/raw/20260922_102405_router_r2_ego --tag router_r2_ego && PYTHONHASHSEED=0 {py} scripts/150_submission_tables.py --stage g1",
@@ -120,6 +123,22 @@ CACHED = [
     ("C34", "the evidence pack and the claims check: every quantity a write-up may quote, and the verdicts", EDGE,
      "PYTHONHASHSEED=0 {py} scripts/152_evidence_pack.py",
      ["results/final/paper_evidence_pack.csv", "results/final/claims_check.csv"]),
+    ("C35", "four analyses on cached scores (Task 29): selection by objective, benefit and harm, overhead tolerance, "
+     "and where the gap to the oracle goes; and the figure data", EDGE,
+     "PYTHONHASHSEED=0 {py} scripts/158_cached_analyses.py --part a && PYTHONHASHSEED=0 {py} scripts/158_cached_analyses.py "
+     "--part b && PYTHONHASHSEED=0 {py} scripts/158_cached_analyses.py --part c && PYTHONHASHSEED=0 {py} "
+     "scripts/158_cached_analyses.py --part d && PYTHONHASHSEED=0 {py} scripts/158_cached_analyses.py --part fig",
+     ["results/final/cached_analyses_selection.csv", "results/final/cached_analyses_benefit_harm.csv",
+      "results/final/cached_analyses_overhead_tolerance.csv", "results/final/cached_analyses_gap_accounting.csv",
+      "results/final/cached_analyses_figure_data.csv"]),
+    ("C36", "target transform against objective for the R1 regression routers (Task 30 part 1, post hoc; refits small "
+     "CPU models) and its heatmap", EDGE,
+     "PYTHONHASHSEED=0 {py} scripts/159_target_transform.py --part 1 && PYTHONHASHSEED=0 {py} "
+     "scripts/159_target_transform.py --part heatmap",
+     ["results/final/target_transform_control.csv", "results/final/target_transform_heatmap.csv"]),
+    ("C37", "training-seed variation of the learned allocators (Task 30 part 2, post hoc; six seeds, about 20 minutes)",
+     EDGE, "PYTHONHASHSEED=0 {py} scripts/159_target_transform.py --part 2",
+     ["results/final/seed_variation.csv"]),
 ]
 
 # the full pipeline from raw data, in the order the results were produced; D = needs datasets, H = hardware-dependent

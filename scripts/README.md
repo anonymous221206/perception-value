@@ -124,11 +124,17 @@ Each of these answers one question asked of the benchmark after its first result
 |---|---|---|
 | `148_published_objective_labels.py` | Task 24: the CHEAP/FULL detection dump, the published objectives as per-frame labels (Qiu's ORIC, Geng's ΔAP, from the official code), and their checks | D (dump) |
 | `149_published_objective_routers.py` | Task 24: R1 and R2 refit on those labels, the budget-adaptive arbiter, and the scoring against the V-trained counterparts | |
-| `150_submission_tables.py` | Task 25: the decision values and bootstrap plans the submission path needs, the labels-free inputs export, and gate G1 | D (inputs) |
-| `151_profile_allocator.py` | Task 25: measures an allocator's own per-input latency and energy for the measured-budget track | H |
+| `150_submission_tables.py` | Tasks 25 and 28: the decision values and bootstrap plans the submission path needs (nuPlan from the real-perception track), the labels-free inputs export, and gate G1' against the tables the paper uses | D (inputs) |
+| `151_profile_allocator.py` | Task 25: measures an allocator's own per-input latency and energy for the measured-budget track, on the cost registry's rails | H |
 | `152_evidence_pack.py` | Task 26: the evidence pack, the claims check, and the 3A/3B tables | |
+| `156_cost_registry.py` | Task 28: the versioned cost registry every measured-budget score is charged against | |
+| `157_doc_staleness.py` | Task 28: which documents quote numbers the results no longer hold (reads the git history; writes no compared output) | |
+| `158_cached_analyses.py` | Task 29: selection by objective, benefit and harm, overhead tolerance, gap accounting, figure data | |
+| `159_target_transform.py` | Task 30 (post hoc): R1 regression on rank and signed-ECDF targets, training-seed variation, heatmap | |
 
 ## Figure data
+
+`paper_figures/` holds two scripts that draw the paper's figures from release artifacts; see its README.
 
 | script | what | marker |
 |---|---|---|
