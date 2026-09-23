@@ -367,7 +367,10 @@ def align(x: pd.DataFrame, y: pd.DataFrame):
 AFTER_TASK_23 = ("benchmark_decision_values.csv.gz", "benchmark_bootstrap_plans.json", "submission_path_g1.csv",
                  "published_objective_labels.csv", "published_objective_routers.csv", "published_objective_arbiter.csv",
                  "published_objective_reading.json", "paper_evidence_pack.csv", "claims_check.csv",
-                 "cost_registry.json")
+                 "cost_registry.json", "cached_analyses_selection.csv", "cached_analyses_benefit_harm.csv",
+                 "cached_analyses_overhead_tolerance.csv", "cached_analyses_gap_accounting.csv",
+                 "cached_analyses_figure_data.csv", "target_transform_control.csv", "target_transform_heatmap.csv",
+                 "seed_variation.csv", "figures/target_transform_heatmap.pdf", "figures/target_transform_heatmap.png")
 
 
 def inventory(R, before: Path) -> list[dict]:

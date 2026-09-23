@@ -94,7 +94,7 @@ is a checkout.
 | C2 | about 1e-6 | none on any figure the paper quotes |
 | C12 | `R1_gbm_clf` on PDM-Closed safety, at the 30–50% quotas | the 20% cells the paper uses are unchanged |
 
-C14, C19, C36 and C37 fit models inside the stage. Both are byte-identical across runs on the reference platform; whether
+C14, C19, C36 and C37 fit models inside the stage. C36 and C37 first check that a refit reproduces the shipped scores bit for bit, and run with `OMP_NUM_THREADS=1`: the multithreaded gradient-boosted fit varies in the last bits from run to run (up to 2e-15 on the reference platform), a single thread does not. Both are byte-identical across runs on the reference platform; whether
 the fits are reproducible on a different one is untested, and `docs/iclr_causal_threshold.md` and
 `docs/iclr_target_swap.md` say which of their quoted figures another platform could move.
 

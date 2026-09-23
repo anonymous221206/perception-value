@@ -24,7 +24,10 @@ detection-list features, the hyperparameters, seed 0, the loss and the preproces
 
 **Checks.** On all ten cells, refits on raw V, Q and G reproduce the cached scores exactly (maximum difference 0). The
 raw-V point nDG equals `benchmark_table_routers.csv`. Scoring uses the benchmark's scorer on routers_r1's own bootstrap
-draws for each cell, so every label is paired with every other on the same 1,000 draws.
+draws for each cell, so every label is paired with every other on the same 1,000 draws. The exact-equality checks need a single thread
+(`OMP_NUM_THREADS=1`, as reproduce.py's stages C36 and C37 set it): the multithreaded gradient-boosted fit varies
+in the last bits from run to run (0 to 2e-15 on KITTI oracle brake across six fits). A single thread reproduces the
+shipped scores exactly, and no rounded score or reported number depends on the difference.
 
 **A definitional note.** The task describes the signed ECDF as "the MORIC+ construction 148 uses for G". But 148's
 `g_moric` is the plain right-continuous ECDF over all fit-unit values, not the signed form. The signed ECDF was

@@ -133,11 +133,11 @@ CACHED = [
       "results/final/cached_analyses_figure_data.csv"]),
     ("C36", "target transform against objective for the R1 regression routers (Task 30 part 1, post hoc; refits small "
      "CPU models) and its heatmap", EDGE,
-     "PYTHONHASHSEED=0 {py} scripts/159_target_transform.py --part 1 && PYTHONHASHSEED=0 {py} "
+     "OMP_NUM_THREADS=1 PYTHONHASHSEED=0 {py} scripts/159_target_transform.py --part 1 && PYTHONHASHSEED=0 {py} "
      "scripts/159_target_transform.py --part heatmap",
      ["results/final/target_transform_control.csv", "results/final/target_transform_heatmap.csv"]),
     ("C37", "training-seed variation of the learned allocators (Task 30 part 2, post hoc; six seeds, about 20 minutes)",
-     EDGE, "PYTHONHASHSEED=0 {py} scripts/159_target_transform.py --part 2",
+     EDGE, "OMP_NUM_THREADS=1 PYTHONHASHSEED=0 {py} scripts/159_target_transform.py --part 2",
      ["results/final/seed_variation.csv"]),
 ]
 
