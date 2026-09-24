@@ -2,7 +2,7 @@
 
 > **Note.** IDM numbers in this document predate the IDM route fix and are superseded. In 58% of nuPlan states the pipeline gave IDM a route it could not start from. Corrected values and the before/after comparison are in `docs/iclr_idm_route_fix.md`. PDM-Closed, nuScenes and KITTI numbers are unaffected.
 
-*Branch `exp/phase0g-planner-conditionality`. Pre-registered 2026-09-12 (the pre-registration record (not part of this release)), with the
+*Pre-registered 2026-09-12, with the
 deviations listed in §8 recorded before the results they affect. Numbers from
 `results/final/phase0g_external_planner_{summary,transfer}.csv`, `phase0g_external_2x2.csv`.*
 

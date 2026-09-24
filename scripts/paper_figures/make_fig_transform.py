@@ -1,7 +1,8 @@
 """Write fig_transform.tex: nDG(label) - nDG(raw V) for the two R1 regression routers at a 20% budget, ten core cells.
 
 Input: results/final/target_transform_heatmap.csv of the release (Task 30, post hoc). A star marks a paired 95%
-interval that excludes zero. Usage: python make_fig_transform.py <release>/results/final/target_transform_heatmap.csv
+interval that excludes zero.
+Usage (from the repository root): python scripts/paper_figures/make_fig_transform.py results/final/target_transform_heatmap.csv
 """
 import sys
 

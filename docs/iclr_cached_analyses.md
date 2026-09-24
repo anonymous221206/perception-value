@@ -171,7 +171,3 @@ These three terms are an accounting of this protocol; they are not losses and no
   21.38 ms). In D this changes no feasibility verdict: under either measurement, gate_ridge is infeasible at 20 % on
   KITTI and nuScenes and feasible on nuPlan and at 50 %, and gate_gbm is infeasible throughout. In C the
   measured-overhead marker would move by the difference.
-- A first run of part C stopped at its equality check on a one-ulp overhead difference. The cause was my comparison
-  reading the shipped CSV through pandas' default (lossy) float parser. With a round-trip read, and after excluding the
-  transported nuPlan rows of the routers tables (the shipped nuPlan rows are the real-track tables), every row matched.
-  The check itself was not changed.

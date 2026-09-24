@@ -48,7 +48,7 @@ Two paths through the repository, with different requirements.
 | hardware | any CPU | the reference Jetson for latency, energy and TensorRT stages |
 | datasets | none | nuScenes, KITTI tracking, nuPlan mini |
 | Python | 3.8, `environment/requirements-cached.txt` | 3.8, `environment/requirements-edge.txt`, plus a separate nuPlan environment |
-| time | about three hours | several days |
+| time | about four hours | several days |
 
 Run the stages with a plain interpreter. Some internal invariants are `assert` statements, which `python -O`
 removes. The pre-registered gates raise explicitly and hold either way, but the rest of the safety net does not.
@@ -141,8 +141,7 @@ Reports that interpret these tables: `docs/iclr_budget_feasibility.md`, `iclr_ca
 `iclr_phase0g_external_planners.md`, `iclr_realism_controls.md`, `iclr_routers.md`, `iclr_skip_accounting.md`,
 `iclr_statistics.md`, `iclr_streaming_controllers.md`, `iclr_target_swap.md`, `iclr_submission_sync.md`,
 `iclr_cached_analyses.md`, `iclr_target_transform.md`. The rest of `docs/` is generated tables (`*_tables.md`,
-`gate_spec.md`). Documents whose numbers predate the ego-frame lift carry a "Pre-Task-23 run" note under their
-title (`scripts/157_doc_staleness.py`); `results/final/` is current.
+`gate_spec.md`).
 
 **Paper figures.** `scripts/paper_figures/` holds two scripts that draw figures from release artifacts (usage in its
 README): `render_gallery.py` renders the qualitative gallery from `results/final/fig_gallery/` (16 JPEGs), and
@@ -159,6 +158,35 @@ README): `render_gallery.py` renders the qualitative gallery from `results/final
 | detection-list router | `R1_*` |
 | pixel router | `R2_cnn_clf` |
 | gates | `gate_ridge`, `gate_gbm` |
+
+### Task numbers in the reports
+
+The reports and script headers refer to the development tasks by number, which is also how their pre-registrations
+are indexed. The pre-registration records themselves are not part of this release; each report says what was
+committed before which result.
+
+| task | what | report |
+|---|---|---|
+| 1 | per-mode operating points | `iclr_calibration.md` |
+| 2 | detection-list and pixel routers | `iclr_routers.md` |
+| 3, 5 | nuPlan with real perception: feasibility, then the run | `iclr_nuplan_real_perception.md` |
+| 6 | figure data export | — |
+| 7 | nuPlan allocation on real-perception decision values | `iclr_nuplan_real_allocation.md` |
+| 9 | target swap | `iclr_target_swap.md` |
+| 11 | causal streaming allocation, frozen threshold | `iclr_causal_threshold.md` |
+| 12 | statistics hardening | `iclr_statistics.md` |
+| 13 | consumer transfer (Part A), objective swap (Part D) | `iclr_consumer_transfer.md`, `iclr_objective_swap.md` |
+| 16 | skipping cost accounting | `iclr_skip_accounting.md` |
+| 19 | infeasible budgets (A), energy conventions (B), exact formulas (C) | `iclr_budget_feasibility.md`, `iclr_energy_conventions.md`, `iclr_formulas.md` |
+| 20 | streaming rate controllers | `iclr_streaming_controllers.md` |
+| 21 | realism controls | `iclr_realism_controls.md` |
+| 22 | class-error fix (A), causal ego speed (B), lift-offset sensitivity (C) | `iclr_class_error_fix.md`, `iclr_causal_ego_speed.md`, `iclr_lift_offset_sensitivity.md` |
+| 23 | the monocular lift in the ego frame | `iclr_ego_frame_convention.md` |
+| 24 | published routing objectives | `iclr_published_objectives.md` |
+| 25, 28 | the submission path, then on the tracks the paper reports | `iclr_submission_path.md`, `iclr_submission_sync.md` |
+| 26 | evidence pack and claims check | `iclr_evidence_pack.md` |
+| 29 | four analyses on cached scores | `iclr_cached_analyses.md` |
+| 30 | target transform and training-seed variation (post hoc) | `iclr_target_transform.md` |
 
 ## Full reproduction from raw data
 
@@ -207,9 +235,9 @@ new one and the checks that bound what moved.
 | the causal-threshold bootstrap was seeded from `hash()`, which Python salts per process | C14's per-row numbers varied between runs; the seed is now a stable digest | `docs/iclr_causal_threshold.md` |
 | the monocular lift reported camera-frame geometry, which every controller and planner read as ego-frame | every table built on the lift, all regenerated in the ego frame; two registered readings reverse and are restated; `--frame camera` selects the old convention | `docs/iclr_ego_frame_convention.md` |
 
-The per-task reports in `docs/iclr_*.md` were written before the ego-frame correction, and each says so at its top;
-their tables are superseded by the ego-frame files in `results/final/`, and `docs/iclr_ego_frame_convention.md`
-gives every registered quantity old beside new. The ego-frame range estimate carries a near-range bias of about
+Reports written before the ego-frame correction say so in a note under their title; their figures are superseded by
+the ego-frame files in `results/final/`, and `docs/iclr_ego_frame_convention.md` gives every registered quantity
+old beside new. The ego-frame range estimate carries a near-range bias of about
 +1.2 m (0–15 m), which the camera frame had cancelled; it is reported there, not corrected.
 
 ## Submitting an allocator of your own

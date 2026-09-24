@@ -1,7 +1,5 @@
 # Does a perception-centric evaluation objective pick a different allocator?
 
-> **Pre-Task-23 run.** The numbers in this document come from the run before the ego-frame convention (Task 23, 2026-09-22) and are kept as the record of that run. `results/final/` now holds the ego-frame run; where the two differ, `results/final/` is current (Task 28 audit, `scripts/157_doc_staleness.py`).
-
 > **Frame convention.** The figures quoted in this report were computed with the monocular lift in the camera frame, the convention before Task 23. Every table in `results/final/` is now computed in the ego frame; `docs/iclr_ego_frame_convention.md` and `results/final/ego_frame_convention.csv` give each registered quantity old beside new, and the camera-frame convention stays selectable with `--frame camera`.
 
 **What this is.** The benchmark ranks allocation signals by the decision value they realise at a budget. A
@@ -13,7 +11,7 @@ This is not Task 9. Task 9 asked which **training target** produces a better mod
 null; that null stands. Here nothing is retrained: the same cached scores are scored against a different ruler.
 
 **Provenance.**
-* Pre-registration: the pre-registration record (not part of this release), Task 13 Part D, committed before the
+* Pre-registration: Task 13 Part D, committed before the
   script ran.
 * Code: `scripts/127_objective_swap.py`. Output: `results/final/objective_swap.csv`.
 * No official result file was changed. CPU only, cached scores, 1,000 bootstrap draws.

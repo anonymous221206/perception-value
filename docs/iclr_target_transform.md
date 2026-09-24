@@ -3,7 +3,7 @@
 > **Post-hoc.** This analysis was decided after Task 24's test results were seen. Nothing in it was pre-registered,
 > and its intervals are not corrected for the number of comparisons. Read every result as exploratory.
 
-Script `scripts/159_target_transform.py`, CPU only, run sequentially on the board.
+Script `scripts/159_target_transform.py`, CPU only, run sequentially on the reference device.
 - **Part 1** (target transforms) took 433 s. Run `*_target_transform_part1`, outputs
   `results/final/target_transform_control.csv` and `target_transform_heatmap.csv`.
 - **Part 2** (seeds) took 1,225 s. Run `*_target_transform_part2`, output `results/final/seed_variation.csv`.
@@ -29,9 +29,8 @@ thread (`threadpoolctl`): their multithreaded fit varies in the last bits from r
 oracle brake across six fits), which the exact-equality checks catch; one thread is stable and reproduces the shipped
 scores. BLAS stays at its default for the MLPs: it is stable, and limiting it too moves the MLP scores (3.6e-8).
 
-**A definitional note.** The task describes the signed ECDF as "the MORIC+ construction 148 uses for G". But 148's
-`g_moric` is the plain right-continuous ECDF over all fit-unit values, not the signed form. The signed ECDF was
-implemented exactly as the task defines it; G is used in its shipped (plain-ECDF) form.
+**A definitional note.** The signed ECDF is not 148's G-MORIC: 148's `g_moric` is the plain right-continuous ECDF
+over all fit-unit values. The signed form is defined above; G is used in its shipped (plain-ECDF) form.
 
 **Pooled over the ten core cells.** Paired difference in nDG, mean over cells; the interval is from the draw-wise mean
 over cells, each cell on its own draws.
@@ -105,7 +104,7 @@ and cell.
 bit-identical to the seed-0 fit on all ten cells. In the installed scikit-learn (1.3.2), HistGradientBoosting uses its
 random state only for early stopping's validation split and scoring subsample (early stopping is off) and for the
 bin-threshold subsample (only above 200,000 samples; these fit sets have at most about 4,500). They were not refitted further; their spread is zero, and each
-of their cells is a win for all six seeds or for none. gate_ridge is deterministic and was skipped, as the task says.
+of their cells is a win for all six seeds or for none. gate_ridge (ridge regression) is deterministic and was not refitted.
 
 **The MLP routers vary.** nDG at 20 % over the six seeds (min / median / max), and the seeds whose paired interval
 against random lies above zero:

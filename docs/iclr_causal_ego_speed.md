@@ -1,10 +1,8 @@
 # A causal ego speed on nuScenes: the defect, the fix, and every figure it moves
 
-> **Pre-Task-23 run.** The numbers in this document come from the run before the ego-frame convention (Task 23, 2026-09-22) and are kept as the record of that run. `results/final/` now holds the ego-frame run; where the two differ, `results/final/` is current (Task 28 audit, `scripts/157_doc_staleness.py`).
-
 > **Frame convention.** The figures quoted in this report were computed in the camera frame, before Task 23. The shipped `results/final/causal_ego_speed.csv` re-expresses the same comparison (centred against causal ego speed) on the ego-frame tables. See `docs/iclr_ego_frame_convention.md`.
 
-Pre-registration: the pre-registration record (not part of this release), 2026-09-20 11:05 (Task 22 Part B), committed before the code was written,
+Pre-registration: 2026-09-20 11:05 (Task 22 Part B), committed before the code was written,
 with one amendment at 11:10 (the length of the window) and one at 11:20 (a second stale Phase 0E artefact), both
 logged before any figure was read. Every number below is a row of `results/final/causal_ego_speed.csv`.
 
@@ -138,7 +136,7 @@ fourth, `statistical_tests.csv`, did not — but **not in the ego-speed rows**: 
 and all 16 `criticality` rows reproduce exactly, while 14 of 16 `perception oracle` rows differ, on KITTI as much as
 on nuScenes. That policy reads `dE`, which this part does not touch. The file is a Phase 0E artefact last written by
 an older `53_finalize.py` run and has drifted from the current tables — the same thing found in
-`headline_table.csv` earlier the same day. Neither file is part of this release: no stage reads them.
+`headline_table.csv`. Neither file is part of this release: no stage reads them.
 
 It is therefore left untouched: regenerating it would silently move 14 KITTI rows this part does not own, and its
 `holm_p` column is a Holm adjustment over every row jointly, so even a partial splice would move the rest. The two

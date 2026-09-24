@@ -1,7 +1,5 @@
 # Causal streaming allocation with a calibrated threshold
 
-> **Pre-Task-23 run.** The numbers in this document come from the run before the ego-frame convention (Task 23, 2026-09-22) and are kept as the record of that run. `results/final/` now holds the ego-frame run; where the two differ, `results/final/` is current (Task 28 audit, `scripts/157_doc_staleness.py`).
-
 > **Frame convention.** The figures quoted in this report were computed with the monocular lift in the camera frame, the convention before Task 23. Every table in `results/final/` is now computed in the ego frame; `docs/iclr_ego_frame_convention.md` and `results/final/ego_frame_convention.csv` give each registered quantity old beside new, and the camera-frame convention stays selectable with `--frame camera`.
 
 **What this is.** The benchmark scores an allocator as a ranking that fills the budget over the whole test split.
@@ -9,7 +7,7 @@ This measures the same cached scores applied causally: one threshold, frozen bef
 timestamp order, with and without a running budget cap.
 
 **Provenance.**
-* Pre-registration: the pre-registration record (not part of this release), Task 11, committed before the script ran (commit `780efbe`).
+* Pre-registration: Task 11, committed before the script ran.
 * Code: `scripts/124_causal_threshold.py`. Output: `results/final/causal_threshold.csv`.
 * No official result file was changed. CPU only, cached scores.
 

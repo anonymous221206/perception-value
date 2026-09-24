@@ -1,8 +1,7 @@
 # The published routing objectives, on the routers this benchmark already has
 
 Task 24. Phase A (definitions, code, mapping) is below and was committed with the pre-registration
-(the pre-registration record (not part of this release), "Task 24 pre-registration") before any label was computed. The author asked for the work to
-continue without a review stop after Phase A; the pre-registration was still committed first. Phases B–E follow.
+("Task 24 pre-registration") before any label was computed. Phases B–E follow.
 
 ## Phase A — the two objectives, from the papers and from the official code
 
@@ -150,7 +149,7 @@ the frame-order rule, every one of them with a cross-frame confidence tie; none 
 unaffected, and the largest change is 0.008 in ΔAP × N units. The labels are the official code's output, unchanged.
 What the check found is a property of the published definition: **ΔAP depends on how equal confidences are ordered**,
 which neither the paper nor the code documents. The stop rule of the chain was narrowed to exclude only that row; the
-row itself is kept and reported (the pre-registration record (not part of this release), "Task 24 Phase B").
+row itself is kept and reported (recorded as "Task 24 Phase B").
 
 "The mean of per-image AP reproduces the dataset mAP" (the task's aggregate check) is not an identity for either
 objective, as registered: both are context rewards. It is replaced by the base-AP and swap checks above (G) and the

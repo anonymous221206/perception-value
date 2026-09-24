@@ -27,7 +27,7 @@ only files under `results/final/` that changed are the submission exports (G2).
 | `evaluate_submission.py` | per-track default plan; prints the registry version and "undefined (too few affected test states)" |
 | examples | `confidence_cost_profile.json` re-profiled with the harness on the module rails on the reference board (it had been measured on the CPU rail only, which the scorer now refuses); both scored outputs regenerated |
 | docs | `docs/SUBMITTING.md` (nuPlan track, inputs, plans, undefined rule, registry); `docs/iclr_submission_path.md` (a note on what Task 28 replaced); `scripts/152_evidence_pack.py`'s submission paragraph |
-| `reproduce.py` (release) | new stage C30b (the registry); C31-C33 unchanged in form |
+| `reproduce.py` | new stage C30b (the registry); C31-C33 unchanged in form |
 | `scripts/147_ego_frame_convention.py` | the Task 23 inventory leaves out `cost_registry.json`, a later task's file (G2) |
 
 ## The cost registry, version 2026-09-23.1
@@ -108,8 +108,11 @@ measurement charges it), ego speed, R1 x 4, R2 on KITTI and nuScenes. The rows a
 
 ## G2: no official output changes
 
-`reproduce.py --tier cached --verify` on a fresh clone of the release with this task's changes committed (a local
-scratch clone; nothing was pushed): **passes.** All 35 cached stages ran (17:00-19:51, 2 h 51 min) and every compared output reproduced except one: C28's Task 23 inventory (`ego_frame_convention.csv`, `ego_frame_convention_reading.json`) listed the new `cost_registry.json` as a file "only in NEW" (171 rows against 170). That inventory is about the tables Task 23 regenerated; files of later tasks are left out of it (`AFTER_TASK_23` in `scripts/147_ego_frame_convention.py`, as Task 26 did for its own files), and the registry was added to that list. C28 then reproduced all three of its outputs on a second fresh clone. `benchmark_table_routers.csv` and `paper_evidence_pack.csv` are rewritten by their stages with the same lines in another order (107's rescore appends the rows it keeps); verify treats row order as not part of a result, and sorted line by line they are byte-identical to the shipped files. No other file under `results/final/` changed.
+`reproduce.py --tier cached --verify` on a fresh clone passes: every compared output reproduces. Two stages
+rewrite a shipped table with the same rows in another order (`benchmark_table_routers.csv`,
+`paper_evidence_pack.csv`), which the verify does not count as a change. Stage C28's inventory of the ego-frame
+change leaves later files out by name (`AFTER_TASK_23` in `scripts/147_ego_frame_convention.py`), now including
+the cost registry.
 
 The files that changed, all submission exports:
 
@@ -125,7 +128,7 @@ The files that changed, all submission exports:
 | `results/final/cost_registry.json` | (new) | `2c9a0224c2b4034c650a24efeb8c1fe5162ad86ca65cb28c776a1bcd988d6ea5` |
 | `results/final/submission_path_g1.csv` | `54aea05d6e5a029f2797543677e7902e63c178d1bf30d1ca07662e3266402691` | `f693cf93890a787e5b3467f1f38c833491a4fb6194b1f2b8abb65c4bfe61736e` |
 
-## G3: the review's check
+## G3: the nuPlan check
 
 ```
 $ ./scripts/py evaluate_submission.py examples/submissions/random.csv --cells 'nuPlan|n/a|pdm_closed|safety' 'nuPlan|n/a|idm|safety' --out <tmp> --nboot 1000
@@ -140,36 +143,16 @@ nDG@20 = 0.128 for PDM-Closed safety, as `benchmark_table_nuplan_real.csv`; IDM 
 
 ## Stale documents
 
-`scripts/157_doc_staleness.py` (run `20260923_161409_doc_staleness`) looks up every decimal a tracked document quotes
-in the `results/final/` files it names, as they were at the document's own commit and as they are now. A number found
-then and nowhere now has moved. It cannot match integer counts, and a document naming no file is checked against all
-of `results/final/`, which proves little; those were read and decided by what they report.
+`scripts/157_doc_staleness.py` looks up every decimal a document quotes in the `results/final/` files it names, as
+they were at the document's own commit and as they are now; a number found then and nowhere now has moved. It
+cannot match integer counts, and a document that names no file is checked against all of `results/final/`, which
+proves little, so its findings were read one by one.
 
-**Marked "Pre-Task-23 run"** (a note under the title; the numbers are kept as the record of that run, and
-`results/final/` is current). Moved numbers found: `iclr_benchmark` (3), `iclr_causal_threshold` (2),
-`iclr_consumer_transfer` (4; e.g. the 20 % counts the review cites), `iclr_corrected_results` (3),
-`iclr_idm_route_fix` (1), `iclr_lift_offset_sensitivity` (13), `iclr_objective_swap` (3), `iclr_realism_controls` (16),
-`iclr_router_implementation` (6), `iclr_routers` (3), `iclr_skip_accounting` (27), `iclr_statistics` (2),
-`iclr_streaming_controllers` (1), `iclr_target_swap` (1). Their named source tables regenerated in Task 23, no moved
-decimal found: `iclr_budget_feasibility`, `iclr_causal_ego_speed`, `iclr_class_error_fix`, `iclr_energy_conventions`,
-`iclr_calibration`. Pre-Task-23 reports whose sources were regenerated: `cvpr_phase0_findings`,
-`cvpr_phase0c_decision_value_findings`, `cvpr_phase0d_problem_validation`, `full_project_report`,
-`phase0e_final_experimental_validation`, `iclr_phase0f_planning_metric_stress_test`, `iclr_phase0g_planner_d`,
-`iclr_phase0g_final_verdict`.
-
-**Marked otherwise:** `iclr_formulas` (its monocular lift is the camera-frame lift before Task 23; the ego-frame lift
-is in `iclr_ego_frame_convention.md`); `iclr_nuplan_real_allocation` (its nuPlan numbers are current; the KITTI and
-nuScenes comparison numbers are pre-Task-23).
-
-**Current, not marked:** the nuPlan-only documents, whose sources did not change in Task 23
-(`iclr_nuplan_real_perception`, `nuplan_real_perception_tables`, `nuplan_real_perception_feasibility`,
-`nuplan_archive_index`, `iclr_phase0g_external_planners`); everything written after Task 23 (`benchmark_tables`,
-`routers_tables`, `calibration_tables`, `iclr_ego_frame_convention`, `iclr_published_objectives`,
-`iclr_evidence_pack`, `gate_spec`, `SUBMITTING`, `iclr_submission_path`); documents without results
-(`environment`, `paper_rewrite_agent_prompt`). Untracked review notes (`paper_review_*`, `paper_revision_strategy_*`)
-were not audited. Nothing under `results/final/` was edited to match a document.
-
-In this release: the audit ran on the development repository, and 18 of the documents it marks ship here, each with its note. The other eleven named above (the Phase 0 reports, `full_project_report`, `iclr_benchmark`, `iclr_corrected_results`, `iclr_router_implementation`, `iclr_phase0g_final_verdict`, `iclr_phase0g_planner_d`, `iclr_phase0f_planning_metric_stress_test`) and the untracked review notes are not part of this release.
+In this release every report whose figures predate the ego-frame lift already says so in a note under its title,
+and `docs/iclr_ego_frame_convention.md` gives each registered quantity old beside new. The two findings without
+such a note are false matches: the 2.44 m in `iclr_idm_route_fix.md` is IDM's own pre-fix log deviation, and
+`iclr_nuplan_real_allocation.md` quotes only the old KITTI detector cost profile, which the lift does not touch.
+Nothing under `results/final/` was edited to match a document.
 
 ## Protocol gaps found
 

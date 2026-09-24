@@ -1,7 +1,5 @@
 # Consumer transfer: how much of an allocator's value survives a change of consumer
 
-> **Pre-Task-23 run.** The numbers in this document come from the run before the ego-frame convention (Task 23, 2026-09-22) and are kept as the record of that run. `results/final/` now holds the ego-frame run; where the two differ, `results/final/` is current (Task 28 audit, `scripts/157_doc_staleness.py`).
-
 > **Frame convention.** The figures quoted in this report were computed with the monocular lift in the camera frame, the convention before Task 23. Every table in `results/final/` is now computed in the ego frame; `docs/iclr_ego_frame_convention.md` and `results/final/ego_frame_convention.csv` give each registered quantity old beside new, and the camera-frame convention stays selectable with `--frame camera`.
 
 **What this is.** Entry (A, B) is the allocator trained for consumer A, evaluated against consumer B's decision
@@ -9,7 +7,7 @@ value on B's frozen test split, with the benchmark's exact tie expectation. The 
 result.
 
 **Provenance.**
-* Pre-registration: the pre-registration record (not part of this release), Task 13 Part A, committed before
+* Pre-registration: Task 13 Part A, committed before
   the script ran.
 * Code: `scripts/126_consumer_transfer.py`. Output: `results/final/consumer_transfer.csv` (845 rows).
 * No official result file was changed. CPU only, cached scores.

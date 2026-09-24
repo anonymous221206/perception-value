@@ -1,7 +1,5 @@
 # Exact formulas: monocular lifting, reference geometry, controllers, perception gains, ego speed
 
-> **Pre-Task-23 formulas.** The monocular lift below is the camera-frame lift used before Task 23 (2026-09-22); the ego-frame lift that `results/final/` now uses is in `docs/iclr_ego_frame_convention.md`. Line numbers refer to the code as it was then (Task 28 audit).
-
 Task 19 Part C, updated for the ego-frame lift (Task 23). Documentation only. Every statement cites the code that
 implements it, by line number in this release. Constants carry their value and unit. Equations are LaTeX.
 

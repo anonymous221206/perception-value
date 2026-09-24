@@ -1,7 +1,5 @@
 # The pixel router under skipping cost accounting
 
-> **Pre-Task-23 run.** The numbers in this document come from the run before the ego-frame convention (Task 23, 2026-09-22) and are kept as the record of that run. `results/final/` now holds the ego-frame run; where the two differ, `results/final/` is current (Task 28 audit, `scripts/157_doc_staleness.py`).
-
 > **Frame convention.** The figures quoted in this report were computed with the monocular lift in the camera frame, the convention before Task 23. Every table in `results/final/` is now computed in the ego frame; `docs/iclr_ego_frame_convention.md` and `results/final/ego_frame_convention.csv` give each registered quantity old beside new, and the camera-frame convention stays selectable with `--frame camera`.
 
 **What this is.** The benchmark charges allocators as a cascade: every input pays the allocator and CHEAP, and an
@@ -10,7 +8,7 @@ runs FULL *instead of* CHEAP. This adds that accounting as a second variant for 
 shipped cascade. It does not replace the cascade.
 
 **Provenance.**
-* Pre-registration: the pre-registration record (not part of this release), Task 16 Part A, committed before the
+* Pre-registration: Task 16 Part A, committed before the
   script was written or run. One recorded deviation, below.
 * Code: `scripts/128_skip_accounting.py`. Output: `results/final/skip_accounting.csv`.
 * Nothing retrained; R2's cached scores are used as they are. No official result file changed. CPU only, 1,000

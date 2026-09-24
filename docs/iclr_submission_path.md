@@ -55,8 +55,7 @@ number changes at any printed precision. G1 then passed with no tolerance.
 
 ## G2: no official output changes
 
-`reproduce.py --tier cached --verify` on a fresh clone, with the new stages added; recorded with the run in
-the pre-registration record (not part of this release). The only official file that changed at all is `benchmark_table_routers.csv`, in the last bits of its
+`reproduce.py --tier cached --verify` on a fresh clone, with the new stages added. The only official file that changed at all is `benchmark_table_routers.csv`, in the last bits of its
 24 nuScenes R2 rows (G1 above) -- inside the verifier's tolerance and below any reported precision.
 
 ## The cost-profile policy, as implemented

@@ -1,7 +1,5 @@
 # Target swap: the same allocators trained on perception gain instead of decision value
 
-> **Pre-Task-23 run.** The numbers in this document come from the run before the ego-frame convention (Task 23, 2026-09-22) and are kept as the record of that run. `results/final/` now holds the ego-frame run; where the two differ, `results/final/` is current (Task 28 audit, `scripts/157_doc_staleness.py`).
-
 > **Frame convention.** The figures quoted in this report were computed with the monocular lift in the camera frame, the convention before Task 23. Every table in `results/final/` is now computed in the ego frame; `docs/iclr_ego_frame_convention.md` and `results/final/ego_frame_convention.csv` give each registered quantity old beside new, and the camera-frame convention stays selectable with `--frame camera`.
 
 **Question.** Does the allocation advantage come from the decision-value objective, or from the architecture?
@@ -12,7 +10,7 @@
   training units.
 
 **Provenance.**
-* Pre-registration: the pre-registration record (not part of this release), Task 9 (commit `33f96a4`), committed before any G-target model was trained.
+* Pre-registration: Task 9, committed before any G-target model was trained.
 * Code: `scripts/122_target_swap.py`; the audit in section 9 is `scripts/129_target_swap_audit.py`.
 * Outputs: `results/final/benchmark_target_swap.csv` (1,106 rows) and `benchmark_target_swap_summary.json`.
 * No official result file was changed.

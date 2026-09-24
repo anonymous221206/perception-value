@@ -15,7 +15,7 @@ python evaluate_submission.py my_allocator.csv [--cost_profile my_profile.json]
 
 Each **cell** is a pair of perception modes, CHEAP and FULL, feeding one downstream decision system, with one decision
 loss (the columns `track, geometry, system, target`; 14 cells: KITTI 4, nuScenes 6, nuPlan 4). The nuPlan cells are
-the real-perception track: decision values from Task 5's real CHEAP and FULL detector outcomes
+the real-perception track: decision values from real CHEAP and FULL detector outcomes on nuPlan
 (`scripts/120_nuplan_real_allocation.py`), not the older transported miss-model track that `benchmark_table.csv`
 still carries for nuPlan. For every input, the decision value `V = J(CHEAP) - J(FULL)` is how much loss escalating that input to FULL
 saves. An allocator scores every input **before** escalation; the benchmark escalates the top-scored inputs up to a

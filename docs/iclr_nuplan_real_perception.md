@@ -7,7 +7,7 @@ profile with real YOLOv8s 320 / 640 detections on nuPlan CAM_F0 images, for PDM-
 states (60 scenarios, 34 logs) as Track B and the benchmark.
 
 **Provenance:**
-* Pre-registration: the pre-registration record (not part of this release), 2026-09-14 14:44.
+* Pre-registration: 2026-09-14 14:44.
 * One amendment before any branch was built or scored: the ground plane of the false-positive lift.
 
 **Files:**
