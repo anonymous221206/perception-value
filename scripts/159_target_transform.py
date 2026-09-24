@@ -25,6 +25,7 @@ import pandas as pd
 from sklearn.neural_network import MLPClassifier, MLPRegressor
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
+from threadpoolctl import threadpool_limits
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
@@ -68,6 +69,18 @@ def secdf_v(v):
     if len(neg):
         out[v < 0] = np.searchsorted(neg, v[v < 0], side="right") / len(neg) - 1.0
     return out
+
+
+def fit_predict(m, X, y, fit, task, gbm):
+    """Fit on the fit rows and score every row. The gradient-boosted models run with OpenMP on one thread: their
+    multithreaded fit varies in the last bits from run to run (up to 2e-15), one thread does not, and it reproduces the
+    shipped scores. BLAS (the MLPs) stays at its default, which is stable and is what the shipped MLPs used."""
+    if gbm:
+        with threadpool_limits(limits=1, user_api="openmp"):
+            m.fit(X[fit], y[fit])
+            return m.predict(X) if task == "reg" else m.predict_proba(X)[:, 1]
+    m.fit(X[fit], y[fit])
+    return m.predict(X) if task == "reg" else m.predict_proba(X)[:, 1]
 
 
 def mlp(task, seed):
@@ -153,7 +166,9 @@ def part1(run):
         for a in REG:
             make = t103.models()[a][1]
             for lbl, y in targets.items():
-                s = make().fit(X[fit], y).predict(X)
+                yy = np.full(len(v), np.nan)
+                yy[fit] = y
+                s = fit_predict(make(), X, yy, fit, "reg", a.startswith("R1_gbm"))
                 if lbl in ("V", "Q", "G"):
                     ref = zv[a] if lbl == "V" else zp[f"{a}__{lbl}"]
                     diff = float(np.max(np.abs(s - ref)))
@@ -238,8 +253,7 @@ def part2(run):
                     per[seed] = np.zeros(len(v))
                     continue
                 m = mlp(task, seed) if a.startswith("R1_mlp") else predict.make_model("gbm", task, seed)
-                m.fit(Xa[fit], y[fit])
-                per[seed] = m.predict(Xa) if task == "reg" else m.predict_proba(Xa)[:, 1]
+                per[seed] = fit_predict(m, Xa, y, fit, task, not a.startswith("R1_mlp"))
                 if seed == 0:
                     ref = shipped_gate if a == "gate_gbm" else np.asarray(zv[a], float)
                     diff = float(np.max(np.abs(per[0] - ref)))
