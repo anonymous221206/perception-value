@@ -1,0 +1,237 @@
+{
+ "all_pass": true,
+ "build_seconds": 810.1171493530273,
+ "checks": {
+  "brake nuScenes oracle Y8 320->640 q_brake S0": {
+   "rows": true,
+   "max_diff_cheap": 0.0,
+   "max_diff_full": 0.0,
+   "pass": true
+  },
+  "brake nuScenes oracle Y8 320->640 q_brake S1": {
+   "rows": true,
+   "max_diff_cheap": 0.0,
+   "max_diff_full": 0.0,
+   "pass": true
+  },
+  "brake nuScenes oracle Y8 320->640 q_brake S2": {
+   "rows": true,
+   "max_diff_cheap": 0.0,
+   "max_diff_full": 0.0,
+   "pass": true
+  },
+  "brake nuScenes oracle Y8 320->640 q_brake S3": {
+   "rows": true,
+   "max_diff_cheap": 0.0,
+   "max_diff_full": 0.0,
+   "pass": true
+  },
+  "brake nuScenes mono Y8 320->640 q_brake S0": {
+   "rows": true,
+   "max_diff_cheap": 0.0,
+   "max_diff_full": 0.0,
+   "pass": true
+  },
+  "brake nuScenes mono Y8 320->640 q_brake S1": {
+   "rows": true,
+   "max_diff_cheap": 0.0,
+   "max_diff_full": 0.0,
+   "pass": true
+  },
+  "brake nuScenes mono Y8 320->640 q_brake S2": {
+   "rows": true,
+   "max_diff_cheap": 0.0,
+   "max_diff_full": 0.0,
+   "pass": true
+  },
+  "brake nuScenes mono Y8 320->640 q_brake S3": {
+   "rows": true,
+   "max_diff_cheap": 0.0,
+   "max_diff_full": 0.0,
+   "pass": true
+  },
+  "brake KITTI mono Y8 320->640 q_brake S0": {
+   "rows": true,
+   "max_diff_cheap": 0.0,
+   "max_diff_full": 0.0,
+   "pass": true
+  },
+  "brake KITTI mono Y8 320->640 q_brake S1": {
+   "rows": true,
+   "max_diff_cheap": 0.0,
+   "max_diff_full": 0.0,
+   "pass": true
+  },
+  "brake KITTI mono Y8 320->640 q_brake S2": {
+   "rows": true,
+   "max_diff_cheap": 0.0,
+   "max_diff_full": 0.0,
+   "pass": true
+  },
+  "brake KITTI mono Y8 320->640 q_brake S3": {
+   "rows": true,
+   "max_diff_cheap": 0.0,
+   "max_diff_full": 0.0,
+   "pass": true
+  },
+  "brake KITTI mono Y8 384->640 q_brake S0": {
+   "rows": true,
+   "max_diff_cheap": 0.0,
+   "max_diff_full": 0.0,
+   "pass": true
+  },
+  "brake KITTI mono Y8 384->640 q_brake S1": {
+   "rows": true,
+   "max_diff_cheap": 0.0,
+   "max_diff_full": 0.0,
+   "pass": true
+  },
+  "brake KITTI mono Y8 384->640 q_brake S2": {
+   "rows": true,
+   "max_diff_cheap": 0.0,
+   "max_diff_full": 0.0,
+   "pass": true
+  },
+  "brake KITTI mono Y8 384->640 q_brake S3": {
+   "rows": true,
+   "max_diff_cheap": 0.0,
+   "max_diff_full": 0.0,
+   "pass": true
+  },
+  "brake KITTI mono Y8 512->640 q_brake S0": {
+   "rows": true,
+   "max_diff_cheap": 0.0,
+   "max_diff_full": 0.0,
+   "pass": true
+  },
+  "brake KITTI mono Y8 512->640 q_brake S1": {
+   "rows": true,
+   "max_diff_cheap": 0.0,
+   "max_diff_full": 0.0,
+   "pass": true
+  },
+  "brake KITTI mono Y8 512->640 q_brake S2": {
+   "rows": true,
+   "max_diff_cheap": 0.0,
+   "max_diff_full": 0.0,
+   "pass": true
+  },
+  "brake KITTI mono Y8 512->640 q_brake S3": {
+   "rows": true,
+   "max_diff_cheap": 0.0,
+   "max_diff_full": 0.0,
+   "pass": true
+  },
+  "brake KITTI mono RT-DETR 480->640 q_brake S0": {
+   "rows": true,
+   "max_diff_cheap": 0.0,
+   "max_diff_full": 0.0,
+   "pass": true
+  },
+  "brake KITTI mono RT-DETR 480->640 q_brake S1": {
+   "rows": true,
+   "max_diff_cheap": 0.0,
+   "max_diff_full": 0.0,
+   "pass": true
+  },
+  "brake KITTI mono RT-DETR 480->640 q_brake S2": {
+   "rows": true,
+   "max_diff_cheap": 0.0,
+   "max_diff_full": 0.0,
+   "pass": true
+  },
+  "brake KITTI mono RT-DETR 480->640 q_brake S3": {
+   "rows": true,
+   "max_diff_cheap": 0.0,
+   "max_diff_full": 0.0,
+   "pass": true
+  },
+  "brake KITTI oracle Y8 320->640 q_brake S0": {
+   "rows": true,
+   "max_diff_cheap": 0.0,
+   "max_diff_full": 0.0,
+   "pass": true
+  },
+  "brake KITTI oracle Y8 320->640 q_brake S1": {
+   "rows": true,
+   "max_diff_cheap": 0.0,
+   "max_diff_full": 0.0,
+   "pass": true
+  },
+  "brake KITTI oracle Y8 320->640 q_brake S2": {
+   "rows": true,
+   "max_diff_cheap": 0.0,
+   "max_diff_full": 0.0,
+   "pass": true
+  },
+  "brake KITTI oracle Y8 320->640 q_brake S3": {
+   "rows": true,
+   "max_diff_cheap": 0.0,
+   "max_diff_full": 0.0,
+   "pass": true
+  },
+  "brake kitti_rt_480_mono (0.25, 0.25) self": {
+   "max_diff_full": 0.0,
+   "pass": true
+  },
+  "brake kitti_y8_320_mono (0.25, 0.25) self": {
+   "max_diff_full": 0.0,
+   "pass": true
+  },
+  "brake kitti_y8_320_oracle (0.25, 0.25) self": {
+   "max_diff_full": 0.0,
+   "pass": true
+  },
+  "brake kitti_y8_384_mono (0.25, 0.25) self": {
+   "max_diff_full": 0.0,
+   "pass": true
+  },
+  "brake kitti_y8_512_mono (0.25, 0.25) self": {
+   "max_diff_full": 0.0,
+   "pass": true
+  },
+  "brake nusc_mono (0.25, 0.25) self": {
+   "max_diff_full": 0.0,
+   "pass": true
+  },
+  "brake nusc_oracle (0.25, 0.25) self": {
+   "max_diff_full": 0.0,
+   "pass": true
+  },
+  "traj kitti_rt_480_mono S0 vs 20260925_084549_planner_b_ego": {
+   "n": 8008,
+   "n_phase0": 8008,
+   "max_diff_cheap": 0.0,
+   "max_diff_full": 0.0,
+   "pass": true
+  },
+  "traj kitti_y8_320_mono S0 vs 20260925_084549_planner_b_ego": {
+   "n": 8008,
+   "n_phase0": 8008,
+   "max_diff_cheap": 0.0,
+   "max_diff_full": 0.0,
+   "pass": true
+  },
+  "traj kitti_y8_320_oracle S0 vs 20260925_084549_planner_b_ego": {
+   "n": 8008,
+   "n_phase0": 8008,
+   "max_diff_cheap": 0.0,
+   "max_diff_full": 0.0,
+   "pass": true
+  },
+  "traj kitti_y8_384_mono S0 vs 20260925_084549_planner_b_ego": {
+   "n": 8008,
+   "n_phase0": 8008,
+   "max_diff_cheap": 0.0,
+   "max_diff_full": 0.0,
+   "pass": true
+  },
+  "traj kitti_y8_512_mono S0 vs 20260925_084549_planner_b_ego": {
+   "n": 8008,
+   "n_phase0": 8008,
+   "max_diff_cheap": 0.0,
+   "max_diff_full": 0.0,
+   "pass": true
+  }
+ }
+}

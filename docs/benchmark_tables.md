@@ -6,16 +6,16 @@ Sources: `results/final/benchmark_*.csv`. Bold = deployable signal whose paired 
 
 | cell | units | frames | affected | harmed of affected | D | all-FULL | oracle@20 |
 |---|---|---|---|---|---|---|---|
-| nuScenes oracle · brake | 24 | 955 | 4.8% | 32.6% | 0.26 | -14.43% | -19.58% |
+| nuScenes oracle · brake | 24 | 955 | 2.6% | 32.0% | 0.26 | -14.22% | -19.19% |
 | nuScenes oracle · plan_ade | 24 | 752 | 40.2% | 51.7% | 1.03 | +0.08% | -2.87% |
 | nuScenes oracle · plan_fde | 24 | 752 | 16.6% | 44.8% | 0.70 | -1.40% | -4.73% |
-| nuScenes mono · brake | 24 | 955 | 10.8% | 41.7% | 0.35 | -16.66% | -25.61% |
+| nuScenes mono · brake | 24 | 955 | 6.0% | 38.6% | 0.34 | -16.49% | -24.94% |
 | nuScenes mono · plan_ade | 24 | 752 | 60.2% | 49.7% | 0.55 | -2.64% | -5.71% |
 | nuScenes mono · plan_fde | 24 | 752 | 24.1% | 47.0% | 0.60 | -3.04% | -7.61% |
-| KITTI oracle · brake | 6 | 3536 | 23.4% | 42.2% | 0.31 | -27.10% | -39.02% |
-| KITTI oracle · traj | 6 | 3536 | 4.1% | 9.6% | 0.00 | -52.01% | -52.14% |
-| KITTI mono · brake | 6 | 3536 | 40.5% | 47.0% | 0.60 | -11.22% | -28.21% |
-| KITTI mono · traj | 6 | 3536 | 7.8% | 48.0% | 1.43 | +2.29% | -5.37% |
+| KITTI oracle · brake | 6 | 3536 | 16.5% | 35.4% | 0.30 | -26.87% | -38.63% |
+| KITTI oracle · traj | 6 | 3536 | 2.8% | 8.0% | 0.00 | -51.93% | -52.06% |
+| KITTI mono · brake | 6 | 3536 | 27.6% | 44.7% | 0.60 | -11.09% | -27.94% |
+| KITTI mono · traj | 6 | 3536 | 4.9% | 57.8% | 1.46 | +2.41% | -5.28% |
 | nuPlan · pdm_closed · safety | 9 | 384 | 2.9% | 0.0% | 0.00 | -30.97% | -30.97% |
 | nuPlan · pdm_closed · scalar_J | 9 | 384 | 10.9% | 28.6% | 0.00 | -26.80% | -26.93% |
 | nuPlan · idm · safety | 9 | 384 | 3.6% | 7.1% | 0.00 | -21.66% | -21.68% |
@@ -25,16 +25,16 @@ Sources: `results/final/benchmark_*.csv`. Bold = deployable signal whose paired 
 
 | cell | units | frames | affected | harmed of affected | D | all-FULL | oracle@20 |
 |---|---|---|---|---|---|---|---|
-| nuScenes oracle · brake | 85 | 3376 | 7.1% | 40.4% | 0.42 | -14.21% | -24.56% |
+| nuScenes oracle · brake | 85 | 3376 | 4.2% | 35.5% | 0.42 | -14.01% | -24.07% |
 | nuScenes oracle · plan_ade | 85 | 2655 | 44.4% | 50.9% | 0.70 | -1.31% | -4.41% |
 | nuScenes oracle · plan_fde | 85 | 2655 | 18.0% | 45.8% | 0.72 | -1.56% | -5.50% |
-| nuScenes mono · brake | 85 | 3376 | 13.4% | 42.3% | 0.41 | -16.65% | -28.32% |
+| nuScenes mono · brake | 85 | 3376 | 8.1% | 39.6% | 0.41 | -16.47% | -27.77% |
 | nuScenes mono · plan_ade | 85 | 2655 | 60.7% | 49.3% | 0.71 | -1.59% | -5.31% |
 | nuScenes mono · plan_fde | 85 | 2655 | 24.7% | 50.2% | 0.83 | -1.14% | -6.90% |
-| KITTI oracle · brake | 21 | 8008 | 21.9% | 30.9% | 0.08 | -68.20% | -74.19% |
-| KITTI oracle · traj | 21 | 8008 | 8.0% | 4.2% | 0.00 | -68.99% | -69.25% |
-| KITTI mono · brake | 21 | 8008 | 36.6% | 37.5% | 0.17 | -51.96% | -62.43% |
-| KITTI mono · traj | 21 | 8008 | 12.0% | 41.9% | 0.28 | -13.07% | -18.04% |
+| KITTI oracle · brake | 21 | 8008 | 16.2% | 24.6% | 0.08 | -67.86% | -73.78% |
+| KITTI oracle · traj | 21 | 8008 | 5.8% | 3.0% | 0.00 | -68.34% | -68.58% |
+| KITTI mono · brake | 21 | 8008 | 25.9% | 34.2% | 0.17 | -51.68% | -62.11% |
+| KITTI mono · traj | 21 | 8008 | 8.5% | 48.4% | 0.28 | -12.78% | -17.81% |
 | nuPlan · pdm_closed · safety | 34 | 1440 | 4.9% | 37.1% | 0.30 | -14.71% | -21.12% |
 | nuPlan · pdm_closed · scalar_J | 34 | 1440 | 12.2% | 30.3% | 0.30 | -12.58% | -17.90% |
 | nuPlan · idm · safety | 34 | 1440 | 3.3% | 27.7% | 0.22 | -16.82% | -21.58% |
@@ -44,16 +44,16 @@ Sources: `results/final/benchmark_*.csv`. Bold = deployable signal whose paired 
 
 | cell | random | unc. | crit. cheap | gate ridge | gate GBM | crit. GT | ΔE exact | ΔE E6 | PKL | TIP |
 |---|---|---|---|---|---|---|---|---|---|---|
-| nuScenes oracle · brake | +0.074 | +0.047 | +0.302 | +0.166 | +0.090 | +0.193 | +0.115 | +0.658 | +0.428 | +0.402 |
+| nuScenes oracle · brake | +0.074 | +0.049 | +0.308 | +0.078 | +0.091 | +0.195 | +0.118 | +0.671 | +0.432 | +0.405 |
 | nuScenes oracle · plan_ade | -0.003 | -0.088 | -0.199 | -0.009 | -0.189 | -0.383 | +0.035 | -0.229 | -0.136 | -0.241 |
 | nuScenes oracle · plan_fde | +0.030 | -0.022 | -0.078 | +0.035 | -0.013 | -0.265 | +0.011 | -0.138 | -0.083 | -0.161 |
-| nuScenes mono · brake | +0.065 | +0.035 | +0.186 | +0.254 | +0.247 | +0.092 | +0.073 | +0.265 | -0.006 | -0.035 |
+| nuScenes mono · brake | +0.066 | +0.038 | +0.190 | +0.250 | +0.247 | +0.092 | +0.076 | +0.269 | -0.006 | -0.034 |
 | nuScenes mono · plan_ade | +0.051 | +0.008 | -0.023 | -0.008 | +0.030 | -0.093 | +0.308 | +0.325 | +0.140 | +0.117 |
 | nuScenes mono · plan_fde | +0.042 | -0.047 | -0.011 | -0.024 | +0.052 | -0.094 | +0.188 | +0.180 | +0.138 | +0.085 |
-| KITTI oracle · brake | +0.070 | -0.012 | +0.012 | +0.066 | +0.081 | +0.065 | +0.160 | +0.098 | — | — |
-| KITTI oracle · traj | +0.100 | -0.001 | +0.001 | +0.240 | **+0.321** | +0.015 | +0.313 | +0.018 | — | — |
-| KITTI mono · brake | +0.044 | +0.021 | +0.057 | +0.039 | +0.060 | +0.085 | +0.063 | +0.026 | — | — |
-| KITTI mono · traj | -0.043 | +0.060 | +0.053 | +0.057 | +0.058 | +0.329 | +0.409 | +0.275 | — | — |
+| KITTI oracle · brake | +0.070 | -0.011 | +0.012 | +0.066 | +0.082 | +0.066 | +0.160 | +0.098 | — | — |
+| KITTI oracle · traj | +0.100 | -0.001 | +0.001 | +0.240 | **+0.390** | +0.015 | +0.313 | +0.018 | — | — |
+| KITTI mono · brake | +0.044 | +0.021 | +0.056 | +0.039 | +0.056 | +0.086 | +0.063 | +0.026 | — | — |
+| KITTI mono · traj | -0.046 | +0.061 | +0.048 | +0.057 | +0.060 | +0.326 | +0.411 | +0.270 | — | — |
 | nuPlan · pdm_closed · safety | +0.099 | +0.222 | +0.000 | +0.665 | +0.328 | +0.000 | — | +0.663 | — | — |
 | nuPlan · pdm_closed · scalar_J | +0.098 | +0.217 | -0.001 | +0.652 | +0.328 | -0.001 | — | +0.645 | — | — |
 | nuPlan · idm · safety | +0.099 | +0.248 | +0.000 | +0.368 | +0.491 | +0.000 | — | +0.740 | — | — |
@@ -63,16 +63,16 @@ Sources: `results/final/benchmark_*.csv`. Bold = deployable signal whose paired 
 
 | cell | random | unc. | crit. cheap | gate ridge | gate GBM | crit. GT | ΔE exact | ΔE E6 | PKL | TIP |
 |---|---|---|---|---|---|---|---|---|---|---|
-| nuScenes oracle · brake | +0.147 | +0.017 | +0.467 | +0.249 | +0.169 | +0.287 | +0.252 | +0.672 | +0.458 | +0.365 |
+| nuScenes oracle · brake | +0.148 | +0.015 | +0.470 | +0.254 | +0.155 | +0.287 | +0.258 | +0.687 | +0.461 | +0.365 |
 | nuScenes oracle · plan_ade | -0.006 | -0.117 | -0.272 | -0.150 | -0.141 | -0.195 | +0.123 | -0.085 | -0.132 | -0.181 |
 | nuScenes oracle · plan_fde | +0.059 | -0.016 | -0.142 | +0.030 | +0.125 | -0.005 | +0.121 | -0.036 | +0.124 | -0.035 |
-| nuScenes mono · brake | +0.130 | +0.087 | +0.401 | +0.298 | **+0.397** | +0.317 | +0.203 | +0.322 | +0.209 | +0.105 |
+| nuScenes mono · brake | +0.132 | +0.088 | +0.407 | +0.293 | **+0.482** | +0.323 | +0.210 | +0.330 | +0.215 | +0.110 |
 | nuScenes mono · plan_ade | +0.092 | +0.013 | -0.060 | +0.063 | +0.042 | -0.051 | +0.350 | +0.404 | +0.126 | +0.117 |
 | nuScenes mono · plan_fde | +0.080 | -0.059 | -0.048 | -0.043 | +0.079 | -0.037 | +0.264 | +0.246 | +0.077 | +0.168 |
-| KITTI oracle · brake | +0.139 | -0.011 | -0.012 | +0.238 | +0.207 | +0.071 | +0.268 | +0.178 | — | — |
-| KITTI oracle · traj | +0.199 | +0.031 | +0.015 | +0.455 | **+0.572** | +0.015 | +0.534 | +0.057 | — | — |
-| KITTI mono · brake | +0.080 | +0.036 | +0.075 | +0.156 | +0.154 | +0.084 | +0.099 | +0.056 | — | — |
-| KITTI mono · traj | -0.085 | +0.146 | +0.187 | +0.298 | +0.062 | +0.408 | +0.473 | +0.403 | — | — |
+| KITTI oracle · brake | +0.139 | -0.010 | -0.013 | +0.238 | +0.226 | +0.072 | +0.269 | +0.178 | — | — |
+| KITTI oracle · traj | +0.199 | +0.031 | +0.015 | +0.455 | **+0.538** | +0.015 | +0.534 | +0.057 | — | — |
+| KITTI mono · brake | +0.079 | +0.035 | +0.074 | +0.156 | +0.158 | +0.084 | +0.098 | +0.056 | — | — |
+| KITTI mono · traj | -0.091 | +0.148 | +0.178 | +0.298 | +0.184 | +0.404 | +0.473 | +0.400 | — | — |
 | nuPlan · pdm_closed · safety | +0.201 | +0.335 | +0.000 | **+0.777** | **+0.663** | +0.000 | — | +0.888 | — | — |
 | nuPlan · pdm_closed · scalar_J | +0.200 | +0.326 | -0.001 | **+0.764** | +0.554 | -0.001 | — | +0.867 | — | — |
 | nuPlan · idm · safety | +0.200 | +0.248 | +0.000 | +0.497 | +0.490 | +0.000 | — | +0.865 | — | — |
@@ -82,16 +82,16 @@ Sources: `results/final/benchmark_*.csv`. Bold = deployable signal whose paired 
 
 | cell | random | unc. | crit. cheap | gate ridge | gate GBM | crit. GT | ΔE exact | ΔE E6 | PKL | TIP |
 |---|---|---|---|---|---|---|---|---|---|---|
-| nuScenes oracle · brake | +0.221 | +0.364 | +0.489 | +0.465 | +0.334 | +0.515 | +0.528 | +0.678 | +0.435 | +0.369 |
+| nuScenes oracle · brake | +0.222 | +0.364 | +0.487 | +0.564 | +0.323 | +0.515 | +0.539 | +0.691 | +0.438 | +0.370 |
 | nuScenes oracle · plan_ade | -0.009 | -0.196 | -0.321 | -0.073 | -0.080 | -0.228 | -0.032 | -0.066 | -0.094 | -0.139 |
 | nuScenes oracle · plan_fde | +0.089 | +0.017 | -0.089 | -0.037 | +0.112 | -0.000 | +0.108 | +0.080 | +0.159 | +0.013 |
-| nuScenes mono · brake | +0.195 | +0.303 | **+0.559** | +0.287 | +0.453 | +0.499 | +0.308 | +0.339 | +0.271 | +0.176 |
+| nuScenes mono · brake | +0.198 | +0.308 | **+0.565** | +0.339 | **+0.494** | +0.504 | +0.315 | +0.347 | +0.277 | +0.179 |
 | nuScenes mono · plan_ade | +0.135 | -0.020 | -0.099 | +0.140 | +0.102 | -0.096 | +0.332 | +0.395 | +0.167 | +0.129 |
 | nuScenes mono · plan_fde | +0.120 | -0.102 | -0.073 | +0.095 | +0.186 | -0.128 | +0.243 | +0.270 | +0.201 | +0.174 |
-| KITTI oracle · brake | +0.208 | +0.041 | +0.074 | +0.317 | +0.447 | +0.064 | +0.433 | +0.210 | — | — |
-| KITTI oracle · traj | +0.299 | +0.049 | +0.015 | +0.537 | **+0.789** | +0.016 | +0.894 | +0.125 | — | — |
-| KITTI mono · brake | +0.119 | -0.007 | +0.111 | +0.239 | +0.312 | +0.076 | +0.168 | +0.068 | — | — |
-| KITTI mono · traj | -0.128 | **+0.153** | +0.383 | +0.229 | +0.169 | +0.408 | +0.506 | +0.407 | — | — |
+| KITTI oracle · brake | +0.209 | +0.041 | +0.074 | +0.318 | +0.491 | +0.064 | +0.434 | +0.210 | — | — |
+| KITTI oracle · traj | +0.299 | +0.049 | +0.015 | +0.537 | **+0.725** | +0.016 | +0.895 | +0.124 | — | — |
+| KITTI mono · brake | +0.119 | -0.009 | +0.111 | +0.239 | +0.276 | +0.076 | +0.168 | +0.068 | — | — |
+| KITTI mono · traj | -0.137 | **+0.152** | +0.376 | +0.223 | +0.242 | +0.403 | +0.505 | +0.404 | — | — |
 | nuPlan · pdm_closed · safety | +0.299 | +0.550 | +0.000 | **+0.890** | **+0.663** | +0.337 | — | +0.888 | — | — |
 | nuPlan · pdm_closed · scalar_J | +0.298 | +0.537 | -0.000 | **+0.879** | **+0.772** | +0.329 | — | +0.877 | — | — |
 | nuPlan · idm · safety | +0.299 | +0.371 | +0.000 | +0.506 | +0.627 | +0.368 | — | +0.877 | — | — |
@@ -101,16 +101,16 @@ Sources: `results/final/benchmark_*.csv`. Bold = deployable signal whose paired 
 
 | cell | random | unc. | crit. cheap | gate ridge | gate GBM | crit. GT | ΔE exact | ΔE E6 | PKL | TIP |
 |---|---|---|---|---|---|---|---|---|---|---|
-| nuScenes oracle · brake | +0.369 | +0.383 | +0.405 | +0.602 | +0.562 | +0.777 | +0.769 | +0.716 | +0.498 | +0.434 |
+| nuScenes oracle · brake | +0.371 | +0.380 | +0.398 | +0.609 | +0.566 | +0.781 | +0.783 | +0.727 | +0.502 | +0.435 |
 | nuScenes oracle · plan_ade | -0.015 | -0.089 | -0.208 | -0.034 | +0.038 | -0.180 | -0.176 | -0.053 | -0.090 | -0.138 |
 | nuScenes oracle · plan_fde | +0.148 | +0.143 | -0.004 | +0.067 | +0.123 | +0.094 | +0.119 | +0.135 | +0.159 | +0.013 |
-| nuScenes mono · brake | +0.326 | +0.289 | +0.467 | +0.313 | +0.580 | +0.604 | +0.437 | +0.420 | +0.307 | +0.224 |
+| nuScenes mono · brake | +0.331 | +0.294 | +0.472 | +0.307 | **+0.630** | +0.615 | +0.444 | +0.429 | +0.309 | +0.223 |
 | nuScenes mono · plan_ade | +0.225 | +0.101 | +0.002 | +0.220 | +0.255 | +0.176 | +0.336 | +0.412 | +0.133 | +0.136 |
 | nuScenes mono · plan_fde | +0.200 | +0.059 | -0.077 | +0.204 | +0.185 | +0.093 | +0.244 | +0.318 | +0.170 | +0.183 |
-| KITTI oracle · brake | +0.347 | +0.086 | +0.054 | +0.312 | **+0.651** | +0.046 | +0.634 | +0.736 | — | — |
-| KITTI oracle · traj | +0.499 | +0.083 | +0.050 | +0.551 | **+0.963** | +0.016 | +0.981 | +0.998 | — | — |
-| KITTI mono · brake | +0.199 | -0.027 | -0.017 | +0.202 | +0.351 | -0.035 | +0.301 | +0.391 | — | — |
-| KITTI mono · traj | -0.213 | +0.267 | +0.201 | +0.224 | **+0.252** | +0.451 | -0.054 | -0.043 | — | — |
+| KITTI oracle · brake | +0.348 | +0.086 | +0.054 | +0.316 | **+0.647** | +0.046 | +0.636 | +0.738 | — | — |
+| KITTI oracle · traj | +0.499 | +0.083 | +0.049 | +0.551 | **+0.964** | +0.016 | +0.981 | +0.998 | — | — |
+| KITTI mono · brake | +0.198 | -0.030 | -0.019 | +0.203 | **+0.365** | -0.037 | +0.301 | +0.392 | — | — |
+| KITTI mono · traj | -0.229 | +0.257 | +0.181 | +0.218 | **+0.312** | +0.437 | -0.071 | -0.062 | — | — |
 | nuPlan · pdm_closed · safety | +0.500 | +0.888 | +0.335 | **+1.000** | +0.775 | +0.550 | — | +0.888 | — | — |
 | nuPlan · pdm_closed · scalar_J | +0.498 | +0.876 | +0.327 | **+0.992** | +0.778 | +0.536 | — | +0.886 | — | — |
 | nuPlan · idm · safety | +0.499 | +0.741 | +0.368 | +0.752 | +0.872 | +0.740 | — | +1.000 | — | — |
@@ -120,16 +120,16 @@ Sources: `results/final/benchmark_*.csv`. Bold = deployable signal whose paired 
 
 | cell | unc. | crit. cheap | gate ridge | gate GBM |
 |---|---|---|---|---|
-| nuScenes oracle · brake | -0.115 [-0.440, +0.241] | +0.326 [-0.047, +0.721] | +0.107 [-0.295, +0.516] | +0.050 [-0.288, +0.513] |
+| nuScenes oracle · brake | -0.117 [-0.446, +0.236] | +0.328 [-0.053, +0.732] | +0.100 [-0.292, +0.502] | +0.047 [-0.300, +0.497] |
 | nuScenes oracle · plan_ade | -0.080 [-0.369, +0.129] | -0.269 [-0.569, -0.024] | -0.112 [-0.484, +0.128] | -0.149 [-0.481, +0.121] |
 | nuScenes oracle · plan_fde | -0.033 [-0.319, +0.187] | -0.190 [-0.621, +0.101] | -0.085 [-0.503, +0.209] | +0.040 [-0.234, +0.259] |
-| nuScenes mono · brake | -0.007 [-0.168, +0.291] | +0.321 [-0.050, +0.731] | +0.262 [-0.030, +0.656] | +0.283 [+0.028, +0.604] |
+| nuScenes mono · brake | -0.004 [-0.169, +0.302] | +0.327 [-0.052, +0.750] | +0.255 [-0.039, +0.667] | +0.337 [+0.096, +0.585] |
 | nuScenes mono · plan_ade | -0.075 [-0.278, +0.197] | -0.167 [-0.327, -0.004] | -0.041 [-0.262, +0.126] | -0.056 [-0.228, +0.068] |
 | nuScenes mono · plan_fde | -0.130 [-0.331, +0.127] | -0.144 [-0.320, +0.032] | -0.124 [-0.238, -0.026] | -0.017 [-0.193, +0.123] |
-| KITTI oracle · brake | -0.134 [-0.185, -0.028] | -0.134 [-0.199, -0.005] | +0.071 [-0.086, +0.243] | +0.113 [-0.059, +0.370] |
-| KITTI oracle · traj | -0.175 [-0.202, -0.138] | -0.184 [-0.200, -0.163] | +0.233 [-0.104, +0.756] | +0.406 [+0.122, +0.738] |
-| KITTI mono · brake | -0.071 [-0.164, +0.058] | -0.000 [-0.144, +0.104] | +0.053 [-0.088, +0.158] | +0.076 [-0.069, +0.216] |
-| KITTI mono · traj | +0.168 [-0.111, +0.392] | +0.268 [-0.040, +0.587] | +0.330 [-0.079, +0.578] | +0.097 [-0.176, +0.486] |
+| KITTI oracle · brake | -0.134 [-0.185, -0.028] | -0.134 [-0.199, -0.007] | +0.071 [-0.086, +0.244] | +0.141 [-0.060, +0.408] |
+| KITTI oracle · traj | -0.175 [-0.202, -0.138] | -0.185 [-0.200, -0.163] | +0.233 [-0.104, +0.757] | +0.399 [+0.158, +0.694] |
+| KITTI mono · brake | -0.072 [-0.165, +0.059] | -0.000 [-0.144, +0.104] | +0.053 [-0.088, +0.159] | +0.072 [-0.072, +0.216] |
+| KITTI mono · traj | +0.173 [-0.111, +0.393] | +0.264 [-0.062, +0.590] | +0.337 [-0.097, +0.591] | +0.223 [-0.170, +0.610] |
 | nuPlan · pdm_closed · safety | +0.204 [-0.034, +0.545] | -0.186 [-0.201, +0.030] | +0.577 [+0.202, +0.801] | +0.434 [+0.128, +0.630] |
 | nuPlan · pdm_closed · scalar_J | +0.190 [-0.021, +0.521] | -0.187 [-0.201, -0.017] | +0.574 [+0.196, +0.787] | +0.358 [-0.197, +0.622] |
 | nuPlan · idm · safety | +0.110 [-0.196, +0.530] | -0.180 [-0.201, +0.082] | +0.263 [-0.199, +0.701] | +0.346 [-0.201, +0.799] |
@@ -139,16 +139,16 @@ Sources: `results/final/benchmark_*.csv`. Bold = deployable signal whose paired 
 
 | cell | random | unc. | crit. cheap | gate ridge | gate GBM | crit. GT | ΔE exact | ΔE E6 | PKL | TIP |
 |---|---|---|---|---|---|---|---|---|---|---|
-| nuScenes oracle · brake | +0.116 | +0.005 | +0.097 | — | — | +0.180 | +0.171 | +0.567 | +0.239 | +0.170 |
+| nuScenes oracle · brake | +0.116 | +0.005 | +0.098 | — | — | +0.182 | +0.173 | +0.575 | +0.242 | +0.173 |
 | nuScenes oracle · plan_ade | +0.059 | +0.134 | +0.090 | — | — | +0.016 | +0.223 | +0.183 | +0.359 | +0.376 |
 | nuScenes oracle · plan_fde | +0.057 | +0.149 | +0.056 | — | — | -0.032 | +0.170 | +0.104 | +0.249 | +0.218 |
-| nuScenes mono · brake | +0.118 | +0.243 | +0.254 | — | — | +0.173 | +0.054 | +0.224 | +0.285 | +0.266 |
+| nuScenes mono · brake | +0.119 | +0.247 | +0.258 | — | — | +0.176 | +0.054 | +0.227 | +0.289 | +0.271 |
 | nuScenes mono · plan_ade | +0.060 | +0.067 | +0.078 | — | — | +0.026 | +0.123 | +0.227 | +0.426 | +0.422 |
 | nuScenes mono · plan_fde | +0.033 | -0.014 | -0.004 | — | — | -0.029 | +0.060 | +0.134 | +0.313 | +0.294 |
 | KITTI oracle · brake | +0.184 | +0.005 | +0.013 | — | — | +0.023 | +0.199 | +0.330 | — | — |
-| KITTI oracle · traj | +0.199 | +0.031 | +0.021 | — | — | +0.035 | +0.236 | +0.227 | — | — |
-| KITTI mono · brake | +0.166 | +0.022 | +0.020 | — | — | +0.026 | +0.161 | +0.276 | — | — |
-| KITTI mono · traj | +0.145 | +0.094 | +0.101 | — | — | +0.097 | +0.187 | +0.183 | — | — |
+| KITTI oracle · traj | +0.199 | +0.032 | +0.021 | — | — | +0.035 | +0.237 | +0.226 | — | — |
+| KITTI mono · brake | +0.166 | +0.021 | +0.020 | — | — | +0.026 | +0.161 | +0.276 | — | — |
+| KITTI mono · traj | +0.144 | +0.095 | +0.101 | — | — | +0.097 | +0.187 | +0.178 | — | — |
 | nuPlan · pdm_closed · safety | +0.139 | +0.358 | +0.031 | — | — | +0.140 | — | +0.853 | — | — |
 | nuPlan · pdm_closed · scalar_J | +0.141 | +0.351 | +0.030 | — | — | +0.137 | — | +0.843 | — | — |
 | nuPlan · idm · safety | +0.156 | +0.390 | +0.046 | — | — | +0.129 | — | +0.903 | — | — |
@@ -179,14 +179,14 @@ Sources: `results/final/benchmark_*.csv`. Bold = deployable signal whose paired 
 
 | cell | unit | budget / frame | signal | overhead | escalated | η | η 95% CI |
 |---|---|---|---|---|---|---|---|
-| nuScenes oracle · brake | ms | 16.58 | random | 0.000 | 20.0% | +0.147 | [+0.007, +0.190] |
+| nuScenes oracle · brake | ms | 16.58 | random | 0.000 | 20.0% | +0.148 | [+0.010, +0.191] |
 | nuScenes oracle · brake | ms | 16.58 | gate_ridge | 3.985 | infeasible | infeasible | — |
 | nuScenes oracle · brake | ms | 16.58 | gate_gbm | 19.723 | infeasible | infeasible | — |
-| nuScenes oracle · brake | ms | 16.58 | uncertainty | 0.239 | 18.8% | +0.032 | [-0.382, +0.313] |
-| nuScenes oracle · brake | mJ | 37.04 | random | 0.000 | 20.0% | +0.147 | [+0.007, +0.190] |
+| nuScenes oracle · brake | ms | 16.58 | uncertainty | 0.239 | 18.8% | +0.032 | [-0.387, +0.312] |
+| nuScenes oracle · brake | mJ | 37.04 | random | 0.000 | 20.0% | +0.148 | [+0.010, +0.191] |
 | nuScenes oracle · brake | mJ | 37.04 | gate_ridge | 29.494 | infeasible | infeasible | — |
 | nuScenes oracle · brake | mJ | 37.04 | gate_gbm | 145.975 | infeasible | infeasible | — |
-| nuScenes oracle · brake | mJ | 37.04 | uncertainty | 1.768 | 17.3% | +0.031 | [-0.374, +0.298] |
+| nuScenes oracle · brake | mJ | 37.04 | uncertainty | 1.768 | 17.3% | +0.032 | [-0.381, +0.298] |
 | nuScenes oracle · plan_ade | ms | 16.58 | random | 0.000 | 20.0% | -0.006 | [-0.123, +0.073] |
 | nuScenes oracle · plan_ade | ms | 16.58 | gate_ridge | 3.985 | infeasible | infeasible | — |
 | nuScenes oracle · plan_ade | ms | 16.58 | gate_gbm | 19.723 | infeasible | infeasible | — |
@@ -203,14 +203,14 @@ Sources: `results/final/benchmark_*.csv`. Bold = deployable signal whose paired 
 | nuScenes oracle · plan_fde | mJ | 37.04 | gate_ridge | 29.494 | infeasible | infeasible | — |
 | nuScenes oracle · plan_fde | mJ | 37.04 | gate_gbm | 145.975 | infeasible | infeasible | — |
 | nuScenes oracle · plan_fde | mJ | 37.04 | uncertainty | 1.768 | 17.3% | +0.064 | [-0.293, +0.229] |
-| nuScenes mono · brake | ms | 16.58 | random | 0.000 | 20.0% | +0.130 | [+0.010, +0.170] |
+| nuScenes mono · brake | ms | 16.58 | random | 0.000 | 20.0% | +0.132 | [+0.013, +0.172] |
 | nuScenes mono · brake | ms | 16.58 | gate_ridge | 3.985 | infeasible | infeasible | — |
 | nuScenes mono · brake | ms | 16.58 | gate_gbm | 19.723 | infeasible | infeasible | — |
-| nuScenes mono · brake | ms | 16.58 | uncertainty | 0.239 | 18.8% | +0.111 | [-0.039, +0.315] |
-| nuScenes mono · brake | mJ | 37.04 | random | 0.000 | 20.0% | +0.130 | [+0.010, +0.170] |
+| nuScenes mono · brake | ms | 16.58 | uncertainty | 0.239 | 18.8% | +0.113 | [-0.034, +0.333] |
+| nuScenes mono · brake | mJ | 37.04 | random | 0.000 | 20.0% | +0.132 | [+0.013, +0.172] |
 | nuScenes mono · brake | mJ | 37.04 | gate_ridge | 29.494 | infeasible | infeasible | — |
 | nuScenes mono · brake | mJ | 37.04 | gate_gbm | 145.975 | infeasible | infeasible | — |
-| nuScenes mono · brake | mJ | 37.04 | uncertainty | 1.768 | 17.3% | +0.116 | [-0.034, +0.285] |
+| nuScenes mono · brake | mJ | 37.04 | uncertainty | 1.768 | 17.3% | +0.121 | [-0.030, +0.292] |
 | nuScenes mono · plan_ade | ms | 16.58 | random | 0.000 | 20.0% | +0.092 | [-0.048, +0.146] |
 | nuScenes mono · plan_ade | ms | 16.58 | gate_ridge | 3.985 | infeasible | infeasible | — |
 | nuScenes mono · plan_ade | ms | 16.58 | gate_gbm | 19.723 | infeasible | infeasible | — |
@@ -227,14 +227,14 @@ Sources: `results/final/benchmark_*.csv`. Bold = deployable signal whose paired 
 | nuScenes mono · plan_fde | mJ | 37.04 | gate_ridge | 29.494 | infeasible | infeasible | — |
 | nuScenes mono · plan_fde | mJ | 37.04 | gate_gbm | 145.975 | infeasible | infeasible | — |
 | nuScenes mono · plan_fde | mJ | 37.04 | uncertainty | 1.768 | 17.3% | -0.049 | [-0.333, +0.210] |
-| KITTI oracle · brake | ms | 16.87 | random | 0.000 | 20.0% | +0.139 | [+0.052, +0.180] |
+| KITTI oracle · brake | ms | 16.87 | random | 0.000 | 20.0% | +0.139 | [+0.051, +0.180] |
 | KITTI oracle · brake | ms | 16.87 | gate_ridge | 4.239 | infeasible | infeasible | — |
 | KITTI oracle · brake | ms | 16.87 | gate_gbm | 19.977 | infeasible | infeasible | — |
-| KITTI oracle · brake | ms | 16.87 | uncertainty | 0.236 | 18.7% | -0.014 | [-0.063, +0.073] |
-| KITTI oracle · brake | mJ | 20.47 | random | 0.000 | 20.0% | +0.139 | [+0.052, +0.180] |
+| KITTI oracle · brake | ms | 16.87 | uncertainty | 0.236 | 18.7% | -0.013 | [-0.062, +0.073] |
+| KITTI oracle · brake | mJ | 20.47 | random | 0.000 | 20.0% | +0.139 | [+0.051, +0.180] |
 | KITTI oracle · brake | mJ | 20.47 | gate_ridge | 31.373 | infeasible | infeasible | — |
 | KITTI oracle · brake | mJ | 20.47 | gate_gbm | 147.854 | infeasible | infeasible | — |
-| KITTI oracle · brake | mJ | 20.47 | uncertainty | 1.748 | 14.7% | -0.012 | [-0.058, +0.051] |
+| KITTI oracle · brake | mJ | 20.47 | uncertainty | 1.748 | 14.7% | -0.011 | [-0.057, +0.050] |
 | KITTI oracle · traj | ms | 16.87 | random | 0.000 | 20.0% | +0.199 | [+0.198, +0.200] |
 | KITTI oracle · traj | ms | 16.87 | gate_ridge | 4.239 | infeasible | infeasible | — |
 | KITTI oracle · traj | ms | 16.87 | gate_gbm | 19.977 | infeasible | infeasible | — |
@@ -242,23 +242,23 @@ Sources: `results/final/benchmark_*.csv`. Bold = deployable signal whose paired 
 | KITTI oracle · traj | mJ | 20.47 | random | 0.000 | 20.0% | +0.199 | [+0.198, +0.200] |
 | KITTI oracle · traj | mJ | 20.47 | gate_ridge | 31.373 | infeasible | infeasible | — |
 | KITTI oracle · traj | mJ | 20.47 | gate_gbm | 147.854 | infeasible | infeasible | — |
-| KITTI oracle · traj | mJ | 20.47 | uncertainty | 1.748 | 14.7% | -0.001 | [-0.003, +0.059] |
-| KITTI mono · brake | ms | 16.87 | random | 0.000 | 20.0% | +0.080 | [-0.021, +0.169] |
+| KITTI oracle · traj | mJ | 20.47 | uncertainty | 1.748 | 14.7% | -0.001 | [-0.003, +0.058] |
+| KITTI mono · brake | ms | 16.87 | random | 0.000 | 20.0% | +0.079 | [-0.021, +0.169] |
 | KITTI mono · brake | ms | 16.87 | gate_ridge | 4.239 | infeasible | infeasible | — |
 | KITTI mono · brake | ms | 16.87 | gate_gbm | 19.977 | infeasible | infeasible | — |
-| KITTI mono · brake | ms | 16.87 | uncertainty | 0.236 | 18.7% | +0.018 | [-0.054, +0.063] |
-| KITTI mono · brake | mJ | 20.47 | random | 0.000 | 20.0% | +0.080 | [-0.021, +0.169] |
+| KITTI mono · brake | ms | 16.87 | uncertainty | 0.236 | 18.7% | +0.018 | [-0.055, +0.062] |
+| KITTI mono · brake | mJ | 20.47 | random | 0.000 | 20.0% | +0.079 | [-0.021, +0.169] |
 | KITTI mono · brake | mJ | 20.47 | gate_ridge | 31.373 | infeasible | infeasible | — |
 | KITTI mono · brake | mJ | 20.47 | gate_gbm | 147.854 | infeasible | infeasible | — |
-| KITTI mono · brake | mJ | 20.47 | uncertainty | 1.748 | 14.7% | -0.024 | [-0.041, +0.046] |
-| KITTI mono · traj | ms | 16.87 | random | 0.000 | 20.0% | -0.085 | [-0.352, +0.182] |
+| KITTI mono · brake | mJ | 20.47 | uncertainty | 1.748 | 14.7% | -0.025 | [-0.041, +0.045] |
+| KITTI mono · traj | ms | 16.87 | random | 0.000 | 20.0% | -0.091 | [-0.355, +0.181] |
 | KITTI mono · traj | ms | 16.87 | gate_ridge | 4.239 | infeasible | infeasible | — |
 | KITTI mono · traj | ms | 16.87 | gate_gbm | 19.977 | infeasible | infeasible | — |
-| KITTI mono · traj | ms | 16.87 | uncertainty | 0.236 | 18.7% | +0.147 | [-0.278, +0.396] |
-| KITTI mono · traj | mJ | 20.47 | random | 0.000 | 20.0% | -0.085 | [-0.352, +0.182] |
+| KITTI mono · traj | ms | 16.87 | uncertainty | 0.236 | 18.7% | +0.149 | [-0.280, +0.402] |
+| KITTI mono · traj | mJ | 20.47 | random | 0.000 | 20.0% | -0.091 | [-0.355, +0.181] |
 | KITTI mono · traj | mJ | 20.47 | gate_ridge | 31.373 | infeasible | infeasible | — |
 | KITTI mono · traj | mJ | 20.47 | gate_gbm | 147.854 | infeasible | infeasible | — |
-| KITTI mono · traj | mJ | 20.47 | uncertainty | 1.748 | 14.7% | +0.105 | [-0.153, +0.265] |
+| KITTI mono · traj | mJ | 20.47 | uncertainty | 1.748 | 14.7% | +0.107 | [-0.158, +0.269] |
 | nuPlan · pdm_closed · safety | ms | 16.87 | random | 0.000 | 20.0% | +0.198 | [+0.198, +0.200] |
 | nuPlan · pdm_closed · safety | ms | 16.87 | gate_ridge | 3.985 | infeasible | infeasible | — |
 | nuPlan · pdm_closed · safety | ms | 16.87 | gate_gbm | 19.723 | infeasible | infeasible | — |
@@ -294,31 +294,31 @@ Sources: `results/final/benchmark_*.csv`. Bold = deployable signal whose paired 
 
 | system | unit | signal | η | share 384 | share 512 | share 640 | other-unit spend / budget |
 |---|---|---|---|---|---|---|---|
-| brake | ms | oracle (multi-fidelity) | +1.000 | 8.9% | 7.0% | 6.7% | 0.88 |
+| brake | ms | oracle (multi-fidelity) | +1.000 | 10.2% | 5.7% | 5.0% | 0.78 |
 | brake | ms | gate_ridge (multi-fidelity) | infeasible | — | — | — | — |
 | brake | ms | gate_gbm (multi-fidelity) | infeasible | — | — | — | — |
 | brake | ms | random (640 only) | +0.058 | — | — | 20.0% | — |
 | brake | ms | uncertainty (640 only) | +0.013 | — | — | 18.7% | — |
 | brake | ms | gate_gbm (640 only) | infeasible | — | — | — | — |
-| brake | ms | oracle (640 only) | +0.729 | — | — | 20.0% | — |
-| brake | mJ | oracle (multi-fidelity) | +1.000 | 11.8% | 7.1% | 7.2% | 1.15 |
+| brake | ms | oracle (640 only) | +0.726 | — | — | 20.0% | — |
+| brake | mJ | oracle (multi-fidelity) | +1.000 | 10.2% | 5.7% | 5.0% | 0.90 |
 | brake | mJ | gate_ridge (multi-fidelity) | infeasible | — | — | — | — |
 | brake | mJ | gate_gbm (multi-fidelity) | infeasible | — | — | — | — |
 | brake | mJ | random (640 only) | +0.058 | — | — | 20.0% | — |
-| brake | mJ | uncertainty (640 only) | -0.017 | — | — | 14.7% | — |
+| brake | mJ | uncertainty (640 only) | -0.018 | — | — | 14.7% | — |
 | brake | mJ | gate_gbm (640 only) | infeasible | — | — | — | — |
-| brake | mJ | oracle (640 only) | +0.727 | — | — | 20.0% | — |
-| traj | ms | oracle (multi-fidelity) | +1.000 | 3.1% | 1.6% | 0.8% | 0.19 |
+| brake | mJ | oracle (640 only) | +0.726 | — | — | 20.0% | — |
+| traj | ms | oracle (multi-fidelity) | +1.000 | 1.8% | 1.0% | 0.3% | 0.11 |
 | traj | ms | gate_ridge (multi-fidelity) | infeasible | — | — | — | — |
 | traj | ms | gate_gbm (multi-fidelity) | infeasible | — | — | — | — |
-| traj | ms | random (640 only) | -0.049 | — | — | 20.0% | — |
+| traj | ms | random (640 only) | -0.052 | — | — | 20.0% | — |
 | traj | ms | uncertainty (640 only) | +0.085 | — | — | 18.7% | — |
 | traj | ms | gate_gbm (640 only) | infeasible | — | — | — | — |
-| traj | ms | oracle (640 only) | +0.574 | — | — | 20.0% | — |
-| traj | mJ | oracle (multi-fidelity) | +1.000 | 3.1% | 1.6% | 0.8% | 0.23 |
+| traj | ms | oracle (640 only) | +0.570 | — | — | 20.0% | — |
+| traj | mJ | oracle (multi-fidelity) | +1.000 | 1.8% | 1.0% | 0.3% | 0.13 |
 | traj | mJ | gate_ridge (multi-fidelity) | infeasible | — | — | — | — |
 | traj | mJ | gate_gbm (multi-fidelity) | infeasible | — | — | — | — |
-| traj | mJ | random (640 only) | -0.049 | — | — | 20.0% | — |
+| traj | mJ | random (640 only) | -0.052 | — | — | 20.0% | — |
 | traj | mJ | uncertainty (640 only) | +0.061 | — | — | 14.7% | — |
 | traj | mJ | gate_gbm (640 only) | infeasible | — | — | — | — |
-| traj | mJ | oracle (640 only) | +0.574 | — | — | 20.0% | — |
+| traj | mJ | oracle (640 only) | +0.570 | — | — | 20.0% | — |

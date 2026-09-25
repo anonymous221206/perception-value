@@ -5,10 +5,10 @@
  "system": "brake",
  "geometry": "mono",
  "image_path": "datasets/nuscenes/trainval/samples/CAM_FRONT/n008-2018-08-01-15-52-19-0400__CAM_FRONT__1533153355162404.jpg",
- "image_copy": "positive_4_scene-0065_24.jpg",
- "V": 5.396277414599659,
+ "image_copy": "figure1_scene-0065_24.jpg",
+ "V": 5.346277414599659,
  "J_cheap": 5.400003379216067,
- "J_full": 0.00372596461640785,
+ "J_full": 0.053725964616407856,
  "ego_speed_mps": 8.852018099932927,
  "action": {
   "cheap": "KEEP",

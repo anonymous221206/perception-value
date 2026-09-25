@@ -181,15 +181,19 @@ def executed_cost(cand: int, z_true, lo_true, hi_true, ttc_true, v_ego: float,
     ref = v_ref * p.horizon
     progress = ((ref - s[a_i, -1]) / ref) ** 2
 
-    J = (c.w_collision * hit + c.w_clearance * short ** 2 + c.w_progress * progress
-         + c.w_accel * A_LON[a_i] ** 2 * p.horizon + c.w_lateral * D_LAT[d_i] ** 2)
+    terms = {"collision": c.w_collision * hit, "clearance": c.w_clearance * short ** 2,
+             "progress": c.w_progress * progress, "acceleration": c.w_accel * A_LON[a_i] ** 2 * p.horizon,
+             "lateral": c.w_lateral * D_LAT[d_i] ** 2, "switching": 0.0}
     if prev is not None:
         pa, pd_ = divmod(int(prev), len(D_LAT))
-        J += c.w_switch * ((A_LON[a_i] - A_LON[pa]) ** 2 / 4.0
-                           + (D_LAT[d_i] - D_LAT[pd_]) ** 2)
+        terms["switching"] = c.w_switch * ((A_LON[a_i] - A_LON[pa]) ** 2 / 4.0
+                                           + (D_LAT[d_i] - D_LAT[pd_]) ** 2)
+    J = (terms["collision"] + terms["clearance"] + terms["progress"] + terms["acceleration"] + terms["lateral"]
+         + terms["switching"])
     return {"J": float(J), "collision": float(hit), "min_clearance": cl,
             "progress_shortfall": float(progress),
-            "a_lon": float(A_LON[a_i]), "d_lat": float(D_LAT[d_i])}
+            "a_lon": float(A_LON[a_i]), "d_lat": float(D_LAT[d_i]),
+            "terms": {k: float(v) for k, v in terms.items()}}
 
 
 def action_name(cand: int) -> str:

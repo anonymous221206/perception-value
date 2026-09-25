@@ -1,5 +1,7 @@
 # The monocular lift in the ego frame: what moved, and what the conclusions now read
 
+> **Action history (Task 32).** The NEW column of `results/final/ego_frame_convention*` is now the current release, which also uses a shared action history for decision values; the figures quoted in this report are the ego-frame values before that change. `docs/iclr_shared_history.md` gives what the shared history moved.
+
 Task 23 (pre-registered, with its amendment, before any code of the change was written; the pre-registration record is not part of this release). Every figure below is a row
 of `results/final/ego_frame_convention.csv` (the per-row detail of groups 7 and 8 is in
 `ego_frame_convention_detail.csv.gz`; the readings and the file inventory in `ego_frame_convention_reading.json`),

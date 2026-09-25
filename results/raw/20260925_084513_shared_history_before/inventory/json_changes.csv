@@ -1,0 +1,810 @@
+file,key,old,new,flip
+benchmark_target_swap_summary.json,G_beats_V_significantly[32].arch,R1_gbm_clf,R1_mlp_reg,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[32].diff,-0.41701047876952246,-0.31058873882669236,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[32].diff_hi,-0.07694424637029205,-0.05590892308541902,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[32].diff_lo,-0.7239443198504754,-0.6384833089348607,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[32].eta_G,0.22593349863541992,-0.09831008128973509,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[32].eta_V,-0.19107698013410257,-0.4088988201164274,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[32].quota,0.1,0.5,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[33].diff,-0.6108197348243262,-0.2246330766494568,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[33].diff_hi,-0.12534192662995194,-0.04518864047108281,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[33].diff_lo,-1.1370677097958186,-0.4504772466099731,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[33].eta_G,0.4186633814231275,0.22921973352185013,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[33].eta_V,-0.19215635340119866,0.00458665687239332,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[33].quota,0.2,0.1,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[34].diff,-0.6332604573717627,-0.29139586459805866,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[34].diff_hi,-0.10443848819541554,-0.053168071558472044,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[34].diff_lo,-1.354431860182295,-0.5884373981489548,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[34].eta_G,0.29700615328924845,0.295982521470452,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[34].eta_V,-0.3362543040825143,0.00458665687239332,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[34].g_variant,dE_exact,dE_E6_risk_weighted,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[34].quota,0.3,0.1,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[35].diff,-0.7275715305698874,-0.7275083048113514,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[35].diff_hi,-0.00895807765176801,-0.05118089790293137,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[35].diff_lo,-1.603910897413526,-1.4802947612385382,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[35].eta_G,0.20255754307176918,0.575309823063561,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[35].eta_V,-0.5250139874981182,-0.15219848174779038,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[35].g_variant,dE_exact,dE_E6_risk_weighted,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[35].quota,0.5,0.3,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[36].arch,gate_gbm,R1_gbm_clf,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[36].diff,-0.16460081093687529,-0.7553325015420023,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[36].diff_hi,-0.02845261730012834,-0.08347221956001194,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[36].diff_lo,-0.3438163909227212,-1.7209095244307933,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[36].eta_G,0.22295998903313488,0.39292006404181856,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[36].eta_V,0.058359178096259595,-0.36241243750018365,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[36].quota,0.1,0.5,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[37].arch,R1_gbm_clf,R1_gbm_reg,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[37].diff,-0.48402001629099084,-0.5551896117956536,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[37].diff_hi,-0.08635838595616441,-0.29887789934207054,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[37].diff_lo,-0.7594403698733732,-0.7230814766563298,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[37].eta_G,0.29294303615688827,0.6270236487186223,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[37].eta_V,-0.19107698013410257,0.07183403692296864,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[37].g_variant,dE_E6_risk_weighted,primary,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[37].geometry,mono,n/a,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[37].system,traj,pdm_closed,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[37].target,JB,safety,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[37].track,KITTI,nuPlan,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[38].arch,R1_gbm_clf,R1_gbm_reg,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[38].diff,-0.5953298720720029,-0.6306361819296986,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[38].diff_hi,-0.1205980857082467,-0.5515352278966504,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[38].diff_lo,-1.127669631991626,-0.7083266449647326,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[38].eta_G,0.40317351867080425,0.7024702188526672,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[38].eta_V,-0.19215635340119866,0.07183403692296864,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[38].g_variant,dE_E6_risk_weighted,primary,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[38].geometry,mono,n/a,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[38].system,traj,pdm_closed,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[38].target,JB,safety,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[38].track,KITTI,nuPlan,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[39].arch,R1_gbm_clf,R1_gbm_reg,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[39].diff,-0.9104421423229561,-0.7083266449647326,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[39].diff_hi,-0.23553728640826654,-0.5936315769322507,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[39].diff_lo,-1.6376710995117052,-0.7783835800497106,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[39].eta_G,0.5741878382404417,0.7070536227047549,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[39].eta_V,-0.3362543040825143,-0.001273022259977703,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[39].g_variant,dE_E6_risk_weighted,primary,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[39].geometry,mono,n/a,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[39].system,traj,pdm_closed,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[39].target,JB,safety,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[39].track,KITTI,nuPlan,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[40].arch,R1_gbm_clf,R1_gbm_reg,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[40].diff,-0.9246766458526297,-0.3505233569934816,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[40].diff_hi,-0.11836954302994784,-0.284117463474931,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[40].diff_lo,-1.890059328615227,-0.5851364106610561,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[40].eta_G,0.3996626583545115,0.6369966876197772,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[40].eta_V,-0.5250139874981182,0.28647333062629565,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[40].g_variant,dE_E6_risk_weighted,primary,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[40].geometry,mono,n/a,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[40].system,traj,pdm_closed,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[40].target,JB,safety,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[40].track,KITTI,nuPlan,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[41].arch,R1_gbm_reg,R1_gbm_clf,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[41].diff,-0.5551896117956536,-0.21004433485157636,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[41].diff_hi,-0.29887789934207054,-0.1415825503272299,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[41].diff_lo,-0.7230814766563298,-0.3785909483113791,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[41].eta_G,0.6270236487186223,0.21004433485157636,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[41].eta_V,0.07183403692296864,0.0,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[42].arch,R1_gbm_reg,R1_gbm_clf,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[42].diff,-0.6306361819296986,-0.41799637131140427,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[42].diff_hi,-0.5515352278966504,-0.17734594342428378,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[42].diff_lo,-0.7083266449647326,-0.5269127086283231,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[42].eta_G,0.7024702188526672,0.4869756230238636,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[42].eta_V,0.07183403692296864,0.06897925171245935,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[43].arch,R1_gbm_reg,R1_gbm_clf,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[43].diff,-0.7083266449647326,-0.6337637055025271,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[43].diff_hi,-0.5936315769322507,-0.3063130190590539,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[43].diff_lo,-0.7783835800497106,-0.7588882041777267,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[43].eta_G,0.7070536227047549,0.7025360633278641,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[43].eta_V,-0.001273022259977703,0.06877235782533699,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[44].arch,R1_gbm_reg,R1_gbm_clf,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[44].diff,-0.3505233569934816,-0.5709526446015926,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[44].diff_hi,-0.284117463474931,-0.45648292733934037,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[44].diff_lo,-0.5851364106610561,-0.7833506962217109,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[44].eta_G,0.6369966876197772,0.7097819375119073,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[44].eta_V,0.28647333062629565,0.13882929291031473,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[45].arch,R1_gbm_clf,R1_gbm_reg,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[45].diff,-0.21004433485157636,-0.41301260860359995,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[45].diff_hi,-0.1415825503272299,-0.28099405553721246,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[45].diff_lo,-0.3785909483113791,-0.5209544315681117,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[45].eta_G,0.21004433485157636,0.4848466455265686,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[45].eta_V,0.0,0.07183403692296864,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[45].g_variant,primary,dE_exact,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[46].arch,R1_gbm_clf,R1_gbm_reg,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[46].diff,-0.41799637131140427,-0.6231834138585332,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[46].diff_hi,-0.17734594342428378,-0.31679937186498675,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[46].diff_lo,-0.5269127086283231,-0.6932403489435109,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[46].eta_G,0.4869756230238636,0.6950174507815018,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[46].eta_V,0.06897925171245935,0.07183403692296864,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[46].g_variant,primary,dE_exact,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[47].arch,R1_gbm_clf,R1_gbm_reg,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[47].diff,-0.6337637055025271,-0.6306361819296987,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[47].diff_hi,-0.3063130190590539,-0.5274112665044467,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[47].diff_lo,-0.7588882041777267,-0.7083266449647327,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[47].eta_G,0.7025360633278641,0.629363159669721,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[47].eta_V,0.06877235782533699,-0.001273022259977703,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[47].g_variant,primary,dE_exact,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[48].arch,R1_gbm_clf,R1_gbm_reg,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[48].diff,-0.5709526446015926,-0.4204653766747656,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[48].diff_hi,-0.45648292733934037,-0.3014716890548868,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[48].diff_lo,-0.7833506962217109,-0.6255162181038663,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[48].eta_G,0.7097819375119073,0.7069387073010612,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[48].eta_V,0.13882929291031473,0.28647333062629565,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[48].g_variant,primary,dE_exact,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[49].arch,R1_gbm_reg,R1_gbm_clf,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[49].diff,-0.41301260860359995,-0.48885953759336176,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[49].diff_hi,-0.28099405553721246,-0.22503703424779725,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[49].diff_lo,-0.5209544315681117,-0.6763568991406937,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[49].eta_G,0.4848466455265686,0.6276888305036765,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[49].eta_V,0.07183403692296864,0.13882929291031473,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[49].quota,0.1,0.5,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[50].arch,R1_gbm_reg,R1_mlp_clf,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[50].diff,-0.6231834138585332,-0.08041877784218636,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[50].diff_hi,-0.31679937186498675,-0.00803588636608768,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[50].diff_lo,-0.6932403489435109,-0.3146157786893329,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[50].eta_G,0.6950174507815018,0.14940958455430875,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[50].eta_V,0.07183403692296864,0.06899080671212239,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[50].g_variant,dE_exact,dE_E6_risk_weighted,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[50].quota,0.2,0.1,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[51].arch,R1_gbm_reg,R1_mlp_clf,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[51].diff,-0.6306361819296987,-0.4884778883591446,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[51].diff_hi,-0.5274112665044467,-0.263753331168979,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[51].diff_lo,-0.7083266449647327,-0.5572760573553301,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[51].eta_G,0.629363159669721,0.4217574688745084,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[51].eta_V,-0.001273022259977703,-0.06672041948463618,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[51].g_variant,dE_exact,dE_E6_risk_weighted,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[51].quota,0.3,0.2,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[52].arch,R1_gbm_reg,R1_mlp_clf,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[52].diff,-0.4204653766747656,-0.41842095327416684,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[52].diff_hi,-0.3014716890548868,-0.2113118271168652,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[52].diff_lo,-0.6255162181038663,-0.6118204752285256,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[52].eta_G,0.7069387073010612,0.49181440395948617,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[52].eta_V,0.28647333062629565,0.07339345068531931,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[52].g_variant,dE_exact,dE_E6_risk_weighted,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[52].quota,0.5,0.3,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[53].arch,R1_gbm_clf,R1_gbm_reg,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[53].diff,-0.48885953759336176,-0.4266824585280952,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[53].diff_hi,-0.22503703424779725,-0.13148015789541984,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[53].diff_lo,-0.6763568991406937,-0.6127756357300128,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[53].eta_G,0.6276888305036765,0.49851649545106386,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[53].eta_V,0.13882929291031473,0.07183403692296864,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[53].g_variant,dE_exact,dE_E6_risk_weighted,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[53].quota,0.5,0.2,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[54].arch,R1_mlp_clf,R1_gbm_reg,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[54].diff,-0.08041877784218636,-0.6399033878809971,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[54].diff_hi,-0.00803588636608768,-0.552603665373926,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[54].diff_lo,-0.3146157786893329,-0.684157327140206,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[54].eta_G,0.14940958455430875,0.6386303656210194,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[54].eta_V,0.06899080671212239,-0.001273022259977703,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[54].quota,0.1,0.3,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[55].arch,R1_mlp_clf,R1_gbm_reg,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[55].diff,-0.4884778883591446,-0.4843794941453049,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[55].diff_hi,-0.263753331168979,-0.2939673216933041,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[55].diff_lo,-0.5572760573553301,-0.6696357785290485,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[55].eta_G,0.4217574688745084,0.7708528247716006,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[55].eta_V,-0.06672041948463618,0.28647333062629565,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[55].quota,0.2,0.5,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[56].arch,R1_mlp_clf,R1_gbm_clf,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[56].diff,-0.41842095327416684,-0.4891459290957347,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[56].diff_hi,-0.2113118271168652,-0.28775763659133474,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[56].diff_lo,-0.6118204752285256,-0.601330216094264,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[56].eta_G,0.49181440395948617,0.4891459290957347,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[56].eta_V,0.07339345068531931,0.0,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[56].quota,0.3,0.1,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[57].arch,R1_gbm_reg,R1_gbm_clf,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[57].diff,-0.4266824585280952,-0.6303374826382087,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[57].diff_hi,-0.13148015789541984,-0.45251154668471477,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[57].diff_lo,-0.6127756357300128,-0.7390472446591068,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[57].eta_G,0.49851649545106386,0.699316734350668,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[57].eta_V,0.07183403692296864,0.06897925171245935,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[58].arch,R1_gbm_reg,R1_gbm_clf,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[58].diff,-0.6399033878809971,-0.7005897566106457,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[58].diff_hi,-0.552603665373926,-0.4720968495201791,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[58].diff_lo,-0.684157327140206,-0.7201922312988167,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[58].eta_G,0.6386303656210194,0.7693621144359827,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[58].eta_V,-0.001273022259977703,0.06877235782533699,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[59].arch,R1_gbm_reg,R1_gbm_clf,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[59].diff,-0.4843794941453049,-0.49041895135571245,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[59].diff_hi,-0.2939673216933041,-0.37789100343758864,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[59].diff_lo,-0.6696357785290485,-0.6573790270006794,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[59].eta_G,0.7708528247716006,0.6292482442660272,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[59].eta_V,0.28647333062629565,0.13882929291031473,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[60].arch,R1_gbm_clf,R1_gbm_reg,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[60].diff,-0.4891459290957347,-0.5531320831547261,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[60].diff_hi,-0.28775763659133474,-0.2983734560041477,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[60].diff_lo,-0.601330216094264,-0.6327121164873412,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[60].eta_G,0.4891459290957347,0.6175217080341356,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[60].eta_V,0.0,0.06438962487940961,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[60].g_variant,dE_E6_risk_weighted,primary,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[60].target,safety,scalar_J,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[61].arch,R1_gbm_clf,R1_gbm_reg,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[61].diff,-0.6303374826382087,-0.6307879954016826,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[61].diff_hi,-0.45251154668471477,-0.5154891199416523,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[61].diff_lo,-0.7390472446591068,-0.6822990905070386,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[61].eta_G,0.699316734350668,0.6953662049411609,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[61].eta_V,0.06897925171245935,0.06457820953947828,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[61].g_variant,dE_E6_risk_weighted,primary,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[61].target,safety,scalar_J,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[62].arch,R1_gbm_clf,R1_gbm_reg,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[62].diff,-0.7005897566106457,-0.5592670376413618,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[62].diff_hi,-0.4720968495201791,-0.3927357477047162,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[62].diff_lo,-0.7201922312988167,-0.636077624383858,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[62].eta_G,0.7693621144359827,0.694049764159687,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[62].eta_V,0.06877235782533699,0.13478272651832518,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[62].g_variant,dE_E6_risk_weighted,primary,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[62].target,safety,scalar_J,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[63].arch,R1_gbm_clf,R1_gbm_reg,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[63].diff,-0.49041895135571245,-0.4970405155114337,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[63].diff_hi,-0.37789100343758864,-0.34358647640062423,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[63].diff_lo,-0.6573790270006794,-0.6207333247494639,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[63].eta_G,0.6292482442660272,0.6281465716625302,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[63].eta_V,0.13882929291031473,0.13110605615109652,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[63].g_variant,dE_E6_risk_weighted,primary,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[63].target,safety,scalar_J,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[64].arch,R1_gbm_reg,R1_gbm_clf,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[64].diff,-0.5531320831547261,-0.20400651739233164,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[64].diff_hi,-0.2983734560041477,-0.13992009839789726,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[64].diff_lo,-0.6327121164873412,-0.37180575517744413,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[64].eta_G,0.6175217080341356,0.2056831563154779,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[64].eta_V,0.06438962487940961,0.00167663892314626,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[65].arch,R1_gbm_reg,R1_gbm_clf,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[65].diff,-0.6307879954016826,-0.40280230881680235,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[65].diff_hi,-0.5154891199416523,-0.2103261843327538,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[65].diff_lo,-0.6822990905070386,-0.5641654404566449,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[65].eta_G,0.6953662049411609,0.4750626147711628,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[65].eta_V,0.06457820953947828,0.07226030595436043,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[66].arch,R1_gbm_reg,R1_gbm_clf,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[66].diff,-0.5592670376413618,-0.6194559417658634,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[66].diff_hi,-0.3927357477047162,-0.345732713845438,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[66].diff_lo,-0.636077624383858,-0.8113936793877724,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[66].eta_G,0.694049764159687,0.6844068536561112,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[66].eta_V,0.13478272651832518,0.06495091189024785,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[67].arch,R1_gbm_reg,R1_gbm_clf,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[67].diff,-0.4970405155114337,-0.41874019162650106,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[67].diff_hi,-0.34358647640062423,-0.29800402386212893,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[67].diff_lo,-0.6207333247494639,-0.7687069305949356,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[67].eta_G,0.6281465716625302,0.686506218555746,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[67].eta_V,0.13110605615109652,0.26776602692924495,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[68].arch,R1_gbm_clf,R1_gbm_reg,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[68].diff,-0.20400651739233164,-0.4112836803642692,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[68].diff_hi,-0.13992009839789726,-0.27688235789819227,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[68].diff_lo,-0.37180575517744413,-0.4739136865078382,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[68].eta_G,0.2056831563154779,0.4756733052436788,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[68].eta_V,0.00167663892314626,0.06438962487940961,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[68].g_variant,primary,dE_exact,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[69].arch,R1_gbm_clf,R1_gbm_reg,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[69].diff,-0.40280230881680235,-0.617003062220492,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[69].diff_hi,-0.2103261843327538,-0.3132028649525819,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[69].diff_lo,-0.5641654404566449,-0.6631202466000017,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[69].eta_G,0.4750626147711628,0.6815812717599702,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[69].eta_V,0.07226030595436043,0.06457820953947828,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[69].g_variant,primary,dE_exact,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[70].arch,R1_gbm_clf,R1_gbm_reg,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[70].diff,-0.6194559417658634,-0.4881608871735245,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[70].diff_hi,-0.345732713845438,-0.3747489617974427,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[70].diff_lo,-0.8113936793877724,-0.5955534239537182,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[70].eta_G,0.6844068536561112,0.6229436136918497,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[70].eta_V,0.06495091189024785,0.13478272651832518,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[70].g_variant,primary,dE_exact,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[71].arch,R1_gbm_clf,R1_gbm_reg,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[71].diff,-0.41874019162650106,-0.5636296905106255,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[71].diff_hi,-0.29800402386212893,-0.42654325894621625,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[71].diff_lo,-0.7687069305949356,-0.6459580487417995,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[71].eta_G,0.686506218555746,0.694735746661722,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[71].eta_V,0.26776602692924495,0.13110605615109652,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[71].g_variant,primary,dE_exact,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[72].arch,R1_gbm_reg,R1_gbm_clf,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[72].diff,-0.4112836803642692,-0.34783105313584,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[72].diff_hi,-0.27688235789819227,-0.07940669147307947,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[72].diff_lo,-0.4739136865078382,-0.7312349977763778,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[72].eta_G,0.4756733052436788,0.615597080065085,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[72].eta_V,0.06438962487940961,0.26776602692924495,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[72].quota,0.1,0.5,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[73].diff,-0.617003062220492,-0.4220251789941694,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[73].diff_hi,-0.3132028649525819,-0.13021857176708462,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[73].diff_lo,-0.6631202466000017,-0.5346645663064155,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[73].eta_G,0.6815812717599702,0.4866033885336477,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[73].g_variant,dE_exact,dE_E6_risk_weighted,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[74].diff,-0.4881608871735245,-0.4898283797158313,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[74].diff_hi,-0.3747489617974427,-0.4221394751326983,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[74].diff_lo,-0.5955534239537182,-0.5321320743850355,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[74].eta_G,0.6229436136918497,0.6246111062341565,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[74].g_variant,dE_exact,dE_E6_risk_weighted,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[75].diff,-0.5636296905106255,-0.6227692854485845,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[75].diff_hi,-0.42654325894621625,-0.44038216318200163,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[75].diff_lo,-0.6459580487417995,-0.6965991295090781,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[75].eta_G,0.694735746661722,0.753875341599681,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[75].g_variant,dE_exact,dE_E6_risk_weighted,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[76].diff,-0.34783105313584,-0.47488433680871,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[76].diff_hi,-0.07940669147307947,-0.2711961096398794,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[76].diff_lo,-0.7312349977763778,-0.5864682498523394,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[76].eta_G,0.615597080065085,0.47656097573185624,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[76].eta_V,0.26776602692924495,0.00167663892314626,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[76].g_variant,dE_exact,dE_E6_risk_weighted,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[76].quota,0.5,0.1,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[77].arch,R1_gbm_reg,R1_gbm_clf,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[77].diff,-0.4220251789941694,-0.6145918510050375,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[77].diff_hi,-0.13021857176708462,-0.4361615178548048,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[77].diff_lo,-0.5346645663064155,-0.7237695843469244,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[77].eta_G,0.4866033885336477,0.6868521569593979,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[77].eta_V,0.06457820953947828,0.07226030595436043,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[78].arch,R1_gbm_reg,R1_gbm_clf,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[78].diff,-0.4898283797158313,-0.6901026529447102,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[78].diff_hi,-0.4221394751326983,-0.36671478962220055,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[78].diff_lo,-0.5321320743850355,-0.7615421785064406,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[78].eta_G,0.6246111062341565,0.755053564834958,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[78].eta_V,0.13478272651832518,0.06495091189024785,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[79].arch,R1_gbm_reg,R1_gbm_clf,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[79].diff,-0.6227692854485845,-0.34765640077626786,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[79].diff_hi,-0.44038216318200163,-0.19909603316930025,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[79].diff_lo,-0.6965991295090781,-0.6672199009085589,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[79].eta_G,0.753875341599681,0.6154224277055128,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[79].eta_V,0.13110605615109652,0.26776602692924495,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[80].arch,R1_gbm_clf,gate_gbm_batched,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[80].diff,-0.47488433680871,-0.0005074176139456607,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[80].diff_hi,-0.2711961096398794,-0.0004440535292318312,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[80].diff_lo,-0.5864682498523394,-0.0005531115802758211,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[80].eta_G,0.47656097573185624,0.0005074176139456607,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[80].eta_V,0.00167663892314626,0.0,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[80].g_variant,dE_E6_risk_weighted,primary,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[80].quota,0.1,0.2,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[80].setting,quota,budget_ms_20,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[80].system,pdm_closed,idm,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[81].arch,R1_gbm_clf,gate_gbm,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[81].diff,-0.6145918510050375,-0.0035105690766264537,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[81].diff_hi,-0.4361615178548048,-0.000456042742648343,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[81].diff_lo,-0.7237695843469244,-0.004625516877673404,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[81].eta_G,0.6868521569593979,0.0035105690766264537,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[81].eta_V,0.07226030595436043,0.0,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[81].g_variant,dE_E6_risk_weighted,dE_exact,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[81].quota,0.2,0.1,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[81].system,pdm_closed,idm,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[82].arch,R1_gbm_clf,gate_gbm,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[82].diff,-0.6901026529447102,-0.004503931702382965,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[82].diff_hi,-0.36671478962220055,-0.003155131997709162,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[82].diff_lo,-0.7615421785064406,-0.052124248493317454,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[82].eta_G,0.755053564834958,0.004503931702382965,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[82].eta_V,0.06495091189024785,0.0,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[82].g_variant,dE_E6_risk_weighted,dE_exact,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[82].quota,0.3,0.2,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[82].system,pdm_closed,idm,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[83].arch,R1_gbm_clf,gate_ridge,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[83].diff,-0.34765640077626786,-0.8485869008646533,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[83].diff_hi,-0.19909603316930025,-0.6794751308746112,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[83].diff_lo,-0.6672199009085589,-0.9884629855606603,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[83].eta_G,0.6154224277055128,0.9047937341641288,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[83].eta_V,0.26776602692924495,0.056206833299475525,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[83].quota,0.5,0.2,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[83].system,pdm_closed,idm,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[84].arch,gate_gbm_batched,gate_ridge,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[84].diff,-0.0005074176139456607,-0.8561996034146669,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[84].diff_hi,-0.0004440535292318312,-0.6559616817987659,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[84].diff_lo,-0.0005531115802758211,-0.9940617477203728,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[84].eta_G,0.0005074176139456607,0.9124064367141425,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[84].eta_V,0.0,0.056206833299475525,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[84].g_variant,primary,dE_E6_risk_weighted,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[84].quota,0.2,0.3,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[84].setting,budget_ms_20,quota,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[85].diff,-0.0035105690766264537,-0.004996986010905917,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[85].diff_hi,-0.000456042742648343,-0.00045654467353609243,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[85].diff_lo,-0.004625516877673404,-0.008720565780188367,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[85].eta_G,0.0035105690766264537,0.004996986010905917,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[85].g_variant,dE_exact,dE_E6_risk_weighted,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[86].diff,-0.004503931702382965,-0.009113482789715946,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[86].diff_hi,-0.003155131997709162,-0.0074577866003109426,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[86].diff_lo,-0.052124248493317454,-0.9656871752204096,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[86].eta_G,0.004503931702382965,0.009113482789715946,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[86].g_variant,dE_exact,dE_E6_risk_weighted,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[87].arch,gate_ridge,gate_gbm,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[87].diff,-0.8485869008646533,-0.9737142510759587,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[87].diff_hi,-0.6794751308746112,-0.795439266691813,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[87].diff_lo,-0.9884629855606603,-1.0000000000000002,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[87].eta_G,0.9047937341641288,1.0000000000000002,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[87].eta_V,0.056206833299475525,0.026285748924041594,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[87].quota,0.2,0.5,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[88].arch,gate_ridge,R1_gbm_reg,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[88].diff,-0.8561996034146669,-0.00672174399241529,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[88].diff_hi,-0.6559616817987659,-8.249656784449602e-05,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[88].diff_lo,-0.9940617477203728,-0.007196263050433968,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[88].eta_G,0.9124064367141425,0.00672174399241529,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[88].eta_V,0.056206833299475525,0.0,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[88].quota,0.3,0.1,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[89].arch,gate_gbm,R1_gbm_reg,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[89].diff,-0.004996986010905917,-0.00672174399241529,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[89].diff_hi,-0.00045654467353609243,-0.0062081085510258425,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[89].diff_lo,-0.008720565780188367,-0.007196263050433968,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[89].eta_G,0.004996986010905917,0.00672174399241529,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[89].quota,0.1,0.2,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[90].arch,gate_gbm,R1_gbm_reg,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[90].diff,-0.009113482789715946,-0.00672174399241529,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[90].diff_hi,-0.0074577866003109426,-0.0061698413618364945,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[90].diff_lo,-0.9656871752204096,-0.01463419002963338,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[90].eta_G,0.009113482789715946,0.00672174399241529,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[90].quota,0.2,0.3,False
+benchmark_target_swap_summary.json,G_beats_V_significantly[91].arch,gate_gbm,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[91].diff,-0.9737142510759587,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[91].diff_hi,-0.795439266691813,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[91].diff_lo,-1.0000000000000002,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[91].eta_G,1.0000000000000002,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[91].eta_V,0.026285748924041594,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[91].g_variant,dE_E6_risk_weighted,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[91].geometry,n/a,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[91].quota,0.5,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[91].setting,quota,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[91].system,idm,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[91].target,scalar_J,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[91].track,nuPlan,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[92].arch,R1_gbm_reg,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[92].diff,-0.00672174399241529,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[92].diff_hi,-8.249656784449602e-05,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[92].diff_lo,-0.007196263050433968,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[92].eta_G,0.00672174399241529,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[92].eta_V,0.0,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[92].g_variant,dE_E6_risk_weighted,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[92].geometry,n/a,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[92].quota,0.1,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[92].setting,quota,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[92].system,idm,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[92].target,scalar_J,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[92].track,nuPlan,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[93].arch,R1_gbm_reg,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[93].diff,-0.00672174399241529,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[93].diff_hi,-0.0062081085510258425,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[93].diff_lo,-0.007196263050433968,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[93].eta_G,0.00672174399241529,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[93].eta_V,0.0,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[93].g_variant,dE_E6_risk_weighted,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[93].geometry,n/a,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[93].quota,0.2,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[93].setting,quota,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[93].system,idm,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[93].target,scalar_J,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[93].track,nuPlan,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[94].arch,R1_gbm_reg,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[94].diff,-0.00672174399241529,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[94].diff_hi,-0.0061698413618364945,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[94].diff_lo,-0.01463419002963338,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[94].eta_G,0.00672174399241529,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[94].eta_V,0.0,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[94].g_variant,dE_E6_risk_weighted,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[94].geometry,n/a,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[94].quota,0.3,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[94].setting,quota,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[94].system,idm,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[94].target,scalar_J,<absent>,True
+benchmark_target_swap_summary.json,G_beats_V_significantly[94].track,nuPlan,<absent>,True
+benchmark_target_swap_summary.json,drops.nuScenes|oracle|brake|J.budget,7,8,False
+benchmark_target_swap_summary.json,drops.nuScenes|oracle|brake|J.quota[0],7,8,False
+benchmark_target_swap_summary.json,drops.nuScenes|oracle|brake|J.quota[1],7,8,False
+benchmark_target_swap_summary.json,drops.nuScenes|oracle|brake|J.quota[2],7,8,False
+benchmark_target_swap_summary.json,drops.nuScenes|oracle|brake|J.quota[3],7,8,False
+benchmark_target_swap_summary.json,pooled.dE_E6_risk_weighted.per_architecture.R1_gbm_clf.cells_V_gt_G,4,5,False
+benchmark_target_swap_summary.json,pooled.dE_E6_risk_weighted.per_architecture.R1_gbm_clf.cells_diff_ci_above_0,0,1,False
+benchmark_target_swap_summary.json,pooled.dE_E6_risk_weighted.per_architecture.R1_gbm_clf.cells_diff_ci_below_0,4,3,False
+benchmark_target_swap_summary.json,pooled.dE_E6_risk_weighted.per_architecture.R1_gbm_clf.ci_hi,0.017020275180495738,0.05910331602489538,False
+benchmark_target_swap_summary.json,pooled.dE_E6_risk_weighted.per_architecture.R1_gbm_clf.ci_lo,-0.20530396673133688,-0.17511805885413767,False
+benchmark_target_swap_summary.json,pooled.dE_E6_risk_weighted.per_architecture.R1_gbm_clf.mean_diff_V_minus_G,-0.1243381975410683,-0.07858673384481477,False
+benchmark_target_swap_summary.json,pooled.dE_E6_risk_weighted.per_architecture.R1_gbm_reg.cells_V_gt_G,6,5,False
+benchmark_target_swap_summary.json,pooled.dE_E6_risk_weighted.per_architecture.R1_gbm_reg.ci_hi,0.08379563032255051,0.0974065158358088,False
+benchmark_target_swap_summary.json,pooled.dE_E6_risk_weighted.per_architecture.R1_gbm_reg.ci_lo,-0.17773251389886918,-0.18746164239181656,False
+benchmark_target_swap_summary.json,pooled.dE_E6_risk_weighted.per_architecture.R1_gbm_reg.mean_diff_V_minus_G,-0.04912685540842112,-0.06431143040127552,False
+benchmark_target_swap_summary.json,pooled.dE_E6_risk_weighted.per_architecture.R1_mlp_clf.cells_V_gt_G,6,5,False
+benchmark_target_swap_summary.json,pooled.dE_E6_risk_weighted.per_architecture.R1_mlp_clf.ci_hi,0.11972043527160525,0.14536037523137268,False
+benchmark_target_swap_summary.json,pooled.dE_E6_risk_weighted.per_architecture.R1_mlp_clf.ci_lo,-0.11951019225270273,-0.12813487300088175,False
+benchmark_target_swap_summary.json,pooled.dE_E6_risk_weighted.per_architecture.R1_mlp_clf.mean_diff_V_minus_G,-0.002686426996704567,0.009308172389928393,False
+benchmark_target_swap_summary.json,pooled.dE_E6_risk_weighted.per_architecture.R1_mlp_reg.ci_hi,0.13568998207508667,0.14795635453622324,False
+benchmark_target_swap_summary.json,pooled.dE_E6_risk_weighted.per_architecture.R1_mlp_reg.ci_lo,-0.023660885236513753,-0.03343939684985549,False
+benchmark_target_swap_summary.json,pooled.dE_E6_risk_weighted.per_architecture.R1_mlp_reg.mean_diff_V_minus_G,0.041833647642186854,0.04373434459976155,False
+benchmark_target_swap_summary.json,pooled.dE_E6_risk_weighted.per_architecture.gate_gbm.ci_hi,0.23101482666549258,0.24218720302835628,False
+benchmark_target_swap_summary.json,pooled.dE_E6_risk_weighted.per_architecture.gate_gbm.ci_lo,-0.12438904853259572,-0.10612550679649033,False
+benchmark_target_swap_summary.json,pooled.dE_E6_risk_weighted.per_architecture.gate_gbm.mean_diff_V_minus_G,0.08667425660217909,0.10121642796754236,False
+benchmark_target_swap_summary.json,pooled.dE_E6_risk_weighted.per_architecture.gate_ridge.ci_hi,0.12664212118489637,0.12980186632312257,False
+benchmark_target_swap_summary.json,pooled.dE_E6_risk_weighted.per_architecture.gate_ridge.ci_lo,-0.1279027758578037,-0.12968415381028153,False
+benchmark_target_swap_summary.json,pooled.dE_E6_risk_weighted.per_architecture.gate_ridge.mean_diff_V_minus_G,0.018478294899082825,0.018266678534950186,False
+benchmark_target_swap_summary.json,pooled.dE_exact.per_architecture.R1_gbm_clf.cells_diff_ci_below_0,1,0,False
+benchmark_target_swap_summary.json,pooled.dE_exact.per_architecture.R1_gbm_clf.ci_hi,0.04960912846588263,0.0998301633415709,False
+benchmark_target_swap_summary.json,pooled.dE_exact.per_architecture.R1_gbm_clf.ci_lo,-0.21319545975759147,-0.1787264381255668,False
+benchmark_target_swap_summary.json,pooled.dE_exact.per_architecture.R1_gbm_clf.mean_diff_V_minus_G,-0.06971809749377285,-0.0246277924924572,False
+benchmark_target_swap_summary.json,pooled.dE_exact.per_architecture.R1_gbm_reg.ci_hi,0.1075115968398067,0.09347919538808545,False
+benchmark_target_swap_summary.json,pooled.dE_exact.per_architecture.R1_gbm_reg.ci_lo,-0.20698876367206917,-0.20467869402437486,False
+benchmark_target_swap_summary.json,pooled.dE_exact.per_architecture.R1_gbm_reg.mean_diff_V_minus_G,-0.05455091225380863,-0.06998080226972136,False
+benchmark_target_swap_summary.json,pooled.dE_exact.per_architecture.R1_mlp_clf.cells_V_gt_G,6,7,False
+benchmark_target_swap_summary.json,pooled.dE_exact.per_architecture.R1_mlp_clf.ci_hi,0.142339024925351,0.16524343905678288,False
+benchmark_target_swap_summary.json,pooled.dE_exact.per_architecture.R1_mlp_clf.ci_lo,-0.08313268551475118,-0.0872170958064491,False
+benchmark_target_swap_summary.json,pooled.dE_exact.per_architecture.R1_mlp_clf.mean_diff_V_minus_G,0.04828508573117252,0.05999399376376474,False
+benchmark_target_swap_summary.json,pooled.dE_exact.per_architecture.R1_mlp_reg.ci_hi,0.18207343275047436,0.19800818548307345,False
+benchmark_target_swap_summary.json,pooled.dE_exact.per_architecture.R1_mlp_reg.ci_lo,-0.019931897362335506,-0.0352592874184332,False
+benchmark_target_swap_summary.json,pooled.dE_exact.per_architecture.R1_mlp_reg.mean_diff_V_minus_G,0.0849973939219566,0.08783489374878528,False
+benchmark_target_swap_summary.json,pooled.dE_exact.per_architecture.gate_gbm.cells_V_gt_G,7,8,False
+benchmark_target_swap_summary.json,pooled.dE_exact.per_architecture.gate_gbm.ci_hi,0.3137396476988208,0.33078567186907776,False
+benchmark_target_swap_summary.json,pooled.dE_exact.per_architecture.gate_gbm.ci_lo,-0.04943651797631993,-0.03646471946127968,False
+benchmark_target_swap_summary.json,pooled.dE_exact.per_architecture.gate_gbm.mean_diff_V_minus_G,0.19799561412949732,0.21351119060682897,False
+benchmark_target_swap_summary.json,pooled.dE_exact.per_architecture.gate_ridge.ci_hi,0.23731854222463766,0.24053020781758044,False
+benchmark_target_swap_summary.json,pooled.dE_exact.per_architecture.gate_ridge.ci_lo,-0.07730643678788375,-0.08134768832802565,False
+benchmark_target_swap_summary.json,pooled.dE_exact.per_architecture.gate_ridge.mean_diff_V_minus_G,0.11342598082603943,0.11291100117514709,False
+benchmark_target_swap_summary.json,pooled.primary.per_architecture.R1_gbm_clf.cells_V_gt_G,7,8,False
+benchmark_target_swap_summary.json,pooled.primary.per_architecture.R1_gbm_clf.ci_hi,0.0997721487791138,0.13405259660743357,False
+benchmark_target_swap_summary.json,pooled.primary.per_architecture.R1_gbm_clf.ci_lo,-0.15204399392419968,-0.11536049285992912,False
+benchmark_target_swap_summary.json,pooled.primary.per_architecture.R1_gbm_clf.mean_diff_V_minus_G,-0.024761384680401875,0.021993078085888157,False
+benchmark_target_swap_summary.json,pooled.primary.per_architecture.R1_gbm_reg.cells_V_gt_G,6,5,False
+benchmark_target_swap_summary.json,pooled.primary.per_architecture.R1_gbm_reg.ci_hi,0.04688072141757089,0.0380292475740357,False
+benchmark_target_swap_summary.json,pooled.primary.per_architecture.R1_gbm_reg.ci_lo,-0.22458766886518933,-0.23600507947602103,False
+benchmark_target_swap_summary.json,pooled.primary.per_architecture.R1_gbm_reg.mean_diff_V_minus_G,-0.09815944179313153,-0.11362462259525591,False
+benchmark_target_swap_summary.json,pooled.primary.per_architecture.R1_mlp_clf.cells_V_gt_G,8,9,False
+benchmark_target_swap_summary.json,pooled.primary.per_architecture.R1_mlp_clf.ci_hi,0.1575523157515901,0.19113697286400125,False
+benchmark_target_swap_summary.json,pooled.primary.per_architecture.R1_mlp_clf.ci_lo,-0.09238553580694045,-0.0943615259251713,False
+benchmark_target_swap_summary.json,pooled.primary.per_architecture.R1_mlp_clf.mean_diff_V_minus_G,0.0779223581507971,0.09005577079959708,False
+benchmark_target_swap_summary.json,pooled.primary.per_architecture.R1_mlp_reg.cells_diff_ci_above_0,1,2,False
+benchmark_target_swap_summary.json,pooled.primary.per_architecture.R1_mlp_reg.ci_hi,0.15284996796311573,0.1586687111902545,False
+benchmark_target_swap_summary.json,pooled.primary.per_architecture.R1_mlp_reg.ci_lo,-0.049705294521784814,-0.06004898930003382,False
+benchmark_target_swap_summary.json,pooled.primary.per_architecture.R1_mlp_reg.mean_diff_V_minus_G,0.06050269349447554,0.06315109387590447,False
+benchmark_target_swap_summary.json,pooled.primary.per_architecture.gate_gbm.cells_diff_ci_above_0,3,4,False
+benchmark_target_swap_summary.json,pooled.primary.per_architecture.gate_gbm.ci_hi,0.21240849998917444,0.2287837411995423,False
+benchmark_target_swap_summary.json,pooled.primary.per_architecture.gate_gbm.ci_lo,-0.04662995860183871,-0.02690338372611859,False
+benchmark_target_swap_summary.json,pooled.primary.per_architecture.gate_gbm.mean_diff_V_minus_G,0.11929317444363663,0.1348816033077472,False
+benchmark_target_swap_summary.json,pooled.primary.per_architecture.gate_ridge.cells_diff_ci_above_0,3,2,False
+benchmark_target_swap_summary.json,pooled.primary.per_architecture.gate_ridge.ci_hi,0.2703418601004385,0.2690195263598062,False
+benchmark_target_swap_summary.json,pooled.primary.per_architecture.gate_ridge.ci_lo,-0.03835019540850134,-0.03924779647084416,False
+benchmark_target_swap_summary.json,pooled.primary.per_architecture.gate_ridge.mean_diff_V_minus_G,0.16027656714114744,0.16099691001801775,False
+benchmark_target_swap_summary.json,sign_agreement[0].sign_agree_fit,0.6335078534031413,0.6724137931034483,False
+benchmark_target_swap_summary.json,sign_agreement[0].sign_agree_fit_n,191,116,False
+benchmark_target_swap_summary.json,sign_agreement[0].sign_agree_train,0.5874125874125874,0.6309523809523809,False
+benchmark_target_swap_summary.json,sign_agreement[0].sign_agree_train_n,143,84,False
+benchmark_target_swap_summary.json,sign_agreement[10].sign_agree_fit,0.543859649122807,0.5673758865248227,False
+benchmark_target_swap_summary.json,sign_agreement[10].sign_agree_fit_n,228,141,False
+benchmark_target_swap_summary.json,sign_agreement[10].sign_agree_train,0.5568181818181818,0.5700934579439252,False
+benchmark_target_swap_summary.json,sign_agreement[10].sign_agree_train_n,176,107,False
+benchmark_target_swap_summary.json,sign_agreement[11].sign_agree_fit,0.5342465753424658,0.5588235294117647,False
+benchmark_target_swap_summary.json,sign_agreement[11].sign_agree_fit_n,219,136,False
+benchmark_target_swap_summary.json,sign_agreement[11].sign_agree_train,0.5411764705882353,0.5631067961165048,False
+benchmark_target_swap_summary.json,sign_agreement[11].sign_agree_train_n,170,103,False
+benchmark_target_swap_summary.json,sign_agreement[18].sign_agree_fit,0.8311688311688312,0.8834269662921348,False
+benchmark_target_swap_summary.json,sign_agreement[18].sign_agree_fit_n,924,712,False
+benchmark_target_swap_summary.json,sign_agreement[18].sign_agree_train,0.827460510328068,0.8847352024922118,False
+benchmark_target_swap_summary.json,sign_agreement[18].sign_agree_train_n,823,642,False
+benchmark_target_swap_summary.json,sign_agreement[19].sign_agree_fit,0.8454773869346733,0.8983050847457628,False
+benchmark_target_swap_summary.json,sign_agreement[19].sign_agree_fit_n,796,649,False
+benchmark_target_swap_summary.json,sign_agreement[19].sign_agree_train,0.8283261802575107,0.8896551724137931,False
+benchmark_target_swap_summary.json,sign_agreement[19].sign_agree_train_n,699,580,False
+benchmark_target_swap_summary.json,sign_agreement[1].sign_agree_fit,0.6507936507936508,0.7215189873417721,False
+benchmark_target_swap_summary.json,sign_agreement[1].sign_agree_fit_n,126,79,False
+benchmark_target_swap_summary.json,sign_agreement[1].sign_agree_train,0.6195652173913043,0.7222222222222222,False
+benchmark_target_swap_summary.json,sign_agreement[1].sign_agree_train_n,92,54,False
+benchmark_target_swap_summary.json,sign_agreement[20].sign_agree_fit,0.8492975734355045,0.9054878048780488,False
+benchmark_target_swap_summary.json,sign_agreement[20].sign_agree_fit_n,783,656,False
+benchmark_target_swap_summary.json,sign_agreement[20].sign_agree_train,0.8361823361823362,0.8981324278438031,False
+benchmark_target_swap_summary.json,sign_agreement[20].sign_agree_train_n,702,589,False
+benchmark_target_swap_summary.json,sign_agreement[21].sign_agree_fit,0.8757637474541752,0.931129476584022,False
+benchmark_target_swap_summary.json,sign_agreement[21].sign_agree_fit_n,491,363,False
+benchmark_target_swap_summary.json,sign_agreement[21].sign_agree_train,0.8661800486618005,0.9315960912052117,False
+benchmark_target_swap_summary.json,sign_agreement[21].sign_agree_train_n,411,307,False
+benchmark_target_swap_summary.json,sign_agreement[22].sign_agree_fit,0.9815668202764977,0.9943502824858758,False
+benchmark_target_swap_summary.json,sign_agreement[22].sign_agree_fit_n,434,354,False
+benchmark_target_swap_summary.json,sign_agreement[22].sign_agree_train,0.9775910364145658,0.9932885906040269,False
+benchmark_target_swap_summary.json,sign_agreement[22].sign_agree_train_n,357,298,False
+benchmark_target_swap_summary.json,sign_agreement[23].sign_agree_fit,0.9754901960784313,0.9886363636363636,False
+benchmark_target_swap_summary.json,sign_agreement[23].sign_agree_fit_n,408,352,False
+benchmark_target_swap_summary.json,sign_agreement[23].sign_agree_train,0.9712643678160919,0.9865771812080537,False
+benchmark_target_swap_summary.json,sign_agreement[23].sign_agree_train_n,348,298,False
+benchmark_target_swap_summary.json,sign_agreement[24].sign_agree_fit,0.7173333333333334,0.7588717015468608,False
+benchmark_target_swap_summary.json,sign_agreement[24].sign_agree_fit_n,1500,1099,False
+benchmark_target_swap_summary.json,sign_agreement[24].sign_agree_train,0.7125748502994012,0.7575757575757576,False
+benchmark_target_swap_summary.json,sign_agreement[24].sign_agree_train_n,1336,990,False
+benchmark_target_swap_summary.json,sign_agreement[25].sign_agree_fit,0.7367588932806324,0.7832460732984293,False
+benchmark_target_swap_summary.json,sign_agreement[25].sign_agree_fit_n,1265,955,False
+benchmark_target_swap_summary.json,sign_agreement[25].sign_agree_train,0.7185251798561151,0.7717647058823529,False
+benchmark_target_swap_summary.json,sign_agreement[25].sign_agree_train_n,1112,850,False
+benchmark_target_swap_summary.json,sign_agreement[26].sign_agree_fit,0.7358024691358025,0.7899786780383795,False
+benchmark_target_swap_summary.json,sign_agreement[26].sign_agree_fit_n,1215,938,False
+benchmark_target_swap_summary.json,sign_agreement[26].sign_agree_train,0.7220708446866485,0.7794811320754716,False
+benchmark_target_swap_summary.json,sign_agreement[26].sign_agree_train_n,1101,848,False
+benchmark_target_swap_summary.json,sign_agreement[27].sign_agree_fit,0.5586510263929618,0.5287128712871287,False
+benchmark_target_swap_summary.json,sign_agreement[27].sign_agree_fit_n,682,505,False
+benchmark_target_swap_summary.json,sign_agreement[27].sign_agree_train,0.5533453887884268,0.5408653846153846,False
+benchmark_target_swap_summary.json,sign_agreement[27].sign_agree_train_n,553,416,False
+benchmark_target_swap_summary.json,sign_agreement[28].sign_agree_fit,0.5992844364937389,0.5496535796766744,False
+benchmark_target_swap_summary.json,sign_agreement[28].sign_agree_fit_n,559,433,False
+benchmark_target_swap_summary.json,sign_agreement[28].sign_agree_train,0.6126126126126126,0.5819209039548022,False
+benchmark_target_swap_summary.json,sign_agreement[28].sign_agree_train_n,444,354,False
+benchmark_target_swap_summary.json,sign_agreement[29].sign_agree_fit,0.6172839506172839,0.5784061696658098,False
+benchmark_target_swap_summary.json,sign_agreement[29].sign_agree_fit_n,486,389,False
+benchmark_target_swap_summary.json,sign_agreement[29].sign_agree_train,0.6211031175059952,0.5898203592814372,False
+benchmark_target_swap_summary.json,sign_agreement[29].sign_agree_train_n,417,334,False
+benchmark_target_swap_summary.json,sign_agreement[2].sign_agree_fit,0.6557377049180327,0.6951219512195121,False
+benchmark_target_swap_summary.json,sign_agreement[2].sign_agree_fit_n,122,82,False
+benchmark_target_swap_summary.json,sign_agreement[2].sign_agree_train,0.6333333333333333,0.6842105263157895,False
+benchmark_target_swap_summary.json,sign_agreement[2].sign_agree_train_n,90,57,False
+benchmark_target_swap_summary.json,sign_agreement[9].sign_agree_fit,0.5329512893982808,0.5370370370370371,False
+benchmark_target_swap_summary.json,sign_agreement[9].sign_agree_fit_n,349,216,False
+benchmark_target_swap_summary.json,sign_agreement[9].sign_agree_train,0.5393258426966292,0.5308641975308642,False
+benchmark_target_swap_summary.json,sign_agreement[9].sign_agree_train_n,267,162,False
+energy_module_costs.json,gate_scores_run,20260922_110512_budget_gate_scores_ego,20260925_111558_budget_gate_scores_ego,True
+energy_module_score_check.json,gate_scores_run,20260922_110512_budget_gate_scores_ego,20260925_111558_budget_gate_scores_ego,True
+fig_bev_constants.json,omitted_by_system_geometry.brake|mono.fp_in_both,258,144,False
+fig_bev_constants.json,omitted_by_system_geometry.brake|mono.fp_in_both_iou30,298,167,False
+fig_bev_constants.json,omitted_by_system_geometry.brake|mono.frames_V_nonzero,454,273,False
+fig_bev_constants.json,omitted_by_system_geometry.brake|mono.missed_by_both,1300,734,False
+fig_bev_constants.json,omitted_by_system_geometry.brake|oracle.fp_in_both,150,88,False
+fig_bev_constants.json,omitted_by_system_geometry.brake|oracle.fp_in_both_iou30,172,100,False
+fig_bev_constants.json,omitted_by_system_geometry.brake|oracle.frames_V_nonzero,240,141,False
+fig_bev_constants.json,omitted_by_system_geometry.brake|oracle.missed_by_both,634,371,False
+fig_bev_constants.json,rows_by_system_geometry_type.brake|mono|fp_added_by_full,854,502,False
+fig_bev_constants.json,rows_by_system_geometry_type.brake|mono|fp_removed_by_full,321,186,False
+fig_bev_constants.json,rows_by_system_geometry_type.brake|mono|matched_both,1015,588,False
+fig_bev_constants.json,rows_by_system_geometry_type.brake|mono|miss_lost_by_full,58,34,False
+fig_bev_constants.json,rows_by_system_geometry_type.brake|mono|miss_recovered_by_full,568,352,False
+fig_bev_constants.json,rows_by_system_geometry_type.brake|oracle|fp_added_by_full,504,301,False
+fig_bev_constants.json,rows_by_system_geometry_type.brake|oracle|fp_removed_by_full,166,95,False
+fig_bev_constants.json,rows_by_system_geometry_type.brake|oracle|matched_both,454,234,False
+fig_bev_constants.json,rows_by_system_geometry_type.brake|oracle|miss_lost_by_full,36,24,False
+fig_bev_constants.json,rows_by_system_geometry_type.brake|oracle|miss_recovered_by_full,282,181,False
+fig_bev_constants.json,rows_matched_through_shared_detection,626,545,False
+fig_bev_constants.json,setting.registered_tables.mono,results/raw/20260922_092008_phase0g_eta_fde_mono_ego/joined_frames.pkl,results/raw/20260925_094314_phase0g_eta_fde_mono_ego/joined_frames.pkl,True
+fig_bev_constants.json,setting.registered_tables.oracle,results/raw/20260922_085053_phase0g_eta_fde_oracle_ego/joined_frames.pkl,results/raw/20260925_091047_phase0g_eta_fde_oracle_ego/joined_frames.pkl,True
+published_objective_reading.json,V_beats_random_published_does_not[0],"KITTI mono brake J | R1_mlp_reg on Q @30%: nDG +0.130; vs random [-0.111, +0.109]; V-trained vs random [+0.011, +0.254]; published - V [-0.294, +0.032]","KITTI mono brake J | R1_mlp_reg on Q @20%: nDG +0.046; vs random [-0.108, +0.080]; V-trained vs random [+0.013, +0.194]; published - V [-0.237, +0.053]",True
+published_objective_reading.json,V_beats_random_published_does_not[10],"KITTI mono brake J | R1_gbm_reg on G @30%: nDG +0.161; vs random [-0.037, +0.133]; V-trained vs random [+0.026, +0.311]; published - V [-0.293, +0.075]","KITTI mono brake J | R1_mlp_clf on G @30%: nDG +0.113; vs random [-0.105, +0.112]; V-trained vs random [+0.031, +0.217]; published - V [-0.244, +0.081]",True
+published_objective_reading.json,V_beats_random_published_does_not[11],"KITTI mono brake J | R1_gbm_reg on G @50%: nDG +0.232; vs random [-0.058, +0.126]; V-trained vs random [+0.079, +0.305]; published - V [-0.299, -0.005]","KITTI mono brake J | R1_mlp_clf on G @50%: nDG +0.190; vs random [-0.087, +0.101]; V-trained vs random [+0.026, +0.258]; published - V [-0.282, +0.047]",True
+published_objective_reading.json,V_beats_random_published_does_not[12],"KITTI mono brake J | R1_gbm_clf on Q @10%: nDG +0.116; vs random [-0.050, +0.184]; V-trained vs random [+0.019, +0.218]; published - V [-0.194, +0.155]","KITTI mono brake J | R1_gbm_reg on Q @20%: nDG +0.035; vs random [-0.081, +0.095]; V-trained vs random [+0.004, +0.286]; published - V [-0.341, +0.045]",True
+published_objective_reading.json,V_beats_random_published_does_not[13],"KITTI mono brake J | R1_gbm_clf on Q @20%: nDG +0.186; vs random [-0.006, +0.208]; V-trained vs random [+0.019, +0.252]; published - V [-0.174, +0.158]","KITTI mono brake J | R1_gbm_reg on Q @30%: nDG +0.087; vs random [-0.085, +0.065]; V-trained vs random [+0.018, +0.307]; published - V [-0.385, +0.023]",True
+published_objective_reading.json,V_beats_random_published_does_not[14],"KITTI mono brake J | R1_gbm_clf on Q @30%: nDG +0.243; vs random [-0.008, +0.250]; V-trained vs random [+0.047, +0.315]; published - V [-0.215, +0.130]","KITTI mono brake J | R1_gbm_reg on Q @50%: nDG +0.214; vs random [-0.043, +0.066]; V-trained vs random [+0.018, +0.301]; published - V [-0.315, -0.025]",True
+published_objective_reading.json,V_beats_random_published_does_not[15],"KITTI mono brake J | R1_gbm_clf on G @10%: nDG +0.116; vs random [-0.062, +0.115]; V-trained vs random [+0.019, +0.218]; published - V [-0.168, +0.066]","KITTI mono brake J | R1_gbm_reg on G @20%: nDG +0.144; vs random [-0.024, +0.148]; V-trained vs random [+0.004, +0.286]; published - V [-0.233, +0.105]",True
+published_objective_reading.json,V_beats_random_published_does_not[16],"KITTI mono brake J | R1_gbm_clf on G @20%: nDG +0.117; vs random [-0.083, +0.139]; V-trained vs random [+0.019, +0.252]; published - V [-0.247, +0.064]","KITTI mono brake J | R1_gbm_reg on G @30%: nDG +0.161; vs random [-0.038, +0.133]; V-trained vs random [+0.018, +0.307]; published - V [-0.289, +0.081]",True
+published_objective_reading.json,V_beats_random_published_does_not[17],"KITTI mono brake J | R1_gbm_clf on G @30%: nDG +0.151; vs random [-0.207, +0.126]; V-trained vs random [+0.047, +0.315]; published - V [-0.393, +0.015]","KITTI mono brake J | R1_gbm_reg on G @50%: nDG +0.232; vs random [-0.059, +0.126]; V-trained vs random [+0.018, +0.301]; published - V [-0.294, +0.043]",True
+published_objective_reading.json,V_beats_random_published_does_not[18],"KITTI mono brake J | R1_gbm_clf on G @50%: nDG +0.217; vs random [-0.125, +0.102]; V-trained vs random [+0.050, +0.298]; published - V [-0.335, -0.027]","KITTI mono brake J | R1_gbm_clf on Q @10%: nDG +0.116; vs random [-0.050, +0.184]; V-trained vs random [+0.017, +0.262]; published - V [-0.260, +0.166]",True
+published_objective_reading.json,V_beats_random_published_does_not[19],"KITTI mono brake J | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @20%: nDG +0.145; vs random [-0.023, +0.147]; V-trained vs random [+0.003, +0.288]; published - V [-0.231, +0.105]","KITTI mono brake J | R1_gbm_clf on Q @20%: nDG +0.186; vs random [-0.007, +0.209]; V-trained vs random [+0.013, +0.292]; published - V [-0.235, +0.184]",True
+published_objective_reading.json,V_beats_random_published_does_not[1],"KITTI mono brake J | R1_mlp_reg on Q @50%: nDG +0.231; vs random [-0.043, +0.118]; V-trained vs random [+0.054, +0.255]; published - V [-0.258, +0.011]","KITTI mono brake J | R1_mlp_reg on Q @30%: nDG +0.129; vs random [-0.113, +0.109]; V-trained vs random [+0.055, +0.205]; published - V [-0.285, +0.011]",True
+published_objective_reading.json,V_beats_random_published_does_not[20],"KITTI mono brake J | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @30%: nDG +0.161; vs random [-0.037, +0.133]; V-trained vs random [+0.026, +0.311]; published - V [-0.293, +0.075]","KITTI mono brake J | R1_gbm_clf on Q @30%: nDG +0.244; vs random [-0.008, +0.253]; V-trained vs random [+0.039, +0.316]; published - V [-0.270, +0.207]",True
+published_objective_reading.json,V_beats_random_published_does_not[21],"KITTI mono brake J | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @50%: nDG +0.232; vs random [-0.058, +0.126]; V-trained vs random [+0.079, +0.305]; published - V [-0.299, -0.005]","KITTI mono brake J | R1_gbm_clf on G @10%: nDG +0.115; vs random [-0.061, +0.115]; V-trained vs random [+0.017, +0.262]; published - V [-0.192, +0.072]",True
+published_objective_reading.json,V_beats_random_published_does_not[22],"KITTI oracle brake J | R1_mlp_reg on Q @50%: nDG +0.384; vs random [-0.125, +0.118]; V-trained vs random [+0.029, +0.297]; published - V [-0.298, -0.034]","KITTI mono brake J | R1_gbm_clf on G @20%: nDG +0.116; vs random [-0.083, +0.138]; V-trained vs random [+0.013, +0.292]; published - V [-0.263, +0.074]",True
+published_objective_reading.json,V_beats_random_published_does_not[23],"KITTI oracle brake J | R1_mlp_reg on G @50%: nDG +0.336; vs random [-0.061, +0.144]; V-trained vs random [+0.029, +0.297]; published - V [-0.321, +0.060]","KITTI mono brake J | R1_gbm_clf on G @30%: nDG +0.151; vs random [-0.209, +0.126]; V-trained vs random [+0.039, +0.316]; published - V [-0.379, +0.042]",True
+published_objective_reading.json,V_beats_random_published_does_not[24],"KITTI oracle brake J | R1_mlp_clf on Q @20%: nDG +0.120; vs random [-0.089, +0.056]; V-trained vs random [+0.015, +0.289]; published - V [-0.338, +0.019]","KITTI mono brake J | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @20%: nDG +0.144; vs random [-0.024, +0.148]; V-trained vs random [+0.004, +0.286]; published - V [-0.233, +0.105]",True
+published_objective_reading.json,V_beats_random_published_does_not[25],"KITTI oracle brake J | R1_mlp_clf on Q @30%: nDG +0.206; vs random [-0.051, +0.096]; V-trained vs random [+0.029, +0.322]; published - V [-0.361, +0.054]","KITTI mono brake J | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @30%: nDG +0.161; vs random [-0.038, +0.133]; V-trained vs random [+0.018, +0.307]; published - V [-0.289, +0.081]",True
+published_objective_reading.json,V_beats_random_published_does_not[26],"KITTI oracle brake J | R1_mlp_clf on G @20%: nDG +0.102; vs random [-0.164, +0.194]; V-trained vs random [+0.015, +0.289]; published - V [-0.323, +0.150]","KITTI mono brake J | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @50%: nDG +0.232; vs random [-0.059, +0.126]; V-trained vs random [+0.018, +0.301]; published - V [-0.294, +0.043]",True
+published_objective_reading.json,V_beats_random_published_does_not[27],"KITTI oracle brake J | R1_mlp_clf on G @30%: nDG +0.191; vs random [-0.124, +0.237]; V-trained vs random [+0.029, +0.322]; published - V [-0.333, +0.206]","KITTI oracle brake J | R1_mlp_reg on Q @10%: nDG +0.019; vs random [-0.083, +0.071]; V-trained vs random [+0.007, +0.202]; published - V [-0.263, +0.041]",True
+published_objective_reading.json,V_beats_random_published_does_not[28],"KITTI oracle brake J | R1_gbm_reg on Q @10%: nDG +0.034; vs random [-0.091, +0.006]; V-trained vs random [+0.005, +0.307]; published - V [-0.381, -0.007]","KITTI oracle brake J | R1_mlp_reg on G @10%: nDG +0.049; vs random [-0.059, +0.083]; V-trained vs random [+0.007, +0.202]; published - V [-0.232, +0.059]",True
+published_objective_reading.json,V_beats_random_published_does_not[29],"KITTI oracle brake J | R1_gbm_reg on G @10%: nDG +0.066; vs random [-0.063, +0.081]; V-trained vs random [+0.005, +0.307]; published - V [-0.294, +0.024]","KITTI oracle brake J | R1_mlp_clf on Q @10%: nDG +0.063; vs random [-0.082, +0.116]; V-trained vs random [+0.013, +0.249]; published - V [-0.294, +0.068]",True
+published_objective_reading.json,V_beats_random_published_does_not[2],"KITTI mono brake J | R1_mlp_reg on G @30%: nDG +0.152; vs random [-0.041, +0.184]; V-trained vs random [+0.011, +0.254]; published - V [-0.239, +0.112]","KITTI mono brake J | R1_mlp_reg on Q @50%: nDG +0.231; vs random [-0.045, +0.117]; V-trained vs random [+0.043, +0.214]; published - V [-0.223, +0.031]",True
+published_objective_reading.json,V_beats_random_published_does_not[30],"KITTI oracle brake J | R1_gbm_clf on Q @10%: nDG +0.085; vs random [-0.064, +0.176]; V-trained vs random [+0.069, +0.332]; published - V [-0.329, -0.042]","KITTI oracle brake J | R1_mlp_clf on Q @20%: nDG +0.120; vs random [-0.088, +0.056]; V-trained vs random [+0.020, +0.341]; published - V [-0.390, +0.033]",True
+published_objective_reading.json,V_beats_random_published_does_not[31],"KITTI oracle brake J | R1_gbm_clf on Q @20%: nDG +0.232; vs random [-0.007, +0.302]; V-trained vs random [+0.070, +0.398]; published - V [-0.371, +0.170]","KITTI oracle brake J | R1_mlp_clf on G @10%: nDG +0.069; vs random [-0.094, +0.180]; V-trained vs random [+0.013, +0.249]; published - V [-0.283, +0.161]",True
+published_objective_reading.json,V_beats_random_published_does_not[32],"KITTI oracle brake J | R1_gbm_clf on Q @30%: nDG +0.322; vs random [-0.002, +0.270]; V-trained vs random [+0.088, +0.422]; published - V [-0.361, +0.111]","KITTI oracle brake J | R1_mlp_clf on G @20%: nDG +0.103; vs random [-0.165, +0.197]; V-trained vs random [+0.020, +0.341]; published - V [-0.372, +0.189]",True
+published_objective_reading.json,V_beats_random_published_does_not[33],"KITTI oracle brake J | R1_gbm_clf on G @10%: nDG +0.118; vs random [-0.038, +0.111]; V-trained vs random [+0.069, +0.332]; published - V [-0.284, +0.013]","KITTI oracle brake J | R1_gbm_reg on Q @10%: nDG +0.034; vs random [-0.091, +0.006]; V-trained vs random [+0.011, +0.315]; published - V [-0.387, -0.015]",True
+published_objective_reading.json,V_beats_random_published_does_not[34],"KITTI oracle brake J | R1_gbm_clf on G @20%: nDG +0.186; vs random [-0.063, +0.130]; V-trained vs random [+0.070, +0.398]; published - V [-0.346, +0.002]","KITTI oracle brake J | R1_gbm_reg on Q @20%: nDG +0.076; vs random [-0.108, +0.039]; V-trained vs random [+0.002, +0.373]; published - V [-0.466, -0.017]",True
+published_objective_reading.json,V_beats_random_published_does_not[35],"KITTI oracle brake J | R1_gbm_clf on G @30%: nDG +0.212; vs random [-0.069, +0.102]; V-trained vs random [+0.088, +0.422]; published - V [-0.408, -0.027]","KITTI oracle brake J | R1_gbm_reg on G @10%: nDG +0.065; vs random [-0.063, +0.081]; V-trained vs random [+0.011, +0.315]; published - V [-0.307, +0.017]",True
+published_objective_reading.json,V_beats_random_published_does_not[36],"KITTI oracle brake J | R1_gbm_clf on G @50%: nDG +0.382; vs random [-0.115, +0.187]; V-trained vs random [+0.138, +0.378]; published - V [-0.437, -0.025]","KITTI oracle brake J | R1_gbm_reg on G @20%: nDG +0.128; vs random [-0.053, +0.163]; V-trained vs random [+0.002, +0.373]; published - V [-0.371, +0.081]",True
+published_objective_reading.json,V_beats_random_published_does_not[37],"KITTI oracle brake J | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @10%: nDG +0.066; vs random [-0.063, +0.081]; V-trained vs random [+0.005, +0.307]; published - V [-0.294, +0.024]","KITTI oracle brake J | R1_gbm_clf on Q @10%: nDG +0.085; vs random [-0.063, +0.177]; V-trained vs random [+0.039, +0.364]; published - V [-0.397, -0.011]",True
+published_objective_reading.json,V_beats_random_published_does_not[38],"KITTI oracle traj JB | R1_mlp_reg on Q @10%: nDG +0.078; vs random [-0.099, +0.220]; V-trained vs random [+0.022, +0.378]; published - V [-0.475, +0.189]","KITTI oracle brake J | R1_gbm_clf on Q @20%: nDG +0.233; vs random [-0.007, +0.305]; V-trained vs random [+0.056, +0.419]; published - V [-0.388, +0.183]",True
+published_objective_reading.json,V_beats_random_published_does_not[39],"KITTI oracle traj JB | R1_mlp_reg on G @10%: nDG +0.084; vs random [-0.100, +0.178]; V-trained vs random [+0.022, +0.378]; published - V [-0.476, +0.138]","KITTI oracle brake J | R1_gbm_clf on Q @30%: nDG +0.323; vs random [-0.002, +0.272]; V-trained vs random [+0.034, +0.442]; published - V [-0.390, +0.150]",True
+published_objective_reading.json,V_beats_random_published_does_not[3],"KITTI mono brake J | R1_mlp_reg on G @50%: nDG +0.225; vs random [-0.078, +0.147]; V-trained vs random [+0.054, +0.255]; published - V [-0.299, +0.080]","KITTI mono brake J | R1_mlp_reg on G @20%: nDG +0.108; vs random [-0.074, +0.195]; V-trained vs random [+0.013, +0.194]; published - V [-0.174, +0.088]",True
+published_objective_reading.json,V_beats_random_published_does_not[40],"KITTI oracle traj JB | R1_mlp_clf on Q @10%: nDG +0.096; vs random [-0.098, +0.246]; V-trained vs random [+0.054, +0.336]; published - V [-0.420, +0.150]","KITTI oracle brake J | R1_gbm_clf on G @10%: nDG +0.118; vs random [-0.038, +0.111]; V-trained vs random [+0.039, +0.364]; published - V [-0.290, +0.039]",True
+published_objective_reading.json,V_beats_random_published_does_not[41],"KITTI oracle traj JB | R1_mlp_clf on Q @20%: nDG +0.307; vs random [-0.170, +0.323]; V-trained vs random [+0.088, +0.580]; published - V [-0.741, +0.234]","KITTI oracle brake J | R1_gbm_clf on G @20%: nDG +0.186; vs random [-0.063, +0.129]; V-trained vs random [+0.056, +0.419]; published - V [-0.380, +0.025]",True
+published_objective_reading.json,V_beats_random_published_does_not[42],"KITTI oracle traj JB | R1_mlp_clf on Q @30%: nDG +0.396; vs random [-0.252, +0.351]; V-trained vs random [+0.081, +0.574]; published - V [-0.792, +0.195]","KITTI oracle brake J | R1_gbm_clf on G @30%: nDG +0.212; vs random [-0.069, +0.102]; V-trained vs random [+0.034, +0.442]; published - V [-0.421, -0.005]",True
+published_objective_reading.json,V_beats_random_published_does_not[43],"KITTI oracle traj JB | R1_mlp_clf on G @10%: nDG +0.001; vs random [-0.100, +0.049]; V-trained vs random [+0.054, +0.336]; published - V [-0.429, -0.042]","KITTI oracle brake J | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @10%: nDG +0.065; vs random [-0.063, +0.081]; V-trained vs random [+0.011, +0.315]; published - V [-0.307, +0.017]",True
+published_objective_reading.json,V_beats_random_published_does_not[44],"KITTI oracle traj JB | R1_mlp_clf on G @20%: nDG +0.096; vs random [-0.192, +0.209]; V-trained vs random [+0.088, +0.580]; published - V [-0.743, +0.103]","KITTI oracle brake J | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @20%: nDG +0.128; vs random [-0.053, +0.163]; V-trained vs random [+0.002, +0.373]; published - V [-0.371, +0.081]",True
+published_objective_reading.json,V_beats_random_published_does_not[45],"KITTI oracle traj JB | R1_mlp_clf on G @30%: nDG +0.285; vs random [-0.263, +0.194]; V-trained vs random [+0.081, +0.574]; published - V [-0.801, +0.038]","KITTI oracle traj JB | R1_mlp_reg on Q @10%: nDG +0.078; vs random [-0.099, +0.220]; V-trained vs random [+0.025, +0.251]; published - V [-0.349, +0.186]",True
+published_objective_reading.json,V_beats_random_published_does_not[46],"KITTI oracle traj JB | R1_mlp_clf on G @50%: nDG +0.611; vs random [-0.069, +0.267]; V-trained vs random [+0.146, +0.496]; published - V [-0.559, +0.054]","KITTI oracle traj JB | R1_mlp_reg on Q @30%: nDG +0.408; vs random [-0.179, +0.323]; V-trained vs random [+0.010, +0.521]; published - V [-0.685, +0.228]",True
+published_objective_reading.json,V_beats_random_published_does_not[47],"KITTI oracle traj JB | R1_gbm_reg on Q @10%: nDG +0.094; vs random [-0.100, +0.261]; V-trained vs random [+0.036, +0.473]; published - V [-0.572, +0.224]","KITTI oracle traj JB | R1_mlp_reg on Q @50%: nDG +0.648; vs random [-0.012, +0.313]; V-trained vs random [+0.082, +0.463]; published - V [-0.473, +0.171]",True
+published_objective_reading.json,V_beats_random_published_does_not[48],"KITTI oracle traj JB | R1_gbm_reg on Q @20%: nDG +0.255; vs random [-0.197, +0.370]; V-trained vs random [+0.063, +0.712]; published - V [-0.885, +0.210]","KITTI oracle traj JB | R1_mlp_reg on G @10%: nDG +0.084; vs random [-0.100, +0.178]; V-trained vs random [+0.025, +0.251]; published - V [-0.350, +0.136]",True
+published_objective_reading.json,V_beats_random_published_does_not[49],"KITTI oracle traj JB | R1_gbm_reg on Q @30%: nDG +0.360; vs random [-0.290, +0.389]; V-trained vs random [+0.106, +0.631]; published - V [-0.906, +0.136]","KITTI oracle traj JB | R1_mlp_reg on G @30%: nDG +0.374; vs random [-0.181, +0.244]; V-trained vs random [+0.010, +0.521]; published - V [-0.652, +0.148]",True
+published_objective_reading.json,V_beats_random_published_does_not[4],"KITTI mono brake J | R1_mlp_clf on Q @50%: nDG +0.229; vs random [-0.062, +0.100]; V-trained vs random [+0.013, +0.270]; published - V [-0.257, +0.065]","KITTI mono brake J | R1_mlp_reg on G @30%: nDG +0.152; vs random [-0.041, +0.186]; V-trained vs random [+0.055, +0.205]; published - V [-0.179, +0.097]",True
+published_objective_reading.json,V_beats_random_published_does_not[50],"KITTI oracle traj JB | R1_gbm_reg on Q @50%: nDG +0.701; vs random [-0.031, +0.397]; V-trained vs random [+0.269, +0.432]; published - V [-0.464, +0.120]","KITTI oracle traj JB | R1_mlp_clf on Q @10%: nDG +0.096; vs random [-0.098, +0.246]; V-trained vs random [+0.065, +0.384]; published - V [-0.468, +0.169]",True
+published_objective_reading.json,V_beats_random_published_does_not[51],"KITTI oracle traj JB | R1_gbm_reg on G @10%: nDG +0.197; vs random [-0.063, +0.252]; V-trained vs random [+0.036, +0.473]; published - V [-0.480, +0.170]","KITTI oracle traj JB | R1_mlp_clf on Q @20%: nDG +0.307; vs random [-0.170, +0.323]; V-trained vs random [+0.064, +0.631]; published - V [-0.793, +0.250]",True
+published_objective_reading.json,V_beats_random_published_does_not[52],"KITTI oracle traj JB | R1_gbm_reg on G @20%: nDG +0.358; vs random [-0.050, +0.307]; V-trained vs random [+0.063, +0.712]; published - V [-0.718, +0.129]","KITTI oracle traj JB | R1_mlp_clf on Q @30%: nDG +0.396; vs random [-0.253, +0.351]; V-trained vs random [+0.100, +0.657]; published - V [-0.877, +0.199]",True
+published_objective_reading.json,V_beats_random_published_does_not[53],"KITTI oracle traj JB | R1_gbm_reg on G @30%: nDG +0.488; vs random [-0.105, +0.398]; V-trained vs random [+0.106, +0.631]; published - V [-0.706, +0.071]","KITTI oracle traj JB | R1_mlp_clf on G @10%: nDG +0.001; vs random [-0.100, +0.049]; V-trained vs random [+0.065, +0.384]; published - V [-0.480, -0.024]",True
+published_objective_reading.json,V_beats_random_published_does_not[54],"KITTI oracle traj JB | R1_gbm_clf on G @10%: nDG +0.229; vs random [-0.099, +0.324]; V-trained vs random [+0.058, +0.474]; published - V [-0.514, +0.220]","KITTI oracle traj JB | R1_mlp_clf on G @20%: nDG +0.096; vs random [-0.193, +0.209]; V-trained vs random [+0.064, +0.631]; published - V [-0.791, +0.119]",True
+published_objective_reading.json,V_beats_random_published_does_not[55],"KITTI oracle traj JB | R1_gbm_clf on G @20%: nDG +0.278; vs random [-0.166, +0.273]; V-trained vs random [+0.066, +0.662]; published - V [-0.748, +0.130]","KITTI oracle traj JB | R1_mlp_clf on G @30%: nDG +0.285; vs random [-0.264, +0.194]; V-trained vs random [+0.100, +0.657]; published - V [-0.914, +0.038]",True
+published_objective_reading.json,V_beats_random_published_does_not[56],"KITTI oracle traj JB | R1_gbm_clf on G @30%: nDG +0.327; vs random [-0.204, +0.268]; V-trained vs random [+0.116, +0.625]; published - V [-0.754, -0.026]","KITTI oracle traj JB | R1_mlp_clf on G @50%: nDG +0.611; vs random [-0.070, +0.266]; V-trained vs random [+0.112, +0.467]; published - V [-0.535, +0.050]",True
+published_objective_reading.json,V_beats_random_published_does_not[57],"KITTI oracle traj JB | R1_gbm_clf on G @50%: nDG +0.618; vs random [-0.099, +0.387]; V-trained vs random [+0.186, +0.498]; published - V [-0.534, +0.037]","KITTI oracle traj JB | R1_gbm_reg on Q @10%: nDG +0.094; vs random [-0.100, +0.261]; V-trained vs random [+0.044, +0.536]; published - V [-0.635, +0.213]",True
+published_objective_reading.json,V_beats_random_published_does_not[58],"KITTI oracle traj JB | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @10%: nDG +0.197; vs random [-0.063, +0.252]; V-trained vs random [+0.036, +0.473]; published - V [-0.480, +0.170]","KITTI oracle traj JB | R1_gbm_reg on Q @20%: nDG +0.255; vs random [-0.197, +0.371]; V-trained vs random [+0.075, +0.706]; published - V [-0.875, +0.197]",True
+published_objective_reading.json,V_beats_random_published_does_not[59],"KITTI oracle traj JB | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @20%: nDG +0.358; vs random [-0.050, +0.307]; V-trained vs random [+0.063, +0.712]; published - V [-0.718, +0.129]","KITTI oracle traj JB | R1_gbm_reg on Q @30%: nDG +0.360; vs random [-0.290, +0.389]; V-trained vs random [+0.128, +0.630]; published - V [-0.904, +0.111]",True
+published_objective_reading.json,V_beats_random_published_does_not[5],"KITTI mono brake J | R1_mlp_clf on G @50%: nDG +0.190; vs random [-0.086, +0.100]; V-trained vs random [+0.013, +0.270]; published - V [-0.262, +0.044]","KITTI mono brake J | R1_mlp_reg on G @50%: nDG +0.224; vs random [-0.079, +0.148]; V-trained vs random [+0.043, +0.214]; published - V [-0.241, +0.089]",True
+published_objective_reading.json,V_beats_random_published_does_not[60],"KITTI oracle traj JB | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @30%: nDG +0.488; vs random [-0.105, +0.398]; V-trained vs random [+0.106, +0.631]; published - V [-0.706, +0.071]","KITTI oracle traj JB | R1_gbm_reg on Q @50%: nDG +0.701; vs random [-0.032, +0.398]; V-trained vs random [+0.213, +0.435]; published - V [-0.466, +0.170]",True
+published_objective_reading.json,V_beats_random_published_does_not[61],"nuScenes mono brake J | R1_mlp_reg on Q @20%: nDG +0.053; vs random [-0.263, +0.201]; V-trained vs random [+0.019, +0.411]; published - V [-0.587, +0.085]","KITTI oracle traj JB | R1_gbm_reg on G @10%: nDG +0.197; vs random [-0.063, +0.253]; V-trained vs random [+0.044, +0.536]; published - V [-0.543, +0.167]",True
+published_objective_reading.json,V_beats_random_published_does_not[62],"nuScenes mono brake J | R1_mlp_reg on Q @30%: nDG +0.102; vs random [-0.270, +0.246]; V-trained vs random [+0.046, +0.476]; published - V [-0.627, +0.068]","KITTI oracle traj JB | R1_gbm_reg on G @20%: nDG +0.358; vs random [-0.050, +0.307]; V-trained vs random [+0.075, +0.706]; published - V [-0.717, +0.116]",True
+published_objective_reading.json,V_beats_random_published_does_not[63],"nuScenes mono brake J | R1_mlp_reg on G @20%: nDG +0.233; vs random [-0.115, +0.379]; V-trained vs random [+0.019, +0.411]; published - V [-0.381, +0.211]","KITTI oracle traj JB | R1_gbm_reg on G @30%: nDG +0.488; vs random [-0.105, +0.399]; V-trained vs random [+0.128, +0.630]; published - V [-0.708, +0.058]",True
+published_objective_reading.json,V_beats_random_published_does_not[64],"nuScenes mono brake J | R1_mlp_reg on G @30%: nDG +0.249; vs random [-0.111, +0.364]; V-trained vs random [+0.046, +0.476]; published - V [-0.444, +0.175]","KITTI oracle traj JB | R1_gbm_clf on G @10%: nDG +0.228; vs random [-0.100, +0.324]; V-trained vs random [+0.061, +0.505]; published - V [-0.545, +0.220]",True
+published_objective_reading.json,V_beats_random_published_does_not[65],"nuScenes mono brake J | R1_gbm_reg on Q @20%: nDG +0.109; vs random [-0.142, +0.371]; V-trained vs random [+0.063, +0.471]; published - V [-0.389, +0.059]","KITTI oracle traj JB | R1_gbm_clf on G @20%: nDG +0.278; vs random [-0.167, +0.273]; V-trained vs random [+0.080, +0.668]; published - V [-0.751, +0.115]",True
+published_objective_reading.json,V_beats_random_published_does_not[66],"nuScenes mono brake J | R1_gbm_reg on Q @30%: nDG +0.224; vs random [-0.180, +0.494]; V-trained vs random [+0.025, +0.431]; published - V [-0.408, +0.290]","KITTI oracle traj JB | R1_gbm_clf on G @30%: nDG +0.326; vs random [-0.204, +0.268]; V-trained vs random [+0.134, +0.649]; published - V [-0.755, -0.066]",True
+published_objective_reading.json,V_beats_random_published_does_not[67],"nuScenes mono brake J | R1_gbm_reg on Q @50%: nDG +0.380; vs random [-0.111, +0.433]; V-trained vs random [+0.060, +0.527]; published - V [-0.348, +0.136]","KITTI oracle traj JB | R1_gbm_clf on G @50%: nDG +0.618; vs random [-0.099, +0.387]; V-trained vs random [+0.283, +0.469]; published - V [-0.525, +0.011]",True
+published_objective_reading.json,V_beats_random_published_does_not[68],"nuScenes mono brake J | R1_gbm_reg on G @30%: nDG +0.251; vs random [-0.139, +0.343]; V-trained vs random [+0.025, +0.431]; published - V [-0.387, +0.149]","KITTI oracle traj JB | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @10%: nDG +0.197; vs random [-0.063, +0.253]; V-trained vs random [+0.044, +0.536]; published - V [-0.543, +0.167]",True
+published_objective_reading.json,V_beats_random_published_does_not[69],"nuScenes mono brake J | R1_gbm_reg on G @50%: nDG +0.387; vs random [-0.116, +0.415]; V-trained vs random [+0.060, +0.527]; published - V [-0.464, +0.223]","KITTI oracle traj JB | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @20%: nDG +0.358; vs random [-0.050, +0.307]; V-trained vs random [+0.075, +0.706]; published - V [-0.717, +0.116]",True
+published_objective_reading.json,V_beats_random_published_does_not[6],"KITTI mono brake J | R1_gbm_reg on Q @20%: nDG +0.036; vs random [-0.081, +0.094]; V-trained vs random [+0.003, +0.288]; published - V [-0.350, +0.039]","KITTI mono brake J | R1_mlp_clf on Q @20%: nDG +0.020; vs random [-0.130, +0.026]; V-trained vs random [+0.011, +0.161]; published - V [-0.265, -0.036]",True
+published_objective_reading.json,V_beats_random_published_does_not[70],"nuScenes mono brake J | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @30%: nDG +0.251; vs random [-0.139, +0.343]; V-trained vs random [+0.025, +0.431]; published - V [-0.387, +0.149]","KITTI oracle traj JB | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @30%: nDG +0.488; vs random [-0.105, +0.399]; V-trained vs random [+0.128, +0.630]; published - V [-0.708, +0.058]",True
+published_objective_reading.json,V_beats_random_published_does_not[71],"nuScenes mono brake J | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @50%: nDG +0.387; vs random [-0.116, +0.415]; V-trained vs random [+0.060, +0.527]; published - V [-0.464, +0.223]","nuScenes mono brake J | R1_mlp_reg on Q @20%: nDG +0.049; vs random [-0.273, +0.203]; V-trained vs random [+0.029, +0.511]; published - V [-0.746, +0.088]",True
+published_objective_reading.json,V_beats_random_published_does_not[72],<absent>,"nuScenes mono brake J | R1_mlp_reg on G @20%: nDG +0.235; vs random [-0.119, +0.391]; V-trained vs random [+0.029, +0.511]; published - V [-0.507, +0.209]",True
+published_objective_reading.json,V_beats_random_published_does_not[73],<absent>,"nuScenes mono brake J | R1_gbm_reg on Q @20%: nDG +0.110; vs random [-0.146, +0.380]; V-trained vs random [+0.076, +0.492]; published - V [-0.411, +0.044]",True
+published_objective_reading.json,V_beats_random_published_does_not[74],<absent>,"nuScenes mono brake J | R1_gbm_reg on Q @30%: nDG +0.228; vs random [-0.184, +0.507]; V-trained vs random [+0.041, +0.420]; published - V [-0.401, +0.305]",True
+published_objective_reading.json,V_beats_random_published_does_not[75],<absent>,"nuScenes mono brake J | R1_gbm_reg on Q @50%: nDG +0.385; vs random [-0.113, +0.439]; V-trained vs random [+0.069, +0.518]; published - V [-0.356, +0.154]",True
+published_objective_reading.json,V_beats_random_published_does_not[76],<absent>,"nuScenes mono brake J | R1_gbm_reg on G @20%: nDG +0.267; vs random [-0.003, +0.406]; V-trained vs random [+0.076, +0.492]; published - V [-0.294, +0.131]",True
+published_objective_reading.json,V_beats_random_published_does_not[77],<absent>,"nuScenes mono brake J | R1_gbm_reg on G @30%: nDG +0.253; vs random [-0.141, +0.350]; V-trained vs random [+0.041, +0.420]; published - V [-0.418, +0.144]",True
+published_objective_reading.json,V_beats_random_published_does_not[78],<absent>,"nuScenes mono brake J | R1_gbm_reg on G @50%: nDG +0.390; vs random [-0.122, +0.419]; V-trained vs random [+0.069, +0.518]; published - V [-0.474, +0.244]",True
+published_objective_reading.json,V_beats_random_published_does_not[79],<absent>,"nuScenes mono brake J | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @20%: nDG +0.267; vs random [-0.003, +0.406]; V-trained vs random [+0.076, +0.492]; published - V [-0.294, +0.131]",True
+published_objective_reading.json,V_beats_random_published_does_not[7],"KITTI mono brake J | R1_gbm_reg on Q @30%: nDG +0.088; vs random [-0.084, +0.065]; V-trained vs random [+0.026, +0.311]; published - V [-0.381, +0.016]","KITTI mono brake J | R1_mlp_clf on Q @30%: nDG +0.055; vs random [-0.150, +0.066]; V-trained vs random [+0.031, +0.217]; published - V [-0.333, -0.000]",True
+published_objective_reading.json,V_beats_random_published_does_not[80],<absent>,"nuScenes mono brake J | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @30%: nDG +0.253; vs random [-0.141, +0.350]; V-trained vs random [+0.041, +0.420]; published - V [-0.418, +0.144]",True
+published_objective_reading.json,V_beats_random_published_does_not[81],<absent>,"nuScenes mono brake J | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @50%: nDG +0.390; vs random [-0.122, +0.419]; V-trained vs random [+0.069, +0.518]; published - V [-0.474, +0.244]",True
+published_objective_reading.json,V_beats_random_published_does_not[82],<absent>,"nuScenes oracle brake J | R1_mlp_reg on Q @30%: nDG +0.246; vs random [-0.258, +0.418]; V-trained vs random [+0.038, +0.600]; published - V [-0.701, +0.251]",True
+published_objective_reading.json,V_beats_random_published_does_not[83],<absent>,"nuScenes oracle brake J | R1_mlp_reg on G @30%: nDG +0.240; vs random [-0.247, +0.488]; V-trained vs random [+0.038, +0.600]; published - V [-0.574, +0.269]",True
+published_objective_reading.json,V_beats_random_published_does_not[8],"KITTI mono brake J | R1_gbm_reg on Q @50%: nDG +0.215; vs random [-0.042, +0.065]; V-trained vs random [+0.079, +0.305]; published - V [-0.333, -0.065]","KITTI mono brake J | R1_mlp_clf on Q @50%: nDG +0.228; vs random [-0.063, +0.100]; V-trained vs random [+0.026, +0.258]; published - V [-0.244, -0.001]",True
+published_objective_reading.json,V_beats_random_published_does_not[9],"KITTI mono brake J | R1_gbm_reg on G @20%: nDG +0.145; vs random [-0.023, +0.147]; V-trained vs random [+0.003, +0.288]; published - V [-0.231, +0.105]","KITTI mono brake J | R1_mlp_clf on G @20%: nDG +0.040; vs random [-0.110, +0.069]; V-trained vs random [+0.011, +0.161]; published - V [-0.198, +0.038]",True
+published_objective_reading.json,beats_random_where_V_does_not[0],"KITTI mono brake J | R2_cnn_clf on Q @30%: nDG +0.237; vs random [+0.004, +0.167]; V-trained vs random [-0.119, +0.249]; published - V [-0.166, +0.217]","KITTI mono brake J | R1_gbm_clf on Q @50%: nDG +0.416; vs random [+0.030, +0.337]; V-trained vs random [-0.047, +0.274]; published - V [-0.214, +0.296]",True
+published_objective_reading.json,beats_random_where_V_does_not[10],"KITTI oracle brake J | R1_mlp_clf on Q @50%: nDG +0.456; vs random [+0.035, +0.154]; V-trained vs random [-0.020, +0.315]; published - V [-0.250, +0.140]","KITTI mono traj JB | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @20%: nDG +0.254; vs random [+0.004, +0.660]; V-trained vs random [-0.243, +0.567]; published - V [-0.415, +0.811]",True
+published_objective_reading.json,beats_random_where_V_does_not[11],"KITTI oracle brake J | R2_cnn_clf on G @20%: nDG +0.243; vs random [+0.016, +0.153]; V-trained vs random [-0.135, +0.170]; published - V [-0.093, +0.240]","KITTI oracle brake J | R1_mlp_clf on Q @50%: nDG +0.457; vs random [+0.035, +0.154]; V-trained vs random [-0.040, +0.340]; published - V [-0.286, +0.131]",True
+published_objective_reading.json,beats_random_where_V_does_not[12],"KITTI oracle brake J | R2_cnn_clf on G @30%: nDG +0.338; vs random [+0.003, +0.157]; V-trained vs random [-0.193, +0.187]; published - V [-0.122, +0.314]","KITTI oracle brake J | R1_gbm_clf on Q @50%: nDG +0.521; vs random [+0.057, +0.225]; V-trained vs random [-0.053, +0.378]; published - V [-0.303, +0.163]",True
+published_objective_reading.json,beats_random_where_V_does_not[13],"KITTI oracle brake J | R2_cnn_clf on G @50%: nDG +0.469; vs random [+0.033, +0.209]; V-trained vs random [-0.219, +0.196]; published - V [-0.122, +0.376]","KITTI oracle brake J | R2_cnn_clf on G @20%: nDG +0.244; vs random [+0.017, +0.154]; V-trained vs random [-0.052, +0.114]; published - V [-0.046, +0.163]",True
+published_objective_reading.json,beats_random_where_V_does_not[14],"KITTI oracle traj JB | R1_mlp_reg on G @50%: nDG +0.571; vs random [+0.020, +0.160]; V-trained vs random [-0.020, +0.469]; published - V [-0.440, +0.137]","KITTI oracle brake J | R2_cnn_clf on G @30%: nDG +0.340; vs random [+0.003, +0.158]; V-trained vs random [-0.039, +0.172]; published - V [-0.093, +0.144]",True
+published_objective_reading.json,beats_random_where_V_does_not[15],"KITTI oracle traj JB | R2_cnn_clf on Q @50%: nDG +0.651; vs random [+0.060, +0.252]; V-trained vs random [-0.415, +0.264]; published - V [-0.078, +0.662]","KITTI oracle brake J | R2_cnn_clf on G @50%: nDG +0.470; vs random [+0.035, +0.211]; V-trained vs random [-0.035, +0.275]; published - V [-0.165, +0.189]",True
+published_objective_reading.json,beats_random_where_V_does_not[16],"KITTI oracle traj JB | R2_cnn_clf on G @50%: nDG +0.735; vs random [+0.030, +0.386]; V-trained vs random [-0.415, +0.264]; published - V [+0.056, +0.736]","KITTI oracle traj JB | R2_cnn_clf on Q @50%: nDG +0.651; vs random [+0.059, +0.253]; V-trained vs random [-0.092, +0.077]; published - V [+0.067, +0.318]",True
+published_objective_reading.json,beats_random_where_V_does_not[17],"nuScenes oracle brake J | R1_gbm_reg on G @20%: nDG +0.449; vs random [+0.038, +0.581]; V-trained vs random [-0.143, +0.621]; published - V [-0.333, +0.572]","KITTI oracle traj JB | R2_cnn_clf on G @50%: nDG +0.736; vs random [+0.030, +0.386]; V-trained vs random [-0.092, +0.077]; published - V [+0.060, +0.402]",True
+published_objective_reading.json,beats_random_where_V_does_not[18],"nuScenes oracle brake J | R1_gbm_reg on G @30%: nDG +0.574; vs random [+0.079, +0.687]; V-trained vs random [-0.099, +0.598]; published - V [-0.304, +0.590]","nuScenes oracle brake J | R1_gbm_reg on G @20%: nDG +0.448; vs random [+0.034, +0.578]; V-trained vs random [-0.134, +0.518]; published - V [-0.260, +0.610]",True
+published_objective_reading.json,beats_random_where_V_does_not[19],"nuScenes oracle brake J | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @20%: nDG +0.449; vs random [+0.038, +0.581]; V-trained vs random [-0.143, +0.621]; published - V [-0.333, +0.572]","nuScenes oracle brake J | R1_gbm_reg on G @30%: nDG +0.572; vs random [+0.063, +0.688]; V-trained vs random [-0.069, +0.624]; published - V [-0.357, +0.574]",True
+published_objective_reading.json,beats_random_where_V_does_not[1],"KITTI mono traj JB | R1_mlp_reg on G @10%: nDG +0.221; vs random [+0.026, +0.378]; V-trained vs random [-0.251, +0.459]; published - V [-0.150, +0.420]","KITTI mono brake J | R2_cnn_clf on Q @30%: nDG +0.238; vs random [+0.005, +0.167]; V-trained vs random [-0.054, +0.157]; published - V [-0.148, +0.181]",True
+published_objective_reading.json,beats_random_where_V_does_not[20],"nuScenes oracle brake J | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @30%: nDG +0.574; vs random [+0.079, +0.687]; V-trained vs random [-0.099, +0.598]; published - V [-0.304, +0.590]","nuScenes oracle brake J | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @20%: nDG +0.448; vs random [+0.034, +0.578]; V-trained vs random [-0.134, +0.518]; published - V [-0.260, +0.610]",True
+published_objective_reading.json,beats_random_where_V_does_not[21],"nuScenes oracle plan_fde JC_fde | R1_mlp_clf on Q @50%: nDG +0.424; vs random [+0.077, +0.434]; V-trained vs random [-0.363, +0.137]; published - V [+0.053, +0.697]","nuScenes oracle brake J | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @30%: nDG +0.572; vs random [+0.063, +0.688]; V-trained vs random [-0.069, +0.624]; published - V [-0.357, +0.574]",True
+published_objective_reading.json,beats_random_where_V_does_not[22],"nuScenes oracle plan_fde JC_fde | R1_gbm_reg on Q @50%: nDG +0.413; vs random [+0.047, +0.445]; V-trained vs random [-0.422, +0.103]; published - V [+0.061, +0.715]","nuScenes oracle plan_fde JC_fde | R1_mlp_clf on Q @50%: nDG +0.424; vs random [+0.077, +0.434]; V-trained vs random [-0.363, +0.137]; published - V [+0.053, +0.697]",True
+published_objective_reading.json,beats_random_where_V_does_not[23],<absent>,"nuScenes oracle plan_fde JC_fde | R1_gbm_reg on Q @50%: nDG +0.413; vs random [+0.047, +0.445]; V-trained vs random [-0.422, +0.103]; published - V [+0.061, +0.715]",True
+published_objective_reading.json,beats_random_where_V_does_not[2],"KITTI mono traj JB | R1_mlp_clf on G @10%: nDG +0.207; vs random [+0.011, +0.648]; V-trained vs random [-0.087, +0.440]; published - V [-0.310, +0.514]","KITTI mono traj JB | R1_mlp_reg on G @10%: nDG +0.220; vs random [+0.024, +0.382]; V-trained vs random [-0.256, +0.458]; published - V [-0.155, +0.433]",True
+published_objective_reading.json,beats_random_where_V_does_not[3],"KITTI mono traj JB | R1_mlp_clf on G @20%: nDG +0.339; vs random [+0.138, +0.729]; V-trained vs random [-0.231, +0.532]; published - V [-0.301, +0.694]","KITTI mono traj JB | R1_mlp_clf on G @10%: nDG +0.209; vs random [+0.010, +0.653]; V-trained vs random [-0.093, +0.528]; published - V [-0.424, +0.722]",True
+published_objective_reading.json,beats_random_where_V_does_not[4],"KITTI mono traj JB | R1_mlp_clf on G @30%: nDG +0.335; vs random [+0.216, +0.654]; V-trained vs random [-0.497, +0.592]; published - V [-0.201, +0.798]","KITTI mono traj JB | R1_mlp_clf on G @20%: nDG +0.341; vs random [+0.140, +0.734]; V-trained vs random [-0.212, +0.531]; published - V [-0.322, +0.876]",True
+published_objective_reading.json,beats_random_where_V_does_not[5],"KITTI mono traj JB | R1_mlp_clf on G @50%: nDG +0.069; vs random [+0.133, +0.423]; V-trained vs random [-0.783, +0.525]; published - V [-0.233, +1.077]","KITTI mono traj JB | R1_mlp_clf on G @30%: nDG +0.328; vs random [+0.226, +0.650]; V-trained vs random [-0.394, +0.542]; published - V [-0.133, +0.891]",True
+published_objective_reading.json,beats_random_where_V_does_not[6],"KITTI mono traj JB | R1_gbm_reg on G @10%: nDG +0.190; vs random [+0.020, +0.585]; V-trained vs random [-0.081, +0.427]; published - V [-0.215, +0.663]","KITTI mono traj JB | R1_mlp_clf on G @50%: nDG +0.053; vs random [+0.132, +0.421]; V-trained vs random [-0.867, +0.707]; published - V [-0.409, +1.181]",True
+published_objective_reading.json,beats_random_where_V_does_not[7],"KITTI mono traj JB | R1_gbm_reg on G @20%: nDG +0.259; vs random [+0.031, +0.651]; V-trained vs random [-0.168, +0.556]; published - V [-0.412, +0.802]","KITTI mono traj JB | R1_gbm_reg on G @10%: nDG +0.187; vs random [+0.024, +0.596]; V-trained vs random [-0.082, +0.431]; published - V [-0.226, +0.679]",True
+published_objective_reading.json,beats_random_where_V_does_not[8],"KITTI mono traj JB | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @10%: nDG +0.190; vs random [+0.020, +0.585]; V-trained vs random [-0.081, +0.427]; published - V [-0.215, +0.663]","KITTI mono traj JB | R1_gbm_reg on G @20%: nDG +0.254; vs random [+0.004, +0.660]; V-trained vs random [-0.243, +0.567]; published - V [-0.415, +0.811]",True
+published_objective_reading.json,beats_random_where_V_does_not[9],"KITTI mono traj JB | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @20%: nDG +0.259; vs random [+0.031, +0.651]; V-trained vs random [-0.168, +0.556]; published - V [-0.412, +0.802]","KITTI mono traj JB | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @10%: nDG +0.187; vs random [+0.024, +0.596]; V-trained vs random [-0.082, +0.431]; published - V [-0.226, +0.679]",True
+published_objective_reading.json,rows_outside_V_interval[0],"KITTI mono brake J | R1_gbm_reg on Q @50%: nDG +0.215; vs random [-0.042, +0.065]; V-trained vs random [+0.079, +0.305]; published - V [-0.333, -0.065]","KITTI mono brake J | R1_mlp_clf on Q @10%: nDG +0.012; vs random [-0.084, +0.023]; V-trained vs random [-0.012, +0.100]; published - V [-0.147, -0.003]",True
+published_objective_reading.json,rows_outside_V_interval[10],"KITTI oracle brake J | R1_gbm_clf on Q @50%: nDG +0.520; vs random [+0.056, +0.225]; V-trained vs random [+0.138, +0.378]; published - V [-0.287, -0.005]","KITTI oracle traj JB | R1_gbm_clf on G @30%: nDG +0.326; vs random [-0.204, +0.268]; V-trained vs random [+0.134, +0.649]; published - V [-0.755, -0.066]",True
+published_objective_reading.json,rows_outside_V_interval[11],"KITTI oracle brake J | R1_gbm_clf on G @30%: nDG +0.212; vs random [-0.069, +0.102]; V-trained vs random [+0.088, +0.422]; published - V [-0.408, -0.027]","KITTI oracle traj JB | R2_cnn_clf on Q @10%: nDG +0.155; vs random [-0.010, +0.130]; V-trained vs random [-0.076, +0.052]; published - V [+0.011, +0.158]",True
+published_objective_reading.json,rows_outside_V_interval[12],"KITTI oracle brake J | R1_gbm_clf on G @50%: nDG +0.382; vs random [-0.115, +0.187]; V-trained vs random [+0.138, +0.378]; published - V [-0.437, -0.025]","KITTI oracle traj JB | R2_cnn_clf on Q @50%: nDG +0.651; vs random [+0.059, +0.253]; V-trained vs random [-0.092, +0.077]; published - V [+0.067, +0.318]",True
+published_objective_reading.json,rows_outside_V_interval[13],"KITTI oracle traj JB | R1_mlp_clf on G @10%: nDG +0.001; vs random [-0.100, +0.049]; V-trained vs random [+0.054, +0.336]; published - V [-0.429, -0.042]","KITTI oracle traj JB | R2_cnn_clf on G @50%: nDG +0.736; vs random [+0.030, +0.386]; V-trained vs random [-0.092, +0.077]; published - V [+0.060, +0.402]",True
+published_objective_reading.json,rows_outside_V_interval[14],"KITTI oracle traj JB | R1_gbm_clf on G @30%: nDG +0.327; vs random [-0.204, +0.268]; V-trained vs random [+0.116, +0.625]; published - V [-0.754, -0.026]","nuScenes mono plan_ade JC_ade | R1_mlp_reg on Q @20%: nDG +0.082; vs random [-0.248, +0.098]; V-trained vs random [-0.130, +0.290]; published - V [-0.313, -0.027]",True
+published_objective_reading.json,rows_outside_V_interval[15],"KITTI oracle traj JB | R2_cnn_clf on Q @10%: nDG +0.155; vs random [-0.010, +0.130]; V-trained vs random [-0.100, +0.038]; published - V [+0.057, +0.184]","nuScenes mono plan_ade JC_ade | R1_gbm_reg on Q @50%: nDG +0.491; vs random [-0.067, +0.388]; V-trained vs random [-0.320, -0.016]; published - V [+0.033, +0.565]",True
+published_objective_reading.json,rows_outside_V_interval[16],"KITTI oracle traj JB | R2_cnn_clf on Q @20%: nDG +0.313; vs random [-0.011, +0.235]; V-trained vs random [-0.200, +0.076]; published - V [+0.083, +0.316]","nuScenes mono plan_ade JC_ade | R1_gbm_reg on G @10%: nDG +0.116; vs random [-0.099, +0.264]; V-trained vs random [-0.240, -0.025]; published - V [+0.014, +0.416]",True
+published_objective_reading.json,rows_outside_V_interval[17],"KITTI oracle traj JB | R2_cnn_clf on Q @30%: nDG +0.447; vs random [-0.025, +0.263]; V-trained vs random [-0.299, +0.111]; published - V [+0.095, +0.487]","nuScenes mono plan_ade JC_ade | R1_gbm_reg on G @20%: nDG +0.272; vs random [-0.024, +0.307]; V-trained vs random [-0.281, -0.030]; published - V [+0.143, +0.523]",True
+published_objective_reading.json,rows_outside_V_interval[18],"KITTI oracle traj JB | R2_cnn_clf on G @20%: nDG +0.261; vs random [-0.083, +0.247]; V-trained vs random [-0.200, +0.076]; published - V [+0.023, +0.397]","nuScenes mono plan_ade JC_ade | R1_gbm_reg on G @30%: nDG +0.286; vs random [-0.086, +0.252]; V-trained vs random [-0.300, -0.004]; published - V [+0.085, +0.464]",True
+published_objective_reading.json,rows_outside_V_interval[19],"KITTI oracle traj JB | R2_cnn_clf on G @30%: nDG +0.506; vs random [-0.090, +0.421]; V-trained vs random [-0.299, +0.111]; published - V [+0.045, +0.555]","nuScenes mono plan_ade JC_ade | R1_gbm_reg on G @50%: nDG +0.370; vs random [-0.085, +0.255]; V-trained vs random [-0.320, -0.016]; published - V [+0.002, +0.486]",True
+published_objective_reading.json,rows_outside_V_interval[1],"KITTI mono brake J | R1_gbm_reg on G @50%: nDG +0.232; vs random [-0.058, +0.126]; V-trained vs random [+0.079, +0.305]; published - V [-0.299, -0.005]","KITTI mono brake J | R1_mlp_clf on Q @20%: nDG +0.020; vs random [-0.130, +0.026]; V-trained vs random [+0.011, +0.161]; published - V [-0.265, -0.036]",True
+published_objective_reading.json,rows_outside_V_interval[20],"KITTI oracle traj JB | R2_cnn_clf on G @50%: nDG +0.735; vs random [+0.030, +0.386]; V-trained vs random [-0.415, +0.264]; published - V [+0.056, +0.736]","nuScenes mono plan_ade JC_ade | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @10%: nDG +0.116; vs random [-0.099, +0.264]; V-trained vs random [-0.240, -0.025]; published - V [+0.014, +0.416]",True
+published_objective_reading.json,rows_outside_V_interval[21],"nuScenes mono brake J | R2_cnn_clf on Q @50%: nDG +0.329; vs random [-0.181, +0.269]; V-trained vs random [-0.517, -0.082]; published - V [+0.019, +0.678]","nuScenes mono plan_ade JC_ade | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @20%: nDG +0.272; vs random [-0.024, +0.307]; V-trained vs random [-0.281, -0.030]; published - V [+0.143, +0.523]",True
+published_objective_reading.json,rows_outside_V_interval[22],"nuScenes mono brake J | R2_cnn_clf on G @50%: nDG +0.326; vs random [-0.183, +0.458]; V-trained vs random [-0.517, -0.082]; published - V [+0.002, +0.835]","nuScenes mono plan_ade JC_ade | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @30%: nDG +0.286; vs random [-0.086, +0.252]; V-trained vs random [-0.300, -0.004]; published - V [+0.085, +0.464]",True
+published_objective_reading.json,rows_outside_V_interval[23],"nuScenes mono plan_ade JC_ade | R1_mlp_reg on Q @20%: nDG +0.082; vs random [-0.248, +0.098]; V-trained vs random [-0.130, +0.290]; published - V [-0.313, -0.027]","nuScenes mono plan_ade JC_ade | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @50%: nDG +0.370; vs random [-0.085, +0.255]; V-trained vs random [-0.320, -0.016]; published - V [+0.002, +0.486]",True
+published_objective_reading.json,rows_outside_V_interval[24],"nuScenes mono plan_ade JC_ade | R1_gbm_reg on Q @50%: nDG +0.491; vs random [-0.067, +0.388]; V-trained vs random [-0.320, -0.016]; published - V [+0.033, +0.565]","nuScenes mono plan_fde JC_fde | R1_mlp_reg on Q @20%: nDG -0.040; vs random [-0.373, +0.002]; V-trained vs random [-0.049, +0.294]; published - V [-0.462, -0.081]",True
+published_objective_reading.json,rows_outside_V_interval[25],"nuScenes mono plan_ade JC_ade | R1_gbm_reg on G @10%: nDG +0.116; vs random [-0.099, +0.264]; V-trained vs random [-0.240, -0.025]; published - V [+0.014, +0.416]","nuScenes mono plan_fde JC_fde | R1_mlp_reg on Q @30%: nDG +0.106; vs random [-0.332, +0.163]; V-trained vs random [-0.051, +0.268]; published - V [-0.394, -0.021]",True
+published_objective_reading.json,rows_outside_V_interval[26],"nuScenes mono plan_ade JC_ade | R1_gbm_reg on G @20%: nDG +0.272; vs random [-0.024, +0.307]; V-trained vs random [-0.281, -0.030]; published - V [+0.143, +0.523]","nuScenes mono plan_fde JC_fde | R1_mlp_reg on Q @50%: nDG +0.103; vs random [-0.364, +0.105]; V-trained vs random [-0.047, +0.318]; published - V [-0.569, -0.057]",True
+published_objective_reading.json,rows_outside_V_interval[27],"nuScenes mono plan_ade JC_ade | R1_gbm_reg on G @30%: nDG +0.286; vs random [-0.086, +0.252]; V-trained vs random [-0.300, -0.004]; published - V [+0.085, +0.464]","nuScenes mono plan_fde JC_fde | R1_gbm_reg on Q @10%: nDG +0.181; vs random [-0.145, +0.220]; V-trained vs random [-0.340, -0.044]; published - V [+0.040, +0.378]",True
+published_objective_reading.json,rows_outside_V_interval[28],"nuScenes mono plan_ade JC_ade | R1_gbm_reg on G @50%: nDG +0.370; vs random [-0.085, +0.255]; V-trained vs random [-0.320, -0.016]; published - V [+0.002, +0.486]","nuScenes mono plan_fde JC_fde | R1_gbm_reg on Q @20%: nDG +0.191; vs random [-0.162, +0.297]; V-trained vs random [-0.369, +0.010]; published - V [+0.057, +0.415]",True
+published_objective_reading.json,rows_outside_V_interval[29],"nuScenes mono plan_ade JC_ade | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @10%: nDG +0.116; vs random [-0.099, +0.264]; V-trained vs random [-0.240, -0.025]; published - V [+0.014, +0.416]","nuScenes mono plan_fde JC_fde | R1_gbm_reg on Q @50%: nDG +0.401; vs random [-0.093, +0.336]; V-trained vs random [-0.346, +0.131]; published - V [+0.007, +0.528]",True
+published_objective_reading.json,rows_outside_V_interval[2],"KITTI mono brake J | R1_gbm_clf on G @50%: nDG +0.217; vs random [-0.125, +0.102]; V-trained vs random [+0.050, +0.298]; published - V [-0.335, -0.027]","KITTI mono brake J | R1_mlp_clf on Q @30%: nDG +0.055; vs random [-0.150, +0.066]; V-trained vs random [+0.031, +0.217]; published - V [-0.333, -0.000]",True
+published_objective_reading.json,rows_outside_V_interval[30],"nuScenes mono plan_ade JC_ade | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @20%: nDG +0.272; vs random [-0.024, +0.307]; V-trained vs random [-0.281, -0.030]; published - V [+0.143, +0.523]","nuScenes mono plan_fde JC_fde | R1_gbm_reg on G @10%: nDG +0.034; vs random [-0.142, +0.119]; V-trained vs random [-0.340, -0.044]; published - V [+0.060, +0.318]",True
+published_objective_reading.json,rows_outside_V_interval[31],"nuScenes mono plan_ade JC_ade | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @30%: nDG +0.286; vs random [-0.086, +0.252]; V-trained vs random [-0.300, -0.004]; published - V [+0.085, +0.464]","nuScenes mono plan_fde JC_fde | R1_gbm_reg on G @20%: nDG +0.127; vs random [-0.091, +0.180]; V-trained vs random [-0.369, +0.010]; published - V [+0.044, +0.456]",True
+published_objective_reading.json,rows_outside_V_interval[32],"nuScenes mono plan_ade JC_ade | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @50%: nDG +0.370; vs random [-0.085, +0.255]; V-trained vs random [-0.320, -0.016]; published - V [+0.002, +0.486]","nuScenes mono plan_fde JC_fde | R1_gbm_reg on G @30%: nDG +0.203; vs random [-0.120, +0.191]; V-trained vs random [-0.407, +0.046]; published - V [+0.017, +0.473]",True
+published_objective_reading.json,rows_outside_V_interval[33],"nuScenes mono plan_fde JC_fde | R1_mlp_reg on Q @20%: nDG -0.040; vs random [-0.373, +0.002]; V-trained vs random [-0.049, +0.294]; published - V [-0.462, -0.081]","nuScenes mono plan_fde JC_fde | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @10%: nDG +0.034; vs random [-0.142, +0.119]; V-trained vs random [-0.340, -0.044]; published - V [+0.060, +0.318]",True
+published_objective_reading.json,rows_outside_V_interval[34],"nuScenes mono plan_fde JC_fde | R1_mlp_reg on Q @30%: nDG +0.106; vs random [-0.332, +0.163]; V-trained vs random [-0.051, +0.268]; published - V [-0.394, -0.021]","nuScenes mono plan_fde JC_fde | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @20%: nDG +0.127; vs random [-0.091, +0.180]; V-trained vs random [-0.369, +0.010]; published - V [+0.044, +0.456]",True
+published_objective_reading.json,rows_outside_V_interval[35],"nuScenes mono plan_fde JC_fde | R1_mlp_reg on Q @50%: nDG +0.103; vs random [-0.364, +0.105]; V-trained vs random [-0.047, +0.318]; published - V [-0.569, -0.057]","nuScenes mono plan_fde JC_fde | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @30%: nDG +0.203; vs random [-0.120, +0.191]; V-trained vs random [-0.407, +0.046]; published - V [+0.017, +0.473]",True
+published_objective_reading.json,rows_outside_V_interval[36],"nuScenes mono plan_fde JC_fde | R1_gbm_reg on Q @10%: nDG +0.181; vs random [-0.145, +0.220]; V-trained vs random [-0.340, -0.044]; published - V [+0.040, +0.378]","nuScenes oracle brake J | R2_cnn_clf on G @50%: nDG +0.468; vs random [-0.140, +0.393]; V-trained vs random [-0.594, +0.019]; published - V [+0.085, +0.784]",True
+published_objective_reading.json,rows_outside_V_interval[37],"nuScenes mono plan_fde JC_fde | R1_gbm_reg on Q @20%: nDG +0.191; vs random [-0.162, +0.297]; V-trained vs random [-0.369, +0.010]; published - V [+0.057, +0.415]","nuScenes oracle plan_ade JC_ade | R1_gbm_reg on Q @10%: nDG +0.068; vs random [-0.024, +0.157]; V-trained vs random [-0.202, -0.039]; published - V [+0.083, +0.303]",True
+published_objective_reading.json,rows_outside_V_interval[38],"nuScenes mono plan_fde JC_fde | R1_gbm_reg on Q @50%: nDG +0.401; vs random [-0.093, +0.336]; V-trained vs random [-0.346, +0.131]; published - V [+0.007, +0.528]","nuScenes oracle plan_ade JC_ade | R1_gbm_reg on Q @20%: nDG +0.073; vs random [-0.024, +0.201]; V-trained vs random [-0.187, +0.010]; published - V [+0.049, +0.289]",True
+published_objective_reading.json,rows_outside_V_interval[39],"nuScenes mono plan_fde JC_fde | R1_gbm_reg on G @10%: nDG +0.034; vs random [-0.142, +0.119]; V-trained vs random [-0.340, -0.044]; published - V [+0.060, +0.318]","nuScenes oracle plan_ade JC_ade | R1_gbm_reg on Q @30%: nDG +0.109; vs random [-0.030, +0.274]; V-trained vs random [-0.378, +0.059]; published - V [+0.003, +0.523]",True
+published_objective_reading.json,rows_outside_V_interval[3],"KITTI mono brake J | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @50%: nDG +0.232; vs random [-0.058, +0.126]; V-trained vs random [+0.079, +0.305]; published - V [-0.299, -0.005]","KITTI mono brake J | R1_mlp_clf on Q @50%: nDG +0.228; vs random [-0.063, +0.100]; V-trained vs random [+0.026, +0.258]; published - V [-0.244, -0.001]",True
+published_objective_reading.json,rows_outside_V_interval[40],"nuScenes mono plan_fde JC_fde | R1_gbm_reg on G @20%: nDG +0.127; vs random [-0.091, +0.180]; V-trained vs random [-0.369, +0.010]; published - V [+0.044, +0.456]","nuScenes oracle plan_ade JC_ade | R1_gbm_reg on Q @50%: nDG +0.167; vs random [-0.012, +0.365]; V-trained vs random [-0.354, +0.028]; published - V [+0.040, +0.560]",True
+published_objective_reading.json,rows_outside_V_interval[41],"nuScenes mono plan_fde JC_fde | R1_gbm_reg on G @30%: nDG +0.203; vs random [-0.120, +0.191]; V-trained vs random [-0.407, +0.046]; published - V [+0.017, +0.473]","nuScenes oracle plan_ade JC_ade | R1_gbm_reg on G @10%: nDG +0.109; vs random [-0.079, +0.277]; V-trained vs random [-0.202, -0.039]; published - V [+0.013, +0.415]",True
+published_objective_reading.json,rows_outside_V_interval[42],"nuScenes mono plan_fde JC_fde | R2_cnn_clf on Q @50%: nDG +0.425; vs random [-0.028, +0.368]; V-trained vs random [-0.372, +0.087]; published - V [+0.064, +0.589]","nuScenes oracle plan_ade JC_ade | R1_gbm_reg on G @20%: nDG +0.193; vs random [-0.033, +0.375]; V-trained vs random [-0.187, +0.010]; published - V [+0.028, +0.472]",True
+published_objective_reading.json,rows_outside_V_interval[43],"nuScenes mono plan_fde JC_fde | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @10%: nDG +0.034; vs random [-0.142, +0.119]; V-trained vs random [-0.340, -0.044]; published - V [+0.060, +0.318]","nuScenes oracle plan_ade JC_ade | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @10%: nDG +0.109; vs random [-0.079, +0.277]; V-trained vs random [-0.202, -0.039]; published - V [+0.013, +0.415]",True
+published_objective_reading.json,rows_outside_V_interval[44],"nuScenes mono plan_fde JC_fde | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @20%: nDG +0.127; vs random [-0.091, +0.180]; V-trained vs random [-0.369, +0.010]; published - V [+0.044, +0.456]","nuScenes oracle plan_ade JC_ade | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @20%: nDG +0.193; vs random [-0.033, +0.375]; V-trained vs random [-0.187, +0.010]; published - V [+0.028, +0.472]",True
+published_objective_reading.json,rows_outside_V_interval[45],"nuScenes mono plan_fde JC_fde | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @30%: nDG +0.203; vs random [-0.120, +0.191]; V-trained vs random [-0.407, +0.046]; published - V [+0.017, +0.473]","nuScenes oracle plan_fde JC_fde | R1_mlp_clf on Q @50%: nDG +0.424; vs random [+0.077, +0.434]; V-trained vs random [-0.363, +0.137]; published - V [+0.053, +0.697]",True
+published_objective_reading.json,rows_outside_V_interval[46],"nuScenes oracle plan_ade JC_ade | R1_gbm_reg on Q @10%: nDG +0.068; vs random [-0.024, +0.157]; V-trained vs random [-0.202, -0.039]; published - V [+0.083, +0.303]","nuScenes oracle plan_fde JC_fde | R1_gbm_reg on Q @20%: nDG +0.168; vs random [-0.049, +0.264]; V-trained vs random [-0.414, +0.037]; published - V [+0.015, +0.572]",True
+published_objective_reading.json,rows_outside_V_interval[47],"nuScenes oracle plan_ade JC_ade | R1_gbm_reg on Q @20%: nDG +0.073; vs random [-0.024, +0.201]; V-trained vs random [-0.187, +0.010]; published - V [+0.049, +0.289]","nuScenes oracle plan_fde JC_fde | R1_gbm_reg on Q @50%: nDG +0.413; vs random [+0.047, +0.445]; V-trained vs random [-0.422, +0.103]; published - V [+0.061, +0.715]",True
+published_objective_reading.json,rows_outside_V_interval[48],"nuScenes oracle plan_ade JC_ade | R1_gbm_reg on Q @30%: nDG +0.109; vs random [-0.030, +0.274]; V-trained vs random [-0.378, +0.059]; published - V [+0.003, +0.523]","nuScenes oracle plan_fde JC_fde | R1_gbm_reg on G @20%: nDG +0.322; vs random [-0.002, +0.496]; V-trained vs random [-0.414, +0.037]; published - V [+0.065, +0.752]",True
+published_objective_reading.json,rows_outside_V_interval[49],"nuScenes oracle plan_ade JC_ade | R1_gbm_reg on Q @50%: nDG +0.167; vs random [-0.012, +0.365]; V-trained vs random [-0.354, +0.028]; published - V [+0.040, +0.560]","nuScenes oracle plan_fde JC_fde | R1_gbm_reg on G @30%: nDG +0.325; vs random [-0.038, +0.493]; V-trained vs random [-0.450, +0.083]; published - V [+0.014, +0.763]",True
+published_objective_reading.json,rows_outside_V_interval[4],"KITTI mono traj JB | R1_mlp_reg on G @30%: nDG +0.160; vs random [-0.103, +0.692]; V-trained vs random [-0.399, +0.476]; published - V [+0.001, +0.562]","KITTI mono brake J | R1_gbm_reg on Q @50%: nDG +0.214; vs random [-0.043, +0.066]; V-trained vs random [+0.018, +0.301]; published - V [-0.315, -0.025]",True
+published_objective_reading.json,rows_outside_V_interval[50],"nuScenes oracle plan_ade JC_ade | R1_gbm_reg on G @10%: nDG +0.109; vs random [-0.079, +0.277]; V-trained vs random [-0.202, -0.039]; published - V [+0.013, +0.415]","nuScenes oracle plan_fde JC_fde | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @20%: nDG +0.322; vs random [-0.002, +0.496]; V-trained vs random [-0.414, +0.037]; published - V [+0.065, +0.752]",True
+published_objective_reading.json,rows_outside_V_interval[51],"nuScenes oracle plan_ade JC_ade | R1_gbm_reg on G @20%: nDG +0.193; vs random [-0.033, +0.375]; V-trained vs random [-0.187, +0.010]; published - V [+0.028, +0.472]","nuScenes oracle plan_fde JC_fde | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @30%: nDG +0.325; vs random [-0.038, +0.493]; V-trained vs random [-0.450, +0.083]; published - V [+0.014, +0.763]",True
+published_objective_reading.json,rows_outside_V_interval[52],"nuScenes oracle plan_ade JC_ade | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @10%: nDG +0.109; vs random [-0.079, +0.277]; V-trained vs random [-0.202, -0.039]; published - V [+0.013, +0.415]",<absent>,True
+published_objective_reading.json,rows_outside_V_interval[53],"nuScenes oracle plan_ade JC_ade | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @20%: nDG +0.193; vs random [-0.033, +0.375]; V-trained vs random [-0.187, +0.010]; published - V [+0.028, +0.472]",<absent>,True
+published_objective_reading.json,rows_outside_V_interval[54],"nuScenes oracle plan_fde JC_fde | R1_mlp_clf on Q @50%: nDG +0.424; vs random [+0.077, +0.434]; V-trained vs random [-0.363, +0.137]; published - V [+0.053, +0.697]",<absent>,True
+published_objective_reading.json,rows_outside_V_interval[55],"nuScenes oracle plan_fde JC_fde | R1_gbm_reg on Q @20%: nDG +0.168; vs random [-0.049, +0.264]; V-trained vs random [-0.414, +0.037]; published - V [+0.015, +0.572]",<absent>,True
+published_objective_reading.json,rows_outside_V_interval[56],"nuScenes oracle plan_fde JC_fde | R1_gbm_reg on Q @50%: nDG +0.413; vs random [+0.047, +0.445]; V-trained vs random [-0.422, +0.103]; published - V [+0.061, +0.715]",<absent>,True
+published_objective_reading.json,rows_outside_V_interval[57],"nuScenes oracle plan_fde JC_fde | R1_gbm_reg on G @20%: nDG +0.322; vs random [-0.002, +0.496]; V-trained vs random [-0.414, +0.037]; published - V [+0.065, +0.752]",<absent>,True
+published_objective_reading.json,rows_outside_V_interval[58],"nuScenes oracle plan_fde JC_fde | R1_gbm_reg on G @30%: nDG +0.325; vs random [-0.038, +0.493]; V-trained vs random [-0.450, +0.083]; published - V [+0.014, +0.763]",<absent>,True
+published_objective_reading.json,rows_outside_V_interval[59],"nuScenes oracle plan_fde JC_fde | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @20%: nDG +0.322; vs random [-0.002, +0.496]; V-trained vs random [-0.414, +0.037]; published - V [+0.065, +0.752]",<absent>,True
+published_objective_reading.json,rows_outside_V_interval[5],"KITTI mono traj JB | R1_gbm_clf on Q @10%: nDG +0.071; vs random [-0.070, +0.406]; V-trained vs random [-0.270, -0.057]; published - V [+0.047, +0.633]","KITTI oracle brake J | R1_gbm_reg on Q @10%: nDG +0.034; vs random [-0.091, +0.006]; V-trained vs random [+0.011, +0.315]; published - V [-0.387, -0.015]",True
+published_objective_reading.json,rows_outside_V_interval[60],"nuScenes oracle plan_fde JC_fde | R1_gbm_reg <-> R2_cnn_clf on G (budget-adaptive (Geng Eq. 8)) @30%: nDG +0.325; vs random [-0.038, +0.493]; V-trained vs random [-0.450, +0.083]; published - V [+0.014, +0.763]",<absent>,True
+published_objective_reading.json,rows_outside_V_interval[6],"KITTI oracle brake J | R1_mlp_reg on Q @50%: nDG +0.384; vs random [-0.125, +0.118]; V-trained vs random [+0.029, +0.297]; published - V [-0.298, -0.034]","KITTI oracle brake J | R1_gbm_reg on Q @20%: nDG +0.076; vs random [-0.108, +0.039]; V-trained vs random [+0.002, +0.373]; published - V [-0.466, -0.017]",True
+published_objective_reading.json,rows_outside_V_interval[7],"KITTI oracle brake J | R1_gbm_reg on Q @10%: nDG +0.034; vs random [-0.091, +0.006]; V-trained vs random [+0.005, +0.307]; published - V [-0.381, -0.007]","KITTI oracle brake J | R1_gbm_clf on Q @10%: nDG +0.085; vs random [-0.063, +0.177]; V-trained vs random [+0.039, +0.364]; published - V [-0.397, -0.011]",True
+published_objective_reading.json,rows_outside_V_interval[8],"KITTI oracle brake J | R1_gbm_reg on Q @20%: nDG +0.077; vs random [-0.108, +0.037]; V-trained vs random [-0.004, +0.373]; published - V [-0.462, -0.008]","KITTI oracle brake J | R1_gbm_clf on G @30%: nDG +0.212; vs random [-0.069, +0.102]; V-trained vs random [+0.034, +0.442]; published - V [-0.421, -0.005]",True
+published_objective_reading.json,rows_outside_V_interval[9],"KITTI oracle brake J | R1_gbm_clf on Q @10%: nDG +0.085; vs random [-0.064, +0.176]; V-trained vs random [+0.069, +0.332]; published - V [-0.329, -0.042]","KITTI oracle traj JB | R1_mlp_clf on G @10%: nDG +0.001; vs random [-0.100, +0.049]; V-trained vs random [+0.065, +0.384]; published - V [-0.480, -0.024]",True

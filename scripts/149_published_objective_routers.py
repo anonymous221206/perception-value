@@ -158,7 +158,10 @@ def stage_score(run, label_run, r1_run, r2_runs, r2_arb_run, dump_run):
         r1v = np.load(off_r1 / f"scores__{track}__{geometry}__{system}__{target}.npz", allow_pickle=False)
         assert (r1p["seq"] == lab.seq.to_numpy()).all() and (r1v["seq"].astype(str) == lab.seq.to_numpy()).all()
         test = (lab.split == "test").to_numpy()
-        v, units = lab.V.to_numpy(float)[test], lab.unit.to_numpy()[test]
+        # V from the current routers_r1 scores, not the label run's copy: the labels (Q, G) depend on the detections
+        # only, V on the controllers (Task 32 moved it to the shared action history)
+        assert (r1v["frame"].astype(int) == lab.frame.to_numpy()).all()
+        v, units = r1v["V"].astype(float)[test], lab.unit.to_numpy()[test]
         keys_test = lab[["seq", "frame"]][test].reset_index(drop=True)
 
         def r2_scores(r, col="R2_cnn_clf"):

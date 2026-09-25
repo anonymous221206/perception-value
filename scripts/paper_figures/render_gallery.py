@@ -8,7 +8,7 @@ recovered object (green on full, dashed yellow on cheap at the reference box) wh
 by the cheap mode. Each pair is cropped to the same 640x360 window around the decisive object and upscaled to
 1120x630. Every other detection is a thin white box.
 
-Usage (from the repository root): python scripts/paper_figures/render_gallery.py results/final/fig_gallery OUT_DIR
+Usage: python render_gallery.py <release>/results/final/fig_gallery ../figs/gallery_ego
 """
 import json
 import sys
@@ -17,7 +17,7 @@ from PIL import Image, ImageDraw
 
 FRAMES = [("negative_1_scene-0055_03", "neg1"), ("negative_2_scene-0098_22", "neg2"),
           ("negative_3_scene-0101_38", "neg3"), ("negative_4_scene-0102_32", "neg4"),
-          ("positive_3_scene-0053_25", "pos3"), ("positive_4_scene-0065_24", "pos4"),
+          ("positive_3_scene-0053_25", "pos3"), ("positive_4_scene-0065_23", "pos4"),
           ("positive_5_scene-0048_08", "pos5"), ("positive_6_scene-0054_30", "pos6")]
 CW, CH, OW, OH = 640, 360, 1120, 630
 SC = OW / CW

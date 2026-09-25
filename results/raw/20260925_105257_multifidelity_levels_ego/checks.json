@@ -1,0 +1,22 @@
+{
+ "all_pass": true,
+ "core": "20260925_084550_core_matrix_ego",
+ "planner_b": "20260925_084549_planner_b_ego",
+ "seconds": 197.19707655906677,
+ "checks": {
+  "320 branch of 320->384 = core CHEAP": {
+   "n": 8008,
+   "n_core": 8008,
+   "max_diff_J": 0.0,
+   "max_diff_JB": 0.0,
+   "pass": true
+  },
+  "320 branch of 320->512 = core CHEAP": {
+   "n": 8008,
+   "n_core": 8008,
+   "max_diff_J": 0.0,
+   "max_diff_JB": 0.0,
+   "pass": true
+  }
+ }
+}

@@ -1248,13 +1248,15 @@ def table_3b():
 
 def total_v_intervals(hit):
     """Sum of V over the cell's frames (= over its affected inputs), with a unit bootstrap (1000 draws, rng 0, per-unit
-    sums reweighted -- 102's scheme), from the per-mode outcome tables 102 composed the cell from."""
+    sums reweighted -- 102's scheme), from the tables 102 composes the cell from: the per-mode outcomes, and 161's
+    shared-action-history losses (Task 32)."""
     import importlib.util
     from rap import runs as rap_runs
     s = importlib.util.spec_from_file_location("t102", ROOT / "scripts" / "102_calibration_cells.py")
     t102 = importlib.util.module_from_spec(s)
     s.loader.exec_module(t102)
-    S = t102.Store(rap_runs.latest("calibration_outcomes"), rap_runs.latest("calibration_plan"))
+    S = t102.Store(rap_runs.latest("calibration_outcomes"), rap_runs.latest("calibration_plan"),
+                   rap_runs.latest("calibration_direct"))
     thr = NEW.csv("calibration_thresholds.csv")
     splits = json.loads((ROOT / "configs" / "benchmark_splits.json").read_text())
     test = {"nuScenes": set(splits["nuscenes"]["test"]), "KITTI": set(splits["kitti"]["test"])}

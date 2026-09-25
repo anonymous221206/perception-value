@@ -104,12 +104,23 @@ def build(det_dir, cheap_mode: str, full_mode: str, seqs, cfg: RiskConfig,
           range_source: str = "mono", sigma: float = 0.0, seed: int = 0,
           lp: P.LateralParams | None = None,
           lc: P.LateralCostParams | None = None,
-          adapter=KittiAdapter, cache_factory=None) -> pd.DataFrame:
+          adapter=KittiAdapter, cache_factory=None, history_variants: bool = False,
+          history: str = "shared") -> pd.DataFrame:
     """One row per frame. Both downstream tasks are scored from the same perception.
 
     `cache_factory(path, role)` replaces the detection cache of each fidelity (role "cheap" or "full"); None reads the
     cached detections unchanged.  A realism control uses it to filter detections before both controllers.
+
+    Action history (Task 32). The braking loss charges the change from the previous action (jerk) and the lateral loss a
+    change of corridor (switch). `history="shared"` (the definition of decision value): both branches are charged
+    against the previous action of the all-CHEAP run, which is the CHEAP branch's own, so V_i is one escalation of
+    input i from all-CHEAP operation and does not depend on which other inputs are escalated. `history="own"` (the
+    released record of the tables before Task 32): each branch against its own previous action, so V_i compared an
+    all-CHEAP with an all-FULL sequence. `Jterm_<branch>_<term>` gives each weighted loss term under `history`.
+    `history_variants` adds `J_full_shared`, `J_full_own`, `J_cheap_ml`, `J_full_ml` and the lateral counterparts
+    (`_ml`: memoryless, no action-change term), without changing any other column.
     """
+    assert history in ("shared", "own"), history
     lp = lp or P.LateralParams()
     lc = lc or P.LateralCostParams()
     rng = np.random.default_rng(seed)
@@ -149,15 +160,38 @@ def build(det_dir, cheap_mode: str, full_mode: str, seqs, cfg: RiskConfig,
             act_c = P.discrete_action(out["cheap"]["a"], pp)
             act_f = P.discrete_action(out["full"]["a"], pp)
             Jc = P.decision_cost(act_c, a_gt, prev_c, pp, cp)
-            Jf = P.decision_cost(act_f, a_gt, prev_f, pp, cp)
+            Jf = P.decision_cost(act_f, a_gt, prev_c if history == "shared" else prev_f, pp, cp)
+            terms = {}
+            for tag, J_ in (("cheap", Jc), ("full", Jf)):
+                terms.update({f"Jterm_{tag}_shortfall": cp.lam_risk * J_["shortfall"] ** 2,
+                              f"Jterm_{tag}_collision": cp.lam_collision * J_["collision"],
+                              f"Jterm_{tag}_excess": cp.lam_brake * J_["excess"] ** 2,
+                              f"Jterm_{tag}_jerk": cp.lam_jerk * J_["jerk"]})
+            if history_variants:
+                hv = {"J_full_shared": P.decision_cost(act_f, a_gt, prev_c, pp, cp)["J"],
+                      "J_full_own": P.decision_cost(act_f, a_gt, prev_f, pp, cp)["J"],
+                      "J_cheap_ml": P.decision_cost(act_c, a_gt, None, pp, cp)["J"],
+                      "J_full_ml": P.decision_cost(act_f, a_gt, None, pp, cp)["J"]}
             prev_c, prev_f = act_c, act_f
 
             Lc = P.lateral_cost(out["cheap"]["lat_a"], out["cheap"]["lat_off"],
                                 g["long_near"], g["lat_min"], g["lat_max"], v, prev_lc_, lp, lc)
             Lf = P.lateral_cost(out["full"]["lat_a"], out["full"]["lat_off"],
-                                g["long_near"], g["lat_min"], g["lat_max"], v, prev_lf_, lp, lc)
+                                g["long_near"], g["lat_min"], g["lat_max"], v,
+                                prev_lc_ if history == "shared" else prev_lf_, lp, lc)
             lat_gt_a, lat_gt_off = P.lateral_action(g["long_near"], g["lat_min"],
                                                     g["lat_max"], v, lp)
+            if history_variants:
+                lat_args = (g["long_near"], g["lat_min"], g["lat_max"], v)
+                hv.update({
+                    "Jlat_full_shared": P.lateral_cost(out["full"]["lat_a"], out["full"]["lat_off"], *lat_args,
+                                                       prev_lc_, lp, lc)["J"],
+                    "Jlat_full_own": P.lateral_cost(out["full"]["lat_a"], out["full"]["lat_off"], *lat_args,
+                                                    prev_lf_, lp, lc)["J"],
+                    "Jlat_cheap_ml": P.lateral_cost(out["cheap"]["lat_a"], out["cheap"]["lat_off"], *lat_args,
+                                                    None, lp, lc)["J"],
+                    "Jlat_full_ml": P.lateral_cost(out["full"]["lat_a"], out["full"]["lat_off"], *lat_args,
+                                                   None, lp, lc)["J"]})
             prev_lc_, prev_lf_ = out["cheap"]["lat_a"], out["full"]["lat_a"]
             conf = out["cheap"]["conf"]
             rows.append({
@@ -179,6 +213,8 @@ def build(det_dir, cheap_mode: str, full_mode: str, seqs, cfg: RiskConfig,
                 "unc_sum": float(out["cheap"]["ent"].sum()),
                 "conf_mean": float(conf.mean()) if len(conf) else 0.0,
                 "n_gt": int(len(g)),
+                **terms,
+                **(hv if history_variants else {}),
             })
     return pd.DataFrame(rows)
 

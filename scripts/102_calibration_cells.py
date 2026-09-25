@@ -15,6 +15,13 @@ outcomes of 100 and 101 and refuses to run unless every equivalence check there 
            perception gains, and the brake-vs-planner opposite-sign count
   sweep    (t_c, t_f) in {0.15..0.55}^2, all units, harm rate and rho
   reading  survives / collapses / mixed, as registered
+
+Task 32 (shared action history): the braking and trajectory controllers charge both branches against the all-CHEAP
+run's previous action, so a FULL loss at t_f depends on t_c and a cell can no longer be composed from per-mode runs.
+The braking cells (every scheme and the sweep) and the trajectory cells S0-S3 read their losses from 161
+(`calibration_direct`); the trajectory controller's S4 cells keep the per-mode composition (own history) and are
+labelled `history = own`, and its sweep is not computed. The learned planner has no action
+history. S4 thresholds are still chosen from the per-mode losses, as registered.
 """
 from __future__ import annotations
 
@@ -64,8 +71,10 @@ def latest(pattern):
 class Store:
     """Per-mode outcome tables of 100 (detector pipeline) and 101 (planner), loaded lazily."""
 
-    def __init__(self, orun, prun):
-        self.orun, self.prun = orun, prun
+    def __init__(self, orun, prun, drun):
+        self.orun, self.prun, self.drun = orun, prun, drun
+        self.didx = (pd.read_csv(drun / "cell_index.csv") if drun is not None
+                     else pd.DataFrame(columns=["system", "spec", "t_cheap", "t_full", "file"]))
         self.oidx = pd.read_csv(orun / "outcome_index.csv")
         self.pidx = pd.read_csv(prun / "plan_index.csv")
         self.cache = {}
@@ -85,6 +94,16 @@ class Store:
                 d[c] = z[f"{role}_{c}"]
             self.cache[key] = d
         return self.cache[key]
+
+    def direct(self, system, spec, tc, tf):
+        """161's shared-history losses (Jc, Jf) at (t_c, t_f), or None when 161 did not compute that cell."""
+        r = self.didx[(self.didx.system == system) & (self.didx.spec == spec)
+                      & np.isclose(self.didx.t_cheap, tc, atol=1e-9) & np.isclose(self.didx.t_full, tf, atol=1e-9)]
+        if not len(r):
+            return None
+        assert len(r) == 1, (system, spec, tc, tf, len(r))
+        z = np.load(self.drun / "cells" / r.file.iloc[0], allow_pickle=False)
+        return pd.DataFrame({"seq": z["seq"].astype(str), "frame": z["frame"].astype(int), "Jc": z["Jc"], "Jf": z["Jf"]})
 
     def plan(self, geometry, role, t):
         key = ("p", geometry, role, round(t, 9))
@@ -109,9 +128,21 @@ def cell_frame(S, cell, tc, tf):
         p = pc.merge(pf[["sample_token", "JC"]], on="sample_token", suffixes=("_c", "_f"), validate="one_to_one")
         d = p.merge(d, on=["seq", "frame"], how="inner", validate="one_to_one")
         d["Jc"], d["Jf"], d["unit"] = d.JC_c, d.JC_f, d.scene
+        d["history"] = "none"
     else:
         col = "JB" if system == "traj" else "J"
         d["Jc"], d["Jf"], d["unit"] = d[f"{col}_c"], d[f"{col}_f"], d.seq
+        x = S.direct(system, spec, tc, tf)
+        assert x is not None or system == "traj", f"no shared-history braking losses for {spec} at ({tc}, {tf})"
+        if x is None:
+            d["history"] = "own"
+        else:
+            d = d.merge(x.rename(columns={"Jc": "Jc_shared", "Jf": "Jf_shared"}), on=["seq", "frame"],
+                        how="left", validate="one_to_one")
+            assert d.Jf_shared.notna().all() and len(x) == len(d), (spec, tc, tf)
+            # the CHEAP branch keeps its own history, so its loss is the per-mode one
+            assert np.array_equal(d.Jc.to_numpy(float), d.Jc_shared.to_numpy(float)), (spec, tc, tf)
+            d["Jf"], d["history"] = d.Jf_shared, "shared"
     d["V"] = d.Jc - d.Jf
     return d
 
@@ -164,17 +195,27 @@ def s4_threshold(S, cell, role, trval):
 
 
 def main():
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--thresholds_only", action="store_true",
+                    help="write calibration_thresholds.csv only (S0-S3 from 100, S4 from the per-mode losses), which "
+                         "160 and 161 read; needs no shared-history run, so the full pipeline can run 102 before 161")
+    args = ap.parse_args()
     orun, prun = rap_runs.latest("calibration_outcomes"), rap_runs.latest("calibration_plan")
-    for r in (orun, prun):
+    drun = None if args.thresholds_only else rap_runs.latest("calibration_direct")
+    for r in (orun, prun, drun):
+        if r is None:
+            continue
         ch = json.loads((r / "checks.json").read_text())
         assert ch["all_pass"], f"equivalence checks failed in {r.name}; nothing may be scored"
-    run = runmeta.new_run("calibration_cells", {"outcomes": orun.name, "plan": prun.name})
+    run = runmeta.new_run("calibration_thresholds" if args.thresholds_only else "calibration_cells",
+                          {"outcomes": orun.name, "plan": prun.name, "direct": drun.name if drun else None})
     thr = json.loads((orun / "thresholds_S0_S3.json").read_text())
     splits = json.loads((ROOT / "configs" / "benchmark_splits.json").read_text())
     trval = {"nuScenes": set(splits["nuscenes"]["train"] + splits["nuscenes"]["val"]),
              "KITTI": set(splits["kitti"]["train"] + splits["kitti"]["val"])}
     test = {"nuScenes": set(splits["nuscenes"]["test"]), "KITTI": set(splits["kitti"]["test"])}
-    S = Store(orun, prun)
+    S = Store(orun, prun, drun)
     rng = np.random.default_rng(0)
 
     # thresholds per cell and scheme
@@ -192,6 +233,11 @@ def main():
                           "S3_target_not_reached": bool(thr[spec]["S3_none_reached_target"]) if s == "S3" else False,
                           "S4_tie": bool(tie_c or tie_f) if s == "S4" else False})
     tdf = pd.DataFrame(trows)
+    if args.thresholds_only:
+        for out in (Path(RESULTS) / "final", run):
+            tdf.to_csv(out / "calibration_thresholds.csv", index=False)
+        print("  wrote", Path(RESULTS) / "final" / "calibration_thresholds.csv")
+        return
 
     # cells
     rows = []
@@ -206,6 +252,7 @@ def main():
                 v = x.V.to_numpy(float)
                 r = {"cell": name, "dataset": dataset, "system": system, "geometry": geometry,
                      "moderate_gap_kitti": moderate, "scheme": s, "split": split, "t_cheap": tc, "t_full": tf,
+                     "history": d.history.iloc[0],
                      "n_frames": int(len(x)), "n_units": int(x.unit.nunique())}
                 for sfx, role in (("c", "cheap"), ("f", "full")):
                     for k, val in detector_stats(x, sfx).items():
@@ -256,6 +303,8 @@ def main():
     # sweep
     srows = []
     for cell in CELLS:
+        if cell[3] == "traj":
+            continue                                   # Task 32: not recomputed on the shared history
         for tc in SWEEP:
             for tf in SWEEP:
                 d = cell_frame(S, cell, tc, tf)

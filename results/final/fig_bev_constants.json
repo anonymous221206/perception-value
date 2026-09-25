@@ -12,8 +12,8 @@
   "min_gt_height_px": 10.0,
   "mono_camera_height_m": 1.51,
   "registered_tables": {
-   "oracle": "results/raw/20260922_085053_phase0g_eta_fde_oracle_ego/joined_frames.pkl",
-   "mono": "results/raw/20260922_092008_phase0g_eta_fde_mono_ego/joined_frames.pkl"
+   "oracle": "results/raw/20260925_091047_phase0g_eta_fde_oracle_ego/joined_frames.pkl",
+   "mono": "results/raw/20260925_094314_phase0g_eta_fde_mono_ego/joined_frames.pkl"
   }
  },
  "controller": {
@@ -79,16 +79,16 @@
  "gallery_note": "the gallery JSONs additionally list every GT object missed by both modes and every FP present in both modes (pairing IoU >= 0.5), so the BEV inset can show the whole scene; the BEV CSV does not",
  "plan_ade_note": "Planner C has no corridor test; in_corridor on plan_ade rows is the braking controller's test on the braking geometry of the same detection, given for reference only.",
  "rows_by_system_geometry_type": {
-  "brake|mono|fp_added_by_full": 854,
-  "brake|mono|fp_removed_by_full": 321,
-  "brake|mono|matched_both": 1015,
-  "brake|mono|miss_lost_by_full": 58,
-  "brake|mono|miss_recovered_by_full": 568,
-  "brake|oracle|fp_added_by_full": 504,
-  "brake|oracle|fp_removed_by_full": 166,
-  "brake|oracle|matched_both": 454,
-  "brake|oracle|miss_lost_by_full": 36,
-  "brake|oracle|miss_recovered_by_full": 282,
+  "brake|mono|fp_added_by_full": 502,
+  "brake|mono|fp_removed_by_full": 186,
+  "brake|mono|matched_both": 588,
+  "brake|mono|miss_lost_by_full": 34,
+  "brake|mono|miss_recovered_by_full": 352,
+  "brake|oracle|fp_added_by_full": 301,
+  "brake|oracle|fp_removed_by_full": 95,
+  "brake|oracle|matched_both": 234,
+  "brake|oracle|miss_lost_by_full": 24,
+  "brake|oracle|miss_recovered_by_full": 181,
   "plan_ade|oracle|fp_added_by_full": 2215,
   "plan_ade|oracle|fp_removed_by_full": 902,
   "plan_ade|oracle|matched_both": 2601,
@@ -97,16 +97,16 @@
  },
  "omitted_by_system_geometry": {
   "brake|mono": {
-   "frames_V_nonzero": 454,
-   "fp_in_both": 258,
-   "missed_by_both": 1300,
-   "fp_in_both_iou30": 298
+   "frames_V_nonzero": 273,
+   "fp_in_both": 144,
+   "missed_by_both": 734,
+   "fp_in_both_iou30": 167
   },
   "brake|oracle": {
-   "frames_V_nonzero": 240,
-   "fp_in_both": 150,
-   "missed_by_both": 634,
-   "fp_in_both_iou30": 172
+   "frames_V_nonzero": 141,
+   "fp_in_both": 88,
+   "missed_by_both": 371,
+   "fp_in_both_iou30": 100
   },
   "plan_ade|oracle": {
    "frames_V_nonzero": 1179,
@@ -115,7 +115,7 @@
    "fp_in_both_iou30": 837
   }
  },
- "rows_matched_through_shared_detection": 626,
+ "rows_matched_through_shared_detection": 545,
  "verification_rebuild_equals_registered_tables": {
   "mono": {
    "frames": 3376,

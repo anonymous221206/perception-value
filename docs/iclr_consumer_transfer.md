@@ -1,5 +1,7 @@
 # Consumer transfer: how much of an allocator's value survives a change of consumer
 
+> **Action history (Task 32).** The figures quoted in this report were computed with each branch of the braking and trajectory controllers charged against its own previous action. Every table in `results/final/` now charges both branches against the action of the all-CHEAP run, so that a decision value is one escalation from all-CHEAP operation; `docs/iclr_shared_history.md` gives the change and the quantities it moved, old beside new.
+
 > **Frame convention.** The figures quoted in this report were computed with the monocular lift in the camera frame, the convention before Task 23. Every table in `results/final/` is now computed in the ego frame; `docs/iclr_ego_frame_convention.md` and `results/final/ego_frame_convention.csv` give each registered quantity old beside new, and the camera-frame convention stays selectable with `--frame camera`.
 
 **What this is.** Entry (A, B) is the allocator trained for consumer A, evaluated against consumer B's decision

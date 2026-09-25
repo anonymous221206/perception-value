@@ -32,8 +32,17 @@ from rap.paths import CACHE, RESULTS                                            
 
 def build_b(det_dir: Path, cheap: str, full: str, seqs, cfg: RiskConfig,
             adapter, range_source: str, pb: B.PlannerBParams,
-            cb: B.CostBParams, cache_factory=None) -> pd.DataFrame:
-    """Planner B per frame; `cache_factory(path, role)` replaces the detection caches, as in `decision.build`."""
+            cb: B.CostBParams, cache_factory=None, history_variants: bool = False,
+            history: str = "shared") -> pd.DataFrame:
+    """Planner B per frame; `cache_factory(path, role)` replaces the detection caches, as in `decision.build`.
+
+    Action history (Task 32): both the plan and its executed cost depend on the previous plan. `history="shared"` (the
+    definition of decision value): the FULL branch plans and is scored against the previous plan of the all-CHEAP run,
+    the CHEAP branch's own. `history="own"` (the released record before Task 32): each branch against its own previous
+    plan. `JBterm_<branch>_<term>` gives each weighted loss term under `history`. `history_variants` adds
+    `planB_full_shared`, `JB_full_shared`, `same_planB_shared` (the shared FULL plan whatever `history` is), and a
+    memoryless cost -- no switching term -- for the CHEAP plan and the shared FULL plan (`JB_cheap_ml`, `JB_full_ml`)."""
+    assert history in ("shared", "own"), history
     rng = np.random.default_rng(0)
     rows = []
     for s in seqs:
@@ -52,8 +61,9 @@ def build_b(det_dir: Path, cheap: str, full: str, seqs, cfg: RiskConfig,
             truth = (g["long_near"].astype(float), g["lat_min"].astype(float),
                      g["lat_max"].astype(float), g["ttc"].astype(float))
 
-            out = {}
-            for tag, cache, idx, prev in (("cheap", c, i, prev_c), ("full", f, j, prev_f)):
+            out, seen = {}, {}
+            for tag, cache, idx, prev in (("cheap", c, i, prev_c),
+                                          ("full", f, j, prev_c if history == "shared" else prev_f)):
                 d, geo = cache.det(idx), cache.geo(idx)
                 k = d["conf"] >= cfg.thr(tag)
                 geo_k = {kk: vv[k] for kk, vv in geo.items()}
@@ -61,7 +71,16 @@ def build_b(det_dir: Path, cheap: str, full: str, seqs, cfg: RiskConfig,
                 z, lo, hi, tt = _apply_range_source(bx, geo_k, g, range_source, rng, 0.0)
                 cand = B.plan(z, lo, hi, tt, v, prev, pb, cb)
                 out[tag] = (cand, B.executed_cost(cand, *truth, v, prev, pb, cb))
+                seen[tag] = (z, lo, hi, tt)
             gt_cand = B.plan(*truth, v, None, pb, cb)
+            hv = {}
+            if history_variants:
+                cand_fs = B.plan(*seen["full"], v, prev_c, pb, cb)
+                hv = {"planB_full_shared": cand_fs,
+                      "JB_full_shared": B.executed_cost(cand_fs, *truth, v, prev_c, pb, cb)["J"],
+                      "same_planB_shared": int(out["cheap"][0] == cand_fs),
+                      "JB_cheap_ml": B.executed_cost(out["cheap"][0], *truth, v, None, pb, cb)["J"],
+                      "JB_full_ml": B.executed_cost(cand_fs, *truth, v, None, pb, cb)["J"]}
             prev_c, prev_f = out["cheap"][0], out["full"][0]
 
             rows.append({
@@ -77,6 +96,8 @@ def build_b(det_dir: Path, cheap: str, full: str, seqs, cfg: RiskConfig,
                 "same_planB": int(out["cheap"][0] == out["full"][0]),
                 "a_lon_cheap": out["cheap"][1]["a_lon"], "a_lon_full": out["full"][1]["a_lon"],
                 "d_lat_cheap": out["cheap"][1]["d_lat"], "d_lat_full": out["full"][1]["d_lat"],
+                **{f"JBterm_{t}_{k}": v_ for t in ("cheap", "full") for k, v_ in out[t][1]["terms"].items()},
+                **hv,
             })
     return pd.DataFrame(rows)
 

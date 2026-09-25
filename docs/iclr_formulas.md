@@ -70,7 +70,7 @@ $w = 1$ once $y_2$ is at least 30 px below the principal row, and $w = 0$ within
 ### 1.4 Box-centre versus contact-point convention
 
 * $\hat z$ is the range to the object's **near face**: the ground contact of its lowest visible edge.
-* The controllers use it as the gap to the nearest point of the obstacle (`decision.py:136-137`). The reference
+* The controllers use it as the gap to the nearest point of the obstacle (`decision.py:147-148`). The reference
   geometry they are compared with is also a near-face quantity: $\text{long\_near}$ is the minimum forward coordinate
   of the box footprint (§2.2).
 * **Only the nuScenes detection submissions** (the files PKL and TIP read) need a box centre. There the centre is
@@ -89,7 +89,7 @@ $$\hat y_\text{min} = -\frac{(x_2 - c_x)\,\hat z}{f_x},\qquad \hat y_\text{max} 
 
 **3D extent used by the controllers.**
 * A lifted object is the triple $(\hat z, [\hat y_\text{min}, \hat y_\text{max}], \widehat{\text{TTC}})$
-  (`decision.py:136`; `scripts/65_planner_b_decision.py:59`).
+  (`decision.py:147`; `scripts/65_planner_b_decision.py:69`).
 * It has no longitudinal depth, no height and no yaw: the obstacle is a lateral interval at one forward range.
 
 **Class size priors** enter the controllers' geometry only through $H_\kappa$ (§1.3). The nuScenes submissions add a
@@ -187,7 +187,7 @@ forward offset had cancelled that near-range bias); beyond 15 m its error is sma
 
 For the kept detections of one fidelity and the frame's reference boxes (`decision.py:44-70`):
 
-1. Reference boxes are the evaluable objects of the frame with 2D height $\ge 10$ px (`decision.py:127`;
+1. Reference boxes are the evaluable objects of the frame with 2D height $\ge 10$ px (`decision.py:138`;
    `RiskConfig.min_gt_height`, `risk.py:31`).
 2. Compute IoU between every kept detection and every reference 2D box. Take $b(k) = \arg\max_g \text{IoU}(k, g)$.
    Detection $k$ is matched if $\max_g \text{IoU}(k, g) \ge 0.5$ (`decision.py:53-55`).
@@ -201,8 +201,8 @@ For the kept detections of one fidelity and the frame's reference boxes (`decisi
 removes the ranging, lateral and TTC error of matched detections only.
 
 **Where it is used.**
-* Braking controller: `decision.py:136`.
-* Trajectory controller: `65_planner_b_decision.py:59`, the same function.
+* Braking controller: `decision.py:147`.
+* Trajectory controller: `65_planner_b_decision.py:69`, the same function.
 * The `noisy_gt` variant multiplies the inherited range by $\operatorname{clip}(1 + \epsilon, 0.2, 3)$ with
   $\epsilon \sim \mathcal N(0, \sigma^2)$, and scales the lateral extent by the same factor (`decision.py:59-64`). It
   is not a benchmark cell.
@@ -238,7 +238,7 @@ $$\text{TTC} = \begin{cases} \text{long\_near} / (-\dot d) & -\dot d > 10^{-3}\ 
 ## 3. Braking controller loss $J$ ($q_\text{brake}$)
 
 `src/rap/planner.py`. The same code runs on CHEAP geometry, FULL geometry and reference geometry
-(`decision.py:137,141-142`). The reference geometry enters only through the required deceleration $a^\star$ the
+(`decision.py:148,152-153`). The reference geometry enters only through the required deceleration $a^\star$ the
 action is scored against.
 
 ### 3.1 Constants
@@ -295,27 +295,28 @@ a_\text{cmd} \in \{0,\; 2.5,\; 6.0\}\ \text{m/s}^2$$
 
 ### 3.4 Loss
 
-Let $a^\star$ be $a_\text{req}$ computed on the reference geometry of the frame (`decision.py:141-142`), and let
-$a_\text{cmd}^{-}$ be the previous frame's command of the **same fidelity** in the same sequence (0 terms at the first
-frame; `decision.py:119,145-147`). Then (`planner.py:95-113`):
+Let $a^\star$ be $a_\text{req}$ computed on the reference geometry of the frame (`decision.py:152-153`), and let
+$a_\text{cmd}^{-}$ be the command the all-CHEAP run took at the previous frame of the same sequence, for **both**
+fidelities: the shared action history (Task 32, `docs/iclr_shared_history.md`), so $V$ is one escalation from all-CHEAP
+operation (0 terms at the first frame; `decision.py:136,162-163,175`). Then (`planner.py:95-113`):
 
 $$\text{sf} = \max(0, a^\star - a_\text{cmd}),\quad \text{ex} = \max(0, a_\text{cmd} - a^\star),\quad
 c = \mathbb 1[\text{sf} \ge 8.0],\quad j = |a_\text{cmd} - a_\text{cmd}^{-}|$$
 
-$$J = 1.0\,\text{sf}^2 + 0.12\,\text{ex}^2 + 0.02\,j + 6.0\,c,\qquad V = J_\text{CHEAP} - J_\text{FULL}\quad(\texttt{decision.py:161})$$
+$$J = 1.0\,\text{sf}^2 + 0.12\,\text{ex}^2 + 0.02\,j + 6.0\,c,\qquad V = J_\text{CHEAP} - J_\text{FULL}\quad(\texttt{decision.py:201})$$
 
 ---
 
 ## 4. Receding-horizon trajectory controller $J_B$ ($q_\text{traj}$, "Planner B")
 
-`src/rap/planner_b.py`, driven per frame by `scripts/65_planner_b_decision.py:32-79`.
+`src/rap/planner_b.py`, driven per frame by `scripts/65_planner_b_decision.py:33-102`.
 
 * **Configuration.** The benchmark's Planner B run (`20260912_111225_planner_b_static_fixed`) uses
-  `params = static_obstacles` and `costs = default` (its `config.json`; preset at `planner_b.py:206`). Scripts that
+  `params = static_obstacles` and `costs = default` (its `config.json`; preset at `planner_b.py:210`). Scripts that
   recompute it name the preset as a constant.
 * **What it reads.** `plan` sees only the perceived $(z, y_\text{min}, y_\text{max}, T)$ and $v$.
 * **Where the reference enters.** Only in `executed_cost`, which re-simulates the chosen plan against the reference
-  geometry of the frame (`65_planner_b_decision.py:50-62`).
+  geometry of the frame (`65_planner_b_decision.py:59-73`).
 
 ### 4.1 Candidate set and rollout
 
@@ -361,7 +362,8 @@ g_\text{lat} = \min\big(y_{\max,o} - (y(t_k) - e),\; (y(t_k) + e) - y_{\min,o}\b
 $c_\text{req} = 1.0$ m, $w_\text{prog} = 1.0$, $w_a = 0.01$, $w_\text{lat} = 0.50$, $w_\text{sw} = 0.05$.
 
 Shared terms of candidate $(a, \delta)$, with $\text{cl}' = \text{cl}$ if finite and $c_\text{req}$ otherwise,
-$v_\text{ref} = \max(v, 2)$, and the previous frame's plan $(a^-, \delta^-)$ of the same fidelity:
+$v_\text{ref} = \max(v, 2)$, and the plan $(a^-, \delta^-)$ the all-CHEAP run chose at the previous frame: both branches plan
+and are scored against it (the shared action history, Task 32; `65_planner_b_decision.py:65-66`):
 
 $$\text{short} = \operatorname{clip}(c_\text{req} - \text{cl}',\, 0,\, 2c_\text{req}),\qquad
 P = \left(\frac{v_\text{ref}H - s(H)}{v_\text{ref}H}\right)^2$$
@@ -372,7 +374,7 @@ $$S = \frac{(a - a^-)^2}{4} + (\delta - \delta^-)^2\quad(\text{0 at the first fr
 
 $$J^\text{plan} = 10\,\max_k \big(\mathbb 1[\text{coll}_k]\,0.9^{\,k-1}\big) + 1.5\,\text{short}^2 + 1.0\,P + 0.01\,a^2 H + 0.50\,\delta^2 + 0.05\,S$$
 
-**Executed cost against the reference geometry** (`planner_b.py:161-192`). The same terms, except that the collision
+**Executed cost against the reference geometry** (`planner_b.py:161-196`). The same terms, except that the collision
 term is undiscounted occurrence:
 
 $$J_B = 10\,\mathbb 1\big[\exists k: \text{coll}_k\big] + 1.5\,\text{short}^2 + 1.0\,P + 0.01\,a^2 H + 0.50\,\delta^2 + 0.05\,S,
@@ -432,7 +434,7 @@ $\Delta E_k = E_k(\text{CHEAP}) - E_k(\text{FULL})$, positive when FULL is bette
 
 **The benchmark's `dE_exact`** is the column `dE`: the class-agnostic FN count difference from
 `decision.add_perception_gain`. There, every reference object is labelled one class, and a reference object counts as
-missed when its best IoU is below 0.5 (`decision.py:180-205`).
+missed when its best IoU is below 0.5 (`decision.py:214-241`).
 
 **nuPlan diagnostics**, computed on the logged tracks of the real-perception branches
 (`scripts/119_nuplan_real_features.py:112-124`):
@@ -471,10 +473,10 @@ the **monocular** geometry of the CHEAP detections with $p \ge 0.25$ (`src/rap/f
 $$\text{crit}_\text{cheap} = \sum_{k:\,p_k \ge 0.25} c\big(\hat z_k, \hat y_{\min,k}, \hat y_{\max,k}, \widehat{\text{TTC}}_k\big)$$
 
 It is registered as `cheap_det` provenance. The GT counterpart `crit_sum` sums $c_g$ over reference objects
-(`decision.py:115,126-128,172`), is a diagnostic, and is never a gate input.
+(`decision.py:126,137-139,206`), is a diagnostic, and is never a gate input.
 
 **Uncertainty signal** (`uncertainty`, column `unc_sum`). The sum of binary entropies of the kept CHEAP confidences
-(`decision.py:140,173`; `detect.py:177-178`):
+(`decision.py:151,207`; `detect.py:177-178`):
 
 $$\text{unc} = \sum_{k:\,p_k \ge 0.25} -\big[p_k \ln p_k + (1-p_k)\ln(1-p_k)\big],\qquad p_k \in [10^{-6}, 1 - 10^{-6}]$$
 
@@ -486,7 +488,7 @@ The ego speed is the $v$ of §3 and §4, and the `trivial_ego_speed` baseline (`
 
 | dataset | source | code |
 |---|---|---|
-| KITTI | OXTS column 8, `vf`: forward velocity in m/s at the frame's index; frames past the last OXTS row take the last value | `kitti.py:109-112`; `decision.py:39-41,124` |
+| KITTI | OXTS column 8, `vf`: forward velocity in m/s at the frame's index; frames past the last OXTS row take the last value | `kitti.py:109-112`; `decision.py:39-41,135` |
 | nuScenes | pose-differenced speed of the CAM_FRONT keyframes: $v_i = \lVert \mathbf p_{i+1} - \mathbf p_{i-1}\rVert / (t_{i+1} - t_{i-1})$, one-sided at a scene's ends. $\mathbf p$ is the 3D ego-pose translation of the keyframe's `ego_pose`, and $t$ the sample timestamp. It is a centred difference over ±0.5 s and unsigned. | `nusc.py:100-116`; `make_adapter`, `nusc.py:235-239` |
 | nuPlan | `ego.dynamic_car_state.rear_axle_velocity_2d.x`: the longitudinal rear-axle velocity of the logged ego state at the decision iteration, in m/s | `scripts/91_nuplan_cheap_features.py:69`; `119_nuplan_real_features.py:65` |
 

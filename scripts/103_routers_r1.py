@@ -24,6 +24,7 @@ import pandas as pd
 from sklearn.neural_network import MLPClassifier, MLPRegressor
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
+from threadpoolctl import threadpool_limits
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
@@ -86,7 +87,16 @@ def fit_score(X, v, fit):
         if task == "clf" and len(np.unique(y[fit])) < 2:
             out[name] = np.zeros(len(v))                  # one class in training: no ranking information
             continue
-        m = make().fit(X[fit], y[fit])
+        m = make()
+        if name.startswith("R1_gbm"):
+            # OpenMP on one thread for the gradient-boosted models (Task 33): their multithreaded fit varies in the last
+            # bits from run to run (8.9e-16 in Task 32); one thread does not, as in 159's `fit_predict`. BLAS (the MLPs)
+            # stays at its default.
+            with threadpool_limits(limits=1, user_api="openmp"):
+                m.fit(X[fit], y[fit])
+                out[name] = m.predict(X) if task == "reg" else m.predict_proba(X)[:, 1]
+            continue
+        m.fit(X[fit], y[fit])
         out[name] = m.predict(X) if task == "reg" else m.predict_proba(X)[:, 1]
     return out
 

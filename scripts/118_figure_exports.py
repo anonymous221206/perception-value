@@ -40,6 +40,9 @@ DET = Path(CACHE) / "nusc_det_tv"
 CHEAP, FULL = "ns_cheap_320", "ns_full_640"
 JOINED = {geom: rap_runs.latest(f"phase0g_eta_fde_{geom}") / "joined_frames.pkl" for geom in ("oracle", "mono")}
 FIGURE1_EXCLUDE = {("scene-0032", 9), ("scene-0048", 3)}
+# Figure 1's frames (scene, frame, sample token, role), exported by name (Task 35)
+FIGURE1_FRAMES = [("scene-0055", 3, "ee535106a1c546d2b99f9eeacc41066e", "harmed"),
+                  ("scene-0065", 24, "81458d7c63ee40afba6d143188cebaa2", "helped")]
 EPS = 1e-9
 
 
@@ -118,7 +121,8 @@ def rebuild(db, adapter, seqs, cfg, pp, cp, geometry):
             a_gt, a_gt_obj = P.required_decel(g["long_near"], g["lat_min"], g["lat_max"], g["ttc"], v, pp)
             act_c, act_f = P.discrete_action(out["cheap"]["a"], pp), P.discrete_action(out["full"]["a"], pp)
             Jc = P.decision_cost(act_c, a_gt, prev_c, pp, cp)
-            Jf = P.decision_cost(act_f, a_gt, prev_f, pp, cp)
+            # the shared action history of decision.build (Task 32): FULL charged against the all-CHEAP run's action
+            Jf = P.decision_cost(act_f, a_gt, prev_c, pp, cp)
             prev_c, prev_f = act_c, act_f
             frames[(s, fr)] = dict(v=v, g=g, gt=gt, a_gt=a_gt, a_gt_obj=a_gt_obj, act_c=act_c, act_f=act_f,
                                    act_ref=P.discrete_action(a_gt, pp), J_cheap=Jc["J"], J_full=Jf["J"],
@@ -329,10 +333,10 @@ def main():
             n += 1
     index = []
     name = lambda a: P.ACTION_NAMES[int(a)]
-    for sign, rank, r in picked:
+    def export(stem, r):
+        """One frame of q_brake, monocular geometry: the image copy and its JSON record, written as <stem>.*"""
         fr = frames["mono"][(r.seq, int(r.frame))]
         src = db.image_path(r.sample_token)
-        stem = f"{sign}_{rank}_{r.seq}_{int(r.frame):02d}"
         shutil.copy2(src, gal / f"{stem}{src.suffix}")
 
         def boxes(mode):
@@ -379,6 +383,11 @@ def main():
                               "CHEAP detection's (FULL's in *_full), paired at IoU >= 0.5 "
                               "(mono geometry for detections, GT long_near for GT boxes); see fig_bev_constants.json"}
         (gal / f"{stem}.json").write_text(json.dumps(rec, indent=1))
+        return rec
+
+    for sign, rank, r in picked:
+        stem = f"{sign}_{rank}_{r.seq}_{int(r.frame):02d}"
+        rec = export(stem, r)
         index.append({**{k: rec[k] for k in ("scene", "frame", "sample_token", "V", "image_copy")},
                       "sign": sign, "rank": rank, "action": rec["action"]})
         print(f"  gallery {stem}: V {r.V:+.3f} actions {rec['action']}", flush=True)
@@ -386,6 +395,23 @@ def main():
                                                              "scene-0032 frame 9 and scene-0048 frame 3, at most one frame per scene "
                                                              "(across all 12), ties broken by scene then frame",
                                                 "frames": index}, indent=1))
+
+    # Figure 1's two frames, exported under their own names whatever the gallery selects (Task 35): the gallery rule
+    # picks by |V| and, on the shared action history, no longer includes scene-0065 frame 24
+    jall = pd.read_pickle(JOINED["mono"])
+    jall["V"] = jall.J_cheap - jall.J_full
+    fig1 = []
+    for scene, frame, token, role in FIGURE1_FRAMES:
+        r = jall[(jall.seq == scene) & (jall.frame == frame)]
+        assert len(r) == 1 and r.sample_token.iloc[0] == token, (scene, frame)
+        r = r.iloc[0]
+        stem = f"figure1_{scene}_{frame:02d}"
+        rec = export(stem, r)
+        fig1.append({**{k: rec[k] for k in ("scene", "frame", "sample_token", "V", "image_copy")}, "role": role,
+                     "action": rec["action"]})
+        print(f"  figure 1 {stem} ({role}): V {r.V:+.3f} actions {rec['action']}", flush=True)
+    (gal / "figure1.json").write_text(json.dumps({"frames": fig1, "note": "the two frames of Figure 1, q_brake mono; "
+                                                   "exported by name, not by the gallery's selection"}, indent=1))
 
     # ---------------------------------------------------------------- C: budget curves
     write_budget_curves()

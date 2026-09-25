@@ -443,18 +443,15 @@ def multi_fidelity_frames():
              if c["geometry"] == "mono"]
     d = cells[0]["d"].copy()
     fcols = cells[0]["fcols"]
-    lv = {}
-    for res in ("384", "512"):
-        t = pd.read_pickle(t92.CORE / f"KITTI__YOLOv8s__cheap_{res}tofull_640__mono.pkl")
-        b = pd.read_pickle(t92.PLANB / f"planB__KITTI__YOLOv8s__cheap_{res}tofull_640__mono.pkl")
-        for x in (t, b):
-            x["seq"], x["frame"] = x.seq.astype(str), x.frame.astype(int)
-        lv[res] = t[["seq", "frame", "J_cheap", "J_full"]].merge(
-            b[["seq", "frame", "JB_cheap", "JB_full"]], on=["seq", "frame"], validate="one_to_one")
-        lv[res].columns = ["seq", "frame", f"J_{res}", f"Jf_{res}", f"JB_{res}", f"JBf_{res}"]
-        d = d.merge(lv[res], on=["seq", "frame"], validate="one_to_one")
-        assert np.allclose(d[f"Jf_{res}"], d.J_full) and np.allclose(d[f"JBf_{res}"], d.JB_full), \
-            f"FULL cost differs between the 320 and {res} tables"
+    # Task 32: each level is an escalation from all-320 operation, charged against the 320 run's previous action --
+    # the FULL branch of a 320->L pair (165), not the CHEAP branch of the L->640 table, which carried L's own history.
+    lv = pd.read_pickle(rap_runs.latest("multifidelity_levels") / "levels.pkl")
+    lv["seq"], lv["frame"] = lv.seq.astype(str), lv.frame.astype(int)
+    d = d.merge(lv.rename(columns={c: f"{c}_lv" for c in ("J_cheap", "J_full", "JB_cheap", "JB_full")}),
+                on=["seq", "frame"], validate="one_to_one")
+    # the levels share the 320 branch and the 320->640 escalation with this cell, exactly
+    for c in ("J_cheap", "J_full", "JB_cheap", "JB_full"):
+        assert np.array_equal(d[c].to_numpy(float), d[f"{c}_lv"].to_numpy(float)), f"{c} differs from the levels run"
     X = np.nan_to_num(d[fcols].apply(pd.to_numeric, errors="coerce").to_numpy(np.float64),
                       nan=0.0, posinf=1e6, neginf=-1e6)
     return d, X, (d.split == "test").to_numpy(), d.split.isin(["train", "val"]).to_numpy()

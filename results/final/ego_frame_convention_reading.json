@@ -167,22 +167,22 @@
   "Q1": {
    "holds": true,
    "rows": 40,
-   "min_harmed": 0.3583938487825716,
-   "min_rho": 0.3423234011965865,
+   "min_harmed": 0.3410852713178294,
+   "min_rho": 0.3384817201866347,
    "failing": []
   },
   "Q2": {
    "holds": true,
-   "min_sign_disagreement": 0.2945205479452055,
-   "max_spearman": 0.0815760739686162,
+   "min_sign_disagreement": 0.25,
+   "max_spearman": 0.1059203278807516,
    "failing": []
   },
   "Q3": {
    "holds": false,
    "nuScenes_rows_above_random_at_20": [
-    "benchmark_table.csv: mono brake J gate_gbm nDG 0.397 [+0.028, +0.604] vs random",
-    "benchmark_table_routers.csv: mono brake J R1_mlp_reg nDG 0.309 [+0.024, +0.419] vs random",
-    "benchmark_table_routers.csv: mono brake J R1_gbm_reg nDG 0.380 [+0.060, +0.480] vs random"
+    "benchmark_table.csv: mono brake J gate_gbm nDG 0.482 [+0.096, +0.585] vs random",
+    "benchmark_table_routers.csv: mono brake J R1_mlp_reg nDG 0.366 [+0.036, +0.524] vs random",
+    "benchmark_table_routers.csv: mono brake J R1_gbm_reg nDG 0.383 [+0.068, +0.502] vs random"
    ]
   },
   "Q4": {
@@ -197,9 +197,9 @@
   "Q5": {
    "holds": true,
    "B_minus_C": [
-    -0.0641715552036168,
-    -0.1281436920292322,
-    0.0143279548817495
+    -0.0658734242024551,
+    -0.1290260653579513,
+    0.0126966333153837
    ],
    "B_minus_C_reading": "inconclusive",
    "controllers": {
@@ -219,26 +219,26 @@
    "per_cell": [
     {
      "cell": "KITTI mono brake J",
-     "uniform_full": 0.1121757248519841,
-     "best_feasible_allocator": 0.0526981020092093,
+     "uniform_full": 0.1109232595655588,
+     "best_feasible_allocator": 0.0584831457839229,
      "uniform_stronger": true
     },
     {
      "cell": "KITTI mono traj JB",
-     "uniform_full": -0.0229208302051773,
-     "best_feasible_allocator": 0.011287921224848,
+     "uniform_full": -0.0241191151833228,
+     "best_feasible_allocator": 0.0089759093098307,
      "uniform_stronger": false
     },
     {
      "cell": "KITTI oracle brake J",
-     "uniform_full": 0.2710167683338455,
-     "best_feasible_allocator": 0.1349945536368752,
+     "uniform_full": 0.268659326706218,
+     "best_feasible_allocator": 0.1346299225937178,
      "uniform_stronger": true
     },
     {
      "cell": "KITTI oracle traj JB",
-     "uniform_full": 0.5200728015329603,
-     "best_feasible_allocator": 0.261003975162971,
+     "uniform_full": 0.5193211847093978,
+     "best_feasible_allocator": 0.254713176931388,
      "uniform_stronger": true
     },
     {
@@ -267,8 +267,8 @@
     },
     {
      "cell": "nuScenes mono brake J",
-     "uniform_full": 0.1665708735235427,
-     "best_feasible_allocator": 0.1255036173443288,
+     "uniform_full": 0.1649459304752566,
+     "best_feasible_allocator": 0.1245406881305297,
      "uniform_stronger": true
     },
     {
@@ -285,8 +285,8 @@
     },
     {
      "cell": "nuScenes oracle brake J",
-     "uniform_full": 0.1443073759453345,
-     "best_feasible_allocator": 0.102482880940783,
+     "uniform_full": 0.142198850325279,
+     "best_feasible_allocator": 0.0980852039898255,
      "uniform_stronger": true
     },
     {
@@ -311,13 +311,13 @@
     "S2",
     "S3"
    ],
-   "max_rho": 0.3410821019256435,
+   "max_rho": 0.3474308489839061,
    "max_rho_S4_reported_only": 0.693936989785071,
    "failing": [
-    "KITTI mono Y8 320->640 q_traj S0 rho 0.276",
-    "KITTI mono Y8 320->640 q_traj S1 rho 0.341",
-    "KITTI mono Y8 320->640 q_traj S2 rho 0.340",
-    "KITTI mono Y8 320->640 q_traj S3 rho 0.278"
+    "KITTI mono Y8 320->640 q_traj S0 rho 0.282",
+    "KITTI mono Y8 320->640 q_traj S1 rho 0.343",
+    "KITTI mono Y8 320->640 q_traj S2 rho 0.347",
+    "KITTI mono Y8 320->640 q_traj S3 rho 0.285"
    ]
   },
   "Q8": {
@@ -339,49 +339,58 @@
   "Q7"
  ],
  "calibration_outside_task22_tolerance": [
-  "nuScenes oracle Y8 320->640 q_brake S0 (harmed -0.081, rho -0.181)",
-  "nuScenes oracle Y8 320->640 q_brake S2 (harmed -0.071, rho -0.121)",
-  "nuScenes oracle Y8 320->640 q_brake S3 (harmed -0.065, rho -0.117)",
-  "nuScenes oracle Y8 320->640 q_brake S4 (harmed +0.017, rho -0.093)",
+  "nuScenes oracle Y8 320->640 q_brake S0 (harmed -0.130, rho -0.184)",
+  "nuScenes oracle Y8 320->640 q_brake S1 (harmed -0.052, rho -0.046)",
+  "nuScenes oracle Y8 320->640 q_brake S2 (harmed -0.113, rho -0.124)",
+  "nuScenes oracle Y8 320->640 q_brake S3 (harmed -0.116, rho -0.121)",
+  "nuScenes oracle Y8 320->640 q_brake S4 (harmed -0.048, rho -0.097)",
   "nuScenes oracle Y8 320->640 q_plan S0 (harmed -0.005, rho -0.121)",
   "nuScenes oracle Y8 320->640 q_plan S1 (harmed -0.013, rho -0.107)",
   "nuScenes oracle Y8 320->640 q_plan S2 (harmed -0.010, rho -0.114)",
   "nuScenes oracle Y8 320->640 q_plan S3 (harmed -0.016, rho -0.144)",
   "nuScenes oracle Y8 320->640 q_plan S4 (harmed -0.016, rho -0.154)",
-  "nuScenes mono Y8 320->640 q_brake S0 (harmed -0.032, rho -0.123)",
-  "nuScenes mono Y8 320->640 q_brake S1 (harmed -0.018, rho -0.058)",
-  "nuScenes mono Y8 320->640 q_brake S2 (harmed -0.014, rho -0.070)",
-  "nuScenes mono Y8 320->640 q_brake S3 (harmed -0.019, rho -0.083)",
-  "nuScenes mono Y8 320->640 q_brake S4 (harmed -0.017, rho -0.055)",
+  "nuScenes mono Y8 320->640 q_brake S0 (harmed -0.059, rho -0.128)",
+  "nuScenes mono Y8 320->640 q_brake S1 (harmed -0.022, rho -0.061)",
+  "nuScenes mono Y8 320->640 q_brake S2 (harmed -0.035, rho -0.076)",
+  "nuScenes mono Y8 320->640 q_brake S3 (harmed -0.044, rho -0.088)",
+  "nuScenes mono Y8 320->640 q_brake S4 (harmed -0.115, rho -0.065)",
   "nuScenes mono Y8 320->640 q_plan S1 (harmed -0.020, rho +0.065)",
   "nuScenes mono Y8 320->640 q_plan S4 (harmed -0.043, rho +0.080)",
-  "KITTI mono Y8 320->640 q_traj S0 (harmed +0.067, rho +0.213)",
-  "KITTI mono Y8 320->640 q_traj S1 (harmed +0.103, rho +0.232)",
-  "KITTI mono Y8 320->640 q_traj S2 (harmed +0.065, rho +0.261)",
-  "KITTI mono Y8 320->640 q_traj S3 (harmed +0.076, rho +0.218)",
+  "KITTI mono Y8 320->640 q_traj S0 (harmed +0.132, rho +0.220)",
+  "KITTI mono Y8 320->640 q_traj S1 (harmed +0.163, rho +0.234)",
+  "KITTI mono Y8 320->640 q_traj S2 (harmed +0.141, rho +0.269)",
+  "KITTI mono Y8 320->640 q_traj S3 (harmed +0.142, rho +0.225)",
   "KITTI mono Y8 320->640 q_traj S4 (harmed +0.106, rho +0.527)",
-  "KITTI mono Y8 384->640 q_traj S0 (harmed -0.017, rho +0.246)",
-  "KITTI mono Y8 384->640 q_traj S1 (harmed +0.007, rho +0.240)",
-  "KITTI mono Y8 384->640 q_traj S2 (harmed -0.003, rho +0.258)",
-  "KITTI mono Y8 384->640 q_traj S3 (harmed -0.009, rho +0.258)",
+  "KITTI mono Y8 320->640 q_brake S0 (harmed -0.065, rho -0.024)",
+  "KITTI mono Y8 320->640 q_brake S3 (harmed -0.064, rho -0.021)",
+  "KITTI mono Y8 384->640 q_traj S0 (harmed +0.033, rho +0.248)",
+  "KITTI mono Y8 384->640 q_traj S1 (harmed +0.057, rho +0.225)",
+  "KITTI mono Y8 384->640 q_traj S2 (harmed +0.048, rho +0.261)",
+  "KITTI mono Y8 384->640 q_traj S3 (harmed +0.042, rho +0.261)",
   "KITTI mono Y8 384->640 q_traj S4 (harmed +0.133, rho +0.359)",
-  "KITTI mono Y8 384->640 q_brake S0 (harmed -0.040, rho -0.078)",
-  "KITTI mono Y8 384->640 q_brake S1 (harmed -0.029, rho -0.056)",
-  "KITTI mono Y8 384->640 q_brake S2 (harmed -0.035, rho -0.063)",
-  "KITTI mono Y8 384->640 q_brake S3 (harmed -0.039, rho -0.071)",
-  "KITTI mono Y8 512->640 q_traj S0 (harmed +0.071, rho +0.674)",
-  "KITTI mono Y8 512->640 q_traj S1 (harmed +0.084, rho +0.732)",
-  "KITTI mono Y8 512->640 q_traj S2 (harmed +0.070, rho +0.734)",
-  "KITTI mono Y8 512->640 q_traj S3 (harmed +0.074, rho +0.698)",
+  "KITTI mono Y8 384->640 q_brake S0 (harmed -0.048, rho -0.078)",
+  "KITTI mono Y8 384->640 q_brake S1 (harmed -0.038, rho -0.056)",
+  "KITTI mono Y8 384->640 q_brake S2 (harmed -0.048, rho -0.064)",
+  "KITTI mono Y8 384->640 q_brake S3 (harmed -0.050, rho -0.071)",
+  "KITTI mono Y8 512->640 q_traj S0 (harmed +0.131, rho +0.679)",
+  "KITTI mono Y8 512->640 q_traj S1 (harmed +0.148, rho +0.738)",
+  "KITTI mono Y8 512->640 q_traj S2 (harmed +0.136, rho +0.739)",
+  "KITTI mono Y8 512->640 q_traj S3 (harmed +0.136, rho +0.703)",
   "KITTI mono Y8 512->640 q_traj S4 (harmed +0.201, rho +0.590)",
-  "KITTI mono Y8 512->640 q_brake S0 (harmed -0.027, rho -0.062)",
-  "KITTI mono Y8 512->640 q_brake S3 (harmed -0.027, rho -0.059)",
-  "KITTI mono RT-DETR 480->640 q_traj S2 (harmed +0.029, rho +0.094)",
+  "KITTI mono Y8 512->640 q_brake S0 (harmed -0.029, rho -0.064)",
+  "KITTI mono Y8 512->640 q_brake S1 (harmed -0.023, rho -0.051)",
+  "KITTI mono Y8 512->640 q_brake S3 (harmed -0.026, rho -0.061)",
+  "KITTI mono RT-DETR 480->640 q_traj S2 (harmed +0.033, rho +0.095)",
   "KITTI mono RT-DETR 480->640 q_traj S4 (harmed -0.206, rho +0.640)",
-  "KITTI mono RT-DETR 480->640 q_brake S0 (harmed -0.018, rho -0.084)",
-  "KITTI mono RT-DETR 480->640 q_brake S1 (harmed -0.020, rho -0.097)",
-  "KITTI mono RT-DETR 480->640 q_brake S3 (harmed -0.018, rho -0.084)",
-  "KITTI oracle Y8 320->640 q_traj S0 (harmed -0.053, rho -0.000)"
+  "KITTI mono RT-DETR 480->640 q_brake S0 (harmed -0.024, rho -0.084)",
+  "KITTI mono RT-DETR 480->640 q_brake S1 (harmed -0.024, rho -0.097)",
+  "KITTI mono RT-DETR 480->640 q_brake S3 (harmed -0.024, rho -0.084)",
+  "KITTI oracle Y8 320->640 q_traj S0 (harmed -0.065, rho -0.001)",
+  "KITTI oracle Y8 320->640 q_traj S3 (harmed -0.057, rho -0.000)",
+  "KITTI oracle Y8 320->640 q_brake S0 (harmed -0.095, rho -0.011)",
+  "KITTI oracle Y8 320->640 q_brake S1 (harmed -0.055, rho -0.001)",
+  "KITTI oracle Y8 320->640 q_brake S2 (harmed -0.070, rho -0.008)",
+  "KITTI oracle Y8 320->640 q_brake S3 (harmed -0.094, rho -0.010)"
  ],
  "ci_side_changes": [
   {
@@ -401,6 +410,20 @@
   {
    "file": "benchmark_table.csv",
    "item": "nuScenes | mono | brake | J | test | gate_gbm | 0.2",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | mono | brake | J | test | gate_gbm | 0.3",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | mono | brake | J | test | gate_gbm | 0.5",
    "old": "includes random",
    "new": "above random",
    "note": "win appears"
@@ -505,13 +528,6 @@
   },
   {
    "file": "benchmark_table.csv",
-   "item": "KITTI | mono | brake | J | test | gate_gbm | 0.5",
-   "old": "above random",
-   "new": "includes random",
-   "note": "win disappears"
-  },
-  {
-   "file": "benchmark_table.csv",
    "item": "KITTI | mono | brake | J | all | criticality_cheap | 0.1",
    "old": "includes random",
    "new": "below random",
@@ -568,9 +584,9 @@
   },
   {
    "file": "benchmark_table_routers.csv",
-   "item": "nuScenes | oracle | brake | J | test | R2_cnn_clf | 0.1",
-   "old": "includes random",
-   "new": "below random",
+   "item": "nuScenes | oracle | brake | J | test | R2_cnn_clf | 0.2",
+   "old": "below random",
+   "new": "includes random",
    "note": "interval changes side"
   },
   {
@@ -582,45 +598,17 @@
   },
   {
    "file": "benchmark_table_routers.csv",
-   "item": "nuScenes | oracle | brake | J | test | R2_cnn_clf | 0.5",
-   "old": "below random",
-   "new": "includes random",
-   "note": "interval changes side"
-  },
-  {
-   "file": "benchmark_table_routers.csv",
-   "item": "nuScenes | mono | brake | J | test | R2_cnn_clf | 0.1",
-   "old": "includes random",
-   "new": "below random",
-   "note": "interval changes side"
-  },
-  {
-   "file": "benchmark_table_routers.csv",
-   "item": "nuScenes | mono | brake | J | test | R2_cnn_clf | 0.2",
-   "old": "includes random",
-   "new": "below random",
-   "note": "interval changes side"
-  },
-  {
-   "file": "benchmark_table_routers.csv",
-   "item": "nuScenes | mono | brake | J | test | R2_cnn_clf | 0.3",
-   "old": "includes random",
-   "new": "below random",
-   "note": "interval changes side"
-  },
-  {
-   "file": "benchmark_table_routers.csv",
-   "item": "nuScenes | mono | brake | J | test | R2_cnn_clf | 0.5",
-   "old": "includes random",
-   "new": "below random",
-   "note": "interval changes side"
-  },
-  {
-   "file": "benchmark_table_routers.csv",
    "item": "KITTI | oracle | traj | JB | test | R2_cnn_clf | 0.5",
    "old": "below random",
    "new": "includes random",
    "note": "interval changes side"
+  },
+  {
+   "file": "benchmark_table_routers.csv",
+   "item": "nuScenes | oracle | brake | J | test | R1_mlp_reg | 0.3",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
   },
   {
    "file": "benchmark_table_routers.csv",
@@ -653,13 +641,6 @@
   {
    "file": "benchmark_table_routers.csv",
    "item": "nuScenes | mono | brake | J | test | R1_mlp_reg | 0.2",
-   "old": "includes random",
-   "new": "above random",
-   "note": "win appears"
-  },
-  {
-   "file": "benchmark_table_routers.csv",
-   "item": "nuScenes | mono | brake | J | test | R1_mlp_reg | 0.3",
    "old": "includes random",
    "new": "above random",
    "note": "win appears"
@@ -715,17 +696,10 @@
   },
   {
    "file": "benchmark_table_routers.csv",
-   "item": "KITTI | oracle | brake | J | test | R1_mlp_reg | 0.5",
+   "item": "KITTI | oracle | brake | J | test | R1_mlp_reg | 0.1",
    "old": "includes random",
    "new": "above random",
    "note": "win appears"
-  },
-  {
-   "file": "benchmark_table_routers.csv",
-   "item": "KITTI | oracle | brake | J | test | R1_mlp_clf | 0.1",
-   "old": "above random",
-   "new": "includes random",
-   "note": "win disappears"
   },
   {
    "file": "benchmark_table_routers.csv",
@@ -736,31 +710,24 @@
   },
   {
    "file": "benchmark_table_routers.csv",
-   "item": "KITTI | oracle | brake | J | test | R1_mlp_clf | 0.3",
+   "item": "KITTI | oracle | brake | J | test | R1_gbm_reg | 0.1",
    "old": "includes random",
    "new": "above random",
    "note": "win appears"
   },
   {
    "file": "benchmark_table_routers.csv",
-   "item": "KITTI | oracle | traj | JB | test | R1_mlp_reg | 0.5",
+   "item": "KITTI | oracle | brake | J | test | R1_gbm_clf | 0.5",
    "old": "above random",
    "new": "includes random",
    "note": "win disappears"
   },
   {
    "file": "benchmark_table_routers.csv",
-   "item": "KITTI | mono | brake | J | test | R1_mlp_reg | 0.2",
-   "old": "above random",
-   "new": "includes random",
-   "note": "win disappears"
-  },
-  {
-   "file": "benchmark_table_routers.csv",
-   "item": "KITTI | mono | brake | J | test | R1_mlp_clf | 0.3",
-   "old": "above random",
-   "new": "includes random",
-   "note": "win disappears"
+   "item": "KITTI | mono | brake | J | test | R1_mlp_clf | 0.2",
+   "old": "includes random",
+   "new": "above random",
+   "note": "win appears"
   },
   {
    "file": "benchmark_table_routers.csv",
@@ -792,14 +759,7 @@
   },
   {
    "file": "benchmark_table_routers.csv",
-   "item": "KITTI | mono | brake | J | test | R1_gbm_clf | 0.5",
-   "old": "includes random",
-   "new": "above random",
-   "note": "win appears"
-  },
-  {
-   "file": "benchmark_table_routers.csv",
-   "item": "KITTI | mono | traj | JB | test | R1_gbm_clf | 0.1",
+   "item": "KITTI | mono | traj | JB | test | R1_mlp_reg | 0.5",
    "old": "includes random",
    "new": "below random",
    "note": "interval changes side"
@@ -859,6 +819,13 @@
    "old": "includes random",
    "new": "above random",
    "note": "win appears"
+  },
+  {
+   "file": "benchmark_table.csv",
+   "item": "nuScenes | oracle | brake | J | test | dE_E5_loc_heavy | 0.1",
+   "old": "below random",
+   "new": "includes random",
+   "note": "interval changes side"
   },
   {
    "file": "benchmark_table.csv",
@@ -1383,12 +1350,12 @@
    "rows": 112,
    "reordered": false,
    "rows_moved": 112,
-   "cells_moved": 355,
-   "largest_abs_change": 327.00058641648116,
+   "cells_moved": 354,
+   "largest_abs_change": 331.43244071994854,
    "largest_column": "gain",
    "largest_row": "traj | mJ | oracle (640 only) | 0.5",
    "largest_old": "579.0727879103533",
-   "largest_new": "252.07220149387217"
+   "largest_new": "247.6403471904048"
   },
   {
    "file": "benchmark_budget_multifidelity_1thread.csv",
@@ -1396,12 +1363,12 @@
    "rows": 112,
    "reordered": false,
    "rows_moved": 112,
-   "cells_moved": 383,
-   "largest_abs_change": 327.00058641648116,
+   "cells_moved": 382,
+   "largest_abs_change": 331.43244071994854,
    "largest_column": "gain",
    "largest_row": "traj | mJ | oracle (640 only) | 0.5",
    "largest_old": "579.0727879103533",
-   "largest_new": "252.07220149387217"
+   "largest_new": "247.6403471904048"
   },
   {
    "file": "benchmark_budget_nuplan_real.csv",
@@ -1465,11 +1432,11 @@
    "reordered": false,
    "rows_moved": 20,
    "cells_moved": 200,
-   "largest_abs_change": 2269.8774092141666,
+   "largest_abs_change": 2315.2801564775473,
    "largest_column": "gross_benefit",
    "largest_row": "KITTI | mono | traj | JB | Planner B, rollout planner (ours) | all",
    "largest_old": "5951.940273995566",
-   "largest_new": "3682.062864781399"
+   "largest_new": "3636.6601175180185"
   },
   {
    "file": "benchmark_gate_inference_batch_timing.json",
@@ -1502,12 +1469,12 @@
    "rows": 1668,
    "reordered": false,
    "rows_moved": 1296,
-   "cells_moved": 14150,
-   "largest_abs_change": 2682.0881158432076,
+   "cells_moved": 14156,
+   "largest_abs_change": 2730.6769735916664,
    "largest_column": "gain",
    "largest_row": "KITTI | mono | traj | JB | Planner B, rollout planner (ours) | all | dE_E5_loc_heavy | 0.5",
    "largest_old": "4774.233272341058",
-   "largest_new": "2092.1451564978506"
+   "largest_new": "2043.5562987493918"
   },
   {
    "file": "benchmark_table_nuplan_real.csv",
@@ -1519,7 +1486,7 @@
    "rows": 264,
    "reordered": false,
    "rows_moved": 200,
-   "cells_moved": 1868,
+   "cells_moved": 1873,
    "largest_abs_change": 22.0,
    "largest_column": "boot_dropped",
    "largest_row": "KITTI | mono | traj | JB | test | R1_gbm_clf | 0.5",
@@ -1532,12 +1499,12 @@
    "rows": 1106,
    "reordered": false,
    "rows_moved": 790,
-   "cells_moved": 18470,
-   "largest_abs_change": 230.0,
-   "largest_column": "sign_agree_fit_n",
-   "largest_row": "KITTI | mono | traj | JB | R1_gbm_clf | dE_E6_risk_weighted | quota | 0.5",
-   "largest_old": "716",
-   "largest_new": "486"
+   "cells_moved": 18468,
+   "largest_abs_change": 532.0,
+   "largest_column": "n_affected",
+   "largest_row": "KITTI | mono | brake | J | R1_gbm_clf | dE_E6_risk_weighted | quota | 0.5",
+   "largest_old": "1508",
+   "largest_new": "976"
   },
   {
    "file": "benchmark_target_swap_summary.json",
@@ -1549,25 +1516,18 @@
    "rows": 20,
    "reordered": false,
    "rows_moved": 20,
-   "cells_moved": 36,
-   "largest_abs_change": 25.0,
+   "cells_moved": 40,
+   "largest_abs_change": 138.0,
    "largest_column": "both_nonzero",
-   "largest_row": "oracle | all | S0",
-   "largest_old": "153",
-   "largest_new": "128"
+   "largest_row": "mono | all | S0",
+   "largest_old": "309",
+   "largest_new": "171"
   },
   {
    "file": "calibration_cells.csv",
-   "status": "values moved",
-   "rows": 140,
-   "reordered": false,
-   "rows_moved": 140,
-   "cells_moved": 2367,
-   "largest_abs_change": 456.0,
-   "largest_column": "FN_FP_n_both_nonzero",
-   "largest_row": "nuScenes mono Y8 320->640 q_plan | nuScenes | mono | plan | all | S4 | 0.3 | 0.45",
-   "largest_old": "1009.0",
-   "largest_new": "1465.0"
+   "status": "structure differs",
+   "rows_old": 140,
+   "rows_new": 140
   },
   {
    "file": "calibration_pr_curves.csv",
@@ -1579,16 +1539,9 @@
   },
   {
    "file": "calibration_sweep.csv",
-   "status": "values moved",
-   "rows": 350,
-   "reordered": false,
-   "rows_moved": 350,
-   "cells_moved": 1050,
-   "largest_abs_change": 503.0,
-   "largest_column": "affected",
-   "largest_row": "KITTI mono Y8 320->640 q_traj | 0.55 | 0.15",
-   "largest_old": "1735",
-   "largest_new": "1232"
+   "status": "structure differs",
+   "rows_old": 350,
+   "rows_new": 225
   },
   {
    "file": "calibration_thresholds.csv",
@@ -1609,7 +1562,7 @@
    "rows": 104,
    "reordered": false,
    "rows_moved": 74,
-   "cells_moved": 163,
+   "cells_moved": 162,
    "largest_abs_change": 7.0,
    "largest_column": "new",
    "largest_row": "6 sensitivity: a scene's first frame dropped, not zeroed | all tracks | rows where ego speed beats random | reported causal -> first frame dropped",
@@ -1622,7 +1575,7 @@
    "rows": 3464,
    "reordered": false,
    "rows_moved": 2568,
-   "cells_moved": 27609,
+   "cells_moved": 27630,
    "largest_abs_change": 2339.121772283302,
    "largest_column": "all_cheap_loss",
    "largest_row": "KITTI | mono | traj | JB | V2 | B | R2_cnn_clf | 0.5",
@@ -1634,13 +1587,13 @@
    "status": "values moved",
    "rows": 119,
    "reordered": false,
-   "rows_moved": 110,
-   "cells_moved": 260,
-   "largest_abs_change": 54.0,
+   "rows_moved": 106,
+   "cells_moved": 252,
+   "largest_abs_change": 148.0,
    "largest_column": "new",
    "largest_row": "3 scatter and overall share | nuScenes oracle q_brake | frames plotted (gain and V both non-zero) | scatter, E5_combined, oracle S0",
    "largest_old": "289.0",
-   "largest_new": "235.0"
+   "largest_new": "141.0"
   },
   {
    "file": "consumer_transfer.csv",
@@ -1648,12 +1601,12 @@
    "rows": 845,
    "reordered": false,
    "rows_moved": 628,
-   "cells_moved": 7191,
-   "largest_abs_change": 651.3032478974416,
+   "cells_moved": 7190,
+   "largest_abs_change": 701.9631751276298,
    "largest_column": "delta_hi_all_draws",
    "largest_row": "KITTI mono | KITTI | mono | gate_gbm | traj/JB | brake/J | 0.5",
    "largest_old": "721.5773514687751",
-   "largest_new": "70.27410357133351"
+   "largest_new": "19.61417634114529"
   },
   {
    "file": "core_matrix.csv",
@@ -1661,12 +1614,12 @@
    "rows": 16,
    "reordered": false,
    "rows_moved": 16,
-   "cells_moved": 253,
-   "largest_abs_change": 1.0446839269268795,
+   "cells_moved": 254,
+   "largest_abs_change": 2.1490419722120615,
    "largest_column": "eta_perception_oracle_50",
    "largest_row": "KITTI | oracle | YOLOv8s | cheap_320 | full_640 | lateral",
    "largest_old": "-0.800362923473543",
-   "largest_new": "-1.8450468504004225"
+   "largest_new": "-2.9494048956856043"
   },
   {
    "file": "energy_module_budget_multifidelity.csv",
@@ -1674,12 +1627,12 @@
    "rows": 336,
    "reordered": false,
    "rows_moved": 336,
-   "cells_moved": 1104,
-   "largest_abs_change": 327.00058641648116,
+   "cells_moved": 1109,
+   "largest_abs_change": 331.43244071994854,
    "largest_column": "gain",
    "largest_row": "traj | mJ | 1thread | as_specified | oracle (640 only) | 0.5",
    "largest_old": "579.0727879103533",
-   "largest_new": "252.07220149387217"
+   "largest_new": "247.6403471904048"
   },
   {
    "file": "energy_module_budget_nuplan_real.csv",
@@ -1691,7 +1644,7 @@
    "rows": 1928,
    "reordered": false,
    "rows_moved": 894,
-   "cells_moved": 4074,
+   "cells_moved": 4072,
    "largest_abs_change": 22.0,
    "largest_column": "boot_dropped",
    "largest_row": "KITTI | mono | traj | JB | mJ | routers | module | R2_cnn_clf | 0.5",
@@ -1703,13 +1656,13 @@
    "status": "values moved",
    "rows": 39,
    "reordered": false,
-   "rows_moved": 15,
-   "cells_moved": 28,
-   "largest_abs_change": 0.0025452488687782715,
+   "rows_moved": 21,
+   "cells_moved": 40,
+   "largest_abs_change": 1.0,
    "largest_column": "value",
-   "largest_row": "b | as_specified | braking oracle share at 384: energy budget vs latency budget | 0.5",
-   "largest_old": "0.1165158371040724",
-   "largest_new": "0.11906108597285067"
+   "largest_row": "c | as_specified | energy evaluation rows: wins / losses / rows",
+   "largest_old": "0.0",
+   "largest_new": "1.0"
   },
   {
    "file": "energy_module_costs.json",
@@ -1725,7 +1678,7 @@
    "rows": 108,
    "reordered": false,
    "rows_moved": 78,
-   "cells_moved": 1806,
+   "cells_moved": 1789,
    "largest_abs_change": 2339.121772283302,
    "largest_column": "all_cheap_loss",
    "largest_row": "evaluation | KITTI | mono | traj | JB | mJ | as_specified | R2_cnn_clf | 0.5",
@@ -1740,7 +1693,7 @@
    "file": "fig_bev_objects.csv.gz",
    "status": "structure differs",
    "rows_old": 12773,
-   "rows_new": 11768
+   "rows_new": 10007
   },
   {
    "file": "fig_budget_curves.csv",
@@ -1749,11 +1702,11 @@
    "reordered": false,
    "rows_moved": 350,
    "cells_moved": 1596,
-   "largest_abs_change": 1.511370447492038,
+   "largest_abs_change": 1.519047248904293,
    "largest_column": "eta_lo",
    "largest_row": "KITTI | mono | traj | JB | cell | uncertainty | 0.5",
    "largest_old": "0.1883675339589174",
-   "largest_new": "-1.3230029135331205"
+   "largest_new": "-1.3306797149453755"
   },
   {
    "file": "fig_gallery/index.json",
@@ -1888,12 +1841,20 @@
    "status": "only in OLD"
   },
   {
+   "file": "fig_gallery/positive_4_scene-0065_23.jpg",
+   "status": "only in NEW"
+  },
+  {
+   "file": "fig_gallery/positive_4_scene-0065_23.json",
+   "status": "only in NEW"
+  },
+  {
    "file": "fig_gallery/positive_4_scene-0065_24.jpg",
-   "status": "byte-identical"
+   "status": "only in OLD"
   },
   {
    "file": "fig_gallery/positive_4_scene-0065_24.json",
-   "status": "bytes differ"
+   "status": "only in OLD"
   },
   {
    "file": "fig_gallery/positive_5_scene-0048_08.jpg",
@@ -2088,11 +2049,11 @@
    "reordered": false,
    "rows_moved": 6,
    "cells_moved": 36,
-   "largest_abs_change": 75.0,
+   "largest_abs_change": 154.0,
    "largest_column": "n_frames",
-   "largest_row": "unaffected | self control (plannerC_path_dev) | _dJ_plannerC_path_dev",
-   "largest_old": "1888",
-   "largest_new": "1963"
+   "largest_row": "unaffected | brake | _dJ_longitudinal",
+   "largest_old": "3081",
+   "largest_new": "3235"
   },
   {
    "file": "nuplan_real_perception_cells.csv",
@@ -2200,7 +2161,7 @@
    "rows": 3388,
    "reordered": false,
    "rows_moved": 2078,
-   "cells_moved": 7505,
+   "cells_moved": 7524,
    "largest_abs_change": 2339.121772283302,
    "largest_column": "cheap_loss_total",
    "largest_row": "compare | KITTI | mono | traj | JB | E_perc_risk | all | 0.5",
@@ -2214,11 +2175,11 @@
    "reordered": false,
    "rows_moved": 48,
    "cells_moved": 348,
-   "largest_abs_change": 398.0,
+   "largest_abs_change": 1213.0,
    "largest_column": "shipped_affected",
-   "largest_row": "sanity | mono | q_traj | YOLOv8s 320->640 | 1 | calibration_cells.csv S0 all",
-   "largest_old": "1355.0",
-   "largest_new": "957.0"
+   "largest_row": "sanity | mono | q_brake | RT-DETR-l 320->640 | 1 | shipped per-frame tables",
+   "largest_old": "3567.0",
+   "largest_new": "2354.0"
   },
   {
    "file": "phase0f_planner_b_summary.csv",
@@ -2239,12 +2200,12 @@
    "rows": 80,
    "reordered": false,
    "rows_moved": 80,
-   "cells_moved": 1681,
-   "largest_abs_change": 0.6460151727557615,
+   "cells_moved": 1678,
+   "largest_abs_change": 1.0124264012223831,
    "largest_column": "eta_50_lo",
-   "largest_row": "lateral | mono | multimetric_dE_oracle [scene-z]",
-   "largest_old": "-0.5299378018835015",
-   "largest_new": "0.11607737087226006"
+   "largest_row": "lateral | mono | best_dE_metric (E5_loc_heavy)",
+   "largest_old": "-0.9848703206097318",
+   "largest_new": "-1.997296721832115"
   },
   {
    "file": "phase0g_cross_target_mono.csv",
@@ -2253,11 +2214,11 @@
    "reordered": false,
    "rows_moved": 23,
    "cells_moved": 83,
-   "largest_abs_change": 55490.0,
+   "largest_abs_change": 369402.0,
    "largest_column": "n",
    "largest_row": "mono | 876352 | strict_pairs gamma",
    "largest_old": "876352",
-   "largest_new": "820862"
+   "largest_new": "506950"
   },
   {
    "file": "phase0g_cross_target_oracle.csv",
@@ -2266,11 +2227,11 @@
    "reordered": false,
    "rows_moved": 23,
    "cells_moved": 83,
-   "largest_abs_change": 71370.0,
+   "largest_abs_change": 222507.0,
    "largest_column": "n",
    "largest_row": "oracle | 464238 | strict_pairs gamma",
    "largest_old": "464238",
-   "largest_new": "392868"
+   "largest_new": "241731"
   },
   {
    "file": "phase0g_deployable_gate.csv",
@@ -2279,11 +2240,11 @@
    "reordered": false,
    "rows_moved": 48,
    "cells_moved": 120,
-   "largest_abs_change": 0.2573676324523311,
+   "largest_abs_change": 0.27333434291389797,
    "largest_column": "lo",
    "largest_row": "oracle | brake | gbm (OOF by scene) | 0.3",
    "largest_old": "0.01270933730560917",
-   "largest_new": "0.27007696975794027"
+   "largest_new": "0.28604368021950716"
   },
   {
    "file": "phase0g_deployable_gate_checks.csv",
@@ -2304,12 +2265,12 @@
    "rows": 60,
    "reordered": false,
    "rows_moved": 60,
-   "cells_moved": 112,
-   "largest_abs_change": 0.27820480879650145,
+   "cells_moved": 111,
+   "largest_abs_change": 0.27834559546388987,
    "largest_column": "weight",
    "largest_row": "oracle | brake",
    "largest_old": "-0.20095002629050343",
-   "largest_new": "0.07725478250599799"
+   "largest_new": "0.07739556917338646"
   },
   {
    "file": "phase0g_external_2x2.csv",
@@ -2349,12 +2310,12 @@
    "rows": 14,
    "reordered": false,
    "rows_moved": 13,
-   "cells_moved": 143,
-   "largest_abs_change": 398.0,
+   "cells_moved": 144,
+   "largest_abs_change": 1213.0,
    "largest_column": "mono_affected",
-   "largest_row": "q_traj | YOLOv8s 320->640",
-   "largest_old": "1355.0",
-   "largest_new": "957.0"
+   "largest_row": "q_brake | RT-DETR-l 320->640",
+   "largest_old": "3567.0",
+   "largest_new": "2354.0"
   },
   {
    "file": "run_manifest.csv",
@@ -2366,7 +2327,7 @@
    "rows": 126,
    "reordered": false,
    "rows_moved": 56,
-   "cells_moved": 787,
+   "cells_moved": 790,
    "largest_abs_change": 2339.121772283302,
    "largest_column": "all_cheap_loss",
    "largest_row": "evaluation | KITTI | mono | traj | JB | mJ | R2_cnn_clf | 0.5",
@@ -2379,7 +2340,7 @@
    "rows": 2552,
    "reordered": false,
    "rows_moved": 2088,
-   "cells_moved": 17544,
+   "cells_moved": 17539,
    "largest_abs_change": 2339.121772283302,
    "largest_column": "all_cheap_loss",
    "largest_row": "paired_gain | KITTI | mono | traj | JB | oracle | 0.5",
@@ -2391,13 +2352,13 @@
    "status": "values moved",
    "rows": 1737,
    "reordered": false,
-   "rows_moved": 1289,
-   "cells_moved": 13618,
-   "largest_abs_change": 433.9629606342105,
-   "largest_column": "gain",
-   "largest_row": "row | KITTI | mono | traj | JB | V1 | A | R1_gbm_clf | 0.5",
-   "largest_old": "272.2520681667374",
-   "largest_new": "-161.71089246747314"
+   "rows_moved": 1317,
+   "cells_moved": 13931,
+   "largest_abs_change": 532.0,
+   "largest_column": "n_affected",
+   "largest_row": "row | KITTI | mono | brake | J | V1 | E | R1_gbm_clf | 0.5",
+   "largest_old": "1508.0",
+   "largest_new": "976.0"
   }
  ],
  "gate_runs": {

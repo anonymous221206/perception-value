@@ -370,7 +370,12 @@ AFTER_TASK_23 = ("benchmark_decision_values.csv.gz", "benchmark_bootstrap_plans.
                  "cost_registry.json", "cached_analyses_selection.csv", "cached_analyses_benefit_harm.csv",
                  "cached_analyses_overhead_tolerance.csv", "cached_analyses_gap_accounting.csv",
                  "cached_analyses_figure_data.csv", "target_transform_control.csv", "target_transform_heatmap.csv",
-                 "seed_variation.csv", "figures/target_transform_heatmap.pdf", "figures/target_transform_heatmap.png")
+                 "seed_variation.csv", "figures/target_transform_heatmap.pdf", "figures/target_transform_heatmap.png",
+                 # Tasks 32-35: the shared action history, its significance table and loss-term shares, the loss
+                 # sensitivity, and Figure 1's frames
+                 "shared_history_effect.csv", "significance_table.csv", "loss_term_shares.csv", "loss_sensitivity.csv",
+                 "fig_gallery/figure1.json", "fig_gallery/figure1_scene-0055_03.json", "fig_gallery/figure1_scene-0055_03.jpg",
+                 "fig_gallery/figure1_scene-0065_24.json", "fig_gallery/figure1_scene-0065_24.jpg")
 
 
 def inventory(R, before: Path) -> list[dict]:

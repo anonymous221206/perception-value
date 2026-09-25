@@ -1,0 +1,21 @@
+file,column,old,new,row
+seed_variation.csv,win,False,True,status=post-hoc (decided after Task 24's test results were seen); track=KITTI; geometry=mono; system=brake; target=J; signal=R1_mlp_reg; shipped_seed=True; plan=routers_r1
+seed_variation.csv,win,True,False,status=post-hoc (decided after Task 24's test results were seen); track=KITTI; geometry=mono; system=brake; target=J; signal=R1_mlp_reg; shipped_seed=False; plan=routers_r1
+seed_variation.csv,win,False,True,status=post-hoc (decided after Task 24's test results were seen); track=KITTI; geometry=mono; system=brake; target=J; signal=R1_mlp_reg; shipped_seed=False; plan=routers_r1
+seed_variation.csv,win,False,True,status=post-hoc (decided after Task 24's test results were seen); track=KITTI; geometry=mono; system=brake; target=J; signal=R1_mlp_clf; shipped_seed=True; plan=routers_r1
+seed_variation.csv,win,False,True,status=post-hoc (decided after Task 24's test results were seen); track=KITTI; geometry=mono; system=brake; target=J; signal=R1_mlp_clf; shipped_seed=False; plan=routers_r1
+seed_variation.csv,win,False,True,status=post-hoc (decided after Task 24's test results were seen); track=KITTI; geometry=mono; system=brake; target=J; signal=R1_mlp_clf; shipped_seed=False; plan=routers_r1
+seed_variation.csv,win,False,True,status=post-hoc (decided after Task 24's test results were seen); track=KITTI; geometry=oracle; system=brake; target=J; signal=R1_mlp_reg; shipped_seed=False; plan=routers_r1
+seed_variation.csv,win,True,False,status=post-hoc (decided after Task 24's test results were seen); track=KITTI; geometry=oracle; system=brake; target=J; signal=R1_mlp_reg; shipped_seed=False; plan=routers_r1
+seed_variation.csv,win,True,False,status=post-hoc (decided after Task 24's test results were seen); track=KITTI; geometry=oracle; system=brake; target=J; signal=R1_mlp_clf; shipped_seed=False; plan=routers_r1
+seed_variation.csv,win,True,False,status=post-hoc (decided after Task 24's test results were seen); track=KITTI; geometry=oracle; system=brake; target=J; signal=R1_mlp_clf; shipped_seed=False; plan=routers_r1
+seed_variation.csv,win,True,False,status=post-hoc (decided after Task 24's test results were seen); track=KITTI; geometry=oracle; system=brake; target=J; signal=R1_mlp_clf; shipped_seed=False; plan=routers_r1
+seed_variation.csv,win,False,True,status=post-hoc (decided after Task 24's test results were seen); track=KITTI; geometry=oracle; system=traj; target=JB; signal=R1_mlp_reg; shipped_seed=False; plan=routers_r1
+seed_variation.csv,win,True,False,status=post-hoc (decided after Task 24's test results were seen); track=nuScenes; geometry=mono; system=brake; target=J; signal=R1_mlp_reg; shipped_seed=False; plan=routers_r1
+seed_variation.csv,win,True,False,status=post-hoc (decided after Task 24's test results were seen); track=nuScenes; geometry=mono; system=brake; target=J; signal=R1_mlp_clf; shipped_seed=False; plan=routers_r1
+seed_variation.csv,win,False,True,status=post-hoc (decided after Task 24's test results were seen); track=nuScenes; geometry=mono; system=brake; target=J; signal=R1_mlp_clf; shipped_seed=False; plan=routers_r1
+seed_variation.csv,shipped_win,False,True,status=post-hoc (decided after Task 24's test results were seen); track=KITTI; geometry=mono; system=brake; target=J; signal=R1_mlp_clf; shipped_seed=nan; plan=nan
+seed_variation.csv,shipped_win,False,True,status=post-hoc (decided after Task 24's test results were seen); track=KITTI; geometry=mono; system=brake; target=J; signal=R1_mlp_reg; shipped_seed=nan; plan=nan
+seed_variation.csv,flag_shipped_win_not_robust,False,True,status=post-hoc (decided after Task 24's test results were seen); track=KITTI; geometry=mono; system=brake; target=J; signal=R1_mlp_clf; shipped_seed=nan; plan=nan
+seed_variation.csv,flag_shipped_win_not_robust,False,True,status=post-hoc (decided after Task 24's test results were seen); track=KITTI; geometry=mono; system=brake; target=J; signal=R1_mlp_reg; shipped_seed=nan; plan=nan
+seed_variation.csv,flag_shipped_win_not_robust,False,True,status=post-hoc (decided after Task 24's test results were seen); track=KITTI; geometry=oracle; system=brake; target=J; signal=R1_mlp_clf; shipped_seed=nan; plan=nan

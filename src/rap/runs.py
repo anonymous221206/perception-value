@@ -32,7 +32,8 @@ LIFT_TAGS = {
     "statistics_hardening", "consumer_transfer", "objective_swap", "skip_accounting", "realism_outcomes",
     "realism_controls", "lift_offset_outcomes", "lift_offset_sensitivity", "deployable_gate", "mechanism_table",
     "figure_exports", "planner_d_data", "energy_module_budgets", "budget_feasibility",
-    "phase0f_eta", "planner_b_static_fixed",
+    "phase0f_eta", "planner_b_static_fixed", "calibration_direct", "calibration_thresholds", "multifidelity_levels",
+    "loss_sensitivity_A", "loss_sensitivity_B", "loss_sensitivity_C",
 }
 
 

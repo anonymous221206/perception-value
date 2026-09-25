@@ -80,11 +80,11 @@ CACHED = [
      "scripts/135_realism_controls.py", ["results/final/persistence_sweep.csv", "results/final/reference_geometry_sweep.csv"]),
     ("C25", "the nuScenes class-error fix: every figure it moves, old beside new, and the identity check outside nuScenes",
      EDGE, "PYTHONHASHSEED=0 {py} scripts/137_class_error_figures.py "
-           "--before results/raw/20260922_145941_class_error_fix_ego/before "
+           "--before results/raw/20260925_194938_class_error_fix_ego/before "
            "--fix_run results/raw/20260920_090509_class_error_fix", ["results/final/class_error_fix.csv"]),
     ("C26", "the causal nuScenes ego speed: every figure it moves, the sanity gate and the first-frame sensitivity",
      EDGE, "PYTHONHASHSEED=0 {py} scripts/139_causal_ego_figures.py "
-           "--run results/raw/20260922_134139_causal_ego_speed_ego --no_sanity", ["results/final/causal_ego_speed.csv"]),
+           "--run results/raw/20260925_193008_causal_ego_speed_ego --no_sanity", ["results/final/causal_ego_speed.csv"]),
     ("C27", "the cost of the camera-frame convention: the five sign-variation quantities, ego frame against camera frame",
      EDGE, "PYTHONHASHSEED=0 {py} scripts/141_lift_offset_sensitivity.py",
      ["results/final/lift_offset_sensitivity.csv"]),
@@ -113,9 +113,9 @@ CACHED = [
      ["results/final/benchmark_decision_values.csv.gz", "results/final/benchmark_bootstrap_plans.json"]),
     ("C32", "gate G1': every official signal scored through the submission path against the tables the paper uses, "
      "and the pixel router's rows rebuilt from its saved scores", EDGE,
-     "PYTHONHASHSEED=0 {py} scripts/107_router_r2.py --stage rescore --dataset nuScenes --run results/raw/20260922_102405_router_r2_ego "
+     "PYTHONHASHSEED=0 {py} scripts/107_router_r2.py --stage rescore --dataset nuScenes --run results/raw/20260925_102353_router_r2_ego "
      "--tag router_r2_ego && PYTHONHASHSEED=0 {py} scripts/107_router_r2.py --stage rescore --dataset KITTI "
-     "--run results/raw/20260922_102405_router_r2_ego --tag router_r2_ego && PYTHONHASHSEED=0 {py} scripts/150_submission_tables.py --stage g1",
+     "--run results/raw/20260925_102353_router_r2_ego --tag router_r2_ego && PYTHONHASHSEED=0 {py} scripts/150_submission_tables.py --stage g1",
      ["results/final/benchmark_table_routers.csv", "results/final/submission_path_g1.csv"]),
     ("C33", "the two example submissions, end to end through the CLI", EDGE,
      "PYTHONHASHSEED=0 {py} examples/random_allocator.py && PYTHONHASHSEED=0 {py} examples/confidence_heuristic.py",
@@ -139,6 +139,17 @@ CACHED = [
     ("C37", "training-seed variation of the learned allocators (Task 30 part 2, post hoc; six seeds, about 20 minutes)",
      EDGE, "PYTHONHASHSEED=0 {py} scripts/159_target_transform.py --part 2",
      ["results/final/seed_variation.csv"]),
+    ("C38", "one significance table: every deployable signal, cell and quota, the paired interval of realised gain "
+     "against random over every draw, beside the official nDG (Task 32)", EDGE,
+     "PYTHONHASHSEED=0 {py} scripts/162_significance_table.py",
+     ["results/final/significance_table.csv", "docs/significance_table.md"]),
+    ("C39", "harm and benefit by loss term, braking and trajectory controllers, as shares (Task 32)", EDGE,
+     "PYTHONHASHSEED=0 {py} scripts/163_loss_term_shares.py", ["results/final/loss_term_shares.csv"]),
+    ("C40", "loss-weight sensitivity: the braking controller's weights recombined exactly, and the table with the "
+     "trajectory controller's and the corridor's rebuilt variants (P2) (Task 35, post hoc)", EDGE,
+     "PYTHONHASHSEED=0 {py} scripts/167_loss_sensitivity.py --part A && PYTHONHASHSEED=0 {py} "
+     "scripts/167_loss_sensitivity.py --part report",
+     ["results/final/loss_sensitivity.csv", "docs/loss_sensitivity_tables.md"]),
 ]
 
 # the full pipeline from raw data, in the order the results were produced; D = needs datasets, H = hardware-dependent
@@ -156,6 +167,8 @@ FULL = [
     ("B5", "[D] core decision matrix (braking controller, lateral task)", EDGE, "scripts/52_core_matrix.py --tag core_matrix_postreview"),
     ("B6", "Jetson cost columns, run manifest and figures (plus unshipped by-products)", EDGE, "{py} scripts/53_finalize.py && {py} scripts/54_figures.py"),
     ("B7", "[D] Planner B rollouts", EDGE, "scripts/65_planner_b_decision.py --params static_obstacles --tag planner_b_static_fixed --kitti_only"),
+    ("B8", "[D] the multi-fidelity levels 320->384 and 320->512 on the shared action history (read by F3, H4, C20-C22)",
+     EDGE, "scripts/165_multifidelity_levels.py"),
     ("C1", "[D] nuScenes detection submissions (oracle and mono geometry)", EDGE, "scripts/60_build_submissions.py"),
     ("C2", "[D] PKL and TIP on the submissions, in 6 chunks per metric and geometry", EDGE,
      "for m in pkl tip; do for v in oracle mono; do for c in 0 1 2 3 4 5; do {py} scripts/61_run_planning_metric.py "
@@ -196,6 +209,13 @@ FULL = [
     ("G1", "[D] calibration: precision/recall curves, thresholds, per-mode outcomes", EDGE, "scripts/100_calibration_outcomes.py --workers 3"),
     ("G2", "[D] calibration: q_plan boxes and planning", EDGE,
      "{py} scripts/101_calibration_plan.py --stage boxes && {py} scripts/101_calibration_plan.py --stage plan"),
+    ("G2a", "calibration thresholds S0-S4 only (read by G2b and G2c)", EDGE,
+     "scripts/102_calibration_cells.py --thresholds_only"),
+    ("G2b", "[D] decision values under own, shared and memoryless action history, every setting of the sign table "
+            "(Task 32 Phase 0; shared_history_effect.csv; its direct trajectory builds are read by G2c)", EDGE,
+     "PYTHONHASHSEED=0 {py} scripts/160_shared_history.py"),
+    ("G2c", "[D] calibration on the shared action history: each mode's actions per threshold, every braking cell "
+            "composed exactly (read by G3, C4)", EDGE, "scripts/161_calibration_direct.py --workers 3"),
     ("G3", "calibration cells and markdown", EDGE, "{py} scripts/102_calibration_cells.py && {py} scripts/109_calibration_markdown.py"),
     ("H1", "[D] nuPlan R1 track lists", NUPLAN, "scripts/104_nuplan_track_lists.py"),
     ("H2", "R1 routers", EDGE, "scripts/103_routers_r1.py"),
@@ -255,6 +275,9 @@ FULL = [
      "scripts/151_profile_allocator.py examples/confidence_heuristic.py --out examples/submissions/confidence_cost_profile.json"),
     ("N10", "the pre-fix nuScenes class labels in the ego-frame tables, C25's before (read by C25)", EDGE,
      "scripts/146_class_error_prefix_tables.py"),
+    ("P2", "[D] loss sensitivity: the trajectory controller's weights and the braking corridor, rebuilt (read by C40)",
+     EDGE, "PYTHONHASHSEED=0 {py} scripts/167_loss_sensitivity.py --part B && PYTHONHASHSEED=0 {py} "
+           "scripts/167_loss_sensitivity.py --part C"),
 ]
 
 

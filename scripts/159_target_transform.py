@@ -103,6 +103,11 @@ def cells(t103, t92):
         _, track, geometry, system, target = f.stem.split("__")
         z = np.load(f, allow_pickle=False)
         lab = pd.DataFrame({k: z[k] for k in z.files}).astype({"seq": str, "frame": int})
+        # V from the current routers_r1 scores, not the label run's copy (Q and G depend on the detections only; V on
+        # the controllers, which Task 32 moved to the shared action history)
+        zv = np.load(rap_runs.latest("routers_r1") / f"scores__{f.stem.split('__', 1)[1]}.npz", allow_pickle=False)
+        assert (zv["seq"].astype(str) == lab.seq.to_numpy()).all() and (zv["frame"].astype(int) == lab.frame.to_numpy()).all()
+        lab["V"] = zv["V"].astype(float)
         keys, M = mats[track]
         j = lab[["seq", "frame"]].merge(keys.assign(_row=np.arange(len(keys))), on=["seq", "frame"], how="left",
                                         validate="one_to_one")

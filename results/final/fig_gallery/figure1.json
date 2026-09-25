@@ -1,0 +1,31 @@
+{
+ "frames": [
+  {
+   "scene": "scene-0055",
+   "frame": 3,
+   "sample_token": "ee535106a1c546d2b99f9eeacc41066e",
+   "V": -4.44,
+   "image_copy": "figure1_scene-0055_03.jpg",
+   "role": "harmed",
+   "action": {
+    "cheap": "KEEP",
+    "full": "HARD_BRAKE",
+    "reference": "KEEP"
+   }
+  },
+  {
+   "scene": "scene-0065",
+   "frame": 24,
+   "sample_token": "81458d7c63ee40afba6d143188cebaa2",
+   "V": 5.346277414599659,
+   "image_copy": "figure1_scene-0065_24.jpg",
+   "role": "helped",
+   "action": {
+    "cheap": "KEEP",
+    "full": "DECELERATE",
+    "reference": "DECELERATE"
+   }
+  }
+ ],
+ "note": "the two frames of Figure 1, q_brake mono; exported by name, not by the gallery's selection"
+}

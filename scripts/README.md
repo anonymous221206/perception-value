@@ -131,6 +131,14 @@ Each of these answers one question asked of the benchmark after its first result
 | `157_doc_staleness.py` | Task 28: which documents quote numbers the results no longer hold (reads the git history; writes no compared output) | |
 | `158_cached_analyses.py` | Task 29: selection by objective, benefit and harm, overhead tolerance, gap accounting, figure data | |
 | `159_target_transform.py` | Task 30 (post hoc): R1 regression on rank and signed-ECDF targets, training-seed variation, heatmap | |
+| `160_shared_history.py` | Task 32 Phase 0: decision values under own, shared and memoryless action history, every setting of the sign table | D |
+| `161_calibration_direct.py` | Task 32: calibration cells on the shared action history (braking composed exactly from per-threshold actions) | D |
+| `162_significance_table.py` | Task 32: one significance table for every deployable signal | |
+| `163_loss_term_shares.py` | Task 32: harm and benefit by loss term, as shares | |
+| `164_old_new_inventory.py` | Task 32: OLD-vs-NEW inventory of results/final (needs the OLD snapshot; writes no compared output) | |
+| `165_multifidelity_levels.py` | Task 32: the multi-fidelity levels 320->384 and 320->512 on the shared action history | D |
+| `166_target_transform_before_after.py` | Task 33: Task 30's tables before and after the shared history (needs the OLD snapshot) | |
+| `167_loss_sensitivity.py` | Task 35 (post hoc): loss-weight and corridor sensitivity; part A exact, parts B and C rebuilt | D (B, C) |
 
 ## Figure data
 

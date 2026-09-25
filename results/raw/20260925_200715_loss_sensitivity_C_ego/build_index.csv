@@ -1,0 +1,25 @@
+part,pair,geometry,parameter,value,file,seconds
+C,nuSc Y8 320->640,oracle,default,0.0,C__nuSc_Y8_320to640__oracle__default_0.0.pkl,58.804338693618774
+C,nuSc Y8 320->640,mono,default,0.0,C__nuSc_Y8_320to640__mono__default_0.0.pkl,7.886204242706299
+C,nuSc Y8 320->640,oracle,corridor_half_w,1.0,C__nuSc_Y8_320to640__oracle__corridor_half_w_1.0.pkl,18.219944953918457
+C,nuSc Y8 320->640,oracle,corridor_half_w,1.5,C__nuSc_Y8_320to640__oracle__corridor_half_w_1.5.pkl,11.210576057434082
+C,nuSc Y8 320->640,mono,corridor_half_w,1.0,C__nuSc_Y8_320to640__mono__corridor_half_w_1.0.pkl,8.16795301437378
+C,nuSc Y8 320->640,mono,corridor_half_w,1.5,C__nuSc_Y8_320to640__mono__corridor_half_w_1.5.pkl,8.212734699249268
+C,Y8 320->640,mono,default,0.0,C__Y8_320to640__mono__default_0.0.pkl,53.126957654953
+C,Y8 320->640,oracle,default,0.0,C__Y8_320to640__oracle__default_0.0.pkl,61.47650599479675
+C,Y8 384->640,mono,default,0.0,C__Y8_384to640__mono__default_0.0.pkl,57.61422610282898
+C,Y8 512->640,mono,default,0.0,C__Y8_512to640__mono__default_0.0.pkl,53.62542200088501
+C,RT 320->640,mono,default,0.0,C__RT_320to640__mono__default_0.0.pkl,77.05014228820801
+C,RT 480->640,mono,default,0.0,C__RT_480to640__mono__default_0.0.pkl,75.52767157554626
+C,Y8 320->640,mono,corridor_half_w,1.0,C__Y8_320to640__mono__corridor_half_w_1.0.pkl,31.233358144760132
+C,Y8 320->640,mono,corridor_half_w,1.5,C__Y8_320to640__mono__corridor_half_w_1.5.pkl,42.592740058898926
+C,Y8 320->640,oracle,corridor_half_w,1.0,C__Y8_320to640__oracle__corridor_half_w_1.0.pkl,37.32048797607422
+C,Y8 320->640,oracle,corridor_half_w,1.5,C__Y8_320to640__oracle__corridor_half_w_1.5.pkl,38.25189924240112
+C,Y8 384->640,mono,corridor_half_w,1.0,C__Y8_384to640__mono__corridor_half_w_1.0.pkl,48.69997024536133
+C,Y8 384->640,mono,corridor_half_w,1.5,C__Y8_384to640__mono__corridor_half_w_1.5.pkl,48.99450993537903
+C,Y8 512->640,mono,corridor_half_w,1.0,C__Y8_512to640__mono__corridor_half_w_1.0.pkl,60.7644898891449
+C,Y8 512->640,mono,corridor_half_w,1.5,C__Y8_512to640__mono__corridor_half_w_1.5.pkl,52.448148012161255
+C,RT 320->640,mono,corridor_half_w,1.0,C__RT_320to640__mono__corridor_half_w_1.0.pkl,69.07095646858215
+C,RT 320->640,mono,corridor_half_w,1.5,C__RT_320to640__mono__corridor_half_w_1.5.pkl,31.401814937591553
+C,RT 480->640,mono,corridor_half_w,1.0,C__RT_480to640__mono__corridor_half_w_1.0.pkl,71.60331988334656
+C,RT 480->640,mono,corridor_half_w,1.5,C__RT_480to640__mono__corridor_half_w_1.5.pkl,31.868813514709473

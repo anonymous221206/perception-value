@@ -1,5 +1,7 @@
 # A causal ego speed on nuScenes: the defect, the fix, and every figure it moves
 
+> **Action history (Task 32).** `results/final/causal_ego_speed.csv` is now re-expressed on the shared-action-history tables (run `20260925_193008_causal_ego_speed_ego`, as Task 23 did on the ego-frame tables), so its values differ from the ones quoted here; `docs/iclr_shared_history.md` describes the change.
+
 > **Frame convention.** The figures quoted in this report were computed in the camera frame, before Task 23. The shipped `results/final/causal_ego_speed.csv` re-expresses the same comparison (centred against causal ego speed) on the ego-frame tables. See `docs/iclr_ego_frame_convention.md`.
 
 Pre-registration: 2026-09-20 11:05 (Task 22 Part B), committed before the code was written,

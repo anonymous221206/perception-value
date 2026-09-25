@@ -6,9 +6,9 @@
  "geometry": "mono",
  "image_path": "datasets/nuscenes/trainval/samples/CAM_FRONT/n008-2018-08-01-15-16-36-0400__CAM_FRONT__1533151425512404.jpg",
  "image_copy": "positive_1_scene-0099_16.jpg",
- "V": 57.00024493786235,
+ "V": 56.880244937862344,
  "J_cheap": 60.062816378488826,
- "J_full": 3.0625714406264795,
+ "J_full": 3.1825714406264796,
  "ego_speed_mps": 4.845843005714018,
  "action": {
   "cheap": "KEEP",

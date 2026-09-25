@@ -1,0 +1,102 @@
+file,status,detail
+allocator_rails.json,unchanged,
+benchmark_bootstrap_plans.json,unchanged,
+benchmark_budget_multifidelity.csv,changed,343 values changed
+benchmark_budget_multifidelity_1thread.csv,changed,370 values changed
+benchmark_budget_nuplan_real.csv,unchanged,
+benchmark_budget_overheads.json,unchanged,
+benchmark_budget_overheads_1thread.json,unchanged,
+benchmark_budget_overheads_routers.json,unchanged,
+benchmark_budget_routers.csv,changed,1790 values changed
+benchmark_budget_two_level.csv,changed,910 values changed
+benchmark_budget_two_level_1thread.csv,changed,1108 values changed
+benchmark_cells.csv,changed,120 values changed
+benchmark_decision_values.csv.gz,changed,9854 values changed
+benchmark_gate_inference_batch_timing.json,unchanged,
+benchmark_nuplan_signals.csv,unchanged,
+benchmark_nuplan_signals.json,unchanged,
+benchmark_self_agreement.csv,unchanged,
+benchmark_table.csv,changed,7808 values changed
+benchmark_table_nuplan_real.csv,unchanged,
+benchmark_table_routers.csv,changed,1173 values changed
+benchmark_target_swap.csv,changed,10960 values changed
+benchmark_target_swap_summary.json,changed,617 leaves changed
+cached_analyses_benefit_harm.csv,changed,7916 values changed
+cached_analyses_figure_data.csv,changed,63905 values changed
+cached_analyses_gap_accounting.csv,changed,507 values changed
+cached_analyses_overhead_tolerance.csv,changed,3495 values changed
+cached_analyses_selection.csv,changed,1073 values changed
+calibration_brake_vs_plan.csv,changed,40 values changed
+calibration_cells.csv,changed,"shape (140, 49) -> (140, 50), columns differ"
+calibration_pr_curves.csv,unchanged,
+calibration_reading.json,unchanged,
+calibration_sweep.csv,changed,"shape (350, 6) -> (225, 6)"
+calibration_thresholds.csv,unchanged,
+causal_ego_speed.csv,unchanged,
+causal_threshold.csv,changed,14640 values changed
+claims_check.csv,unchanged,
+class_error_fix.csv,unchanged,
+consumer_transfer.csv,changed,4675 values changed
+core_matrix.csv,changed,208 values changed
+cost_registry.json,unchanged,
+ego_frame_convention.csv,unchanged,
+ego_frame_convention_detail.csv.gz,unchanged,
+ego_frame_convention_reading.json,unchanged,
+energy_module_budget_multifidelity.csv,changed,1088 values changed
+energy_module_budget_nuplan_real.csv,unchanged,
+energy_module_budget_two_level.csv,changed,2081 values changed
+energy_module_claims.csv,changed,39 values changed
+energy_module_costs.json,changed,1 leaves changed
+energy_module_score_check.json,changed,1 leaves changed
+energy_module_skip_accounting.csv,changed,1458 values changed
+fig_bev_constants.json,changed,21 leaves changed
+fig_bev_objects.csv.gz,changed,"shape (11768, 31) -> (10007, 31)"
+fig_budget_curves.csv,changed,976 values changed
+headline_table.csv,unchanged,
+idm_route_fix_comparison.json,unchanged,
+lift_offset_sensitivity.csv,unchanged,
+loss_term_shares.csv,new,
+mechanism_table.csv,changed,18 values changed
+nuplan_archive_index.csv,unchanged,
+nuplan_camera_feasibility_logs.csv,unchanged,
+nuplan_camera_feasibility_summary.csv,unchanged,
+nuplan_real_perception_cells.csv,unchanged,
+nuplan_real_perception_checks.json,unchanged,
+nuplan_real_perception_idm_raw.csv,unchanged,
+nuplan_real_perception_pdm_closed_raw.csv,unchanged,
+nuplan_real_perception_recall.csv,unchanged,
+objective_swap.csv,changed,4054 values changed
+paper_evidence_pack.csv,unchanged,
+persistence_sweep.csv,changed,348 values changed
+phase0f_planner_b_summary.csv,changed,49 values changed
+phase0f_planning_metric_eta.csv,changed,638 values changed
+phase0g_cross_target_mono.csv,changed,79 values changed
+phase0g_cross_target_oracle.csv,changed,79 values changed
+phase0g_deployable_gate.csv,changed,60 values changed
+phase0g_deployable_gate_checks.csv,changed,445 values changed
+phase0g_deployable_gate_importance.csv,changed,34 values changed
+phase0g_external_2x2.csv,unchanged,
+phase0g_external_idm_raw.csv,unchanged,
+phase0g_external_idm_sanity_raw.csv,unchanged,
+phase0g_external_pdm_closed_raw.csv,unchanged,
+phase0g_external_planner_stats.json,unchanged,
+phase0g_external_planner_summary.csv,unchanged,
+phase0g_external_planner_transfer.csv,unchanged,
+phase0g_planner_d_seeds.csv,unchanged,
+phase0g_planner_d_summary.csv,unchanged,
+published_objective_arbiter.csv,unchanged,
+published_objective_labels.csv,unchanged,
+published_objective_reading.json,changed,169 leaves changed
+published_objective_routers.csv,changed,3677 values changed
+reference_geometry_sweep.csv,changed,141 values changed
+run_manifest.csv,unchanged,
+seed_variation.csv,unchanged,
+shared_history_effect.csv,unchanged,
+significance_table.csv,new,
+skip_accounting.csv,changed,691 values changed
+statistical_tests.csv,unchanged,
+statistics_hardening.csv,changed,9754 values changed
+streaming_controllers.csv,changed,8601 values changed
+submission_path_g1.csv,unchanged,
+target_transform_control.csv,unchanged,
+target_transform_heatmap.csv,unchanged,

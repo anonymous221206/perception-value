@@ -1,0 +1,84 @@
+setting,check,n,n_shipped,n_rebuilt,abs_diff,pass,part,reference,quantity,mine,shipped
+nuSc Y8 320->640|oracle,default rebuild = shipped table,3376.0,3376.0,3376.0,0.0,True,,,,,
+nuSc Y8 320->640|mono,default rebuild = shipped table,3376.0,3376.0,3376.0,0.0,True,,,,,
+Y8 320->640|mono,default rebuild = shipped table,8008.0,8008.0,8008.0,0.0,True,,,,,
+Y8 320->640|oracle,default rebuild = shipped table,8008.0,8008.0,8008.0,0.0,True,,,,,
+Y8 384->640|mono,default rebuild = shipped table,8008.0,8008.0,8008.0,0.0,True,,,,,
+Y8 512->640|mono,default rebuild = shipped table,8008.0,8008.0,8008.0,0.0,True,,,,,
+RT 320->640|mono,default rebuild = shipped table,8008.0,8008.0,8008.0,0.0,True,,,,,
+RT 480->640|mono,default rebuild = shipped table,8008.0,8008.0,8008.0,0.0,True,,,,,
+nuSc Y8 320->640|oracle,,,,,0.0,True,C,shared_history_effect.csv,affected,141.0,141.0
+nuSc Y8 320->640|oracle,,,,,0.0,True,C,shared_history_effect.csv,harmed_share,0.3546099290780142,0.3546099290780142
+nuSc Y8 320->640|oracle,,,,,0.0,True,C,shared_history_effect.csv,rho,0.4181636073595283,0.4181636073595283
+nuSc Y8 320->640|oracle,,,,,0.0,True,C,shared_history_effect.csv,all_full,0.1400599661990445,0.1400599661990445
+nuSc Y8 320->640|oracle,,,,,2.7755575615628914e-17,True,C,shared_history_effect.csv,oracle20,0.24072053238785693,0.2407205323878569
+nuSc Y8 320->640|oracle,,,,,0.0,True,C,calibration_cells.csv,affected,141.0,141.0
+nuSc Y8 320->640|oracle,,,,,0.0,True,C,calibration_cells.csv,harmed_share,0.3546099290780142,0.3546099290780142
+nuSc Y8 320->640|oracle,,,,,0.0,True,C,calibration_cells.csv,rho,0.4181636073595283,0.4181636073595283
+nuSc Y8 320->640|oracle,,,,,0.0,True,C,calibration_cells.csv,all_full,0.1400599661990445,0.1400599661990445
+nuSc Y8 320->640|oracle,,,,,2.7755575615628914e-17,True,C,calibration_cells.csv,oracle20,0.24072053238785693,0.2407205323878569
+nuSc Y8 320->640|mono,,,,,0.0,True,C,shared_history_effect.csv,affected,273.0,273.0
+nuSc Y8 320->640|mono,,,,,0.0,True,C,shared_history_effect.csv,harmed_share,0.3956043956043956,0.3956043956043956
+nuSc Y8 320->640|mono,,,,,5.551115123125783e-17,True,C,shared_history_effect.csv,rho,0.4070280287265681,0.4070280287265682
+nuSc Y8 320->640|mono,,,,,5.551115123125783e-17,True,C,shared_history_effect.csv,all_full,0.16465509862245187,0.1646550986224518
+nuSc Y8 320->640|mono,,,,,0.0,True,C,shared_history_effect.csv,oracle20,0.2776777092327792,0.2776777092327792
+nuSc Y8 320->640|mono,,,,,0.0,True,C,calibration_cells.csv,affected,273.0,273.0
+nuSc Y8 320->640|mono,,,,,0.0,True,C,calibration_cells.csv,harmed_share,0.3956043956043956,0.3956043956043956
+nuSc Y8 320->640|mono,,,,,0.0,True,C,calibration_cells.csv,rho,0.4070280287265681,0.4070280287265681
+nuSc Y8 320->640|mono,,,,,5.551115123125783e-17,True,C,calibration_cells.csv,all_full,0.16465509862245187,0.1646550986224518
+nuSc Y8 320->640|mono,,,,,0.0,True,C,calibration_cells.csv,oracle20,0.2776777092327792,0.2776777092327792
+Y8 320->640|mono,,,,,0.0,True,C,shared_history_effect.csv,affected,2075.0,2075.0
+Y8 320->640|mono,,,,,0.0,True,C,shared_history_effect.csv,harmed_share,0.3421686746987952,0.3421686746987952
+Y8 320->640|mono,,,,,2.7755575615628914e-17,True,C,shared_history_effect.csv,rho,0.16785478389768207,0.1678547838976821
+Y8 320->640|mono,,,,,0.0,True,C,shared_history_effect.csv,all_full,0.5168494285990892,0.5168494285990892
+Y8 320->640|mono,,,,,0.0,True,C,shared_history_effect.csv,oracle20,0.6211048487666122,0.6211048487666122
+Y8 320->640|mono,,,,,0.0,True,C,calibration_cells.csv,affected,2075.0,2075.0
+Y8 320->640|mono,,,,,0.0,True,C,calibration_cells.csv,harmed_share,0.3421686746987952,0.3421686746987952
+Y8 320->640|mono,,,,,8.326672684688674e-17,True,C,calibration_cells.csv,rho,0.16785478389768207,0.167854783897682
+Y8 320->640|mono,,,,,0.0,True,C,calibration_cells.csv,all_full,0.5168494285990892,0.5168494285990892
+Y8 320->640|mono,,,,,0.0,True,C,calibration_cells.csv,oracle20,0.6211048487666122,0.6211048487666122
+Y8 320->640|oracle,,,,,0.0,True,C,shared_history_effect.csv,affected,1296.0,1296.0
+Y8 320->640|oracle,,,,,8.326672684688674e-17,True,C,shared_history_effect.csv,harmed_share,0.24614197530864199,0.2461419753086419
+Y8 320->640|oracle,,,,,5.551115123125783e-17,True,C,shared_history_effect.csv,rho,0.08023851542455196,0.0802385154245519
+Y8 320->640|oracle,,,,,0.0,True,C,shared_history_effect.csv,all_full,0.6785748142109286,0.6785748142109286
+Y8 320->640|oracle,,,,,0.0,True,C,shared_history_effect.csv,oracle20,0.7377725916889776,0.7377725916889776
+Y8 320->640|oracle,,,,,0.0,True,C,calibration_cells.csv,affected,1296.0,1296.0
+Y8 320->640|oracle,,,,,8.326672684688674e-17,True,C,calibration_cells.csv,harmed_share,0.24614197530864199,0.2461419753086419
+Y8 320->640|oracle,,,,,5.551115123125783e-17,True,C,calibration_cells.csv,rho,0.08023851542455196,0.0802385154245519
+Y8 320->640|oracle,,,,,0.0,True,C,calibration_cells.csv,all_full,0.6785748142109286,0.6785748142109286
+Y8 320->640|oracle,,,,,0.0,True,C,calibration_cells.csv,oracle20,0.7377725916889776,0.7377725916889776
+Y8 384->640|mono,,,,,0.0,True,C,shared_history_effect.csv,affected,1771.0,1771.0
+Y8 384->640|mono,,,,,5.551115123125783e-17,True,C,shared_history_effect.csv,harmed_share,0.39808018068887635,0.3980801806888763
+Y8 384->640|mono,,,,,1.6653345369377348e-16,True,C,shared_history_effect.csv,rho,0.4731134004370673,0.4731134004370671
+Y8 384->640|mono,,,,,8.326672684688674e-17,True,C,shared_history_effect.csv,all_full,0.19380767715798808,0.193807677157988
+Y8 384->640|mono,,,,,5.551115123125783e-17,True,C,shared_history_effect.csv,oracle20,0.36783565442498867,0.3678356544249886
+Y8 384->640|mono,,,,,0.0,True,C,calibration_cells.csv,affected,1771.0,1771.0
+Y8 384->640|mono,,,,,5.551115123125783e-17,True,C,calibration_cells.csv,harmed_share,0.39808018068887635,0.3980801806888763
+Y8 384->640|mono,,,,,0.0,True,C,calibration_cells.csv,rho,0.4731134004370673,0.4731134004370673
+Y8 384->640|mono,,,,,8.326672684688674e-17,True,C,calibration_cells.csv,all_full,0.19380767715798808,0.193807677157988
+Y8 384->640|mono,,,,,5.551115123125783e-17,True,C,calibration_cells.csv,oracle20,0.36783565442498867,0.3678356544249886
+Y8 512->640|mono,,,,,0.0,True,C,shared_history_effect.csv,affected,1470.0,1470.0
+Y8 512->640|mono,,,,,5.551115123125783e-17,True,C,shared_history_effect.csv,harmed_share,0.42857142857142855,0.4285714285714285
+Y8 512->640|mono,,,,,2.220446049250313e-16,True,C,shared_history_effect.csv,rho,0.6152373049046553,0.6152373049046556
+Y8 512->640|mono,,,,,6.938893903907228e-17,True,C,shared_history_effect.csv,all_full,0.09725994774130227,0.0972599477413022
+Y8 512->640|mono,,,,,0.0,True,C,shared_history_effect.csv,oracle20,0.2527790479199168,0.2527790479199168
+Y8 512->640|mono,,,,,0.0,True,C,calibration_cells.csv,affected,1470.0,1470.0
+Y8 512->640|mono,,,,,5.551115123125783e-17,True,C,calibration_cells.csv,harmed_share,0.42857142857142855,0.4285714285714285
+Y8 512->640|mono,,,,,0.0,True,C,calibration_cells.csv,rho,0.6152373049046553,0.6152373049046553
+Y8 512->640|mono,,,,,6.938893903907228e-17,True,C,calibration_cells.csv,all_full,0.09725994774130227,0.0972599477413022
+Y8 512->640|mono,,,,,0.0,True,C,calibration_cells.csv,oracle20,0.2527790479199168,0.2527790479199168
+RT 320->640|mono,,,,,0.0,True,C,shared_history_effect.csv,affected,2354.0,2354.0
+RT 320->640|mono,,,,,5.551115123125783e-17,True,C,shared_history_effect.csv,harmed_share,0.44180118946474084,0.4418011894647408
+RT 320->640|mono,,,,,0.0,True,C,shared_history_effect.csv,rho,0.7007510232636827,0.7007510232636827
+RT 320->640|mono,,,,,8.326672684688674e-17,True,C,shared_history_effect.csv,all_full,0.12634550989699628,0.1263455098969962
+RT 320->640|mono,,,,,5.551115123125783e-17,True,C,shared_history_effect.csv,oracle20,0.42220866141281954,0.4222086614128195
+RT 480->640|mono,,,,,0.0,True,C,shared_history_effect.csv,affected,1947.0,1947.0
+RT 480->640|mono,,,,,0.0,True,C,shared_history_effect.csv,harmed_share,0.4216743708269132,0.4216743708269132
+RT 480->640|mono,,,,,1.1102230246251565e-16,True,C,shared_history_effect.csv,rho,0.720339731721117,0.7203397317211169
+RT 480->640|mono,,,,,5.551115123125783e-17,True,C,shared_history_effect.csv,all_full,0.08521560207270736,0.0852156020727073
+RT 480->640|mono,,,,,0.0,True,C,shared_history_effect.csv,oracle20,0.3047111504152918,0.3047111504152918
+RT 480->640|mono,,,,,0.0,True,C,calibration_cells.csv,affected,1947.0,1947.0
+RT 480->640|mono,,,,,0.0,True,C,calibration_cells.csv,harmed_share,0.4216743708269132,0.4216743708269132
+RT 480->640|mono,,,,,0.0,True,C,calibration_cells.csv,rho,0.720339731721117,0.720339731721117
+RT 480->640|mono,,,,,5.551115123125783e-17,True,C,calibration_cells.csv,all_full,0.08521560207270736,0.0852156020727073
+RT 480->640|mono,,,,,0.0,True,C,calibration_cells.csv,oracle20,0.3047111504152918,0.3047111504152918

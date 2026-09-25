@@ -29,9 +29,9 @@ evaluate_submission.py   score your own allocator against the frozen test split 
 examples/         two runnable submissions and their scored output
 environment/      pins, setup scripts, a device check, and interpreter wrappers in environment/bin/
 results/final/    every final table, check file and figure-data export (42 MB)
-results/raw/      the intermediate runs that later stages read (370 MB)
+results/raw/      the intermediate runs that later stages read (490 MB)
 scripts/          the pipeline, numbered in run order; the index is scripts/README.md,
-                  scripts/paper_figures/ draws two of the paper's figures from release artifacts,
+                  scripts/paper_figures/ draws the paper's figures from release artifacts,
                   and scripts/legacy/ holds early exploration that no stage calls
 src/rap/          library code
 tests/            unit tests and negative controls
@@ -65,7 +65,7 @@ pip install -r environment/requirements-cached.txt
 cp configs/paths.env.example configs/paths.env     # defaults: datasets/ and models/ here, the active environment
 source configs/paths.env
 
-python reproduce.py --tier cached --list           # the 38 stages, C1 to C37 (with C30b), in order
+python reproduce.py --tier cached --list           # the 41 stages, C1 to C40 (with C30b), in order
 python reproduce.py --tier cached --verify         # run them all and compare against the shipped files
 ```
 
@@ -94,7 +94,8 @@ is a checkout.
 | C2 | about 1e-6 | none on any figure the paper quotes |
 | C12 | `R1_gbm_clf` on PDM-Closed safety, at the 30–50% quotas | the 20% cells the paper uses are unchanged |
 
-C14, C19, C36 and C37 fit models inside the stage. C36 and C37 first check that a refit reproduces the shipped scores bit for bit; they fit the gradient-boosted models with OpenMP on one thread, because the multithreaded fit varies in the last bits from run to run (up to 2e-15 on the reference platform). Both are byte-identical across runs on the reference platform; whether
+C6, C14, C19, C36 and C37 fit models inside the stage; C6 fits the gradient-boosted routers with OpenMP on one thread
+(Task 33). C36 and C37 first check that a refit reproduces the shipped scores bit for bit; they fit the gradient-boosted models with OpenMP on one thread, because the multithreaded fit varies in the last bits from run to run (up to 2e-15 on the reference platform). Both are byte-identical across runs on the reference platform; whether
 the fits are reproducible on a different one is untested, and `docs/iclr_causal_threshold.md` and
 `docs/iclr_target_swap.md` say which of their quoted figures another platform could move.
 
@@ -128,6 +129,12 @@ the fits are reproducible on a different one is untested, and `docs/iclr_causal_
 | the evidence pack and the claims check | `results/final/paper_evidence_pack.csv`, `claims_check.csv`, `docs/iclr_evidence_pack.md` | C34 |
 | four analyses on cached scores: selection by objective, benefit and harm, overhead tolerance, gap accounting | `results/final/cached_analyses_*.csv`, `docs/iclr_cached_analyses_prereg.md`, `docs/iclr_cached_analyses.md` | C35 |
 | target transform against objective for the R1 regression routers, and training-seed variation (post hoc) | `results/final/target_transform_*.csv`, `seed_variation.csv`, `figures/target_transform_heatmap.pdf`, `docs/iclr_target_transform.md` | C36–C37 |
+| decision values with a shared action history: the change, its effect under own, shared and memoryless history, and every moved quantity old beside new | `results/final/shared_history_effect.csv`, `docs/iclr_shared_history.md` | full tier (G2b); the regenerated tables: every stage |
+| one significance table: every deployable signal, cell and quota, paired interval of realised gain against random | `results/final/significance_table.csv`, `docs/significance_table.md` | C38 |
+| harm and benefit by loss term | `results/final/loss_term_shares.csv`, `docs/iclr_shared_history.md` | C39 |
+| every downstream loss as the code computes it: terms, weights, thresholds | `docs/iclr_loss_definitions.md` | — |
+| sensitivity of the sign variation to the loss weights and the corridor (post hoc) | `results/final/loss_sensitivity.csv`, `docs/iclr_loss_sensitivity.md`, `docs/loss_sensitivity_tables.md` | C40 (rebuilt variants: P2) |
+| Figure 1's two frames, exported by name | `results/final/fig_gallery/figure1*` | full tier (L1) |
 | measured latency and energy budgets | `results/final/benchmark_budget_two_level*.csv`, `benchmark_budget_routers.csv` | full tier (F3, H4) |
 | figure data (BEV objects, gallery, budget curves) | `results/final/fig_*` | full tier (L1); budget curves also C20 |
 | exact formulas (monocular lifting, reference geometry, controllers, perception gains, ego speed) | `docs/iclr_formulas.md` | — |
@@ -140,12 +147,14 @@ Reports that interpret these tables: `docs/iclr_budget_feasibility.md`, `iclr_ca
 `iclr_nuplan_real_allocation.md`, `iclr_nuplan_real_perception.md`, `iclr_objective_swap.md`,
 `iclr_phase0g_external_planners.md`, `iclr_realism_controls.md`, `iclr_routers.md`, `iclr_skip_accounting.md`,
 `iclr_statistics.md`, `iclr_streaming_controllers.md`, `iclr_target_swap.md`, `iclr_submission_sync.md`,
-`iclr_cached_analyses.md`, `iclr_target_transform.md`. The rest of `docs/` is generated tables (`*_tables.md`,
+`iclr_cached_analyses.md`, `iclr_target_transform.md`, `iclr_shared_history.md`, `iclr_loss_definitions.md`,
+`iclr_loss_sensitivity.md`. The rest of `docs/` is generated tables (`*_tables.md`, `significance_table.md`,
 `gate_spec.md`).
 
-**Paper figures.** `scripts/paper_figures/` holds two scripts that draw figures from release artifacts (usage in its
-README): `render_gallery.py` renders the qualitative gallery from `results/final/fig_gallery/` (16 JPEGs), and
-`make_fig_transform.py` writes the target-transform heatmap as TikZ from `results/final/target_transform_heatmap.csv`.
+**Paper figures.** `scripts/paper_figures/` holds the scripts that draw figures from release artifacts (usage in its
+README): the qualitative gallery (`render_gallery.py`, 16 JPEGs) and Figure 1 (`render_fig1.py`) from
+`results/final/fig_gallery/`, and TikZ or data files for the gap, bird's-eye-view and target-transform figures
+(`make_fig_gap.py`, `make_fig_bev_data.py`, `make_fig_transform.py`).
 
 ### Naming: paper and repository
 
@@ -187,6 +196,10 @@ committed before which result.
 | 26 | evidence pack and claims check | `iclr_evidence_pack.md` |
 | 29 | four analyses on cached scores | `iclr_cached_analyses.md` |
 | 30 | target transform and training-seed variation (post hoc) | `iclr_target_transform.md` |
+| 32 | decision values with a shared action history; significance table, harm by loss term, loss definitions | `iclr_shared_history.md`, `iclr_loss_definitions.md` |
+| 33 | deterministic R1 router fits | `iclr_shared_history.md` |
+| 34 | the records that read the regenerated tables in full, on the shared history | `iclr_shared_history.md` |
+| 35 | loss-weight and corridor sensitivity (post hoc); Figure 1's frames | `iclr_loss_sensitivity.md` |
 
 ## Full reproduction from raw data
 
@@ -197,7 +210,7 @@ committed before which result.
 4. **Environments.** Python 3.8 with NVIDIA's Jetson PyTorch and JetPack's TensorRT
    (`environment/requirements-edge.txt`); the nuPlan simulation environment comes from
    `bash environment/setup_nuplan_env.sh`.
-5. **Run.** `python reproduce.py --tier full --list` prints all 59 stages in order; `--tier full` runs them, and
+5. **Run.** `python reproduce.py --tier full --list` prints all 64 stages in order; `--tier full` runs them, and
    `--from <id>` resumes.
 
 Stage markers: `[D]` needs datasets, `[H]` is hardware-dependent. The full pipeline takes several days on the

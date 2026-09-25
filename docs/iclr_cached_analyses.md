@@ -1,5 +1,7 @@
 # Four analyses on cached scores (Task 29)
 
+> **Action history (Task 32).** The figures quoted in this report were computed with each branch of the braking and trajectory controllers charged against its own previous action. Every table in `results/final/` now charges both branches against the action of the all-CHEAP run, so that a decision value is one escalation from all-CHEAP operation; `docs/iclr_shared_history.md` gives the change and the quantities it moved, old beside new.
+
 Pre-registered in `docs/iclr_cached_analyses_prereg.md` (committed in the development repository before anything was computed; that history is not part of this release); the readings
 below are the registered ones. Nothing was refit; every score is read from a cached run. Only new files were written:
 `results/final/cached_analyses_{selection,benefit_harm,overhead_tolerance,gap_accounting,figure_data}.csv`

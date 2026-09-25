@@ -1,0 +1,11 @@
+{
+ "reading": "sensitive in nuScenes mono Y8 320->640 q_brake (harmed +0.043, rho +0.128); nuScenes oracle Y8 320->640 q_brake (harmed +0.092, rho +0.181); KITTI mono RT-DETR 320->640 q_brake (harmed +0.022, rho +0.102); KITTI mono RT-DETR 320->640 q_traj (harmed -0.105, rho -0.417); KITTI mono RT-DETR 480->640 q_brake (harmed +0.017, rho +0.084); KITTI mono RT-DETR 480->640 q_traj (harmed -0.048, rho +0.115); KITTI mono Y8 320->640 q_traj (harmed -0.110, rho -0.217); KITTI oracle Y8 320->640 q_traj (harmed +0.057, rho +0.001); KITTI mono Y8 384->640 q_brake (harmed +0.038, rho +0.079); KITTI mono Y8 384->640 q_traj (harmed +0.016, rho -0.214); KITTI mono Y8 512->640 q_brake (harmed +0.013, rho +0.061); KITTI mono Y8 512->640 q_traj (harmed -0.129, rho -0.610)",
+ "tolerance": {
+  "harmed_points": 0.05,
+  "rho_abs": 0.05
+ },
+ "settings": 14,
+ "settings_outside_tolerance": 12,
+ "q_plan": "nuScenes q_plan is Planner C's ADE/FDE against the real trajectory and needs the submissions and rasters rebuilt: submissions ~15 min, Planner C oracle + mono ~2.6 h in 12 chunks, then 62_planning_metric_eta.py for both variants ~1.1 h (measured 33 + 32 min on 2026-09-20) -- about 4 hours, or about 9 hours if the PKL/TIP gains are refreshed too (24 chunks, ~5 h). Not run.",
+ "outcomes_run": "20260925_190704_lift_offset_outcomes_ego"
+}

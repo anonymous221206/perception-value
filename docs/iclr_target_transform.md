@@ -1,5 +1,7 @@
 # Training objective against target transform, and training-seed variation (Task 30)
 
+> **Action history (Task 32) and deterministic R1 (Task 33).** The figures quoted in this report are the values before the shared action history. `results/final/target_transform_*` and `seed_variation.csv` now hold the shared-history values; `docs/iclr_shared_history.md` ("Task 33") gives every reading before and after. Two readings change: G's pooled advantage over rank(V) on the GBM router no longer excludes zero at 20 %, and three more MLP shipped wins are flagged as not robust to the seed.
+
 > **Post-hoc.** This analysis was decided after Task 24's test results were seen. Nothing in it was pre-registered,
 > and its intervals are not corrected for the number of comparisons. Read every result as exploratory.
 

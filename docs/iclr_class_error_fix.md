@@ -1,5 +1,7 @@
 # The nuScenes class-error mapping: the defect, the fix, and every figure it moves
 
+> **Action history (Task 32).** `results/final/class_error_fix.csv` is now re-expressed on the shared-action-history tables (run `20260925_194938_class_error_fix_ego`, as Task 23 did on the ego-frame tables), so its values differ from the ones quoted here; `docs/iclr_shared_history.md` describes the change.
+
 > **Frame convention.** The figures quoted in this report were computed in the camera frame, before Task 23. The shipped `results/final/class_error_fix.csv` re-expresses the same comparison on the ego-frame tables: the pre-fix class labels substituted into them (`scripts/146_class_error_prefix_tables.py`), with checks C1–C4 passing. See `docs/iclr_ego_frame_convention.md`.
 
 Pre-registration: 2026-09-20 08:55 (Task 22 Part A), committed before the fix was written,

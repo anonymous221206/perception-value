@@ -1,5 +1,7 @@
 # The published routing objectives, on the routers this benchmark already has
 
+> **Action history (Task 32).** The figures quoted in this report were computed with each branch of the braking and trajectory controllers charged against its own previous action. Every table in `results/final/` now charges both branches against the action of the all-CHEAP run, so that a decision value is one escalation from all-CHEAP operation; `docs/iclr_shared_history.md` gives the change and the quantities it moved, old beside new.
+
 Task 24. Phase A (definitions, code, mapping) is below and was committed with the pre-registration
 ("Task 24 pre-registration") before any label was computed. Phases B–E follow.
 
