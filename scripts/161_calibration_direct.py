@@ -1,24 +1,17 @@
 #!/usr/bin/env python
-"""Task 32: the calibration cells and sweep on the shared action history.
+"""Task 32: the calibration cells and sweep on the shared action history (read by 102).
 
-100 builds each mode at one threshold and 102 composes a cell at (t_c, t_f) from the CHEAP columns of the t_c run and
-the FULL columns of the t_f run, because no quantity coupled the two modes. Under the shared action history the FULL
-loss is charged against the CHEAP branch's previous action, so a FULL loss at t_f depends on t_c. This script supplies
-the shared-history values 102 needs:
+A FULL loss at t_f is charged against the CHEAP action at t_c, so a cell can no longer be composed from single-threshold
+runs.
 
-  braking     The braking action is a threshold rule on the perceived requirement: it does not depend on the history,
-              only its loss does. Each mode is built once per threshold at (t, t) keeping the per-frame actions, and a
-              cell at (t_c, t_f) is composed exactly:
+  braking     The action is a threshold rule and does not depend on the history. Each mode is built once per threshold,
+              keeping its actions, and a cell is composed exactly:
                   J_full(t_c, t_f)[i] = decision_cost(act_full(t_f)[i], a_gt[i], act_cheap(t_c)[i-1])
-              (none at a sequence's first frame, as in decision.build). Every scheme S0-S4 and the 5 x 5 sweep.
-              Checked bit for bit against the direct shared-history builds of Phase 0 (every S0-S3 pair).
-  trajectory  Planner B re-plans with the previous plan, so its FULL action depends on the history. Schemes S0-S3
-              come from the direct builds of Phase 0 (`*_shared_history_phase0`, the `JB_full_shared` column, run at
-              exactly the registered (t_c, t_f)); S0 is also checked against 65's new shared-history table. Its S4 and
-              sweep are not recomputed; 102 labels them.
+              for every scheme S0-S4 and the 5 x 5 sweep; checked bit for bit against 160's direct builds (S0-S3).
+  trajectory  The plan depends on the history, so S0-S3 are 160's direct builds (`JB_full_shared`); S0 is checked
+              against 65's table. S4 and the sweep are not recomputed; 102 labels S4.
 
-Thresholds are the registered ones (`calibration_thresholds.csv`; S4 chosen from the per-mode losses, unchanged).
-KITTI builds run in a pool of --workers processes, nuScenes in this process so its database is loaded once.
+Thresholds: `calibration_thresholds.csv` (102 --thresholds_only). KITTI builds run in --workers processes.
 """
 from __future__ import annotations
 
@@ -42,7 +35,7 @@ from rap.risk import RiskConfig                                                 
 
 SWEEP = [0.15, 0.25, 0.35, 0.45, 0.55]
 KEEP = ["act_cheap", "act_full", "a_gt", "J_cheap", "J_full"]
-# calibration spec -> Phase 0 setting prefix (160's PAIRS label with its file-name spelling)
+# calibration spec -> the file-name prefix of 160's setting
 PHASE0 = {"nusc_oracle": "nuSc_Y8_320to640__oracle", "nusc_mono": "nuSc_Y8_320to640__mono",
           "kitti_y8_320_mono": "Y8_320to640__mono", "kitti_y8_320_oracle": "Y8_320to640__oracle",
           "kitti_y8_384_mono": "Y8_384to640__mono", "kitti_y8_512_mono": "Y8_512to640__mono",
@@ -153,7 +146,7 @@ def main():
         index.append({"system": "brake", "spec": spec, "t_cheap": tc, "t_full": tf, "file": name,
                       "source": "composed from mode builds"})
 
-    # trajectory S0-S3: Phase 0's direct builds
+    # trajectory S0-S3: 160's direct builds
     traj = th[(th.system == "traj") & th.scheme.isin(["S0", "S1", "S2", "S3"])]
     for _, r in traj.iterrows():
         d = pd.read_pickle(p0 / f"{PHASE0[r.spec]}__{r.scheme}.pkl")
@@ -167,7 +160,7 @@ def main():
 
     # checks
     checks = {}
-    # (1) composed braking = Phase 0's direct shared-history builds, every S0-S3 pair
+    # (1) composed braking = 160's direct shared-history builds, every S0-S3 pair
     for _, r in brake[brake.scheme.isin(["S0", "S1", "S2", "S3"])].iterrows():
         d0 = pd.read_pickle(p0 / f"{PHASE0[r.spec]}__{r.scheme}.pkl")
         d0["seq"] = d0.seq.astype(str)
@@ -183,7 +176,7 @@ def main():
         d = compose_brake(m, m)
         df = float(np.max(np.abs(d.J_full.to_numpy() - m.J_full.to_numpy())))
         checks[f"brake {spec} (0.25, 0.25) self"] = {"max_diff_full": df, "pass": df == 0.0}
-    # (3) trajectory S0 from Phase 0 = 65's new shared-history table
+    # (3) trajectory S0 from 160 = 65's shared-history table
     try:
         pb = rap_runs.planner_b()
         m100s = m100.SPECS

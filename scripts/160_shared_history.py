@@ -1,26 +1,20 @@
 #!/usr/bin/env python
-"""Task 32, Phase 0: what a shared action history does to the sign of decision value, measured before anything is
-regenerated.
+"""Task 32: decision values under three action histories, for every setting of the sign table.
 
-The braking controller's loss charges the change from the previous action (jerk), the lateral controller's the switch
-of corridor, and the trajectory controller both plans and scores against its previous plan. Every per-frame table so
-far gave each branch its own history: V_i compared an all-CHEAP sequence with an all-FULL one at frame i, not one
-escalation. Here every setting of the sign table is rebuilt from the cached detections (`decision.build` and
-`65.build_b` with `history_variants`) and scored three ways:
+The braking controller charges a change of command (jerk), the lateral controller a change of corridor, and the
+trajectory controller plans and scores against its previous plan. Each setting is rebuilt from the cached detections
+(`decision.build`, `65.build_b` with `history_variants`) and scored as:
 
-  own         each branch against its own previous action (the shipped tables; checked to reproduce them exactly)
-  shared      both branches against the previous action of the all-CHEAP run (None at a unit's first frame): the
-              single escalation of input i from all-CHEAP operation; the trajectory controller re-plans the FULL
-              branch with that history
-  memoryless  the shared plans, scored without any action-change term (sensitivity only)
+  own         each branch against its own previous action (the earlier tables; checked to reproduce them exactly)
+  shared      both branches against the all-CHEAP run's previous action (none at a unit's first frame), so V is one
+              escalation from all-CHEAP operation; the trajectory controller re-plans the FULL branch with it
+  memoryless  the shared plans, scored without any action-change term
 
-Settings: the core matrix (every detector pair and geometry of 52), the trajectory controller on every KITTI pair of
-65, oracle geometry on every other KITTI pair (the reference-geometry control), and the calibration schemes S1-S3 of
-`calibration_thresholds.csv` run directly at each (t_cheap, t_full) -- composing a cell from single-threshold runs,
-as 100 does, is no longer valid, because the FULL loss now depends on the CHEAP branch's previous action. The learned
-planner and the nuPlan planners carry no action history; their rows are the same under every variant.
+Settings: every detector pair and geometry of 52, the trajectory controller on every KITTI pair, oracle geometry on
+every KITTI pair, and calibration schemes S1-S3 built directly at each (t_cheap, t_full). The learned planner and the
+nuPlan planners have no action history.
 
-Writes results/final/shared_history_effect.csv (new) and, in the run directory, every rebuilt per-frame table.
+Writes results/final/shared_history_effect.csv and, in the run directory, every rebuilt per-frame table (read by 161).
 """
 from __future__ import annotations
 

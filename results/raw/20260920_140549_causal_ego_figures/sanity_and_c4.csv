@@ -1,7 +1,0 @@
-check,file,rows,rows_nuScenes,nuScenes_rows_changed,other_rows_changed,status,ok
-sanity centred,statistics_hardening.csv,2552,1320,0,0,ok,True
-sanity centred,objective_swap.csv,3388,1608,0,0,ok,True
-sanity centred,core_matrix.csv,16,4,0,0,ok,True
-C4 causal,statistics_hardening.csv,2552,1320,30,0,ok,True
-C4 causal,objective_swap.csv,3388,1608,107,0,ok,True
-C4 causal,core_matrix.csv,16,4,2,0,ok,True

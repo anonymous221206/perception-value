@@ -25,12 +25,10 @@ Markers:
 | script | what | marker |
 |---|---|---|
 | `08_mechanism.py` | per-object detection outcomes by range, size and criticality | D |
-| `41_nusc_decision.py` | first nuScenes replication check on v1.0-mini (characterization only; not a `reproduce.py` stage) | D |
 | `50_percep_metrics.py` | perception-metric robustness | D |
 | `51_temporal.py` | temporal replay | D |
 | `52_core_matrix.py` | braking and lateral decision tables for every configuration | D |
 | `53_finalize.py`, `54_figures.py` | Jetson cost columns, run manifest, figures (53's headline and statistics tables are unshipped by-products) | |
-| `99_synthetic_pipeline_check.py` | end-to-end plumbing check with simulated detections | |
 | `123_mechanism_table.py` | FP, FN and detection-count changes on frames where FULL helps, harms or does nothing | |
 
 ## Planning-aware metrics and planners
@@ -135,20 +133,14 @@ Each of these answers one question asked of the benchmark after its first result
 | `161_calibration_direct.py` | Task 32: calibration cells on the shared action history (braking composed exactly from per-threshold actions) | D |
 | `162_significance_table.py` | Task 32: one significance table for every deployable signal | |
 | `163_loss_term_shares.py` | Task 32: harm and benefit by loss term, as shares | |
-| `164_old_new_inventory.py` | Task 32: OLD-vs-NEW inventory of results/final (needs the OLD snapshot; writes no compared output) | |
+| `164_old_new_inventory.py` | compares two `results/final` directories file by file (e.g. a regenerated tree against the shipped one); Task 32's inventory is in `results/raw/*_shared_history_before/inventory/` | |
 | `165_multifidelity_levels.py` | Task 32: the multi-fidelity levels 320->384 and 320->512 on the shared action history | D |
-| `166_target_transform_before_after.py` | Task 33: Task 30's tables before and after the shared history (needs the OLD snapshot) | |
 | `167_loss_sensitivity.py` | Task 35 (post hoc): loss-weight and corridor sensitivity; part A exact, parts B and C rebuilt | D (B, C) |
 
 ## Figure data
 
-`paper_figures/` holds two scripts that draw the paper's figures from release artifacts; see its README.
+`paper_figures/` holds the scripts that draw the paper's figures from release artifacts; see its README.
 
 | script | what | marker |
 |---|---|---|
 | `118_figure_exports.py` | BEV object table, gallery frames, budget curves | D |
-
-## Earlier exploratory phases
-
-`legacy/` holds the first exploratory analyses (tables, kill tests, cross-task checks on KITTI and nuScenes mini).
-Later scripts supersede them, and no result in `results/final/` depends on them.

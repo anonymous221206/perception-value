@@ -29,10 +29,9 @@ evaluate_submission.py   score your own allocator against the frozen test split 
 examples/         two runnable submissions and their scored output
 environment/      pins, setup scripts, a device check, and interpreter wrappers in environment/bin/
 results/final/    every final table, check file and figure-data export (42 MB)
-results/raw/      the intermediate runs that later stages read (490 MB)
-scripts/          the pipeline, numbered in run order; the index is scripts/README.md,
-                  scripts/paper_figures/ draws the paper's figures from release artifacts,
-                  and scripts/legacy/ holds early exploration that no stage calls
+results/raw/      the intermediate runs that later stages read (430 MB)
+scripts/          the pipeline, numbered in run order; the index is scripts/README.md, and
+                  scripts/paper_figures/ draws the paper's figures from release artifacts
 src/rap/          library code
 tests/            unit tests and negative controls
 third_party/      PROVENANCE.md; prior-work code is cloned here at pinned commits
@@ -138,7 +137,7 @@ the fits are reproducible on a different one is untested, and `docs/iclr_causal_
 | measured latency and energy budgets | `results/final/benchmark_budget_two_level*.csv`, `benchmark_budget_routers.csv` | full tier (F3, H4) |
 | figure data (BEV objects, gallery, budget curves) | `results/final/fig_*` | full tier (L1); budget curves also C20 |
 | exact formulas (monocular lifting, reference geometry, controllers, perception gains, ego speed) | `docs/iclr_formulas.md` | — |
-| target-swap audit (writes no compared output) | `results/raw/20260922_133242_target_swap_audit_ego/`; run `scripts/129_target_swap_audit.py` after C19 | — |
+| target-swap audit (writes no compared output) | `results/raw/20260925_162632_target_swap_audit_ego/`; run `scripts/129_target_swap_audit.py` after C19 | — |
 
 Reports that interpret these tables: `docs/iclr_budget_feasibility.md`, `iclr_calibration.md`,
 `iclr_causal_ego_speed.md`, `iclr_causal_threshold.md`, `iclr_class_error_fix.md`, `iclr_consumer_transfer.md`,

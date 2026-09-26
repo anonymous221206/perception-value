@@ -20,7 +20,7 @@ an all-CHEAP sequence with an all-FULL sequence at frame i, not one escalation.
   The trajectory controller re-plans the FULL branch with it.
 - **Memoryless (sensitivity only):** the shared plans, scored with no action-change term.
 
-## Systems that carry no action history (checked before anything else)
+## Systems that carry no action history
 
 - **Learned planner, q_plan and q_plan^self.** PKL's released planner (`compile_model(cin=5, cout=16)`) is run once
   per sample by `66_planner_c_pkl_planner.py`. Its five input channels (`third_party/pkl/.../data.py: render`) are the
@@ -34,11 +34,11 @@ an all-CHEAP sequence with an all-FULL sequence at frame i, not one escalation.
 
 Their rows are identical under every variant.
 
-## Phase 0: the effect, measured before anything is regenerated
+## The effect: own, shared and memoryless history
 
-`scripts/160_shared_history.py` (48 min; its per-frame tables are not shipped, full-tier stage G2b rebuilds them) rebuilt every setting of the sign table from the
-cached detections, with `decision.build` and `65.build_b` extended by a `history_variants` option (default off, which
-changes no existing column). There are 33 builds:
+`scripts/160_shared_history.py` (full-tier stage G2b) rebuilds every setting of the sign table from the cached
+detections, with `decision.build` and `65.build_b` extended by a `history_variants` option (default off, which
+changes no existing column). 33 builds:
 - every KITTI pair (YOLOv8s 320/384/512→640, RT-DETR-l 320/480→640) under monocular and oracle geometry;
 - nuScenes YOLOv8s 320→640 under both geometries;
 - the calibration schemes S1–S3 of `calibration_thresholds.csv`, each run directly at its (t_cheap, t_full).
@@ -84,14 +84,13 @@ The learned-planner rows (nuScenes q_plan, q_plan^self) and the nuPlan rows are 
 2. **The sign variation survives.**
    - Under the shared history escalation still harms 35–54% of affected inputs across the rows of Table 1: braking
      35.5–39.6% on nuScenes, trajectory 43.4–53.8% on the monocular KITTI pairs; the learned planner is unchanged at
-     49–51%. The current text reads 40–51%.
+     49–51%.
    - On KITTI the braking controller now harms 25–48% of affected inputs under oracle geometry (24.6% on YOLOv8s
-     320→640; the text reads 31–48%). The trajectory controller's harm ratio stays below 0.06 on four of five pairs.
+     320→640). The trajectory controller's harm ratio stays below 0.06 on four of five pairs.
 3. **Calibration (Table 6).** Under every scheme S0–S3 and the shared history:
    - every nuScenes braking cell and every moderate-gap KITTI braking and trajectory cell keeps a harm rate of at
-     least 34.1% (the text: at least 35%);
-   - ρ stays at least 0.338 (the text: at least 0.34). An earlier version of this line said 0.339; the minimum is
-     0.3385, on nuScenes mono S2.
+     least 34.1%;
+   - ρ stays at least 0.338 (nuScenes mono S2).
 4. **The direction differs by controller.**
    - Braking loses harmed frames, mostly frames the old definition counted as harmed by jerk alone.
    - The trajectory controller's harmed share rises on the monocular pairs: the frames removed were more often helped.
@@ -101,66 +100,29 @@ The learned-planner rows (nuScenes q_plan, q_plan^self) and the nuPlan rows are 
    shares within 1.7 points and ρ within 0.011, so the remaining effect of the action-change term is small once both
    branches share a history.
 
-**Numbers of the earlier release that Phase 1 changes.** Table 1 and the counts quoted from it (the "40–51%" of Section 5.1 and
-the abstract, "31–48%" of the geometry control), Tables 4–6, the mechanism table (Table 13, harmed/helped groups),
-Table 14 and Figure 11 (sign-disagreement shares), and everything downstream of V for the braking and trajectory cells.
+## The regenerated tables
 
-## Scope
-
-Phase 1 regenerated every table this release ships; the records that read the regenerated tables in full (C25–C28,
-C32–C34) followed under Task 34, below. The trajectory controller is left out of the 25-threshold calibration sweep.
-The pixel router R2 was refit on the GPU.
-
-## Phase 1
-
-Phase 1 regenerates, on the shared action history, every table of this release. The code changes:
+Every table of this release is regenerated on the shared action history. The code changes:
 - `decision.build` and `65.build_b` default to `history="shared"`; `history="own"` keeps the earlier record, and
-  160 passes it explicitly, so Phase 0 still reproduces.
+  160 passes it explicitly.
 - Every per-frame table now carries its weighted loss terms (`Jterm_*`, `JBterm_*`).
 - `118.rebuild` charges the FULL branch against the CHEAP branch's previous action.
 
-OLD is `results/final` before Phase 1, i.e. the previous release's tables. The OLD-vs-NEW inventory is in
+OLD below is the previous release's `results/final`. The OLD-vs-NEW inventory is in
 `results/raw/20260925_084513_shared_history_before/inventory/` (the snapshot itself is not shipped).
 
-### What was regenerated, in order, with wall-clock times
-
-| stage | what | time |
-|---|---|---|
-| 52 | core per-frame tables, 8 settings (beside 65 and 134) | 19.6 min |
-| 65 | Planner B tables, 6 KITTI pairs | 7.8 min |
-| 134 | realism outcomes | 39.8 min |
-| 161 | calibration: 62 mode builds (2 workers) and 220 cells | 14.6 min |
-| 102, 109, 135 | calibration cells, tables, realism controls | 1 min |
-| 75 ×2, 84, 86 | cross-target, deployable gate and its checks | 12 min |
-| 62 oracle, 62 mono | nuScenes joined tables and planning-metric eta | 32.5 + 28.8 min |
-| 123, 92, 150 `values` | mechanism table, benchmark tables, decision-values file | 6.4 min |
-| 103 | feature routers R1 | 5.4 min |
-| 107 (GPU) | pixel router R2, train and TensorRT export, nuScenes and KITTI | 22.2 min |
-| 165 | multi-fidelity levels on the shared history (new) | 3.4 min |
-| 93 ×3, 94, 110 | budget tables (two-level, one-thread, routers) and markdown | 18.3 min |
-| 133 | gate scores, score check, module energy budgets | 7.9 + 34.5 + 17.1 min |
-| 124 | causal threshold (run beside 122; alone it takes about 27 min) | 131 min |
-| 122, 129, 126, 125, 127, 128 | target swap and audit, consumer transfer, statistics, objective swap, skip accounting | 32 min |
-| 130 | streaming controllers (fit once, then run) | 30.6 min |
-| 131, 118, 149 `score` | feasibility, figure exports, published-objective routers | 6.5 min |
-| 158 a–d, fig | Task 29 cached analyses | 25.9 min |
-| 159 part 1 | Task 30 target transform: stopped at its reproduction gate, closed by Task 33 (below) | 4 min |
-| 162, 163, 164 | significance table, loss-term shares, OLD/NEW inventory | < 1 min each |
-
-Wall clock about 6.5 h on the reference board.
-
-Not rerun because their inputs carry no action history: 100 and 101 (per-mode calibration losses; see below), 115–120
+Not regenerated, because their inputs carry no action history: 100 and 101 (per-mode calibration losses; see below), 115–120
 (nuPlan), 66 and 74 (learned planner), 148 (the published-objective labels Q and G, from detections only) and its R1
 and R2 refits.
 
 ### Checks
 
-- **Per-frame tables.** The new tables equal Phase 0's shared-history columns bit for bit. This covers all eight
-  core tables of 52: `J_full` = Phase 0 `J_full_shared`, `Jlat_full` = `Jlat_full_shared`, CHEAP columns unchanged.
+- **Per-frame tables.** The new tables equal 160's shared-history columns bit for bit. This covers all eight
+  core tables of 52: `J_full` = 160's `J_full_shared`, `Jlat_full` = `Jlat_full_shared`, CHEAP columns unchanged.
   It also covers all six Planner B tables of 65: `JB_full` = `JB_full_shared`. The loss terms add up to `J` and `JB`
   exactly.
-- **Calibration (161).** Every composed braking cell equals the direct shared-history build of Phase 0 bit for bit
-  (28 pairs S0–S3). Each mode build at (t, t) equals its own composition. The trajectory S0 cells from Phase 0 equal
+- **Calibration (161).** Every composed braking cell equals 160's direct shared-history build bit for bit
+  (28 pairs S0–S3). Each mode build at (t, t) equals its own composition. The trajectory S0 cells from 160 equal
   65's new tables.
 - **Multi-fidelity levels (165).** The 320 branch of the 320→384 and 320→512 pairs equals the core 320→640 table's
   CHEAP column bit for bit. 93 asserts that the 320 and 640 columns are exactly the cell's own.
@@ -170,28 +132,26 @@ and R2 refits.
   - 122's S1 (434/434 official nDG values);
   - 124's refit and sanity checks (0 difference over 64 rows; 444/444 rows);
   - 133's S2–S4;
-  - 149's check that the V-trained rows reproduce `benchmark_table_routers.csv`.
-- **One gate fails: 159 part 1** (below).
+  - 149's check that the V-trained rows reproduce `benchmark_table_routers.csv`;
+  - 159's exact refit check, once 103 fits on one thread (Task 33, below).
 
 ### Two structural changes the shared history forced
 
-1. **Calibration cells can no longer be composed from per-mode runs** (Phase 0).
+1. **Calibration cells can no longer be composed from per-mode runs.**
    - Braking: the braking action is a threshold rule on the perceived requirement and does not depend on the
      history. So 161 builds each mode once per threshold, keeps the actions, and composes the FULL loss at
      (t_c, t_f) exactly against the CHEAP action at t_c. This covers every scheme S0–S4 and the 5 × 5 sweep.
-   - Trajectory controller S0–S3: taken from Phase 0's direct builds at the registered thresholds.
+   - Trajectory controller S0–S3: built directly at the registered thresholds (160).
    - Trajectory controller S4: kept on the own-history composition and labelled `history = own`, in
      `calibration_cells.csv` and with ‡ in `docs/calibration_tables.md`. Its sweep is not computed.
    - S4 thresholds are still chosen from the per-mode losses, as registered.
 2. **The multi-fidelity allocator's levels (93).**
    - Before: the loss of escalating to 384 or 512 was the CHEAP column of the 384→640 or 512→640 table, charged
      against that level's own history. 93 asserted that the FULL (640) loss was the same in the 320→640 and L→640
-     tables; under the shared history it is not, and the assertion stopped 93.
+     tables; under the shared history it is not.
    - Now: 165 builds 320→384 and 320→512, so each level is an escalation from all-320 operation, charged against the
      320 run's previous action. 93 reads those levels and checks, exactly, that they share the 320 branch and the
      320→640 escalation with the cell it scores.
-
-133 checks its refactored skip-accounting path against 128's table, so 128 runs before it.
 
 ### Results: OLD → NEW
 
@@ -209,14 +169,12 @@ Full inventory: `results/raw/20260925_084513_shared_history_before/inventory/` (
 - Causal threshold (124): `inconclusive`, −0.066 [−0.129, +0.013] (was −0.064 [−0.128, +0.014]).
 - Streaming controllers (130): no `reading` value changed.
 
-**Table 1 and the counts quoted from it.** These are exactly the Phase 0 shared-history values above; the new tables
-are those columns. Reference geometry (135, `reference_geometry_sweep.csv`) changes one reading: RT-DETR-l 320→640 on
+**Table 1.** The values are the shared-history column above. Reference geometry (135, `reference_geometry_sweep.csv`) changes one reading: RT-DETR-l 320→640 on
 the trajectory controller goes from "persists without lifting error" to "geometry-driven".
 
 **Calibration (Table 6, `calibration_cells.csv`, all units).**
-- S0–S3 of every braking and trajectory cell equal Phase 0's shared-history values.
 - Over S0–S3, every nuScenes braking cell and every moderate-gap KITTI cell keeps a harm rate of at least 34.1%
-  (nuScenes oracle S3) and ρ of at least 0.338 (nuScenes mono S2). The text says at least 35% and 0.34.
+  (nuScenes oracle S3) and ρ of at least 0.338 (nuScenes mono S2).
 - S4 on the braking controller, for example:
   - nuScenes oracle 47.9% → 41.5%;
   - nuScenes mono 50.3% → 40.5%;
@@ -279,7 +237,7 @@ most 0.7 points.
   - routers: largest move 0.33 (R2), 8 rows change against random (123 → 125 beat it);
   - multi-fidelity: largest move 0.008.
 
-### (a) Significance table
+### Significance table
 
 `scripts/162_significance_table.py` → `results/final/significance_table.csv`, `docs/significance_table.md`.
 
@@ -307,7 +265,7 @@ Rows whose paired interval lies above / includes / below zero, OLD → NEW:
 
 R2 and uncertainty have no nuPlan rows (40 rows each instead of 56).
 
-### (b) Harm and benefit by loss term
+### Harm and benefit by loss term
 
 `scripts/163_loss_term_shares.py` → `results/final/loss_term_shares.csv`. For each term, its share of the total harm
 (over V < 0) and of the total benefit (over V > 0), all inputs, shared history. Shares add up to 1 in each set.
@@ -326,37 +284,13 @@ Escalation harms the braking controller mostly by braking more than the true sce
 the CHEAP detector did not report. It helps mostly by closing a safety shortfall. Under the shared history the
 action-change term (jerk, switching) carries at most 2.9% of the harm and 0.8% of the benefit.
 
-### (c) Loss definitions
+### Loss definitions
 
 `docs/iclr_loss_definitions.md` gives, from the code, every term, weight and threshold of:
 - the braking controller;
 - the trajectory controller (Planner B, the `static_obstacles` preset);
 - the lateral controller;
 - the nuPlan safety and scalar losses.
-
-### 159 part 1 and the R1 scores
-
-159 refits every R1 router on V with the gradient-boosted models on one OpenMP thread and requires the refit to equal
-the cached `routers_r1` scores exactly. With 103 fitting on 8 threads, R1_gbm_reg on KITTI oracle braking differed by
-at most 8.88e-16, the known run-to-run non-determinism of multithreaded HistGradientBoosting. The gate was not
-changed; 103 now fits on one thread (Task 33, below), and 159 passes.
-
-### Numbers of the earlier release that change
-
-- **Table 1, Section 5.1 and the abstract.**
-  - Harmed share of affected inputs, 40–51% → 35–54%: braking 35.5–39.6% on nuScenes, trajectory 43.4–53.8% on the
-    monocular KITTI pairs, learned planner 49–51% unchanged.
-  - Counts of affected and harmed inputs drop by 24–44%.
-  - ρ, all-full and oracle@20 move by at most 0.016, 0.65 points and 0.8 points.
-- **Geometry control.** Under oracle geometry the braking controller harms 25–48% of affected KITTI inputs (was
-  31–48%).
-- **Appendix D.** "At least 35%, ρ at least 0.34" → at least 34.1%, ρ at least 0.338. The two
-  sentences that use the trajectory controller's sweep no longer have a sweep to cite.
-- **Table 13 (mechanism), Table 14 and Figure 11 (sign disagreement).** The values above.
-- **Table 3.** The GBM gate on oracle braking rises from 0.271 to 0.309.
-- **Router and budget rows.** R1 and R2 as above.
-- **Section 5.1.** The statement about mean harm on the test split: 37.4% → 37.1% of affected inputs, 8.3% → 7.3% of
-  all inputs.
 
 ## Task 33: deterministic R1
 
@@ -370,24 +304,7 @@ units, seeds and hyperparameters are the same.
 Because 120, 122, 124 and 129 call `fit_score`, their R1 refits are now deterministic too. 120 was not rerun: its
 nuPlan scores come from its own shipped run.
 
-OLD is the state after Phase 1. The inventory is in `results/raw/20260925_155659_task33_before/inventory/`.
-
-### Stage timings (one stage at a time)
-
-| stage | time | stage | time |
-|---|---|---|---|
-| 103 | 341 s | 130 fit once | 254 s |
-| 93 routers | 407 s | 130 | 1,574 s |
-| 110 | 4 s | 131 | 8 s |
-| 122 | 995 s | 133 | 1,010 s |
-| 129 | 394 s | 149 `score` | 158 s |
-| 124 | 1,728 s | 158 a / b / c / d / fig | 256 / 275 / 793 / 202 / 11 s |
-| 125 | 224 s | 159 part 1 | 458 s |
-| 126 | 183 s | 159 part 2 (six seeds) | 1,310 s |
-| 127 | 111 s | 159 heatmap | 10 s |
-| 128 | 80 s | 162 | 2 s |
-
-Total 3 h 0 min.
+OLD is the state before this change. The inventory is in `results/raw/20260925_155659_task33_before/inventory/`.
 
 ### Gates: all pass
 
@@ -402,7 +319,7 @@ Total 3 h 0 min.
 | 159 part 1 | the refits on V, Q and G equal the cached scores exactly: 60 checks, max difference 0 |
 | 159 part 2 | 80 seed checks, max difference 0 |
 
-The gate that failed in Task 32 now passes, and nothing was changed in what any gate checks.
+159's exact refit check, which the 8-thread fit missed by 8.9e-16, passes; no gate was changed.
 
 ### What the deterministic fit changed
 
@@ -416,19 +333,12 @@ Inventory (164, `results/raw/20260925_155659_task33_before/inventory/`):
   - `benchmark_table_routers.csv`: the same 264 rows in another order (103 rewrote the R1 rows, so R2's rows now come
     first);
   - `streaming_controllers.csv`: only the name of the V1-scores run it records.
-- **3 files changed in value:** Task 30's, which Phase 1 had left at their pre-Phase-1 values (below).
+- **3 files changed in value:** Task 30's, now on the shared history (below).
 
 **No printed-precision value** (3 decimals for nDG, 1 decimal for percentages) **and no significance call changed**
 outside Task 30. `significance_table.csv` is byte-identical.
 
-### Task 30 on the shared history (before = pre-Phase-1, own history; after = shared history, deterministic R1)
-
-Side-by-side tables: `results/raw/20260925_155659_task33_before/task30_before_after/` (`scripts/166`):
-- `pooled.csv`
-- `counts.csv`
-- `heatmap_cells.csv`
-- `seeds.csv`
-- `before_after.md`
+### Task 30 on the shared history (before: own history; after: shared history, deterministic R1)
 
 The figure `results/final/figures/target_transform_heatmap.{pdf,png}` is regenerated. The planner cells are unchanged,
 since their V carries no action history; the brake and trajectory cells move.
@@ -505,28 +415,24 @@ All four still include zero. Per-cell intervals over all quotas:
 
 ## Task 34: the records that read the regenerated tables in full
 
-These records were regenerated on the shared action history last, one stage at a time, with the procedures they
-were first made with.
+These records read the regenerated tables in full; they were regenerated after them, with their original procedures.
 
-| record | stages | time | gates | result |
-|---|---|---|---|---|
-| C27, lift offset | 140, 141 | 1,376 + 9 s | 14/14 settings reproduce to 3 decimals | reading still "sensitive"; KITTI mono RT-DETR-l 480→640 on the trajectory controller joins the list of settings (harmed −0.048, ρ +0.115) |
-| C26, causal ego speed | 125, 127, 52, 53 (centred, drop-first, causal), 139 | 21 min | sanity and C4 3/3; `52 --rows_only` equals the full table exactly | C26 run re-expressed on these tables |
-| C25, class-error fix | 146, then the `prefix` run variant of 52, 62 ×2, 92, 102, 122, 125, then 137 | 77 min | `results/final` restored exactly; C4 11/11 files unchanged outside nuScenes | C25 run re-expressed on these tables |
-| C28, the ego-frame inventory | 147 | 38 s | — | NEW is now the shared-history state; `AFTER_TASK_23` also leaves out the Task 32–35 files |
-| C32, gate G1′ | 150 `g1` | 1,574 s | 28,096 compared values, 0 differing, 16 structural (as before) | passes |
-| C33, the example submissions | two examples | 113 s | — | rescored |
-| C34, evidence pack and claims check | 152 | 23 s | — | 9 of 33 statements pass (was 11) |
+| record | stages | gates | result |
+|---|---|---|---|
+| C27, lift offset | 140, 141 | 14/14 settings reproduce to 3 decimals | reading still "sensitive"; KITTI mono RT-DETR-l 480→640 on the trajectory controller joins the list of settings (harmed −0.048, ρ +0.115) |
+| C26, causal ego speed | 125, 127, 52, 53 (centred, drop-first, causal), 139 | sanity and C4 3/3; `52 --rows_only` equals the full table exactly | C26 run re-expressed on these tables |
+| C25, class-error fix | 146, then the `prefix` run variant of 52, 62 ×2, 92, 102, 122, 125, then 137 | `results/final` restored exactly; C4 11/11 files unchanged outside nuScenes | C25 run re-expressed on these tables |
+| C28, the ego-frame inventory | 147 | — | NEW is now the shared-history state; `AFTER_TASK_23` also leaves out the Task 32–35 files |
+| C32, gate G1′ | 150 `g1` | 28,096 compared values, 0 differing, 16 structural (as before) | passes |
+| C33, the example submissions | two examples | — | rescored |
+| C34, evidence pack and claims check | 152 | — | 9 of 33 statements pass (was 11) |
 
 In the claims check, two statements of the first manuscript that passed now fail:
 - H1, "35–52% of affected inputs": the monocular rows now span 34.2–53.8%.
 - S2, "29–45% under the per-mode operating points": braking now spans 25.3–46.2%.
 
-152 needed one packaging fix: `102.Store` takes the calibration-direct run (Task 32), and 152's call was updated.
-
-`scripts/157_doc_staleness.py` flags 13 documents that quote a number `results/final` no longer holds. The
-hand-written reports among them, and every report whose figures depend on the braking or trajectory controllers,
-carry an "Action history" note; the generated tables are current.
+Every report whose figures depend on the braking or trajectory controllers carries an "Action history" note; the
+generated tables are current.
 
 ## Task 35
 

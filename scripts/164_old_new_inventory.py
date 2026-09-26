@@ -1,21 +1,15 @@
 #!/usr/bin/env python
-"""Task 32: OLD-vs-NEW inventory of results/final, before and after the shared action history.
+"""Compare two results/final directories file by file, e.g. a regenerated tree against the shipped one.
 
-OLD is the snapshot taken before Phase 1 (`*_shared_history_before/results_final`), NEW is results/final. For every
-CSV and JSON file in either:
-- status: unchanged (byte-identical), changed, new, or removed;
-- for a changed CSV with the same rows (same shape and the same non-float columns): the number of changed values
-  and the largest absolute change, per column;
-- every text or boolean value that changed (verdicts, readings, flags such as `beats_*`, `survives*`,
-  `interval`), with the row's identifying columns (the text columns unchanged in both): the candidate reversed
-  readings;
-- for JSON: every leaf that changed, and every boolean or string leaf that flipped.
+For every CSV and JSON file in either directory:
+- status: unchanged (byte-identical), changed, new or removed;
+- for a changed CSV with the same rows: per column, the number of changed values and the largest absolute change
+  (rows written in another order are aligned first);
+- every text or boolean value that changed (verdicts, readings, flags such as `beats_*`), with the row's keys;
+- for JSON: every leaf that changed.
 
-Writes into the run directory given by --out:
-- inventory_files.csv
-- inventory_columns.csv
-- reversed_readings.csv
-- json_changes.csv
+Writes inventory_files.csv, inventory_columns.csv, reversed_readings.csv and json_changes.csv into --out.
+Task 32's inventory (the previous release against this one) is in results/raw/*_shared_history_before/inventory/.
 """
 from __future__ import annotations
 

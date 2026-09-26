@@ -37,7 +37,6 @@ excess, jerk, collision}`). One weight is varied at a time, and the safety-short
   `shared_history_effect.csv` (shared, S0) and `calibration_cells.csv` (S0, all units) to 1e-12.
 - The bootstrap intervals use their own seeds, so they are not the calibration cells' draws.
 
-Time: 13 s.
 
 Every variant, with its interval: `docs/loss_sensitivity_tables.md`, section A.
 
@@ -55,13 +54,12 @@ time:
 - The default rebuild equals the shipped Planner B tables bit for bit (JB_cheap and JB_full, all frames).
 - Its point values equal `shared_history_effect.csv` and `calibration_cells.csv`.
 
-Time: 993 s, on 3 worker processes (42 builds of about 55–80 s each).
 
 Every variant: `docs/loss_sensitivity_tables.md`, section B.
 
 At collision weights 5, 10 and 20 the affected and harmed counts are the same in every setting. Only ρ moves.
 
-## C. Braking controller: corridor half-width (rebuilt; optional part)
+## C. Braking controller: corridor half-width (rebuilt)
 
 The corridor half-width decides which objects the controller considers, so it changes actions. The decision tables
 are rebuilt with `decision.build` at 1.0 and 1.5 m (default 1.2 m).
@@ -70,7 +68,6 @@ are rebuilt with `decision.build` at 1.0 and 1.5 m (default 1.2 m).
 - The default rebuild equals the core tables bit for bit.
 - Its point values equal `shared_history_effect.csv` and `calibration_cells.csv`.
 
-Time: 384 s, on 3 worker processes (24 builds).
 
 Every variant: `docs/loss_sensitivity_tables.md`, section C.
 
@@ -148,15 +145,3 @@ The gallery's own selection and files are unchanged (the rerun leaves every `neg
 | scene-0065, 24 (helped) | +5.346 | KEEP / DECELERATE / DECELERATE |
 
 scene-0065 frame 23, the gallery's positive_4, has V = +5.347.
-
-118 needs the nuScenes tables; it took 216 s.
-
-## Timings
-
-| part | time |
-|---|---|
-| A | 13 s |
-| B | 993 s (3 worker processes) |
-| C | 384 s (3 worker processes) |
-| D (118) | 216 s |
-| report | 1 s |

@@ -1,2 +1,0 @@
-check,what,detections,max_abs_diff,ok
-L1,shifting the cached geometry == the lift with cam_offset,848,0.0,True

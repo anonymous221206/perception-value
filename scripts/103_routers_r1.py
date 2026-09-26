@@ -89,9 +89,7 @@ def fit_score(X, v, fit):
             continue
         m = make()
         if name.startswith("R1_gbm"):
-            # OpenMP on one thread for the gradient-boosted models (Task 33): their multithreaded fit varies in the last
-            # bits from run to run (8.9e-16 in Task 32); one thread does not, as in 159's `fit_predict`. BLAS (the MLPs)
-            # stays at its default.
+            # one OpenMP thread: the multithreaded fit varies in the last bits between runs (as in 159's fit_predict)
             with threadpool_limits(limits=1, user_api="openmp"):
                 m.fit(X[fit], y[fit])
                 out[name] = m.predict(X) if task == "reg" else m.predict_proba(X)[:, 1]
