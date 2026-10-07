@@ -22,6 +22,8 @@ KITTI_LABELS = DATA / "training" / "label_02"
 KITTI_CALIB = DATA / "training" / "calib"
 KITTI_OXTS = DATA / "training" / "oxts"
 NUSCENES_TRAINVAL = DATASETS / "nuscenes" / "trainval"
+NUSCENES_XL = DATASETS / "nuscenes" / "trainval_xl"      # all 850 trainval scenes (follow-up track)
+NAVSIM_ROOT = DATASETS / "navsim"                         # OpenScene logs and CAM_F0 blobs (follow-up)
 
 CACHE = REPO / "data" / "cache"
 RESULTS = REPO / "results"

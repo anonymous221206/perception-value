@@ -149,7 +149,29 @@ CACHED = [
      "trajectory controller's and the corridor's rebuilt variants (P2) (Task 35, post hoc)", EDGE,
      "PYTHONHASHSEED=0 {py} scripts/167_loss_sensitivity.py --part A && PYTHONHASHSEED=0 {py} "
      "scripts/167_loss_sensitivity.py --part report",
-     ["results/final/loss_sensitivity.csv", "docs/loss_sensitivity_tables.md"]),
+     ["results/final/loss_sensitivity.csv", "docs/loss_sensitivity_tables.md"]),    ("C41", "follow-up E1 (results/followup/E1/): settings, heterogeneity, concentration and gate (b) on the 850-scene "
+     "nuScenes track", EDGE, "PYTHONHASHSEED=0 {py} scripts/171_xl_settings.py --tables data/cache/xl/tables850",
+     ["results/followup/E1/x1_settings.csv", "results/followup/E1/x1_heterogeneity.csv", "results/followup/E1/x1_concentration.csv", "results/followup/E1/gates.json"]),
+    ("C42", "follow-up E1: gate (a), the follow-up pipeline on the frozen 85 scenes against every released value", EDGE,
+     "PYTHONHASHSEED=0 {py} scripts/172_xl_allocators.py --gate --tables data/cache/xl/frozen85_tables",
+     ["results/followup/E1/gate_a.json"]),
+    ("C43", "follow-up E1: allocators on the 228 new test scenes (with the pixel router), log bootstrap, Holm, "
+     "official-validation planner rows, log-grouped out-of-fold check, budget sweep", EDGE,
+     "PYTHONHASHSEED=0 {py} scripts/172_xl_allocators.py --tables data/cache/xl/tables850 "
+     "--r2 results/raw/20261006_111910_xl_router_r2",
+     ["results/followup/E1/x2_allocators.csv", "results/followup/E1/x3_budget_sweep.csv", "results/followup/E1/x2_planner_official_val.csv", "results/followup/E1/x2_log_oof.csv"]),
+    ("C44", "follow-up E1: learning curve over training-scene counts, five orderings (about 1.5 hours)", EDGE,
+     "PYTHONHASHSEED=0 {py} scripts/173_xl_learning_curve.py --tables data/cache/xl/tables850",
+     ["results/followup/E1/x4_learning_curve.csv"]),
+    ("C45", "follow-up E1: sign disagreement of perception gains and decision value; the validation-selected comparison",
+     EDGE, "PYTHONHASHSEED=0 {py} scripts/179_xl_secondary.py --tables data/cache/xl/tables850 --parts sign valsel",
+     ["results/followup/E1/x1_sign_disagreement.csv", "results/followup/E1/x2_validation_selected.csv"]),
+    ("C46", "follow-up E1: multi-fidelity 320 / 480 / 640 / 960 under measured costs", EDGE,
+     "PYTHONHASHSEED=0 {py} scripts/181_xl_multifidelity.py", ["results/followup/E1/x5_multifidelity.csv"]),
+    ("C47", "follow-up E1: allocator transfer across scene sets, cities and datasets (about one hour)", EDGE,
+     "PYTHONHASHSEED=0 {py} scripts/182_xl_transfer.py", ["results/followup/E1/x6_transfer.csv"]),
+    ("C48", "follow-up E5 (results/followup/E5/): planner rows of the capacity, architecture and fine-tuning pairs", EDGE,
+     "PYTHONHASHSEED=0 {py} scripts/188_x7_planner_rows.py", ["results/followup/E5/x7_planner.csv"]),
 ]
 
 # the full pipeline from raw data, in the order the results were produced; D = needs datasets, H = hardware-dependent
@@ -277,7 +299,43 @@ FULL = [
      "scripts/146_class_error_prefix_tables.py"),
     ("P2", "[D] loss sensitivity: the trajectory controller's weights and the braking corridor, rebuilt (read by C40)",
      EDGE, "PYTHONHASHSEED=0 {py} scripts/167_loss_sensitivity.py --part B && PYTHONHASHSEED=0 {py} "
-           "scripts/167_loss_sensitivity.py --part C"),
+           "scripts/167_loss_sensitivity.py --part C"),    ("Q1", "[H] follow-up: TensorRT engines for the nuScenes modes 192x320 / 288x480 / 384x640 / 544x960 and the "
+     "capacity, architecture and fine-tuned detectors (E1, E5)", EDGE, "bash scripts/168_build_engines_ns.sh"),
+    ("Q2", "[H,D] follow-up E1: CAM_FRONT detection on all 850 trainval scenes, four modes; camera -> ego table", EDGE,
+     "{py} scripts/40_nusc_detect.py --version v1.0-trainval --dataroot $RAP_DATASETS/nuscenes/trainval_xl "
+     "--out data/cache/nusc_det_xl && {py} scripts/40_nusc_detect.py --version v1.0-trainval --dataroot "
+     "$RAP_DATASETS/nuscenes/trainval_xl --cheap ns_mid_480 --full ns_full_960 --out data/cache/nusc_det_xl && "
+     "{py} scripts/199_xl_cam_to_ego.py"),
+    ("Q3", "[D] follow-up E1: submissions, planner rasters and PKL's planner against the logged trajectory on the 850 "
+     "scenes (both geometries)", EDGE,
+     "{py} scripts/60_build_submissions.py --dataroot $RAP_DATASETS/nuscenes/trainval_xl --det data/cache/nusc_det_xl "
+     "--out data/cache/xl/nusc_submissions && for v in oracle mono; do {py} scripts/70_planner_d_data.py --split test "
+     "--dataroot $RAP_DATASETS/nuscenes/trainval_xl --subs data/cache/xl/nusc_submissions --variant $v "
+     "--out data/cache/xl/planner_d --scene_list results/followup/E1/scene_split.csv && {py} scripts/74_plannerC_vs_truth.py "
+     "--data data/cache/xl/planner_d --variant $v || exit 1; done"),
+    ("Q4", "[D] follow-up E1: per-frame tables of the 850 scenes and of the frozen 85 (read by C41-C47)", EDGE,
+     "{py} scripts/170_xl_tables.py --det data/cache/nusc_det_xl --planc data/cache/xl/planner_d --out data/cache/xl/tables850 "
+     "--pairs ns_cheap_320:ns_full_640 ns_cheap_320:ns_mid_480 ns_cheap_320:ns_full_960 && "
+     "{py} scripts/170_xl_tables.py --det data/cache/nusc_det_tv --planc data/cache/planner_d_ego --out data/cache/xl/frozen85_tables"),
+    ("Q5", "[H,D] follow-up E1: the pixel router on the follow-up scenes (image cache, training, export; read by C43)", EDGE,
+     "{py} scripts/180_xl_router_r2.py --stage cache && {py} scripts/180_xl_router_r2.py --stage train && "
+     "{py} scripts/180_xl_router_r2.py --stage export --run $(ls -d results/raw/*_xl_router_r2 | tail -1)"),
+    ("Q6", "[D] follow-up E1: braking mechanism counts and the temporal router", EDGE,
+     "{py} scripts/179_xl_secondary.py --tables data/cache/xl/tables850 --parts mechanism && {py} scripts/183_xl_temporal.py"),
+    ("Q7", "[H,D] follow-up E5: detections of the capacity and architecture detectors; their braking rows and costs", EDGE,
+     "for w in yolov8m yolov8l yolov8x yolo11s yolo11m; do {py} scripts/176_nusc_detect_models.py --dataroot "
+     "$RAP_DATASETS/nuscenes/trainval_xl --weights $w.pt --mode ns_full_640 --scenes results/followup/E1/scene_split.csv "
+     "|| exit 1; done && {py} scripts/176_nusc_detect_models.py --dataroot $RAP_DATASETS/nuscenes/trainval_xl --weights "
+     "rtdetr-l.pt --engine_stem rtdetrl --mode rt_full_640 --name rtdetrl__rt_full_640 --scenes "
+     "results/followup/E1/scene_split.csv && for m in ns_cheap_320 ns_full_640 ns_mid_480 ns_full_960; do "
+     "ln -sfn ../nusc_det_xl/$m data/cache/xl_models/yolov8s__$m; done && "
+     "{py} scripts/177_xl_capacity.py && {py} scripts/178_xl_costs.py"),
+    ("Q8", "[D] follow-up E5: the fine-tuning set, the fixed-recipe fine-tunes (GPU), their detections, rows and costs", EDGE,
+     "{py} scripts/174_ft_dataset.py && {py} scripts/175_ft_train.py   # then 168, 176, 177 --finetuned and 178 for the "
+     "fine-tuned weights, see results/followup/E5/"),
+    ("Q9", "[D] follow-up E5: the frontier along the two escalation ladders; planner rasters per detector and PKL's "
+     "planner per pair (read by C48)", EDGE,
+     "{py} scripts/184_xl_frontier.py   # then 187 check / render / assemble and 74 per pair, see results/followup/E5/"),
 ]
 
 

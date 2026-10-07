@@ -64,15 +64,15 @@ pip install -r environment/requirements-cached.txt
 cp configs/paths.env.example configs/paths.env     # defaults: datasets/ and models/ here, the active environment
 source configs/paths.env
 
-python reproduce.py --tier cached --list           # the 41 stages, C1 to C40 (with C30b), in order
+python reproduce.py --tier cached --list           # the 49 stages, C1 to C48 (with C30b), in order
 python reproduce.py --tier cached --verify         # run them all and compare against the shipped files
 ```
 
 Useful flags: `--only <id>` for one stage, `--from <id>` to resume. `python -m pytest tests` runs the unit tests;
 those needing KITTI files, PyTorch or OpenCV skip themselves when those are absent.
 
-Roughly four hours on the reference device, dominated by the bootstraps in C14, C19, C22, C23 and C35 and the
-seed refits in C37.
+Roughly four hours on the reference device for C1–C40, dominated by the bootstraps in C14, C19, C22, C23 and C35
+and the seed refits in C37. The follow-up stages C41–C48 add about four hours, mostly C43, C44 and C47.
 
 ## What `--verify` checks
 
@@ -200,6 +200,22 @@ committed before which result.
 | 34 | the records that read the regenerated tables in full, on the shared history | `iclr_shared_history.md` |
 | 35 | loss-weight and corridor sensitivity (post hoc); Figure 1's frames | `iclr_loss_sensitivity.md` |
 
+## Follow-up experiments
+
+Specified before its values were computed, after the benchmark release: `docs/followup_protocol.md` (the commit after tag `v1.0`), with the index
+of gates, deviations and open points in `docs/followup_index.md`; each addendum is appended to the protocol. Each experiment ships its results
+under `results/followup/`, the caches its cached stages read, and its scripts (168–188, 199).
+
+| experiment | what | outputs | cached stages |
+|---|---|---|---|
+| E1 | the nuScenes track on all 850 trainval scenes: settings, allocators with log bootstrap and Holm, learning curve, multi-fidelity, transfer | `results/followup/E1/` | C41–C47 |
+| E5 | escalation across detector capacity, architecture and fine-tuning, braking and planner rows, costs, oracle frontier | `results/followup/E5/` | C48 |
+
+The 850-scene caches (`data/cache/xl/`, `data/cache/nusc_det_xl/`) add about 265 MB. The fine-tuned weights of E5
+(`yolov8s_ft.pt`, `yolov8m_ft.pt`, `yolov8l_ft.pt`; 156 MB) ship as assets of the repository's release page, not in the
+tree; put them in `models/`. Their md5 sums, training curves and arguments are in `results/followup/E5/finetune/`, and
+`scripts/174_ft_dataset.py` and `175_ft_train.py` rebuild them with the fixed recipe.
+
 ## Full reproduction from raw data
 
 1. **Datasets.** Download nuScenes (v1.0-trainval metadata, blob 01, map expansion), KITTI tracking and nuPlan
@@ -209,7 +225,7 @@ committed before which result.
 4. **Environments.** Python 3.8 with NVIDIA's Jetson PyTorch and JetPack's TensorRT
    (`environment/requirements-edge.txt`); the nuPlan simulation environment comes from
    `bash environment/setup_nuplan_env.sh`.
-5. **Run.** `python reproduce.py --tier full --list` prints all 64 stages in order; `--tier full` runs them, and
+5. **Run.** `python reproduce.py --tier full --list` prints all 73 stages in order (Q1–Q9 are the follow-up's); `--tier full` runs them, and
    `--from <id>` resumes.
 
 Stage markers: `[D]` needs datasets, `[H]` is hardware-dependent. The full pipeline takes several days on the

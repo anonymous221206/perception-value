@@ -1,0 +1,42 @@
+{
+ "yolov8s__ns_full_640->yolov8m__ns_full_640": {
+  "equal_count_threshold": 0.2958984375,
+  "old_boxes_val_at_0.25": 35526
+ },
+ "yolov8s__ns_full_640->yolov8l__ns_full_640": {
+  "equal_count_threshold": 0.304931640625,
+  "old_boxes_val_at_0.25": 35526
+ },
+ "yolov8s__ns_full_640->yolov8x__ns_full_640": {
+  "equal_count_threshold": 0.32763671875,
+  "old_boxes_val_at_0.25": 35526
+ },
+ "yolov8m__ns_full_640->yolov8l__ns_full_640": {
+  "equal_count_threshold": 0.2509765625,
+  "old_boxes_val_at_0.25": 39265
+ },
+ "yolov8l__ns_full_640->yolov8x__ns_full_640": {
+  "equal_count_threshold": 0.2705078125,
+  "old_boxes_val_at_0.25": 39268
+ },
+ "yolo11s__ns_full_640->yolo11m__ns_full_640": {
+  "equal_count_threshold": 0.26904296875,
+  "old_boxes_val_at_0.25": 35985
+ },
+ "yolov8s__ns_full_640->yolo11s__ns_full_640": {
+  "equal_count_threshold": 0.25537109375,
+  "old_boxes_val_at_0.25": 35526
+ },
+ "yolov8m__ns_full_640->yolo11m__ns_full_640": {
+  "equal_count_threshold": 0.2254638671875,
+  "old_boxes_val_at_0.25": 39265
+ },
+ "yolov8s__ns_full_640->rtdetrl__rt_full_640": {
+  "equal_count_threshold": 0.440673828125,
+  "old_boxes_val_at_0.25": 35526
+ },
+ "yolov8s__ns_cheap_320->yolov8l__ns_full_640": {
+  "equal_count_threshold": 0.5849609375,
+  "old_boxes_val_at_0.25": 21521
+ }
+}

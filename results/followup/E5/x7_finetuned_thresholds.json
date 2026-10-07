@@ -1,0 +1,10 @@
+{
+ "yolov8m_ft__ns_full_640->yolov8l_ft__ns_full_640": {
+  "equal_count_threshold": 0.2493896484375,
+  "old_boxes_val_at_0.25": 33431
+ },
+ "yolov8s_ft__ns_cheap_320->yolov8s_ft__ns_full_640": {
+  "equal_count_threshold": 0.60205078125,
+  "old_boxes_val_at_0.25": 18212
+ }
+}

@@ -51,6 +51,9 @@ MODES = {
     # KITTI pair's 4x pixel ratio, so the fidelity gap is comparable across datasets.
     "ns_cheap_320": Mode("ns_cheap_320", 192, 320),
     "ns_full_640": Mode("ns_full_640", 384, 640),
+    # Further nuScenes fidelities (follow-up track): same letterbox convention, both sides divisible by 32.
+    "ns_mid_480": Mode("ns_mid_480", 288, 480),
+    "ns_full_960": Mode("ns_full_960", 544, 960),
     # Detector-B. RT-DETR is a set-prediction transformer: no NMS, and ultralytics only
     # supports square input for it, so these are square and the aspect padding differs
     # from the YOLO modes. The 4x pixel ratio between the pair is preserved.

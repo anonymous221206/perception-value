@@ -214,6 +214,7 @@ class NuScenesDB:
                              foot_ego[:, 1].mean(), foot_ego[:, 1].min(),
                              foot_ego[:, 1].max(), 0.0, np.inf, False))
         if not rows:
+            self._track_map[self.scene_name(scene)] = {}      # a scene without any evaluated object (follow-up scenes)
             return np.zeros(0, dtype=GEOM_FIELDS)
         # track ids must be integers for the shared range-rate routine; the mapping is
         # kept so annotations can be recovered by track id later (PKL submissions need the

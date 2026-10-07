@@ -110,6 +110,8 @@ def main():
                     help="keep frames whose horizon runs past the end of the scene")
     ap.add_argument("--max_train_scenes", type=int, default=200)
     ap.add_argument("--tag", default="planner_d_data")
+    ap.add_argument("--scene_list", default=None,
+                    help="CSV with a 'scene' column replacing the split's scenes (follow-up track); default: the split")
     frames.add_argument(ap)
     args = ap.parse_args()
     frames.configure(args)
@@ -127,6 +129,9 @@ def main():
 
     split = json.loads((ROOT / "configs/phase0g_scene_split.json").read_text())
     names = split[args.split]
+    if args.scene_list:
+        import pandas as pd
+        names = sorted(pd.read_csv(args.scene_list).scene)
     nusc = NuScenes(version=args.version, dataroot=args.dataroot, verbose=False)
     loc_of = {sc["name"]: nusc.get("log", sc["log_token"])["location"]
               for sc in nusc.scene if sc["name"] in set(names)}

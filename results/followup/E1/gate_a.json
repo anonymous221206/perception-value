@@ -1,0 +1,53 @@
+{
+ "tables": {
+  "oracle": {
+   "frames_ref": 3376,
+   "frames_new": 3376,
+   "columns_compared": 78,
+   "columns_only_in_ref": [
+    "JC_cheap",
+    "JC_full",
+    "dJC",
+    "dJC_soft",
+    "G_PKL",
+    "G_TIP",
+    "_dJ_longitudinal",
+    "_dJ_lateral",
+    "_dJ_plannerC_path_dev",
+    "_dJ_plannerC_ade_truth",
+    "_dJ_plannerC_fde_truth"
+   ],
+   "columns_differing": []
+  },
+  "mono": {
+   "frames_ref": 3376,
+   "frames_new": 3376,
+   "columns_compared": 78,
+   "columns_only_in_ref": [
+    "JC_cheap",
+    "JC_full",
+    "dJC",
+    "dJC_soft",
+    "G_PKL",
+    "G_TIP",
+    "_dJ_longitudinal",
+    "_dJ_lateral",
+    "_dJ_plannerC_path_dev",
+    "_dJ_plannerC_ade_truth",
+    "_dJ_plannerC_fde_truth"
+   ],
+   "columns_differing": []
+  }
+ },
+ "comparisons": {
+  "describe": 132,
+  "92_official": 480,
+  "103_R1": 288,
+  "107_R2": 72,
+  "125_significance": 2880
+ },
+ "differing": [],
+ "n_differing": 0,
+ "result": "pass",
+ "r2_run": "20260925_102353_router_r2_ego"
+}

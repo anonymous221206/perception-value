@@ -1,0 +1,90 @@
+{
+ "parity": {
+  "status": "pass",
+  "date": "2026-10-04",
+  "what": "existing ns_cheap_320 / ns_full_640 TensorRT engines re-run on the frozen 85 scenes (scripts/40_nusc_detect.py, unchanged) vs data/cache/nusc_det_tv",
+  "result": {
+   "ns_cheap_320": {
+    "files": 85,
+    "differing": 0
+   },
+   "ns_full_640": {
+    "files": 85,
+    "differing": 0
+   }
+  },
+  "frames": 3376,
+  "seconds": 208,
+  "run": "results/raw/20261004_191333_nusc_detect",
+  "environment": {
+   "l4t": "R35.6.5",
+   "tensorrt": "8.5.2.2",
+   "cuda": "11.4",
+   "torch": "2.1.0a0+41361538.nv23.06",
+   "ultralytics": "8.3.40",
+   "power_mode": "MAXN",
+   "fan": "manual 255"
+  },
+  "engines": {
+   "yolov8s_ns_cheap_320.engine": {
+    "input_hw": [
+     192,
+     320
+    ],
+    "md5": "eb0e1c295fcca5e2eff7d0ed9058eb94",
+    "built": "2026-09-11"
+   },
+   "yolov8s_ns_full_640.engine": {
+    "input_hw": [
+     384,
+     640
+    ],
+    "md5": "2987564f8a792d058615d2dc51e67588",
+    "built": "2026-09-11"
+   }
+  },
+  "convention": "letterbox 1600x900 to (net_h, net_w), both divisible by 32; new engines: 288x480, 544x960"
+ },
+ "a": {
+  "status": "pass",
+  "date": "2026-10-05",
+  "report": "results/followup/E1/gate_a.json",
+  "comparisons": {
+   "describe": 132,
+   "92_official": 480,
+   "103_R1": 288,
+   "107_R2": 72,
+   "125_significance": 2880
+  },
+  "n_differing": 0
+ },
+ "b": {
+  "status": "recorded",
+  "informational": true,
+  "date": "2026-10-06",
+  "this_repository": -0.18167381286299092,
+  "interval": [
+   -0.6362186903255328,
+   0.2307388977801939
+  ],
+  "harmed_share": 0.5214646464646465,
+  "affected": 792,
+  "exploratory_value": -0.181,
+  "difference": -0.0006738128629909246
+ },
+ "planner_chain": {
+  "status": "pass",
+  "date": "2026-10-06",
+  "what": "60/70/74 over 850 scenes; the 85 frozen scenes' truth-referenced planner costs vs data/cache/planner_d_ego",
+  "result": {
+   "oracle": {
+    "frames": 2655,
+    "differing": 0
+   },
+   "mono": {
+    "frames": 2655,
+    "differing": 0
+   }
+  }
+ }
+}

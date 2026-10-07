@@ -1,0 +1,9 @@
+# Released weights (release-page assets): the checkpoints as trained, with the training machine's paths removed from
+# the stored training arguments. Tensors and predictions are identical to the weights as trained.
+67ddf8d6e90a2bfbf2456b0fda90b65a  yolov8s_ft.pt
+3f39cbb0e425fb0c99961d217aa41c56  yolov8m_ft.pt
+4748019d00122d926dd059a67674d409  yolov8l_ft.pt
+# The weights as trained (the follow-up detections were made with these)
+4067cc64d7ee25ffdd93982feb091775  yolov8s_ft.pt
+ca01b1617aaa37a879229a354e260917  yolov8m_ft.pt
+9aea5b79f176cf4512abeccdf811f338  yolov8l_ft.pt

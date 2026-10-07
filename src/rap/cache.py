@@ -45,7 +45,7 @@ def save(path: Path, frames: list[int], dets: list[dict], geos: list[dict] | Non
 
 
 KITTI_CACHES = {"det", "det512", "rtdetr_kitti", "rtdetr_kitti_mid", "modesel"}
-NUSC_CACHES = {"nusc_det_tv"}
+NUSC_CACHES = {"nusc_det_tv", "nusc_det_xl", "xl_models"}      # the last two: the follow-up track (199's table)
 PERM = np.array([[0.0, 0.0, 1.0], [-1.0, 0.0, 0.0], [0.0, -1.0, 0.0]])     # camera (x right, y down, z fwd) -> ego
 
 
@@ -55,7 +55,12 @@ def _table() -> dict:
     f = Path(CACHE) / "cam_to_ego.json"
     if not f.exists():
         raise SystemExit(f"missing {f}: run scripts/143_cam_to_ego_table.py")
-    return json.loads(f.read_text())
+    t = json.loads(f.read_text())
+    x = Path(CACHE) / "cam_to_ego_xl.json"       # follow-up scenes (199); a frozen entry is never replaced
+    if x.exists():
+        for n, e in json.loads(x.read_text())["nuScenes"].items():
+            t["nuScenes"].setdefault(n, e)
+    return t
 
 
 class Camera:

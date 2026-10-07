@@ -1,0 +1,5 @@
+population,geometry,system,frames,n_frames,share_fp_added_considered,share_miss_recovered_considered
+new228_test,oracle,brake,harmed,200,0.745,0.155
+new228_test,oracle,brake,helped,184,0.20652173913043478,0.42934782608695654
+new228_test,mono,brake,harmed,413,0.4261501210653753,0.2736077481840194
+new228_test,mono,brake,helped,379,0.17678100263852242,0.22955145118733508

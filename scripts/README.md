@@ -144,3 +144,29 @@ Each of these answers one question asked of the benchmark after its first result
 | script | what | marker |
 |---|---|---|
 | `118_figure_exports.py` | BEV object table, gallery frames, budget curves | D |
+
+## Follow-up experiments
+
+Specified before its values were computed in `docs/followup_protocol.md`; outputs, gates and deviations in `docs/followup_index.md`.
+
+| script | what | marker |
+|---|---|---|
+| `168_build_engines_ns.sh` | TensorRT engines for the follow-up modes (288x480, 544x960) and detectors, `<weights>:<mode>` pairs | H |
+| `170_xl_tables.py` | per-frame tables of the 850-scene nuScenes track (and of the frozen 85, gate (a)) | D |
+| `171_xl_settings.py` | E1: settings, heterogeneity, concentration, gate (b) | |
+| `172_xl_allocators.py` | E1: gate (a) (`--gate`); allocators, log bootstrap, Holm, official-validation planner rows, log-grouped OOF, budget sweep | |
+| `173_xl_learning_curve.py` | E1: learning curve over training-scene counts | |
+| `174_ft_dataset.py` | E5: the fine-tuning set from the new training and validation scenes | D |
+| `175_ft_train.py` | E5: the fixed fine-tuning recipe (Ultralytics 8.3.40) | H |
+| `176_nusc_detect_models.py` | E5: CAM_FRONT detection with any detector and mode | H, D |
+| `177_xl_capacity.py` | E5: braking rows of the capacity, architecture and fine-tuned pairs | D |
+| `178_xl_costs.py` | E5: measured latency and module energy of every engine | H |
+| `179_xl_secondary.py` | E1: sign disagreement, validation-selected comparison; mechanism counts | D (mechanism) |
+| `180_xl_router_r2.py` | E1: the pixel router on the follow-up scenes | H, D |
+| `181_xl_multifidelity.py` | E1: multi-fidelity under measured costs | |
+| `182_xl_transfer.py` | E1: allocator transfer across scene sets, cities and datasets | |
+| `183_xl_temporal.py` | E1: a router with temporal context | D |
+| `184_xl_frontier.py` | E5: oracle frontier along the resolution and capacity ladders | D |
+| `187_x7_planner_rasters.py` | E5: planner rasters per detector (object channel redrawn on E1's rasters; `check` is the byte-identity gate) | D |
+| `188_x7_planner_rows.py` | E5: planner rows of every pair | |
+| `199_xl_cam_to_ego.py` | camera -> ego table of the follow-up scenes (`data/cache/cam_to_ego_xl.json`) | D |
