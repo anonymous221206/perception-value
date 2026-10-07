@@ -171,7 +171,13 @@ CACHED = [
     ("C47", "follow-up E1: allocator transfer across scene sets, cities and datasets (about one hour)", EDGE,
      "PYTHONHASHSEED=0 {py} scripts/182_xl_transfer.py", ["results/followup/E1/x6_transfer.csv"]),
     ("C48", "follow-up E5 (results/followup/E5/): planner rows of the capacity, architecture and fine-tuning pairs", EDGE,
-     "PYTHONHASHSEED=0 {py} scripts/188_x7_planner_rows.py", ["results/followup/E5/x7_planner.csv"]),
+     "PYTHONHASHSEED=0 {py} scripts/188_x7_planner_rows.py", ["results/followup/E5/x7_planner.csv"]),    ("C49", "follow-up E2 (results/followup/E2/): decision value on NAVSIM navtest with PDM-Closed, its strata, "
+     "allocators and the validation-selected comparison", EDGE, "PYTHONHASHSEED=0 {py} scripts/193_navsim_analysis.py",
+     ["results/followup/E2/settings.csv", "results/followup/E2/strata.csv", "results/followup/E2/allocators.csv",
+      "results/followup/E2/validation_selected.csv"]),
+    ("C50", "follow-up E6 (results/followup/E6/): a learned planner on the nuPlan real-perception track, beside "
+     "PDM-Closed and IDM, and the A/A noise floor", EDGE, "PYTHONHASHSEED=0 {py} scripts/185_e6_settings.py",
+     ["results/followup/E6/settings.csv", "results/followup/E6/aa_noise.csv"]),
 ]
 
 # the full pipeline from raw data, in the order the results were produced; D = needs datasets, H = hardware-dependent
@@ -335,7 +341,14 @@ FULL = [
      "fine-tuned weights, see results/followup/E5/"),
     ("Q9", "[D] follow-up E5: the frontier along the two escalation ladders; planner rasters per detector and PKL's "
      "planner per pair (read by C48)", EDGE,
-     "{py} scripts/184_xl_frontier.py   # then 187 check / render / assemble and 74 per pair, see results/followup/E5/"),
+     "{py} scripts/184_xl_frontier.py   # then 187 check / render / assemble and 74 per pair, see results/followup/E5/"),    ("R1", "[H,D] follow-up E2: NAVSIM tokens and CAM_F0 detections (read by C49)", EDGE,
+     "{py} scripts/190_navsim_tokens.py && {py} scripts/191_navsim_detect.py"),
+    ("R2", "[D] follow-up E2: PDMS of the reference, cheap and full branches on navtest and OpenScene mini, in NAVSIM's "
+     "environment (GPU machine; environment variables in the script's docstring), then the gates", EDGE,
+     "{py} scripts/192_navsim_pdms.py   # per split and shard, in NAVSIM's environment; then {py} "
+     "scripts/193_navsim_analysis.py --gates"),
+    ("R3", "[D] follow-up E6: Diffusion Planner on the 1,440 nuPlan states, all branches and the A/A call (GPU; read by "
+     "C50)", NUPLAN, "DEEP_DEVICE=cuda {py} scripts/197_nuplan_learned_planner.py"),
 ]
 
 

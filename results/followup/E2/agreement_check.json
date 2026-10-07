@@ -1,0 +1,12 @@
+{
+ "tokens_scored": 12146,
+ "tokens_with_errors": 0,
+ "reference_mean_pdms": 0.9000480919586705,
+ "E2_1": {
+  "tokens_compared": 300,
+  "cheap_equal_share": 0.9733333333333334,
+  "full_equal_share": 0.9866666666666667,
+  "cheap_mean_diff": 2.252910790464968e-05,
+  "full_mean_diff": -2.4448749634277864e-06
+ }
+}

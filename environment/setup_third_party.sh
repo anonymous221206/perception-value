@@ -23,4 +23,7 @@ clone pkl            https://github.com/nv-tlabs/planning-centric-metrics.git   
 clone tip            https://github.com/qcraftai/tip.git                         e52fd48de0624a9c54e93c8436f6bd7529b2a5d3
 clone edgeml-object-detection https://github.com/qiujiaming315/edgeml-object-detection.git 859f70240aa090359ba827b374b68ca7821b7d55
 clone bgt-ada       https://github.com/ViGeng/bgt-ada.git                         6669ab0089a04fbe6257ebdc2601de13ed0e5398
+clone diffusion_planner https://github.com/ZhengYinan-AIR/Diffusion-Planner.git a3a621f0b724c5fa6447f7a2fbaf9e0387bd35df   # follow-up E6
+clone navsim        https://github.com/autonomousvision/navsim.git              3e8291bfa89ff247231e0227778840cd0a036896   # follow-up E2
+echo "Follow-up E6: download the Diffusion Planner checkpoint (args.json, model.pth) into third_party/diffusion_planner/checkpoints/ (third_party/PROVENANCE.md)."
 echo "PKL's own weight links no longer resolve; the pipeline uses the planner.pt and masks_trainval.json vendored by TIP."

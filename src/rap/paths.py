@@ -24,6 +24,8 @@ KITTI_OXTS = DATA / "training" / "oxts"
 NUSCENES_TRAINVAL = DATASETS / "nuscenes" / "trainval"
 NUSCENES_XL = DATASETS / "nuscenes" / "trainval_xl"      # all 850 trainval scenes (follow-up track)
 NAVSIM_ROOT = DATASETS / "navsim"                         # OpenScene logs and CAM_F0 blobs (follow-up)
+NUPLAN_ROOT = DATASETS / "nuplan"                         # as 115's defaults (follow-up E6)
+NUPLAN_MAPS = NUPLAN_ROOT / "nuplan-maps-v1.0"
 
 CACHE = REPO / "data" / "cache"
 RESULTS = REPO / "results"

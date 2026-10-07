@@ -170,3 +170,10 @@ Specified before its values were computed in `docs/followup_protocol.md`; output
 | `187_x7_planner_rasters.py` | E5: planner rasters per detector (object channel redrawn on E1's rasters; `check` is the byte-identity gate) | D |
 | `188_x7_planner_rows.py` | E5: planner rows of every pair | |
 | `199_xl_cam_to_ego.py` | camera -> ego table of the follow-up scenes (`data/cache/cam_to_ego_xl.json`) | D |
+| `185_e6_settings.py` | E6: setting-level decision value of the learned planner beside PDM-Closed and IDM, and the A/A noise floor | |
+| `190_navsim_tokens.py` | E2: navtest and OpenScene mini tokens, development split, CAM_F0 image list | D |
+| `191_navsim_detect.py` | E2: YOLOv8s 192x320 / 384x640 on the NAVSIM CAM_F0 images | H, D |
+| `192_navsim_pdms.py` | E2: PDMS of the reference, cheap and full branches (NAVSIM's environment) | D |
+| `193_navsim_analysis.py` | E2: gates E2-0 / E2-1 (`--gates`), settings, strata, allocators, validation-selected comparison | |
+| `197_nuplan_learned_planner.py` | E6: Diffusion Planner on the nuPlan real-perception states (nuPlan environment, GPU) | D |
+| `shims/mmengine/` | the three local file-IO functions Diffusion Planner imports from mmengine | |

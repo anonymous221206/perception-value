@@ -1,0 +1,46 @@
+{
+ "date": "2026-10-04",
+ "sample": "1-in-12 of navtest tokens sorted by (log, token): 1,013 tokens",
+ "published_pdm_closed_pdms": 0.881,
+ "published_source": "NAVSIM paper, PDM-Closed (privileged) row (value and EP of about 0.899 as recorded in the exploratory notes, not re-checked against the paper here)",
+ "runs": {
+  "A": {
+   "setting": "devkit v1.1 (3e8291b), handover 0.5 s x 8 (addendum setting)",
+   "tokens": 1013,
+   "errors": 0,
+   "score_mean": 0.8958,
+   "no_at_fault_collisions_mean": 0.9378,
+   "drivable_area_compliance_mean": 0.9872,
+   "ego_progress_mean": 0.9245,
+   "time_to_collision_within_bound_mean": 0.8727,
+   "comfort_mean": 0.999,
+   "equal_to_exploratory_reference_share": 1.0
+  },
+  "B": {
+   "setting": "devkit v1.1, handover 0.1 s x 40",
+   "tokens": 1013,
+   "errors": 0,
+   "score_mean": 0.8991,
+   "no_at_fault_collisions_mean": 0.9398,
+   "drivable_area_compliance_mean": 0.9911,
+   "ego_progress_mean": 0.9316,
+   "time_to_collision_within_bound_mean": 0.8657,
+   "comfort_mean": 1.0,
+   "equal_to_exploratory_reference_share": 0.3968
+  },
+  "C": {
+   "setting": "devkit v1.0 tag scorer, handover 0.5 s x 8",
+   "tokens": 1013,
+   "errors": 0,
+   "score_mean": 0.8888,
+   "no_at_fault_collisions_mean": 0.9378,
+   "drivable_area_compliance_mean": 0.9842,
+   "ego_progress_mean": 0.9139,
+   "time_to_collision_within_bound_mean": 0.8736,
+   "comfort_mean": 0.998,
+   "equal_to_exploratory_reference_share": 0.9556
+  }
+ },
+ "reading": "The port's reference branch reproduces the exploratory wrapper token for token (A: 100% equal). The handover interval is not the cause (B raises PDMS by 0.003). The scorer change between NAVSIM v1.0 and v1.1 accounts for about 0.007 of the gap (C, mostly ego progress and drivable-area compliance); the remainder (about 0.008 on this sample) is not isolated: NAVSIM v1.1 ships no PDM-Closed agent, so the published pipeline cannot be re-run. Every difference found is a scorer or setting difference common to the cheap and full branches, so it shifts PDMS levels but not the decision value V = PDMS(full) - PDMS(cheap) by construction.",
+ "status": "pass with a documented residual"
+}

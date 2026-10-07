@@ -147,3 +147,18 @@ comparison requires. Official nuPlan metrics were written for both.
   `src/error_decomposition.py`), unmodified, on the benchmark's cached detections. The package `__init__` is not
   executed: it imports `src/features.py`, whose Python 3.9 annotations fail on the Python 3.8 environment, and which
   nothing here uses (148 `_geng`).
+
+## Diffusion Planner — Zheng et al., ICLR 2025 (follow-up E6)
+- repo: https://github.com/ZhengYinan-AIR/Diffusion-Planner
+- commit: `a3a621f0b724c5fa6447f7a2fbaf9e0387bd35df` (2026-03-10)
+- checkpoint: https://huggingface.co/ZhengYinan2001/Diffusion-Planner (`args.json` md5 511a6087bf17237056c9377d77773a40,
+  `model.pth` md5 ec857b3ef670b8e0b3ea16551dc17926), in `third_party/diffusion_planner/checkpoints/`
+- used via `diffusion_planner.planner.planner.DiffusionPlanner`, unmodified; its only mmengine use (local file IO in
+  `utils/train_utils.py`) is served by `scripts/shims/mmengine/fileio.py`
+
+## NAVSIM — Dauner et al., NeurIPS 2024 Datasets and Benchmarks (follow-up E2)
+- repo: https://github.com/autonomousvision/navsim
+- commit: `3e8291bfa89ff247231e0227778840cd0a036896` (devkit v1.1)
+- used via: its metric caching script, `PDMScorer` / `pdm_score` with the default scoring parameters, and its scene
+  loader, in its own environment (`scripts/192_navsim_pdms.py`); unmodified. The OpenScene logs and CAM_F0 sensor blobs
+  of the test and mini splits are user-supplied (`data/README.md`)

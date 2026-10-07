@@ -301,3 +301,178 @@ Primary, declared now:
   - Then the uniform ladder with repeats; routing at matched budgets last.
 - **E6:** a learned planner on the cached nuPlan observations.
 - **E7:** a LiDAR detector pair on nuScenes with metric 3D boxes.
+
+## Addenda
+
+The addenda follow in the order of the follow-up list. Each was committed before the first value of its item.
+
+---
+
+## Addendum E2 — NAVSIM navtest with PDM-Closed
+
+Addendum to `followup_protocol.md` (Section 9), committed before any decision value of E2 is computed. Reviewed afterwards
+from the index. Sections 3 (statistics conventions), 4 (gates stop only what depends on them) and 6 (every outcome is
+reported) of the protocol apply.
+
+### Data
+
+- **Scored set:** NAVSIM v1.1 navtest — 12,146 tokens in 136 logs (OpenScene test split, the navtest scene filter).
+  Each token is one decision state.
+- **Development set (allocator fitting only):** the OpenScene mini split with NAVSIM's default filter. Logs are sorted
+  by name; a log at position i goes to validation if i mod 5 = 4, otherwise to train.
+- **Metric caches:** produced by NAVSIM's own caching script (devkit v1.1) on the training machine. They are used as
+  data; their file counts and the devkit commit are recorded with the run.
+
+### Perception
+
+- **Modes:** the benchmark's own nuScenes engines, YOLOv8s TensorRT FP16 on the Jetson, letterboxed from the
+  1920×1080 CAM_F0 image: 192×320 (cheap) and 384×640 (full).
+- **Detection:** operating threshold 0.25 for both modes; decoding as in Section 3 of the protocol.
+- **Camera model:** intrinsics, distortion and camera-to-LiDAR extrinsics from the OpenScene metadata of each token.
+
+### Downstream system and decision value
+
+PDM-Closed as NAVSIM's metric-cache processor builds it, scored by NAVSIM's `pdm_score` with the default scoring
+parameters.
+
+**Objects per branch.** The rule is the benchmark's nuPlan real-perception rule:
+- **reference:** the token's annotations.
+- **cheap / full:** eligible annotations (vehicle, pedestrian, bicycle) are projected into CAM_F0 and matched to that
+  mode's detections (Hungarian, class-compatible, IoU ≥ 0.3).
+  - Unmatched in-camera eligible annotations are removed.
+  - Unmatched detections are added as static objects on the ground plane. The plane height is the median bottom of
+    vehicle boxes within 30 m over the navtest annotations. Sizes are the class medians of those annotations.
+  - Everything outside CAM_F0 is unchanged.
+
+**Trajectory handover.** The planner's trajectory is handed over as NAVSIM's `Trajectory`: 8 poses at 0.5 s,
+ego-local, as for any agent.
+
+**Decision value.**
+- V = PDMS(full) − PDMS(cheap) per token.
+- Also computed per sub-score: no-at-fault collision, drivable-area compliance, ego progress, time to collision,
+  comfort.
+
+### Gates (in order; each stops E2 until resolved)
+
+1. **E2-0, reference fidelity.** This repository's reference branch is compared with NAVSIM's official PDM-Closed
+   agent evaluation on navtest (the published value is 0.881). Any difference is traced to its cause and recorded
+   before any V is computed.
+   - The cause is fixed in the port, if it is the port's.
+   - It is documented, if it is a devkit or setting difference that does not affect the cheap/full comparison.
+2. **E2-1, agreement (informational).** On a sample of 300 tokens, this repository's cheap and full scores are
+   compared with the exploratory values recorded before this protocol. A difference is recorded, not corrected.
+
+### Quantities
+
+**Setting level.** On navtest:
+- affected tokens, harmed share and harm ratio ρ, all-full and oracle@20 reduction (relative to the all-cheap mean
+  PDMS shortfall);
+- intervals from a 1,000-draw bootstrap by log;
+- the same for each sub-score.
+
+PDMS is a score, not a loss: the loss is 1 − PDMS, so V is unchanged and "reduction" is of 1 − PDMS.
+
+**Strata (secondary).**
+- Ego-speed terciles.
+- Terciles of the number of annotated agents within 30 m.
+- Whether a vehicle annotation lies ahead within 30 m and 2 m laterally (lead vehicle).
+- NAVSIM's driving command (left / straight / right).
+
+### Allocators
+
+All are fitted on the development train logs and scored once on navtest at selection budgets 5–50%, with an
+every-draw log bootstrap paired against random.
+- **Signals:** random; ego speed; detector uncertainty (summed binary entropy of the cheap detections); number of
+  cheap detections.
+- **Learned:** a ridge and a gradient-boosted gate over cheap-side features, and 103's detection-list routers
+  (GBM / MLP on V and 1[V > 0]).
+  - Gate features: counts, confidences and entropies of the cheap detections, their image-area statistics, and the
+    lifted ground-plane distance of the nearest cheap detection ahead.
+  - Model settings: the benchmark's models and settings.
+- **Hyperparameters:** none are tuned. The development validation logs are used only for the validation-selected
+  comparison of the protocol's Section 7.
+
+### Reading
+
+- **If PDMS barely reacts to front-camera perception** (few affected tokens), that is reported as the result: decision
+  value is sparse for this consumer and this camera.
+- **If affected tokens are fewer than 30**, harm ratio and allocator nDG are reported as undefined, with the count.
+
+---
+
+## Addendum E6 — a learned nuPlan planner on the external track
+
+Addendum to `followup_protocol.md` (Section 9), committed before any E6 decision value. Reviewed afterwards from the
+index.
+
+### Planner
+
+Diffusion Planner (Zheng et al., ICLR 2025), the authors' released nuPlan checkpoint and configuration, used as a nuPlan
+`AbstractPlanner` with its released inference settings.
+
+- **Fallback:** PLUTO (Cheng et al., 2024) with its released checkpoint, if the first cannot be run with its released
+  code. The choice and the reason are recorded in the index before any decision value.
+- **No retraining or tuning.**
+
+### States, branches and losses
+
+Everything except the planner is the benchmark's nuPlan real-perception track: the same 1,440 states of nuPlan mini, the
+same reference, cheap and full observations (real detections on CAM_F0), a fresh planner instance per state and branch,
+open-loop scoring.
+
+**Losses.** The track's safety loss and scalar loss, scored by the track's code on the planned trajectory.
+
+**Decision value.** V = L(cheap) − L(full) per state and loss.
+
+### Reported
+
+- affected states, harmed share, harm ratio ρ, all-full and oracle@20 reductions, with 1,000-draw intervals by log
+  (all logs);
+- the same quantities for PDM-Closed on the same states, from the released track, beside them;
+- the number of states on which the planner failed in any branch; those states are dropped from every comparison.
+
+### Reading
+
+- **If fewer than 30 states are affected**, harm ratio and nDG are reported as undefined, with the count (as for IDM on
+  this track).
+- **A harmed share below 30%** is reported as such.
+
+### Amendment 1 (2026-10-07, before any E6 decision value)
+
+No E6 value has been computed: on the edge machine's CPU one planner call did not finish in about two hours, so no
+state was scored.
+
+- **Where it runs.** On the training machine's GPU (CUDA) with the same code, released checkpoint (md5 in
+  `third_party/PROVENANCE.md`), nuPlan mini databases (same 64 files) and branch specification. The planner and its
+  settings are unchanged.
+- **Sampling noise.** The released planner draws Gaussian noise for its diffusion sampler at every call. Without
+  control, V = L(cheap) − L(full) would mix the observation difference with sampling noise. The generator is therefore
+  seeded with 0 immediately before every call (the same random numbers in every branch), and cuDNN runs deterministically.
+- **A/A noise floor.** For every state, one more call on the reference observation with seed 1. Reported beside the
+  cheap-vs-full row: the share of states whose loss changes between seeds and the mean absolute change
+  (`aa_noise.csv`). This row is descriptive. It does not change the dropped-state rule or the reading.
+- **Determinism check before the run.** Two runs of the first scenario must give identical rows. Otherwise the
+  run goes ahead and the mismatch is recorded in the index.
+
+### Amendment 2 (2026-10-07, after the run, before any E6 decision value was computed)
+
+**What failed.** The full run (1,440 states, 5,723 planner calls on the training machine's GPU) finished. 180 states
+failed in every branch, the A/A call included, with nuPlan's "dx is not monotonically increasing". They are exactly
+the first three states of each of the 60 scenarios (iterations 4, 17 and 30).
+
+**Cause: this repository's input construction, not the planner.** For these states the 2 s history reaches back
+before the scenario's first iteration. 197 filled those frames by repeating the first frame, which gives duplicate
+timestamps, and nuPlan's derivative computation rejects them.
+
+**Fix.** Frames before the scenario's first iteration are now the logged ego states and tracks before it, read from the
+same nuPlan database (`get_ego_past_trajectory` / `get_past_tracked_objects`), on the same 0.1 s grid. Every history
+then has 21 frames spaced 0.1 s apart (checked on iterations 4, 17, 30 and 43). Branch observations are unaffected:
+they lie inside the last four frames of each state, and no state has a covered frame before the scenario start.
+
+**Rerun.** Only the 180 failed states are recomputed (`197 --redo_failed`), with the same seeds. The 1,260 states
+already scored have no frame before the scenario start, so their inputs and code path are unchanged and their rows
+are kept.
+
+**Reporting.** The primary rows use every state that succeeds after the rerun; states that still fail are dropped as
+the addendum says. Beside them, the same quantities on the 1,260 states of the first run, so the effect of the
+rerun is visible.
