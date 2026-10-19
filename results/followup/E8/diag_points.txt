@@ -1,0 +1,15 @@
+n 54317 recall 0.448957048437874
+unmatched best-IoU: <0.1 0.435, 0.1-0.3 0.250, 0.3-0.5 0.315
+covered 0.00-0.01: n  19422 recall 0.622
+covered 0.01-0.25: n   3141 recall 0.645
+covered 0.25-0.50: n   4851 recall 0.607
+covered 0.50-0.75: n   9227 recall 0.409
+covered 0.75-1.01: n  17676 recall 0.202
+cyclist 854 recall 0.200
+person 10549 recall 0.168
+vehicle 42914 recall 0.523
+touching image border 6050 recall 0.506 not touching 0.442
+range 0-10 m: n 4099 recall 0.710
+range 10-20 m: n 6314 recall 0.650
+range 20-40 m: n 18508 recall 0.522
+range 40-200 m: n 25055 recall 0.306

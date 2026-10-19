@@ -1,0 +1,8 @@
+{
+ "model": "transfusion_lidar",
+ "keyframes": 13748,
+ "scenes": 342,
+ "latency_ms_median_200": 96.69733047485352,
+ "seconds": 2163.950446128845,
+ "checkpoint_md5": "0de1dd127c32f2b008595ed771c00429"
+}

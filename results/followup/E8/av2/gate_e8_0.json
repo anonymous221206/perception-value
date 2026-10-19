@@ -1,0 +1,18 @@
+{
+ "versions": {
+  "raw": {
+   "recall_640_ge30px": 0.325258277416553,
+   "n_ref_ge30px": 326974,
+   "lift_rel_error_median": 0.02454775059223405,
+   "n_matched": 99365
+  },
+  "undist": {
+   "recall_640_ge30px": 0.3163921290377828,
+   "n_ref_ge30px": 326974,
+   "lift_rel_error_median": 0.008356193921679026,
+   "n_matched": 96733
+  }
+ },
+ "version": "raw",
+ "pass": false
+}

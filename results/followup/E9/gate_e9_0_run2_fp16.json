@@ -1,0 +1,25 @@
+{
+ "pass": false,
+ "cells": {
+  "nuScenes|small": {
+   "boxes": 424,
+   "median_rel_diff": 0.0006655505858361721,
+   "p95_rel_diff": 0.003488397842738775
+  },
+  "nuScenes|large": {
+   "boxes": 424,
+   "median_rel_diff": 0.011057022958993912,
+   "p95_rel_diff": 0.04805437140166755
+  },
+  "KITTI|small": {
+   "boxes": 499,
+   "median_rel_diff": 0.003280570497736335,
+   "p95_rel_diff": 0.013890956994146086
+  },
+  "KITTI|large": {
+   "boxes": 499,
+   "median_rel_diff": 0.04052118957042694,
+   "p95_rel_diff": 0.1737354293465612
+  }
+ }
+}

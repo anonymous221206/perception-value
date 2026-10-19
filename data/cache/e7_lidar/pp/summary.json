@@ -1,0 +1,8 @@
+{
+ "model": "cbgs_dyn_pp_centerpoint",
+ "keyframes": 13748,
+ "scenes": 342,
+ "latency_ms_median_200": 44.28744316101074,
+ "seconds": 1118.0647556781769,
+ "checkpoint_md5": "20ffeadece5b6979c2be454ec97fbe95"
+}

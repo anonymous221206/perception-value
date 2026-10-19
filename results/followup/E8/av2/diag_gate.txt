@@ -1,0 +1,22 @@
+n 326974 recall 0.325 network scale 0.210
+unmatched best-IoU: <0.1 0.589, 0.1-0.3 0.228, 0.3-0.5 0.183
+height 30-48 px (network 6-10): n  92065 recall 0.115
+height 48-72 px (network 10-15): n  84377 recall 0.250
+height 72-120 px (network 15-25): n  78556 recall 0.374
+height 120-240 px (network 25-50): n  48188 recall 0.601
+height 240-4000 px (network 50-839): n  23788 recall 0.685
+covered 0.00-0.01: n 106146 recall 0.533
+covered 0.01-0.25: n  21689 recall 0.459
+covered 0.25-0.50: n  33683 recall 0.393
+covered 0.50-0.75: n  52301 recall 0.252
+covered 0.75-1.01: n 113155 recall 0.119
+uncovered, height 30-48: n 19719 recall 0.214
+uncovered, height 48-72: n 20232 recall 0.421
+uncovered, height 72-4000: n 66195 recall 0.662
+cyclist 10209 recall 0.121
+person 76035 recall 0.092
+vehicle 240730 recall 0.408
+range 0-10 m: n 10076 recall 0.608
+range 10-20 m: n 28336 recall 0.745
+range 20-40 m: n 83218 recall 0.476
+range 40-300 m: n 205035 recall 0.192

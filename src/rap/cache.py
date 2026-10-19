@@ -46,6 +46,8 @@ def save(path: Path, frames: list[int], dets: list[dict], geos: list[dict] | Non
 
 KITTI_CACHES = {"det", "det512", "rtdetr_kitti", "rtdetr_kitti_mid", "modesel"}
 NUSC_CACHES = {"nusc_det_tv", "nusc_det_xl", "xl_models"}      # the last two: the follow-up track (199's table)
+ARGO_CACHES = {"argo1_det": "Argoverse1", "argo2_det": "Argoverse2", "argo2_det_raw": "Argoverse2",
+               "argo2_det_undist": "Argoverse2"}  # follow-up E8 (207 / 215 tables; E8b: both image versions of gate E8-0)
 PERM = np.array([[0.0, 0.0, 1.0], [-1.0, 0.0, 0.0], [0.0, -1.0, 0.0]])     # camera (x right, y down, z fwd) -> ego
 
 
@@ -60,6 +62,11 @@ def _table() -> dict:
     if x.exists():
         for n, e in json.loads(x.read_text())["nuScenes"].items():
             t["nuScenes"].setdefault(n, e)
+    a = Path(CACHE) / "cam_to_ego_argo.json"     # follow-up E8 (207): datasets of their own, nothing replaced
+    if a.exists():
+        for ds, ent in json.loads(a.read_text()).items():
+            if not ds.startswith("_"):
+                t.setdefault(ds, ent)
     return t
 
 
@@ -100,7 +107,7 @@ def camera_for(path: Path) -> Camera:
     """The camera of a cache file `<cache>/<mode>/<unit>.npz`, by its cache directory."""
     path = Path(path)
     root = path.parent.parent.name
-    dataset = "KITTI" if root in KITTI_CACHES else "nuScenes" if root in NUSC_CACHES else None
+    dataset = "KITTI" if root in KITTI_CACHES else "nuScenes" if root in NUSC_CACHES else ARGO_CACHES.get(root)
     if dataset is None:
         raise ValueError(f"{path}: no camera -> ego transform for cache {root!r}")
     return Camera(dataset, path.stem)

@@ -1,0 +1,8 @@
+{
+ "model": "transfusion_lidar",
+ "keyframes": 6019,
+ "mAP": 64.55439092730711,
+ "NDS": 69.4266774968897,
+ "published_mAP": 64.58,
+ "pass": true
+}

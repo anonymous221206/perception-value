@@ -64,7 +64,7 @@ pip install -r environment/requirements-cached.txt
 cp configs/paths.env.example configs/paths.env     # defaults: datasets/ and models/ here, the active environment
 source configs/paths.env
 
-python reproduce.py --tier cached --list           # the 51 stages, C1 to C50 (with C30b), in order
+python reproduce.py --tier cached --list           # the 55 stages, C1 to C54 (with C30b), in order
 python reproduce.py --tier cached --verify         # run them all and compare against the shipped files
 ```
 
@@ -72,7 +72,7 @@ Useful flags: `--only <id>` for one stage, `--from <id>` to resume. `python -m p
 those needing KITTI files, PyTorch or OpenCV skip themselves when those are absent.
 
 Roughly four hours on the reference device for C1–C40, dominated by the bootstraps in C14, C19, C22, C23 and C35
-and the seed refits in C37. The follow-up stages C41–C50 add about four hours, mostly C43, C44 and C47.
+and the seed refits in C37. The follow-up stages C41–C54 add about four and a half hours, mostly C43, C44 and C47.
 
 ## What `--verify` checks
 
@@ -204,7 +204,7 @@ committed before which result.
 
 Specified before its values were computed, after the benchmark release: `docs/followup_protocol.md` (the commit after tag `v1.0`), with the index
 of gates, deviations and open points in `docs/followup_index.md`; each addendum is appended to the protocol. Each experiment ships its results
-under `results/followup/`, the caches its cached stages read, and its scripts (168–199).
+under `results/followup/`, the caches its cached stages read, and its scripts (168–226).
 
 | experiment | what | outputs | cached stages |
 |---|---|---|---|
@@ -212,9 +212,16 @@ under `results/followup/`, the caches its cached stages read, and its scripts (1
 | E5 | escalation across detector capacity, architecture and fine-tuning, braking and planner rows, costs, oracle frontier | `results/followup/E5/` | C48 |
 | E2 | NAVSIM navtest with PDM-Closed: settings, sub-scores, strata, allocators fitted on OpenScene mini | `results/followup/E2/` | C49 |
 | E6 | a learned planner (Diffusion Planner) on the nuPlan real-perception track, with an A/A noise floor | `results/followup/E6/` | C50 |
+| E7 | a LiDAR detector pair on nuScenes (OpenPCDet's CenterPoint-PointPillar → VoxelNeXt, TransFusion-L): braking and planner rows | `results/followup/E7/` | C51–C52 |
+| E8 | Argoverse 1.1 and Argoverse 2: not run, both stopped at the alignment gate E8-0; gate results and breakdowns | `results/followup/E8/` | — |
+| E9 | the range estimator escalated from the ground-plane lift to Depth Anything V2 (metric), with range error and Jetson costs | `results/followup/E9/` | C53 |
+| E10 | escalation in time: reuse the last detections or run the detector | `results/followup/E10/` | C54 |
 
 The 850-scene caches (`data/cache/xl/`, `data/cache/nusc_det_xl/`) add about 265 MB, the NAVSIM caches
-(`data/cache/navsim/`) about 60 MB. The fine-tuned weights of E5
+(`data/cache/navsim/`) about 60 MB, the caches of E7, E9 and E10 (`data/cache/xl/e7/`, `e7_planner/`, `e9/`, `e10/`,
+`data/cache/e7_lidar/`) about 106 MB. E7's LiDAR detections (370 MB) and E8's detections are not shipped: C51 and
+C52 read the per-keyframe tables, the detectors' summaries and gate results, and the planner rows; `scripts/210_lidar_detect.py`,
+`207_argo_detect.py` and `215_av2_detect.py` rebuild the detections. The fine-tuned weights of E5
 (`yolov8s_ft.pt`, `yolov8m_ft.pt`, `yolov8l_ft.pt`; 156 MB) ship as assets of the repository's release page, not in the
 tree; put them in `models/`. Their md5 sums, training curves and arguments are in `results/followup/E5/finetune/`, and
 `scripts/174_ft_dataset.py` and `175_ft_train.py` rebuild them with the fixed recipe.

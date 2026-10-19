@@ -178,6 +178,20 @@ CACHED = [
     ("C50", "follow-up E6 (results/followup/E6/): a learned planner on the nuPlan real-perception track, beside "
      "PDM-Closed and IDM, and the A/A noise floor", EDGE, "PYTHONHASHSEED=0 {py} scripts/185_e6_settings.py",
      ["results/followup/E6/settings.csv", "results/followup/E6/aa_noise.csv"]),
+    ("C51", "follow-up E7 (results/followup/E7/): a LiDAR detector pair on nuScenes, braking rows with strata, "
+     "detection at the operating points and detector costs", EDGE,
+     "PYTHONHASHSEED=0 {py} scripts/211_lidar_tables.py --stage settings",
+     ["results/followup/E7/settings.csv", "results/followup/E7/detection.csv", "results/followup/E7/costs.csv"]),
+    ("C52", "follow-up E7: planner rows, PKL's planner on the LiDAR boxes against the logged trajectory", EDGE,
+     "PYTHONHASHSEED=0 {py} scripts/225_e7_planner_rows.py rows", ["results/followup/E7/planner.csv"]),
+    ("C53", "follow-up E9 (results/followup/E9/): the range estimator escalated to a metric depth network, and the "
+     "range error", EDGE, "PYTHONHASHSEED=0 {py} scripts/212_depth_escalation.py --stage settings",
+     ["results/followup/E9/settings.csv", "results/followup/E9/range_error.csv"]),
+    ("C54", "follow-up E10 (results/followup/E10/): escalation in time, the frame intervals and the refresh allocators",
+     EDGE, "PYTHONHASHSEED=0 {py} scripts/206_temporal_escalation.py --stage settings && "
+     "PYTHONHASHSEED=0 {py} scripts/206_temporal_escalation.py --stage refresh",
+     ["results/followup/E10/settings.csv", "results/followup/E10/intervals.csv",
+      "results/followup/E10/refresh_allocators.csv"]),
 ]
 
 # the full pipeline from raw data, in the order the results were produced; D = needs datasets, H = hardware-dependent
@@ -349,6 +363,31 @@ FULL = [
      "scripts/193_navsim_analysis.py --gates"),
     ("R3", "[D] follow-up E6: Diffusion Planner on the 1,440 nuPlan states, all branches and the A/A call (GPU; read by "
      "C50)", NUPLAN, "DEEP_DEVICE=cuda {py} scripts/197_nuplan_learned_planner.py"),
+    ("S1", "[D] follow-up E7: the LiDAR sweeps of E7's scenes, OpenPCDet's environment, detection with the three "
+     "checkpoints and gate E7-0 (GPU machine; B is its work root, holding datasets/nuscenes)", EDGE,
+     "SPLIT=$PWD/results/followup/E1/scene_split.csv bash scripts/205_nusc_sweeps_fetch.sh && bash scripts/209_pcdet_env.sh "
+     "&& bash scripts/218_e7_chain.sh   # with B set; then copy $B/deep_ext/nusc_lidar/e7_det/<model>/ to "
+     "data/cache/e7_lidar/<model>/"),
+    ("S2", "[D] follow-up E7: braking tables (read by C51); planner rows: submissions, rasters, pairs and PKL's planner "
+     "(read by C52)", EDGE,
+     "{py} scripts/211_lidar_tables.py --stage tables && {py} scripts/225_e7_planner_rows.py subs && for m in pp voxel "
+     "transfusion; do {py} scripts/225_e7_planner_rows.py render --model $m || exit 1; done && for n in voxel transfusion; "
+     "do {py} scripts/225_e7_planner_rows.py assemble --old pp --new $n && {py} scripts/74_plannerC_vs_truth.py --data "
+     "data/cache/xl/e7_planner/pairs/pp__$n --variant oracle --tag e7_plannerC_vs_truth || exit 1; done"),
+    ("S3", "[H,D] follow-up E8a: Argoverse 1.1 detections, LiDAR points per labelled box, gate E8-0 (E8a stopped there)",
+     EDGE, "{py} scripts/207_argo_detect.py && {py} scripts/217_av1_lidar_points.py --labels "
+     "datasets/argoverse1/argoverse-tracking/val --out data/cache/xl/e8a_lidar_counts && {py} scripts/208_argo_tables.py "
+     "--stage gate && {py} scripts/226_av1_gate_breakdown.py > results/followup/E8/diag_points.txt"),
+    ("S4", "[H,D] follow-up E8b: Argoverse 2 tables and images, detections of both image versions, gate E8-0 and its "
+     "breakdown (E8b stopped there)", EDGE,
+     "bash scripts/214_av2_copy.sh && {py} scripts/215_av2_detect.py --version raw && {py} scripts/215_av2_detect.py "
+     "--version undist && {py} scripts/216_av2_tables.py --stage gate && {py} scripts/223_av2_gate_breakdown.py > results/followup/E8/av2/diag_gate.txt"),
+    ("S5", "[H,D] follow-up E9: gate frames, the ONNX export and PyTorch reference (GPU machine), TensorRT engines "
+     "(Large with its layer norms in FP32), inference, gate E9-0, tables (read by C53) and costs", EDGE,
+     "{py} scripts/212_depth_escalation.py --stage gate_frames   # then 213 --stage export / reference, trtexec --fp16 "
+     "for Small and 224 for Large, 212 --stage infer per dataset and size, gate, tables, cost; see results/followup/E9/"),
+    ("S6", "[D] follow-up E10: per-frame tables of the stale and fresh branches and gate E10-0 (read by C54)", EDGE,
+     "{py} scripts/206_temporal_escalation.py --stage tables"),
 ]
 
 

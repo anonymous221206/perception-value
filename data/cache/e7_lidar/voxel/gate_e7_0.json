@@ -1,0 +1,8 @@
+{
+ "model": "cbgs_voxel0075_voxelnext",
+ "keyframes": 6019,
+ "mAP": 60.518221681359584,
+ "NDS": 66.64613138305549,
+ "published_mAP": 60.53,
+ "pass": true
+}

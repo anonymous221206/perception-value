@@ -177,3 +177,21 @@ Specified before its values were computed in `docs/followup_protocol.md`; output
 | `193_navsim_analysis.py` | E2: gates E2-0 / E2-1 (`--gates`), settings, strata, allocators, validation-selected comparison | |
 | `197_nuplan_learned_planner.py` | E6: Diffusion Planner on the nuPlan real-perception states (nuPlan environment, GPU) | D |
 | `shims/mmengine/` | the three local file-IO functions Diffusion Planner imports from mmengine | |
+| `205_nusc_sweeps_fetch.sh` | E7: the LiDAR sweeps of E7's scenes from the public trainval blobs, one blob at a time (GPU machine) | D |
+| `206_temporal_escalation.py` | E10: stale and fresh branches (`tables`), gate E10-0, settings, refresh allocators | D (tables) |
+| `207_argo_detect.py` | E8a: Argoverse 1.1 detections and the camera table | H, D |
+| `208_argo_tables.py` | E8a: gate E8-0 (later stages stopped by it) | D |
+| `209_pcdet_env.sh` | E7: OpenPCDet's environment (GPU machine) | |
+| `210_lidar_detect.py` | E7: data root and infos, detection with each checkpoint, gate E7-0 (OpenPCDet's environment) | H, D |
+| `211_lidar_tables.py` | E7: braking tables (`tables`), settings with strata, detection and costs | D (tables) |
+| `212_depth_escalation.py` | E9: gate frames, inference, gate E9-0, tables, settings, costs (Jetson) | H, D (but settings) |
+| `213_depth_export.py` | E9: ONNX export and the PyTorch FP32 reference of gate E9-0 (GPU machine) | |
+| `214_av2_copy.sh` | E8b: tables and front-camera images of Argoverse 2 from a local copy of the sensor dataset | D |
+| `215_av2_detect.py` | E8b: Argoverse 2 detections, raw and undistorted images | H, D |
+| `216_av2_tables.py` | E8b: gate E8-0 (later stages stopped by it) | D |
+| `217_av1_lidar_points.py` | E8a: LiDAR points inside every labelled Argoverse 1.1 val box | D |
+| `218_e7_chain.sh` | E7: 210's stages for the three checkpoints under the shared-GPU guard (GPU machine) | H, D |
+| `223_av2_gate_breakdown.py` | E8b: label-only breakdown of gate E8-0 | D |
+| `224_depth_engine.py` | E9: TensorRT FP16 engine with the layer norms in FP32 (Large) | H |
+| `225_e7_planner_rows.py` | E7: planner rows (submissions, rasters, pairs, rows) | D (but rows) |
+| `226_av1_gate_breakdown.py` | E8a: label-only breakdown of gate E8-0 | D |

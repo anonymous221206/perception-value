@@ -1,0 +1,117 @@
+{
+ "pass": true,
+ "cells": {
+  "KITTI|full_640|ego|mono": {
+   "frames": 8008,
+   "reference_frames": 8008,
+   "unmatched": 0,
+   "a_differ": 0,
+   "act_differ": 0
+  },
+  "KITTI|full_640|hold|mono": {
+   "frames": 8008,
+   "reference_frames": 8008,
+   "unmatched": 0,
+   "a_differ": 0,
+   "act_differ": 0
+  },
+  "KITTI|full_640|ego|oracle": {
+   "frames": 8008,
+   "reference_frames": 8008,
+   "unmatched": 0,
+   "a_differ": 0,
+   "act_differ": 0
+  },
+  "KITTI|full_640|hold|oracle": {
+   "frames": 8008,
+   "reference_frames": 8008,
+   "unmatched": 0,
+   "a_differ": 0,
+   "act_differ": 0
+  },
+  "KITTI|cheap_320|ego|mono": {
+   "frames": 8008,
+   "reference_frames": 8008,
+   "unmatched": 0,
+   "a_differ": 0,
+   "act_differ": 0
+  },
+  "KITTI|cheap_320|hold|mono": {
+   "frames": 8008,
+   "reference_frames": 8008,
+   "unmatched": 0,
+   "a_differ": 0,
+   "act_differ": 0
+  },
+  "KITTI|cheap_320|ego|oracle": {
+   "frames": 8008,
+   "reference_frames": 8008,
+   "unmatched": 0,
+   "a_differ": 0,
+   "act_differ": 0
+  },
+  "KITTI|cheap_320|hold|oracle": {
+   "frames": 8008,
+   "reference_frames": 8008,
+   "unmatched": 0,
+   "a_differ": 0,
+   "act_differ": 0
+  },
+  "nuScenes|ns_full_640|ego|mono": {
+   "frames": 34149,
+   "reference_frames": 34149,
+   "unmatched": 0,
+   "a_differ": 0,
+   "act_differ": 0
+  },
+  "nuScenes|ns_full_640|hold|mono": {
+   "frames": 34149,
+   "reference_frames": 34149,
+   "unmatched": 0,
+   "a_differ": 0,
+   "act_differ": 0
+  },
+  "nuScenes|ns_full_640|ego|oracle": {
+   "frames": 34149,
+   "reference_frames": 34149,
+   "unmatched": 0,
+   "a_differ": 0,
+   "act_differ": 0
+  },
+  "nuScenes|ns_full_640|hold|oracle": {
+   "frames": 34149,
+   "reference_frames": 34149,
+   "unmatched": 0,
+   "a_differ": 0,
+   "act_differ": 0
+  },
+  "nuScenes|ns_cheap_320|ego|mono": {
+   "frames": 34149,
+   "reference_frames": 34149,
+   "unmatched": 0,
+   "a_differ": 0,
+   "act_differ": 0
+  },
+  "nuScenes|ns_cheap_320|hold|mono": {
+   "frames": 34149,
+   "reference_frames": 34149,
+   "unmatched": 0,
+   "a_differ": 0,
+   "act_differ": 0
+  },
+  "nuScenes|ns_cheap_320|ego|oracle": {
+   "frames": 34149,
+   "reference_frames": 34149,
+   "unmatched": 0,
+   "a_differ": 0,
+   "act_differ": 0
+  },
+  "nuScenes|ns_cheap_320|hold|oracle": {
+   "frames": 34149,
+   "reference_frames": 34149,
+   "unmatched": 0,
+   "a_differ": 0,
+   "act_differ": 0
+  }
+ }
+}

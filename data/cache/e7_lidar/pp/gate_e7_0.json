@@ -1,0 +1,8 @@
+{
+ "model": "cbgs_dyn_pp_centerpoint",
+ "keyframes": 6019,
+ "mAP": 50.02809849561881,
+ "NDS": 60.70175179064162,
+ "published_mAP": 50.03,
+ "pass": true
+}

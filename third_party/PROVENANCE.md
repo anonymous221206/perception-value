@@ -162,3 +162,23 @@ comparison requires. Official nuPlan metrics were written for both.
 - used via: its metric caching script, `PDMScorer` / `pdm_score` with the default scoring parameters, and its scene
   loader, in its own environment (`scripts/192_navsim_pdms.py`); unmodified. The OpenScene logs and CAM_F0 sensor blobs
   of the test and mini splits are user-supplied (`data/README.md`)
+
+## OpenPCDet — OpenPCDet Development Team (follow-up E7)
+- repo: https://github.com/open-mmlab/OpenPCDet
+- commit: `233f849829b6ac19afb8af8837a0246890908755` (2025-10-08), cloned and built by `scripts/209_pcdet_env.sh` in an
+  environment of its own (torch 2.1.2 / CUDA 12.1, spconv 2.3.6, av2 0.3.6, kornia 0.6.12, torch_scatter 2.1.2)
+- checkpoints: the model zoo's nuScenes `cbgs_dyn_pp_centerpoint` (md5 20ffeadece5b6979c2be454ec97fbe95),
+  `cbgs_voxel0075_voxelnext` (md5 ab89ca1e4228be171e4f948f96795bf3) and `transfusion_lidar`
+  (md5 0de1dd127c32f2b008595ed771c00429), fetched by `scripts/210_lidar_detect.py`
+- used via its configurations, dataloader and `generate_prediction_dicts`, unmodified; 210 seeds numpy with the
+  sample's index before each sample is read (repeatable sweep order and point shuffle) and restores numpy's removed
+  aliases (`np.int`, `np.float`, `np.bool`) as the builtins they named
+
+## Depth Anything V2, metric outdoor — Yang et al., NeurIPS 2024 (follow-up E9)
+- weights: https://huggingface.co/depth-anything/Depth-Anything-V2-Metric-Outdoor-Small-hf (revision
+  `fd2c22027eaf20374204f14099b8341e1925ad39`) and `...-Large-hf` (revision `4eab4cf1983c2801c515804005214de56a4b67cc`),
+  pinned in `scripts/213_depth_export.py`
+- used via transformers 4.45.2's `AutoModelForDepthEstimation` (the first release that builds the metric head),
+  exported to ONNX opset 16 and built into TensorRT engines on the Jetson (`scripts/224_depth_engine.py` for Large); the
+  engines' md5 are in `results/followup/E9/engines.md5`
+

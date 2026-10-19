@@ -476,3 +476,471 @@ are kept.
 **Reporting.** The primary rows use every state that succeeds after the rerun; states that still fail are dropped as
 the addendum says. Beside them, the same quantities on the 1,260 states of the first run, so the effect of the
 rerun is visible.
+
+---
+
+## Addendum E7 — a LiDAR detector pair on nuScenes with metric 3D boxes
+
+Addendum to `followup_protocol.md` (Section 9: "E7: a LiDAR detector pair on nuScenes with metric 3D boxes"; Sections 3,
+4 and 6 apply). Committed before any value of E7 is computed; the sweep download is data only.
+Reviewed afterwards from the index.
+
+### Question
+
+With metric 3D boxes from a LiDAR detector, the monocular lift plays no part. Does escalating from a cheaper to a
+stronger LiDAR detector still change some braking decisions for the worse?
+
+### Detectors
+
+OpenPCDet's released nuScenes checkpoints and configurations, unchanged: ten LiDAR sweeps, their own voxelisation and
+post-processing. They run in FP32, batch 1, on the training machine's RTX A5000.
+- **Cheap:** CenterPoint-PointPillar (`cbgs_dyn_pp_centerpoint`; published validation mAP 50.0, NDS 60.7).
+- **Full:** VoxelNeXt, voxel size 0.075 (`cbgs_voxel0075_voxelnext`; published mAP 60.5, NDS 66.7).
+- **Secondary full:** TransFusion-L (`transfusion_lidar`; published mAP 64.6, NDS 69.4), reported beside the primary
+  pair.
+- **Amendment 1 (2026-10-18, before any value).** The registered full checkpoint, CenterPoint voxel 0.075, can no
+  longer be downloaded: its link in OpenPCDet's model zoo returns 404. So does the next one of its family, CenterPoint
+  voxel 0.1. VoxelNeXt at voxel 0.075 is the zoo's nearest: the same voxel size, centre-based heads, and a published
+  mAP within 1.3 points of the registered model.
+- The OpenPCDet commit (233f849) and the md5 of each checkpoint are recorded with the run.
+
+### Scenes
+
+- **Primary:** the 150 nuScenes official-validation scenes, all keyframes. They are outside the detectors' training
+  split (nuScenes official train).
+- **Secondary:** E1's 228 new test scenes. 192 of them are in the official training split, so the detectors were
+  trained on them; this exposure is stated beside every row.
+- Strata reported: E1's groups (frozen 85 / new 765) and split.
+
+### Objects
+
+- **Classes:** the detector's car, truck, construction_vehicle, bus, trailer, motorcycle, bicycle and pedestrian
+  outputs. These are the reference categories of Section 3. Barrier and traffic-cone outputs are dropped.
+- **Reference:** Section 3's boxes, with at least one LiDAR or radar point, in the ego frame of the keyframe
+  (`rap.nusc`). The camera's 10 px height rule does not apply.
+- **Field of view:** detections and references are kept under the same rule: at least four of the box's eight corners
+  lie in front of CAM_FRONT, and the box projected into CAM_FRONT and clipped to the image is at least 4 px wide and
+  high. This is `rap.nusc`'s rule, applied to the detected boxes too. The decision population is therefore that of the
+  camera tracks.
+- **Operating point:**
+  - primary: score ≥ 0.25 for both detectors (Section 3's shared threshold);
+  - secondary: the full detector's threshold set so that its total box count on the scored keyframes equals the cheap
+    detector's at 0.25. This needs no labels.
+
+### Geometry, consumer and decision value
+
+- **Detected geometry:** the box footprint in the ego frame. Range is the nearest footprint x; lateral extent is the
+  footprint's y range.
+- **TTC:** from the box's predicted velocity. The closing speed is the ego speed minus the object's velocity along the
+  ego's x axis; TTC is range / closing speed if the object is closing, otherwise infinite.
+- **Reference geometry:** footprint, range rate and TTC from the shared local fit, as in the nuScenes track.
+- **Ego speed:** the nuScenes track's, used in the decision cost.
+- **Consumer:** the benchmark's braking controller and loss (Eq. 10), on the shared action history of the all-cheap
+  run. V = J(cheap) − J(full).
+- **Geometry sources:**
+  - detected: primary;
+  - oracle, secondary. A detection matched to a reference object takes that object's geometry. Matching is greedy by
+    score, class-agnostic, at a bird's-eye-view centre distance ≤ 2 m (nuScenes' matching distance).
+- **Planner rows:** secondary, and run only if the benchmark's submission path accepts these boxes unchanged (PKL's
+  planner on the detected boxes, ADE / FDE against the logged trajectory).
+
+### Gate E7-0 (stops E7 until resolved)
+
+On the 150 validation scenes, OpenPCDet's own nuScenes evaluation of each checkpoint (all ten classes) reproduces its
+published mAP within 1.0 point. This checks the sweeps, the data infos and the environment, before any decision value.
+
+### Quantities
+
+- **Setting level (as P1):** affected inputs, harmed share, ρ, all-full and oracle@20 reduction. 95% intervals from
+  1,000 draws by scene and by log, seed 0.
+- **Cells:** operating point (shared primary, equal count secondary) × geometry (detected primary, oracle secondary)
+  × population.
+- **Detection:** recall and precision of both detectors at the operating point (centre distance 2 m, class-agnostic),
+  over the field of view, on the scored keyframes.
+- **Cost (secondary):** median latency per keyframe of each detector on the A5000, over 200 keyframes, with the GPU
+  shared as it is. Labelled as such.
+
+### Reading
+
+- **Primary cell, harmed share ≥ 30% with ρ > 0:** the sign variation reproduces with metric LiDAR boxes.
+- **Harmed share below 30%:** reported as a cell where it does not.
+- **All-full reduction:** reported with its interval, whatever its sign.
+
+### Prior contact
+
+- Exploratory work in a separate codebase used the LiDAR keyframes of the nuScenes scenes for camera pipelines: to
+  re-estimate the range of camera detections, and to propose objects from LiDAR points.
+- It ran no released LiDAR detector. No decision value of a LiDAR detector pair has been computed before this commit.
+
+---
+
+## Addendum E8 — a third camera and city set: Argoverse 1.1 (E8a) and Argoverse 2 (E8b)
+
+Addendum to `followup_protocol.md` (Sections 3, 4 and 6 apply), for follow-ups E8a and E8b. This version fixes E8a in full and E8b in outline. E8b's dataset-specific rules (class map, hood crop,
+distortion) are added in a dated section, committed before E8b's first value. No value of E8 has been computed before
+this commit.
+
+### Question
+
+Do the benchmark's setting-level findings and allocator results hold on a third camera, vehicle and city set? The
+findings are that uniform resolution escalation changes some braking decisions for the worse, and that the allocators
+do not reliably beat random. Argoverse differs from KITTI and nuScenes in camera, mounting, cities (Pittsburgh, Miami;
+AV2 six US cities) and labels.
+
+### Data
+
+- **E8a: Argoverse 1.1 tracking, validation split, all 24 logs** (14 Pittsburgh, 10 Miami), camera ring_front_center
+  (1920×1200, 30 Hz). Labels are 3D boxes per LiDAR sweep (10 Hz, `per_sweep_annotations_amodal`).
+- **E8b: Argoverse 2 sensor.**
+  - Scored: the validation split, all 150 logs.
+  - Fitting: 140 training logs, every fifth of the 700 training logs in sorted order of log id (positions 0, 5, 10, …).
+- Public files only: images, poses, calibration and labels as released.
+
+### Decision frames
+
+- **Unit:** the log.
+- **Frame:** every labelled LiDAR sweep. It is paired with the ring_front_center image nearest in time, and dropped if
+  that image is more than 50 ms away. (E8a: all 5,015 sweeps pair, the largest gap is 17 ms.)
+- **Frame interval:** 0.1 s, for the lift's scale-change TTC and the reference range rate.
+
+### Images and camera
+
+- **Distortion (E8a):** the released images carry radial lens distortion. Each image is undistorted with the published
+  intrinsics and radial coefficients (OpenCV, same intrinsic matrix) before detection. The lift and the reference
+  projection are then both pinhole with that matrix.
+- **Camera → ego:** the published `vehicle_SE3_camera` of ring_front_center, per log.
+- **Camera height above the ground:** the camera's height in the ego frame plus the height of the ego origin above the
+  ground.
+  - The ego origin of Argoverse is not on the ground.
+  - Its height is the negative median bottom height of VEHICLE boxes 3–30 m ahead and within 6 m laterally, pooled
+    over the dataset's scored logs.
+  - It is measured once per dataset, from labels only (as E2 set its ground plane), and recorded with the run.
+
+### Reference objects
+
+- **Classes and their coarse class (E8a):**
+  - vehicle: VEHICLE, LARGE_VEHICLE, BUS, SCHOOL_BUS, TRAILER, EMERGENCY_VEHICLE;
+  - person: PEDESTRIAN;
+  - cyclist: BICYCLE, BICYCLIST, MOTORCYCLE, MOTORCYCLIST, MOPED.
+
+  ON_ROAD_OBSTACLE, OTHER_MOVER, ANIMAL, STROLLER and WHEELCHAIR have no counterpart among the detector's traffic
+  classes and are not reference objects (nuScenes' track likewise keeps vehicles, pedestrians and two-wheelers).
+- **Visibility:** Section 3's rule, at least one LiDAR point inside the box. Argoverse 1 releases no count per box,
+  so `scripts/217_av1_lidar_points.py` counts the points of the released val sweeps (each sweep and its labels share
+  the ego frame of the sweep time). (Changed 2026-10-18 after gate E8-0; see below. The first version said that no
+  point-count rule applies in E8a.)
+- **Projection:** as in the nuScenes track (`rap.nusc`).
+  - Each box is moved from the ego frame at the sweep time to the ego frame at the image time, with the two released
+    poses.
+  - The box is kept if at least four of its eight corners lie in front of the camera. It is projected pinhole and
+    clipped to the image, and kept if it is at least 4 px wide and high.
+  - Boxes below 10 px high are unmeasurable (Section 3).
+- **Reference geometry:** footprint in the ego frame at the image time. Range rate by the shared local fit (half-width
+  2 frames at 10 Hz, as KITTI).
+- **Poses:** where a log releases no pose at an image time, the two released poses around it are interpolated
+  (translation linear, rotation spherical), and the count is reported. (Added 2026-10-18 after gate E8-0 stopped on
+  a missing pose file; an adapter fix, before any decision value.)
+- **Ego speed:** the forward component of the pose difference over about 0.1 s before the image time. It is causal;
+  the first frame of a log, which has no earlier pose, uses the next frame.
+
+### Perception
+
+- **Engines:** the benchmark's nuScenes engines, unchanged: COCO YOLOv8s, TensorRT FP16 on the Jetson. Each image is
+  letterboxed into 192×320 (cheap), 288×480, 384×640 (full) and 544×960.
+- **Thresholds:** 0.25 shared; decoding as in Section 3.
+- **Lift:** the benchmark's monocular lift in the ego frame (Task 23 convention), with each log's camera.
+
+### Consumers and decision value
+
+- **Consumer:** the benchmark's braking controller and loss under monocular and oracle geometry, on the shared action
+  history; nothing changed.
+- **Not run:** the planner rows. PKL's planner needs nuScenes maps.
+
+### Gate E8-0: alignment (stops E8a, or E8b, until resolved)
+
+Computed from detections and labels only, before any decision value.
+
+- **Recall:** at 384×640, the recall of reference boxes at least 30 px high (IoU 0.5, class-agnostic) is at least 0.5.
+- **Lift error:** the median relative range error of the monocular lift, over the matched 640 detections, lies within
+  ±20%.
+
+A failure is traced to the adapter (pose, calibration, projection or class map). The fix is recorded, and the gate is
+re-run. Nothing is tuned on decision values.
+
+**E8a, first run (2026-10-18, before any decision value).** The gate stopped twice.
+- First on a missing pose file. Fix: pose interpolation (above).
+- Then on recall: 0.444 on 55,194 reference boxes ≥ 30 px, below 0.5. The lift error was within bounds: median
+  +1.7%, quartiles −8.9% / +12.8%, over 24,405 matched detections.
+
+Diagnosis, from labels and detections only:
+- The labels are amodal, and no visibility rule applied. One third of the boxes ≥ 30 px (18,345) are at least 75%
+  covered in the image by nearer reference boxes, and their recall is 0.20.
+- Boxes with less than 1% covered have recall 0.62; boxes nearer than 10 m have 0.71.
+- Of the unmatched boxes, 44% have no detection with IoU ≥ 0.1. That is missed objects, not misaligned ones.
+
+Change: Section 3's visibility rule, counted from the released LiDAR (above). The gate is re-run with it, its
+threshold unchanged. If it fails again, E8a stops and is reported as not run.
+
+### Quantities
+
+**Setting level (as P1).**
+- **Cells:** 320→640 primary; 320→480 and 320→960 secondary; braking under both geometries.
+- **Quantities:** affected inputs, harmed share, ρ, all-full and oracle@20 reduction.
+- **Intervals:** 1,000 bootstrap draws by log, seed 0.
+- **Populations:** AV1 val (24 logs); AV2 val (150); AV2 fitting logs (140, secondary).
+- **Heterogeneity (secondary):** by city.
+
+**Allocators (as P2).**
+- **Setting:** 320→640 braking under monocular and oracle geometry, 20% budget, realised gain against random with the
+  paired every-draw interval by log.
+- **Signals:** the benchmark's deployable signals except the pixel router R2, which would need its own training run
+  per dataset. That leaves gate_ridge, gate_gbm, R1_mlp_reg, R1_mlp_clf, R1_gbm_reg, R1_gbm_clf, uncertainty,
+  criticality_cheap and trivial_ego_speed, with their benchmark features, hyperparameters and seeds.
+- **AV1:** five folds by log (sorted log ids, position mod 5). Each fold's allocators are fitted on the other four
+  folds, and the out-of-fold scores are pooled.
+- **AV2:** fitted on the 140 fitting logs, scored once on the 150 validation logs.
+
+**Transfer (secondary).** Allocators fitted on E1's 537 new nuScenes training and validation scenes, scored on AV1
+and on AV2 validation. Also AV2 fitting logs → AV1.
+
+### Reading
+
+- **Monocular 320→640 cell, harmed share ≥ 30% with ρ > 0:** the sign variation reproduces on this set.
+- **Harmed share below 30%:** reported as a set where it does not reproduce.
+- **Each allocator:** "beats random" (interval above 0), "not resolved", or "below random".
+- **No learned allocator separates from random:** that null is stated as the result for the set.
+
+### Prior contact
+
+Before this addendum, exploratory analyses in a separate codebase used both sets. That codebase is not part of this
+repository and shares no code with it. The authors saw its results.
+
+- **AV1 val, all 24 logs** (all 15,062 images, 30 Hz):
+  - YOLOv8 detection at several resolutions;
+  - braking decision values from a monocular lift, for whole-frame resolution escalation and for several crop-based
+    escalation methods.
+- **AV2 val, all 150 logs:** the same kinds of values. Outcome seen: uniform escalation to 640 harmed about a third of
+  the affected braking decisions.
+- **AV2 training logs:** used there for configuration choices and model fitting. All of them count as seen.
+
+Consequence for interpretation:
+- On both sets, sign variation under uniform escalation is expected rather than discovered.
+- What remains untested is whether this repository's pipeline reproduces it, and how the benchmark's allocators
+  fare.
+
+### E8b: Argoverse 2 rules (added 2026-10-18, before any E8b value)
+
+- **Frames:** each annotated LiDAR sweep (10 Hz), paired with the nearest ring_front_center image (20 Hz; at most
+  50 ms away, otherwise dropped). The released poses include every image time.
+- **Image:** 1550×2048, portrait. The ego vehicle's hood is visible from row 1830 down. Rows ≥ 1830 are cropped
+  before detection, leaving 1550×1830. The intrinsic matrix is unchanged, since the crop removes rows at the bottom
+  only. Reference boxes are clipped to the cropped image.
+- **Distortion:** the released intrinsics carry radial coefficients (k1, k2, k3). Whether the released images are
+  already rectified is not stated in a form this repository can check. Gate E8-0 therefore runs on both versions: the
+  raw images, and the images undistorted as in E8a. The version with the higher 640 recall on reference boxes ≥ 30 px
+  is used. This uses labels and detections only, before any decision value. Both recalls are reported.
+- **Classes:**
+  - vehicle: REGULAR_VEHICLE, LARGE_VEHICLE, BOX_TRUCK, TRUCK, TRUCK_CAB, BUS, ARTICULATED_BUS, SCHOOL_BUS,
+    VEHICULAR_TRAILER, RAILED_VEHICLE;
+  - person: PEDESTRIAN, OFFICIAL_SIGNALER;
+  - cyclist: BICYCLE, BICYCLIST, MOTORCYCLE, MOTORCYCLIST, WHEELED_RIDER.
+
+  Not reference objects: BOLLARD, CONSTRUCTION_BARREL, CONSTRUCTION_CONE, SIGN, STOP_SIGN,
+  MOBILE_PEDESTRIAN_CROSSING_SIGN, MESSAGE_BOARD_TRAILER, DOG, STROLLER, WHEELCHAIR and WHEELED_DEVICE (no traffic-class
+  counterpart in the detector, or a device without its rider).
+- **Visibility:** `num_interior_pts` ≥ 1, the counterpart of Section 3's point rule.
+- **Camera height, ego speed, projection and footprint:** as in E8a. The ground offset is computed from
+  REGULAR_VEHICLE boxes, pooled over the 150 validation logs.
+- **Detection:** the four modes run frame by frame, so each image is decoded once. The engines, threshold and lift are
+  E8a's.
+
+---
+
+## Addendum E9 — escalation of the range estimator: ground-plane lift or a metric depth network
+
+Addendum to `followup_protocol.md` (Sections 3, 4 and 6 apply), for follow-up E9. Committed before any value of E9 is computed.
+
+### Question
+
+Oracle geometry showed how much of the decision value comes from the lift. E9 asks a deployable form of the same
+question. With the detections held fixed, does replacing the ground-plane lift with a stronger, published metric depth
+network change some braking decisions for the worse?
+
+### Escalation
+
+- **Detections:** fixed, the benchmark's cached COCO YOLOv8s TensorRT detections at 384×640 (primary) and 192×320
+  (secondary); threshold 0.25.
+- **Cheap range:** the benchmark's monocular ground-plane lift, ego frame.
+- **Full range:** Depth Anything V2, metric outdoor (fine-tuned on Virtual KITTI 2, maximum depth 80 m), official
+  weights, TensorRT FP16 on the Jetson.
+  - Small: primary.
+  - Large: secondary.
+  - Revision hashes and engine md5 are recorded with the run.
+  - ONNX opset 16, with the layer norms written as elementary operations. (Added 2026-10-18, before any value:
+    the Jetson's TensorRT 8.5 cannot import opset 17's LayerNormalization, and the first build stopped there.)
+  - Loaded with transformers 4.45.2, the first release that builds the checkpoints' metric head (sigmoid × 80 m);
+    the loader asserts it. (Added 2026-10-18, before any decision value: gate E9-0's first run exposed that 4.44.2
+    had built the relative head, so reference and engines both returned values of 0–6 with median 0. Everything
+    from the export onward was redone.)
+  - Large's engines hold the layer norms in FP32; all other layers may run in FP16 (`scripts/224_depth_engine.py`).
+    Small keeps its plain FP16 engines.
+    - Added 2026-10-19, before any decision value. In gate E9-0's second run, Small passed (median 0.07% on
+      nuScenes, 0.33% on KITTI) and Large failed (1.1% and 4.1%).
+    - At opset 16 each layer norm is a chain of elementary operations, and TensorRT ran them in FP16.
+    - A diagnostic on the same 424 nuScenes gate boxes reproduced the failing engine's statistic exactly (1.106%).
+      An engine with the norms in FP32 gave 0.033%.
+    - Large's engines, inference and gate are redone. Small's are kept.
+- **Depth input:**
+  - The whole image is resized to 518 px wide (bilinear, aspect kept, height rounded to a multiple of 14) and
+    normalised as the model's preprocessor does. Engines: nuScenes 294×518, KITTI 154×518.
+  - The output is resized to the image bilinearly. The network's metric output is used as released, with no rescaling
+    for the camera's focal length.
+- **Range per box:**
+  - The median depth over the box's central region: the middle 50% of its width, rows from 50% to 90% of its height,
+    counted from the top.
+  - That camera depth replaces the fused depth of the lift's bottom-centre ray. The point and the two bottom corners
+    at that depth are expressed in the ego frame with the camera → ego transform, exactly as the lift's final step.
+- **TTC:** the lift's scale-change TTC in both branches. Only range and lateral extent change.
+
+### Consumer and decision value
+
+- **Consumer:** the benchmark's braking controller and loss (Eq. 10), on the shared action history of the all-lift run.
+- **Decision value:** V = J(lift) − J(depth).
+- **Reference row:** oracle geometry on the same detections, V = J(lift) − J(oracle). It is the ceiling of any range
+  escalation.
+- **Cells:** lift → Small (primary), lift → Large, Small → Large; each for 640 and 320 detections.
+
+### Populations
+
+- **nuScenes:** P1's four (228 new test scenes, 765 new, frozen 85, pooled 850).
+- **KITTI:** all 21 sequences, and the 6 test sequences.
+
+### Gate E9-0 (stops E9 until resolved)
+
+On 50 frames per dataset, the TensorRT FP16 engine is compared with the PyTorch FP32 model on the same input. The
+frames are evenly spaced over the dataset's frames in sorted (unit, frame) order: positions round(linspace(0, N − 1,
+50)). (Corrected with the code, before any value: the first version named "the first frame of every tenth unit",
+which gives 3 frames on KITTI.) The median relative difference of the box ranges (the per-box median depth above) must
+be below 1%.
+
+### Quantities
+
+- **P1's quantities per cell:** affected inputs, harmed share, ρ, all-full and oracle@20 reduction. 95% intervals from
+  1,000 draws by unit (and by log on nuScenes), seed 0.
+- **Range error:** median and quartiles of (range − reference range) / reference range for lift, Small and Large, on
+  detections matched to reference objects (IoU 0.5).
+- **Cost:** latency and module energy per frame of each depth engine on the Jetson, with the frozen profile's
+  protocol, beside the lift's.
+
+### Reading
+
+- **Primary cell, harmed share ≥ 30% with ρ > 0:** sign variation appears when the range estimator is escalated.
+- **Harmed share below 30%:** the cell does not show it.
+- **All-full reduction against oracle's:** both are reported with their intervals. The gap is the share of the range
+  ceiling the depth network recovers.
+
+### Prior contact
+
+- Protocol Section 2 lists no use of a depth network.
+- No value of E9 has been computed before this commit.
+
+---
+
+## Addendum E10 — escalation in time: reuse the last detections or run the detector
+
+Addendum to `followup_protocol.md` (Sections 3, 4 and 6 apply), for follow-up E10. Committed before any value of E10 is computed. Reviewed afterwards from the index.
+
+### Question
+
+Skipping frames is the most common way a deployed system saves perception compute: on a skipped frame the planner keeps
+the last detections. Does the sign variation of decision value appear on this axis? That is, does running the detector
+on the current frame, instead of reusing the previous frame's detections, make some braking decisions worse?
+
+### Escalation
+
+- **Detector:** COCO YOLOv8s, the benchmark's cached TensorRT FP16 detections; operating threshold 0.25.
+  - Primary mode: 384×640 (the benchmark's full mode).
+  - Secondary mode: 192×320.
+- **Fresh (full):** the mode's detections of frame t, the benchmark's per-frame input.
+- **Stale (cheap):** the same mode's detections of the previous cached frame t−1, carried to frame t:
+  - **ego (primary): static-world propagation.**
+    - Each kept detection's geometry at t−1 is taken under the cell's geometry source, evaluated at t−1.
+    - It is moved into the ego frame of t with the planar ego motion between the two frames (forward, left, yaw).
+    - Range: the forward coordinate of the moved near-face centre. Lateral extent: the moved bottom corners.
+    - The closing speed at t−1 (range / TTC) is kept, and TTC is re-derived from the new range.
+    - A carried detection whose new range is below 0.5 m (the lift's lower clip) has left the camera's view and is
+      dropped. (Added with the code, before any value.)
+  - **hold (secondary):** the geometry at t−1 unchanged (zero-order hold).
+- **Ego motion:**
+  - nuScenes: the CAM_FRONT keyframe ego poses.
+  - KITTI: OXTS. Mercator position from latitude and longitude, with the first frame's scale; heading from yaw.
+- **First frame of each unit:** the detector runs, so stale equals fresh. That frame is not a decision unit and is
+  excluded from every count. It still gives the first action of the all-stale run.
+- **Interval:** nuScenes keyframes at about 2 Hz (about 0.5 s); KITTI at 10 Hz (0.1 s). The distribution of intervals
+  is reported.
+
+### Consumer and decision value
+
+- **Controller and loss:** the benchmark's braking controller and its loss (Eq. 10). The reference a⋆ comes from the
+  ground truth at t, and the ego speed is that at t.
+- **Geometry:**
+  - mono: the deployed monocular lift (ego frame);
+  - oracle: the benchmark's substitution of matched ground-truth geometry. For the stale branch, the detections are
+    matched to the ground truth of t−1, as they were when fresh, and that geometry is then carried to t as above.
+- **Shared action history:** both branches are charged against the previous action of the all-stale run.
+- **Decision value:** V = J(stale) − J(fresh); V > 0 means running the detector helped.
+- **Not run:**
+  - the planner rows, which need rasters per branch;
+  - the lateral controller, which is outside the benchmark's systems.
+
+### Populations
+
+- **nuScenes:** the four populations of P1 (228 new test scenes, 765 new, frozen 85, pooled 850). Detections come from
+  the 850-scene cache of E1.
+- **KITTI:** the benchmark's tracking track, all 21 sequences and the 6 test sequences.
+
+### Quantities
+
+- **P1's quantities per cell:** affected inputs (V ≠ 0), harmed share, ρ, all-fresh reduction and oracle@20 reduction.
+  The reductions are shares of the all-stale loss.
+- **Intervals:** 95%, from 1,000 bootstrap draws (seed 0) by unit: scene or sequence. nuScenes also by log.
+- **Cells:** dataset × mode (640 primary, 320 secondary) × propagation (ego primary, hold secondary) × geometry (mono,
+  oracle).
+
+### Gate E10-0 (stops E10 until resolved)
+
+The fresh branch reproduces the benchmark's per-frame braking requirement and discrete action exactly, under both
+geometries:
+- nuScenes: the E1 850-scene tables (`a_full` of 320→640 for the 640 mode, `a_cheap` for 320);
+- KITTI: the benchmark's core-matrix tables (YOLOv8s 320→640).
+
+### Secondary: which frames to refresh
+
+Labelled secondary wherever reported.
+- **Setting:** nuScenes, braking under monocular geometry, 640, ego propagation; budget 20% of frames.
+- **Data:** fitted on the 385 + 152 new training and validation scenes, scored once on the 228 test scenes.
+- **Signals:**
+  - random;
+  - uncertainty: summed binary entropy of the stale list;
+  - ego speed;
+  - `gate_gbm`: the benchmark's gradient-boosted gate with its settings. Its features are the benchmark's gate features
+    (`scripts/92_benchmark_table.py`) of the stale list, computed at t−1 (all a skipping system knows at t), with the
+    ego speed at t.
+- **Measure:** realised gain against random, as a share of the all-stale loss, with the paired every-draw interval of
+  Section 3.
+
+### Reading
+
+- **Harmed share ≥ 30% with ρ > 0 in a monocular cell:** sign variation appears on the temporal axis in that cell.
+- **Harmed share below 30%:** the cell does not show it.
+- **All-fresh reduction:** reported with its interval, whatever its sign. A negative value means that running the
+  detector on every frame is net harmful for braking against reusing the last detections.
+- **Two intervals (0.1 s and 0.5 s):** no direction is hypothesised. The two datasets also differ in camera, labels
+  and scenes, so the difference between them is not attributed to the interval alone.
+
+### Prior contact
+
+The protocol's list of prior contact (Section 2) contains no comparison of stale and fresh detections.
+- E1's temporal-context router (secondary, X6) used the cheap detections of t−3..t as features of an allocator for
+  resolution. It did not compare stale and fresh decisions.
+- E10's values have not been computed before this commit.

@@ -1,0 +1,4 @@
+model,keyframes,scenes,latency_ms_median_200,seconds,checkpoint_md5,name
+pp,13748,342,44.28744316101074,1118.0647556781769,20ffeadece5b6979c2be454ec97fbe95,cbgs_dyn_pp_centerpoint
+voxel,13748,342,97.0606803894043,2654.16318154335,ab89ca1e4228be171e4f948f96795bf3,cbgs_voxel0075_voxelnext
+transfusion,13748,342,96.69733047485352,2163.950446128845,0de1dd127c32f2b008595ed771c00429,transfusion_lidar

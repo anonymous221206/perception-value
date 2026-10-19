@@ -1,0 +1,8 @@
+{
+ "model": "cbgs_voxel0075_voxelnext",
+ "keyframes": 13748,
+ "scenes": 342,
+ "latency_ms_median_200": 97.0606803894043,
+ "seconds": 2654.16318154335,
+ "checkpoint_md5": "ab89ca1e4228be171e4f948f96795bf3"
+}
