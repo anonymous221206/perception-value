@@ -10,6 +10,11 @@ A submission is a CSV with one row per test input of each cell it enters:
   score                                one ranking, scored at every quota                      (form "ranking")
   score_q10, score_q20, score_q30, score_q50
                                        one score column per budget level                        (form "per-budget")
+  z                                    0/1, the decision itself, scored at every quota it fits  (form "mask")
+  z_q10, z_q20, z_q30, z_q50           0/1, one decision column per budget level                (form "per-budget mask")
+
+A mask is scored by the sum of z_i V_i and is within budget if the sum of z is at most k; a mask over budget keeps its gain
+and has no nDG. With `causal` the per-unit cap floor(1 + alpha t) is checked in stream order and violations are reported.
 
 Nothing else. Higher scores are escalated first. Scores are compared after rounding to 9 decimals, as the benchmark
 does; equal scores are ties, and every selection is evaluated in exact expectation over random tie-breaks, so the
@@ -49,7 +54,9 @@ REGISTRY = FINAL / "cost_registry.json"
 CELL = ("track", "geometry", "system", "target")
 IDS = {"KITTI": ("seq", "frame"), "nuScenes": ("seq", "frame"), "nuPlan": ("scenario", "iteration")}
 PER_BUDGET = {0.10: "score_q10", 0.20: "score_q20", 0.30: "score_q30", 0.50: "score_q50"}
-ALLOWED = set(CELL) | {"seq", "frame", "scenario", "iteration", "score"} | set(PER_BUDGET.values())
+MASK_BUDGET = {0.10: "z_q10", 0.20: "z_q20", 0.30: "z_q30", 0.50: "z_q50"}
+ALLOWED = (set(CELL) | {"seq", "frame", "scenario", "iteration", "score", "z"} | set(PER_BUDGET.values())
+           | set(MASK_BUDGET.values()))
 NBOOT = 1000
 MAX_LISTED = 10
 MIN_AFFECTED = 10     # 120's rule; every KITTI and nuScenes test cell has at least 46 affected inputs, so it binds on nuPlan only
@@ -185,13 +192,21 @@ def validate(sub: pd.DataFrame) -> tuple[str, dict]:
     if missing_cell:
         raise SubmissionError(f"missing cell columns {missing_cell}")
     has_score, per = "score" in sub.columns, [c for c in PER_BUDGET.values() if c in sub.columns]
-    if has_score and per:
-        raise SubmissionError("give either `score` or the four per-budget columns, not both")
-    if not has_score and len(per) != len(PER_BUDGET):
-        raise SubmissionError(f"missing score columns: need `score`, or all of {list(PER_BUDGET.values())} "
-                              f"(found {per})")
-    form = "ranking" if has_score else "per-budget"
-    score_cols = ["score"] if has_score else list(PER_BUDGET.values())
+    masks = [c for c in ("z", *MASK_BUDGET.values()) if c in sub.columns]
+    if masks:
+        if has_score or per:
+            raise SubmissionError("give scores or a decision mask, not both")
+        if masks != ["z"] and masks != list(MASK_BUDGET.values()):
+            raise SubmissionError(f"mask columns: need `z`, or all of {list(MASK_BUDGET.values())} (found {masks})")
+        form, score_cols = ("mask" if masks == ["z"] else "per-budget mask"), masks
+    else:
+        if has_score and per:
+            raise SubmissionError("give either `score` or the four per-budget columns, not both")
+        if not has_score and len(per) != len(PER_BUDGET):
+            raise SubmissionError(f"missing score columns: need `score`, or all of {list(PER_BUDGET.values())} "
+                                  f"(found {per})")
+        form = "ranking" if has_score else "per-budget"
+        score_cols = ["score"] if has_score else list(PER_BUDGET.values())
     sub = sub.reset_index(drop=True)
     known = {cell_id(c): c for c in cells()}
     sub["_cell"] = sub[list(CELL)].astype(str).agg("|".join, axis=1)
@@ -203,6 +218,8 @@ def validate(sub: pd.DataFrame) -> tuple[str, dict]:
         bad = v.isna() | ~np.isfinite(v.fillna(0).to_numpy(float))
         if bad.any():
             errors.append(_listed(sub, bad, f"non-numeric or non-finite `{c}`"))
+        elif masks and not v.isin([0, 1]).all():
+            errors.append(_listed(sub, ~v.isin([0, 1]), f"`{c}` is not 0 or 1"))
     out = {}
     for cid, g in sub[~bad_cell].groupby("_cell", sort=False):
         cell = known[cid]
@@ -304,6 +321,88 @@ def score_cell(cell, g, form: str, plan: str | None = None, nboot: int = NBOOT) 
                       "tie_frac": float(p["tie"][qi]), "responsive_frac": float(p["resp"][qi]),
                       "boot_dropped": int(dropped[qi]), "n_affected": n_aff,
                       "n_units": int(len(np.unique(units))), "n_frames": int(len(v))})
+    return rows_
+
+
+def mask_stats(v, units, z, quota, nboot: int, rng) -> dict:
+    """A fixed mask at one quota: gain, nDG, and the paired interval of nDG minus random over unit draws."""
+    v, z, units = np.asarray(v, float), np.asarray(z, float), np.asarray(units)
+    n = len(v)
+    k = max(int(round(quota * n)), 1)
+    prize = float(scoring.topk_expect(v, [v], np.array([k]))[0][0][0])
+    uniq = np.unique(units)
+    idx = [np.flatnonzero(units == u) for u in uniq]
+    nd, dr = np.full(nboot, np.nan), np.full(nboot, np.nan)
+    gains = np.full(nboot, np.nan)
+    for b in range(nboot):
+        t = np.concatenate([idx[i] for i in rng.integers(0, len(uniq), len(uniq))])
+        vt = v[t]
+        kt = max(int(round(quota * len(t))), 1)
+        pz = float(scoring.topk_expect(vt, [vt], np.array([kt]))[0][0][0])
+        g, r = float((z[t] * vt).sum()), kt / len(t) * vt.sum()
+        gains[b] = g - r
+        if pz > max(scoring.EPS, 0.25 * prize):
+            nd[b], dr[b] = g / pz, (g - r) / pz
+    gain, esc = float((z * v).sum()), int(z.sum())
+    lo, hi = scoring.ci(nd)
+    dlo, dhi = scoring.ci(dr)
+    return {"quota": quota, "k": k, "mask_escalated": esc, "mask_within_budget": esc <= k, "gain": gain, "prize": prize,
+            "gain_minus_random": gain - k / n * v.sum(), "gain_minus_random_lo": scoring.ci(gains)[0],
+            "gain_minus_random_hi": scoring.ci(gains)[1], "ndg_raw": gain / prize if prize > scoring.EPS else np.nan,
+            "ndg_lo": lo, "ndg_hi": hi, "minus_random": float(np.nanmean(dr)), "minus_random_lo": dlo, "minus_random_hi": dhi}
+
+
+def cap_violations(z, units, order, alpha: float) -> tuple[int, int]:
+    """Inputs past the cap floor(1 + alpha t) in stream order, and the units with at least one."""
+    seen, used, n, bad = {}, {}, 0, set()
+    for i in order:
+        u = units[i]
+        seen[u] = seen.get(u, 0) + 1
+        if z[i]:
+            used[u] = used.get(u, 0) + 1
+            if used[u] > int(np.floor(1 + alpha * seen[u])):
+                n += 1
+                bad.add(u)
+    return n, len(bad)
+
+
+def _stream(cell, t):
+    """Stream order of a cell's test rows: time within each unit (124's order)."""
+    ids = IDS[cell[0]]
+    if cell[0] == "nuPlan":
+        m = pd.read_csv(Path(REPO) / "configs" / "benchmark_nuplan_scenarios.csv")[["scenario", "t0"]]
+        t0 = t[["scenario"]].merge(m, on="scenario", how="left", validate="many_to_one").t0.to_numpy(float)
+        return np.lexsort((t[ids[1]].to_numpy(int), t0))
+    return np.lexsort((t[ids[1]].to_numpy(int), t[ids[0]].astype(str).to_numpy()))
+
+
+def score_mask_cell(cell, g, form: str, plan: str | None, nboot: int, causal: bool) -> list[dict]:
+    """Selection-budget rows of the mask forms, one per quota."""
+    plan = plan or DEFAULT_PLAN[cell[0]]
+    cols = ["z"] if form == "mask" else list(MASK_BUDGET.values())
+    t, zs = _aligned(cell, g, cols)
+    v, units = t.V.to_numpy(float), t.unit.to_numpy()
+    n_aff = int((np.abs(v) > scoring.EPS).sum())
+    rng = plan_rng(plan, cell, nboot)
+    order = _stream(cell, t)
+    ident = {**cell_labels(cell), "registry_version": registry()["version"]}
+    rows_ = []
+    for q in scoring.QUOTAS:
+        c = "z" if form == "mask" else MASK_BUDGET[q]
+        r = mask_stats(v, units, zs[c], q, nboot, rng)
+        why = undefined(r["prize"], n_aff) or ("" if r["mask_within_budget"] else f"over budget: {r['mask_escalated']} of {r['k']}")
+        ok = not why
+        viol, vu = cap_violations(zs[c], units, order, q) if causal else (np.nan, np.nan)
+        dlo, dhi = r["minus_random_lo"], r["minus_random_hi"]
+        na = lambda x: x if ok else np.nan                   # noqa: E731
+        rows_.append({**dict(zip(CELL, cell)), **ident, "track_kind": "selection budget", "form": form, "plan": plan, "score_column": c,
+                      "all_tied": False, **{k: r[k] for k in ("quota", "k", "mask_escalated", "mask_within_budget")}, "ndg_defined": ok,
+                      "undefined_reason": why, "ndg": na(r["ndg_raw"]), "ndg_lo": na(r["ndg_lo"]), "ndg_hi": na(r["ndg_hi"]),
+                      "minus_random": na(r["minus_random"]), "minus_random_lo": na(dlo), "minus_random_hi": na(dhi),
+                      "interval_excludes_zero": bool(ok and np.isfinite(dlo) and (dlo > 0 or dhi < 0)), "gain": r["gain"],
+                      "prize": r["prize"], "gain_minus_random": r["gain_minus_random"], "gain_minus_random_lo": r["gain_minus_random_lo"],
+                      "gain_minus_random_hi": r["gain_minus_random_hi"], "reduction_frac": r["gain"] / t.J_cheap.to_numpy(float).sum(),
+                      "cap_violations": viol, "cap_units": vu, "n_affected": n_aff, "n_units": int(len(np.unique(units))), "n_frames": int(len(v))})
     return rows_
 
 
@@ -434,10 +533,18 @@ def check_profile(p: dict) -> dict:
 
 
 def score(sub: pd.DataFrame, plan: str | None = None, nboot: int = NBOOT, profile: dict | None = None,
-          cells_only=None, selection: bool = True) -> tuple[str, pd.DataFrame]:
+          cells_only=None, selection: bool = True, causal: bool = False) -> tuple[str, pd.DataFrame]:
     """Score a submission. `plan` None uses each track's default plan (DEFAULT_PLAN); `selection` False scores the
     measured budgets only."""
     form, per_cell = validate(sub)
+    if form in ("mask", "per-budget mask"):
+        if profile is not None:
+            raise SubmissionError("a measured budget charges a ranking's selection; it does not apply to a decision mask")
+        out = [r for cell, g in per_cell.items() if not cells_only or cell_id(cell) in cells_only
+               for r in score_mask_cell(cell, g, form, plan, nboot, causal)]
+        return form, pd.DataFrame(out)
+    if causal:
+        raise SubmissionError("--causal checks a decision mask; a ranking has no stream")
     if profile is not None:
         check_profile(profile)
     out = []

@@ -1,0 +1,21 @@
+{
+ "cells": {
+  "KITTI|mono": {
+   "compared": 39998,
+   "differ": 0
+  },
+  "KITTI|oracle": {
+   "compared": 39998,
+   "differ": 0
+  },
+  "nuScenes|mono": {
+   "compared": 169045,
+   "differ": 0
+  },
+  "nuScenes|oracle": {
+   "compared": 169045,
+   "differ": 0
+  }
+ },
+ "pass": true
+}

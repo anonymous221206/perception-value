@@ -1,0 +1,26 @@
+{
+ "route": "harness",
+ "harness": "scripts/151_profile_allocator.py",
+ "allocator": "236b_r9_allocator.py",
+ "frames": 400,
+ "rails": [
+  "GPU",
+  "SOC",
+  "CPU"
+ ],
+ "registry_version": "2026-09-23.1",
+ "power_available": true,
+ "ms": {
+  "nuScenes": 1.6196250217035413
+ },
+ "mJ": {
+  "nuScenes": 4.443858621847453
+ },
+ "power_mw_over_idle": {
+  "nuScenes": 2743.757698416729
+ },
+ "device_check": {
+  "available": false,
+  "note": "environment/check_device.py is not in this checkout"
+ }
+}

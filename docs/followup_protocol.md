@@ -1688,3 +1688,557 @@ label column (phantom, real_misplaced, real_missing_from_reference, real_correct
 
 `results/followup/R6/`: `reference_completeness.csv`, `attribution.csv`, `attribution_single.csv`,
 `controls.csv`, `audit/`, `audit_frames.csv`; doc `results/followup/R6/`.
+
+---
+
+## Addendum R7 — influence, tail and selection audit of the XL claims
+
+Follow-up round 3, item R7 (first of R7–R11). Committed before the first new value of R7.
+
+### Post hoc status
+
+R7 is post hoc. On 2026-11-06, before this addendum, an audit that read stored tables only (no refit, no bootstrap) found
+the facts below, and the design of R7 was written knowing them. They are quoted here as the reason for the item; the doc
+recomputes every number.
+
+- On the 228 new test scenes, ΣV (braking, monocular) is −893.7, of which `scene-1051` alone is −1,316.5. Removing that
+  one scene moves all-full from −18.2% to +10.3% on those scenes and from +1.1% to +9.1% on all 850; the harmed share
+  stays at 51.0% and 46.6%. Removing the 5 best scenes of the 850 instead gives −7.9%. All-full is decided by a few
+  scenes in either direction.
+- The 8 scenes with the largest Σ|V| are all night scenes; 7 of them are singapore-hollandvillage, from two logs of
+  2018-11-21: `n015-2018-11-21-19-11-29+0800` (1049, 1050 val; 1051 test) and `n015-2018-11-21-19-38-26+0800` (1074,
+  1095 train; 1080 val; 1081 test). X2's fit includes the val scenes; R4's train-only fit does not, and R4's quota gain
+  for `gate_gbm` is 3.6% against X2's 12.7%.
+- `rap.planner.required_decel` computes `a_stop = v_ego**2 / (2*gap)` for every in-corridor object, whether or not it
+  moves; closing speed can only raise the requirement. A moving lead vehicle therefore counts as stationary. In
+  `scene-1051` frame 32 (`results/followup/R6/audit/scene-1051_32_pair.jpg`) the ego follows a car about 15 m ahead at 12.4 m/s
+  at night: a⋆ = 9, the cheap mode brakes hard, the full mode misses the car and keeps speed (J = 87.12, collision flag
+  set), and the logged driver keeps speed. Over the 850 scenes, of 842 frames with a⋆ ≥ 3.5 and v ≥ 3 m/s, 87% (of those
+  with 2 s of future) show no logged braking and 5% a logged deceleration of at least 1 m/s²; 54 frames carry a
+  collision flag in a branch and none of them shows a logged deceleration of 2 m/s² over the next 2 s. Frames with
+  a⋆ ≥ 7 carry 39.5% of Σ|V|.
+- X2 did not keep per-frame scores, so nobody can say how much of `gate_gbm`'s gain, of R1's D_t or of R3's +12.7% is
+  carried by these scenes.
+- Over-random figures flatter allocators when random is net harmful: R3's primary +12.7% is a realized gain of 9.1% plus
+  random's −3.6%, and random spends 1,836 escalations against the gate's 867.
+- No allocator in the repository is trained on the budgeted objective itself: every learned baseline is a regression or
+  an unweighted classifier followed by top-k.
+- E10's refresh allocators score each non-refreshed frame with the previous frame's detections, whatever the policy
+  refreshed earlier (`scripts/206_temporal_escalation.py`, `stale = prev[0]`), so a 20% refresh policy is credited with
+  one-frame-old lists rather than the staleness it would really have.
+
+### Item, as protocolled
+
+#### R7 — influence, tail and selection audit of the XL claims
+
+- **Question:** which XL claims hold when a few scenes are removed, against stronger comparators, and away from the one
+  test split on which `gate_gbm` was already known to be the winner?
+- **Part A, no fit.** For braking (mono, oracle), planner ADE and FDE (mono, as controls), populations pooled 850,
+  new 765, 228 test, frozen 85: affected, harmed, ρ, all-full, oracle@20, with intervals, for: all scenes; minus the
+  1 / 3 / 5 scenes with the most negative ΣV; minus the 1 / 3 / 5 with the most positive ΣV; minus both 5s; day only;
+  night only; minus the two logs named above. Rank scenes on the population at hand; list them.
+  Also, for every other braking row in the follow-up block of the paper's Table 1, on its own population: the two
+  capacity pairs printed there and the other E5 pairs (`data/cache/xl/r5/pair__*.pkl`), the fine-tuned 320→640 pair, the
+  LiDAR primary (E7) and the reuse primary (E10): all-full, ρ and harmed with all scenes and minus the most influential
+  scene of that row, with its name. Some of these print an all-full far from zero on the 228 test scenes (−9.26%,
+  +36.57%), and nobody has checked what carries them.
+- **Part B, stored frame-level scores.** Refit and **save per-frame scores** (`scores_<signal>.csv.gz`) for: `gate_gbm` and
+  `gate_ridge` on V, fn_gain, risk_gain, Q, G (R1, raw and CDF forms); the R3 chosen subsets; and, new, `R1_gbm_reg` and
+  `R1_mlp_reg` on the same five targets (R1 never ran the routers, while the frozen study found the gradient-boosted
+  router leaning towards the AP-swap objective, so this is a fairness check). **Gate R7-0:** the refit reproduces X2, R1
+  and R3 test rows exactly.
+- **Part C, comparators.** For X2's `gate_gbm`, R1's five gates, R3's two chosen gates, all at their registered budgets:
+  realized gain against all-cheap (interval, not only the point) ; against random at the same rate; against random at the
+  allocator's own escalation count (matched count). Report the escalated count beside each.
+- **Part D, influence.** For each row of Part C and each R1 D_t: share of the gain carried by the top 1 / 3 / 5 scenes;
+  the value and interval with `scene-1051` removed, with `scene-1081` removed, with both removed, and with both test
+  scenes of those logs removed; the full drop-one-scene range over the 228 scenes.
+- **Part E, fit-set sensitivity.** Refit `gate_gbm` on V, test unchanged: on 537 scenes; on 537 minus scenes 1049, 1050,
+  1080; on 537 minus every scene of the two logs; on 385. Report realized gain on the 228 and on the 228 minus the two
+  logs. This tests whether the jump from 3.6% to 12.7% comes from same-log neighbours of the test scenes.
+- **Part F, away from the one split.** 20 repeated log-grouped 5-fold out-of-fold runs over the 765 scenes (log orders
+  seeded 0–19): distribution of `gate_gbm`'s realized gain, gain over random, and each of the four D_t (mean, min, max,
+  share of repeats with D_t > 0), each repeat also reported without the two logs. Q and G labels stay the ones of R1
+  (no recomputation). This removes the selection on the test split, since X2 had already named `gate_gbm` the winner on
+  it before R1 chose it as primary.
+- **Part G, robust metrics.** Evaluate every row of Part C also on capped decision value: V clipped to ±c, with c the 95th
+  percentile of |V| among affected fit frames (fixed on the fit units). Secondary: `gate_gbm` trained on the capped V.
+- **Part H, loss weights at scale (exact recombination from `Jterm_*`).** Over-braking weight {0, 0.03, 0.06, 0.12, 0.24,
+  0.48}, collision weight {0, 3, 6, 12}, one at a time and jointly at the extremes; pooled 850 and 228 test; harmed, ρ,
+  all-full, oracle@20 with intervals. Give the over-braking weight at which ρ crosses 1, if any.
+- **Registered reading.** A claim is **robust** if its interval stays on the same side of zero after removing the single
+  most influential scene for that claim and in at least 18 of 20 repeats of Part F; **tail-dependent** if the point
+  estimate keeps its sign but the interval reaches zero; **fragile** otherwise. Apply this to: R1's four D_t, R3's primary,
+  X2's primary, and the statement "all-full is not resolved on the 850 scenes".
+- **Outputs:** `results/followup/R7/`, doc `results/followup/R7/`.
+
+### Implementation
+
+- **Script:** `scripts/234_r7_influence.py`, stages `a`, `b`, `cdg`, `e`, `f`, `h`, `reading`, run in that order on the Jetson. Python: the edge environment.
+- **Cells, features, models, seeds:** X2's (`rap.xl.cells`, `rap.xl.gate_scores`), R1's targets
+  (`results/followup/R1/targets.csv`), 103's models for the routers (`R1_gbm_reg` on one OpenMP thread, as
+  103), R3's `fit_predict` for its chosen subsets. No library file changes.
+- **Gate R7-0:** in `b`. Every X2 row of `gate_gbm`, `gate_ridge`, `R1_gbm_reg`, `R1_mlp_reg` (six cells, six budgets, scene
+  and log) in `x3_budget_sweep.csv`; every raw and CDF gate row of `swap.csv`; every feasible chosen row of R3's `test.csv`
+  (gain, count, gain over random, its interval): exact equality. A failure stops R7 only.
+- **Bootstrap:** 1,000 draws, seed 0, every draw kept, all quantities of one row on the same draws; each row at scene and at
+  log level. Shares use the point all-cheap loss of the frames kept, as X2.
+
+### Defaults for points the protocol leaves open
+
+1. **Removing scenes.** Scores stay as fitted; k and the all-cheap loss are recomputed on the frames kept (k = round(0.2 n);
+   for R3 k = floor(share × n), share = 0.2 − C_S / C_f).
+2. **Part A subsets.** Scenes ranked by ΣV of the system and population at hand. "Minus the two logs" removes every scene of
+   the two logs in the population. "Day" and "night" use `scene_split.csv`'s `night`. An empty subset gives no row.
+3. **Part A, other rows.** E5's ten replacement pairs and two fine-tuned pairs at their primary operating point, monocular,
+   228 test scenes (R5's tables); E7's primary (VoxelNeXt over PointPillar, detected, shared 0.25, the 150 official
+   validation scenes); E10's primary (640, ego carry, monocular, 228 test scenes). Each must reproduce its stored all-full
+   (asserted). Most influential scene: the largest absolute change of all-full when dropped.
+4. **Part C.** "Random at the same rate": α of the frames (k = round(0.2 n); R3: floor(0.2 n)). "Matched count": the row's own
+   escalated count. Both are random's expectation. The escalated counts are reported.
+5. **Part D.** A scene's share uses each frame's inclusion probability under the benchmark's tie rule. Shares are of the row's
+   total, top scenes by contribution; the sum of negative scenes is reported beside them. The test scenes of the two logs
+   are computed from the split; if they are exactly `scene-1051` and `scene-1081`, the last two sets coincide.
+6. **Part F.** Log order: `default_rng(seed).permutation` of the sorted logs, fold = position mod 5, seeds 0–19; the 765 scenes
+   of the primary cell. Scores of the five folds are pooled; k = round(0.2 n). Q and G: R1's labels as they are. Added so
+   that R3's claim has repeats: `gate_gbm` on R3's chosen subset, at R3's escalated share, over random at floor(0.2 n).
+7. **Part G.** c = 95th percentile of |V| over affected fit frames of the primary cell, 537 scenes. Capped rows use capped V
+   for gains and random's expectation; shares stay of the uncapped all-cheap loss. Selection is unchanged in every row but
+   the secondary one trained on capped V.
+8. **Part H.** Monocular braking only. J(w) = shortfall + jerk + (b / 0.12) · excess + (c / 6) · collision, from `Jterm_*`
+   (the sum at the defaults is asserted equal to J). "Jointly at the extremes": b ∈ {0, 0.48} × c ∈ {0, 12}. The crossing of
+   ρ = 1 is found by bisection on b in [0, 0.48] with c = 6, if ρ − 1 changes sign at the ends.
+9. **Reading.** The claim's most influential scene: the one whose removal moves its value furthest in the direction against
+   the claim, among the 228 test scenes. Decision on the scene-level interval (log-level beside it).
+   - **robust:** after that removal the interval stays on the claim's side of zero, and at least 18 of 20 repeats of Part F
+     have the claim's sign;
+   - **tail-dependent:** not robust, the point after removal keeps its sign and at least 11 of 20 repeats do;
+   - **fragile:** otherwise.
+   - X2's primary is `gate_gbm` over random at the same rate; R3's primary likewise, with its count.
+   - "All-full is not resolved on the 850 scenes" has no repeats (no fit): **robust** if the interval still contains zero after
+     removing the most negative scene and, separately, the most positive scene; **fragile** if either removal resolves it.
+
+### Outputs
+
+`results/followup/R7/`: `partA_settings.csv`, `partA_scenes.csv`, `partA_other_rows.csv`, `gate_r7_0.json`,
+`scores_<signal>.csv.gz`, `partC_D_G_rows.csv`, `partD_drop_one.csv`, `partD_concentration.csv`, `partG_trained_capped.csv`,
+`partE_fit_sets.csv`, `partF_oof.csv`, `partF_summary.csv`, `partH_weights.csv`, `partH_rho_crossing.csv`, `reading.csv`; doc
+`results/followup/R7/`.
+
+---
+
+## Addendum R8 — does the braking reference need a moving-lead rule?
+
+Follow-up round 3, item R8. Committed before the first new value of R8.
+
+### Post hoc status
+
+R8 is post hoc. An audit of stored tables on 2026-11-06, before this addendum, found that `rap.planner.required_decel` treats a
+moving lead as stationary, that 87% of 842 frames with a⋆ ≥ 3.5 and v ≥ 3 m/s (of those with 2 s of future) show no logged
+braking, that frames with a⋆ ≥ 7 carry 39.5% of Σ|V|, and that `scene-1051` frame 32 is such a case. R8 was designed knowing
+this. The doc recomputes every number.
+
+### Item, as protocolled
+
+#### R8 — does the braking reference need a moving-lead rule?
+
+- **Question:** do the braking findings hold when the requirement stops treating moving objects as stationary?
+- **Part A, face validity (all 850, no fit).** Per a⋆ band ([1, 3.5), [3.5, 7), [7, 9]), for v ≥ 3 m/s: frames, scenes,
+  logged mean acceleration over the next 2 s (shares ≤ −1 and ≤ −2 m/s²), and for the constraining reference object:
+  speed, share moving above 2 m/s, range, time headway. Same for collision-flag frames. Frames without 2 s of future are
+  reported apart.
+- **Part B, variant requirements.** With gap as in the code and v_obj = max(0, v_ego + range_rate) along the ego heading:
+  - `lead_b4` (primary): a = v_ego² / (2 (gap + v_obj² / (2·4.0))), the lead may brake at 4 m/s²;
+  - `lead_cv` (secondary): a = max(0, v_ego² − v_obj²) / (2 gap), the lead keeps its speed.
+
+  Both reduce to the current rule for a stationary object; keep the closing-speed term and the 9 m/s² cap. Each is applied
+  two ways: `ref+ctrl` (primary; the controller uses the same rule on its perceived objects, with closing speed from the
+  stored ttc, and a perceived object with no finite ttc counted as stationary, and a⋆ from the reference) and `ref-only`
+  (secondary; the controller as deployed, only a⋆ changes).
+- **Gate R8-0:** with the variant off, the rebuilt tables equal `data/cache/xl/tables850` and the frozen tables bit for bit.
+- **Part C.** On each variant: Table-1 rows for the four populations, both geometries, with intervals; Part A's table;
+  harm direction (mass where full under-brakes against over-brakes), which on the standard reference is 90% over-braking
+  on the frozen 85 but 71% under-braking on the 228 test scenes; R7 Part A's drop-scene rows for pooled 850.
+- **Part D.** On the primary variant, refit and report: X2's `gate_gbm` row, R1's four D_t, R3's chosen subset (no
+  reselection). Report the influence rows of R7 Part D for them.
+- **Registered reading.** Sign variation "persists" if harmed ≥ 30% with ρ > 0 in the primary cell on the 228 test scenes
+  and the 850; each allocator claim "carries" if its interval stays above zero on the primary variant. The all-full and
+  oracle@20 values are reported with no reading attached.
+- **Outputs:** `results/followup/R8/`, doc `results/followup/R8/`. Frozen values are not replaced; this
+  is a sensitivity of the braking system.
+
+### Implementation
+
+- **Script:** `scripts/235_r8_reference.py`, stages `gate`, `tables`, `parta`, `parts`, `partd`, on the Jetson.
+- **Library:** `rap.planner.required_decel(..., lead=None, range_rate=None)` with `lead_speed`, and `rap.decision.build(...,
+  lead=None, lead_ctrl=False)`. With `lead=None` the code path is the benchmark's; gate R8-0 and the unit tests check it.
+- **Gate R8-0:** with the variant off, `decision.build` on the 850 scenes (both geometries) equals every shared column of
+  `data/cache/xl/tables850` and, on the frozen 85 scenes with the frozen detection cache, of `data/cache/xl/frozen85_tables`,
+  by `DataFrame.equals`. A failure stops R8 only.
+- **Part D:** `gate_gbm` on V and on R3's chosen subset refit on the primary variant's V, 537 scenes; the perception-target gates
+  keep R7's saved scores (their targets do not depend on the rule) and are scored by the variant's V. R3's cost, count and subset
+  are unchanged (no reselection).
+
+### Defaults for points the protocol leaves open
+
+1. **Reference range rate:** the track's fitted range rate (`range_rate`). A reference object without an estimate (`has_rate`
+   false, a track seen on one keyframe) counts as stationary.
+2. **Perceived objects:** closing speed = range / ttc, v_obj = max(0, v_ego − closing). `rap.mono` caps ttc at 1,000 s for a box
+   that does not expand; that cap means "no finite ttc", so such an object counts as stationary, as the protocol says.
+3. **Geometry of the perceived object under oracle:** the oracle's replaced ttc enters the same way.
+4. **Logged acceleration (Part A):** (v_ego at the fourth next keyframe − v_ego) / elapsed time, about 2 s, from the tables' `v_ego`
+   and E10's frame times; frames without four later keyframes are the "no 2 s of future" count.
+5. **Constraining object:** the reference object with the largest per-object requirement under the rule at hand; a frame with no
+   requirement has none. Time headway = range / max(v_ego, 0.1). Moving = its speed above 2 m/s along the ego heading.
+6. **Collision-flag block:** frames with a flag in either branch, under the standard rule, all speeds.
+7. **Harm direction:** among frames with V < 0, the mass Σ|V| with `act_full` below `act_cheap` (full under-brakes) and above it
+   (full over-brakes). The remainder has equal actions (a jerk-only difference).
+8. **Reading's "both populations":** `new228_test` and `pooled850`, monocular. "Carries": the scene-level interval's lower bound
+   is above zero (log-level beside it); the claims are X2's `gate_gbm` over random, R1's four D_t, R3's chosen `gate_gbm` subset
+   over random at the same rate.
+9. **Drop-scene rows:** R7's subsets on pooled 850, monocular, ranked on the variant's own ΣV.
+
+### Outputs
+
+`results/followup/R8/`: `gate_r8_0.json`, `partA_face_validity.csv`, `partC_settings.csv`, `partC_harm_direction.csv`,
+`partC_drop_scene.csv`, `partC_drop_scene_names.csv`, `scores_primary_variant.csv.gz`, `partD_allocators.csv`, `reading.csv`; doc
+`results/followup/R8/`.
+
+---
+
+## Addendum R9 — baselines trained directly on the budgeted objective, and an information ladder
+
+Follow-up round 3, item R9. Committed before the first new value of R9.
+
+### Item, as protocolled
+
+#### R9 — baselines trained directly on the budgeted objective, and an information ladder
+
+- **Question 1:** does training directly on the budgeted decision objective beat regression on V followed by top-k?
+- **Question 2:** is the gap to the oracle mainly a limit of the architecture or of the pre-escalation information?
+- **Objective.** max over z ∈ {0,1}ⁿ with Σz ≤ k of Σ z_i V_i. On the XL braking cells the budget does not bind at 20%
+  (379 positive test frames against k = 1,836), and there the objective equals cost-sensitive classification: maximizing
+  Σ z_i V_i is minimizing the |V_i|-weighted error of predicting sign(V_i). With a binding budget, its Lagrangian does the
+  same with V_i − λ.
+- **Learners, on X2's 65 gate features, same units:**
+  - `cs_gbm`: `HistGradientBoostingClassifier` with the gate's hyperparameters, y = 1[V > λ], sample_weight = |V − λ| + ε;
+    λ from {0 and the 50/75/90/95th percentiles of positive V}, ε from {0, 0.01, 0.1} × median |V| of affected frames.
+    Score = predicted log-odds.
+  - `topk_mlp`: the routers' MLP (two layers, 64 units) on standardized features, maximizing a relaxed gain
+    Σ σ((s_i − θ)/T) V_i with θ the batch (1−α) quantile; whole-scene batches of at least 2,048 frames; T from {0.1, 0.3,
+    1}; Adam; five seeds, scores averaged.
+  - `pair_mlp`: the same MLP with a gain-weighted pairwise logistic loss on sampled pairs (i, j) with V_i ≠ V_j, weight
+    |V_i − V_j|; five seeds, scores averaged.
+- **Selection.** All settings, early stopping, and the choice among the three learners per cell and budget: on the 152
+  validation scenes with models fit on the 385 training scenes, by realized gain at that budget. Then refit on 537 scenes
+  and score once on the 228. Nothing is tuned on test. Also report the same on capped V (R7 Part G).
+- **Primary endpoints (Holm over the two):** Δ = realized gain(validation-chosen direct learner) − realized gain(`gate_gbm`
+  on V) as a share of the all-cheap loss, at 20%, on (a) the primary cell and (b) planner ADE, monocular, which is free of
+  the braking tail. Reading: "direct better", "regression better" or "not resolved". All three are informative; none stops
+  anything.
+- **Secondary.** All six XL cells; budgets 5–50%; R7's influence rows; R8's primary variant; realized gain against all-cheap
+  and matched-count random; with R3's criticality subset under the measured 20% latency budget (`151_profile_allocator.py`
+  for the cost); the frozen 10 core cells + 2 PDM-Closed cells **through `evaluate_submission.py` in the per-budget form**,
+  fit on the frozen train + validation units, to show that the public submission path takes a direct-objective allocator
+  unchanged; causal policies A and B of `docs/iclr_causal_threshold.md` for the chosen direct learner on XL.
+- **Information ladder (diagnostic rungs are labelled not deployable).** Same two learners, `gate_gbm` on V and the chosen
+  direct learner, primary cell, 20%:
+  - L0: X2's 65 cheap-side features;
+  - L1: L0 + three previous frames and ego dynamics (X6's temporal features);
+  - L2: L1 + the same 65-feature extractor applied to the **full** output of the same frame, and the differences to L0
+    (diagnostic: needs escalation);
+  - L3: L2 + reference-derived scene counts: reference objects in corridor, nearest in-corridor range, its speed and
+    closing speed (diagnostic: needs the reference).
+
+  Respect rule 8: no action, requirement or threshold-distance column at any rung. Report realized gain, nDG, and Spearman
+  on affected frames; paired Δ(L1−L0), Δ(L2−L0), Δ(L3−L0) with intervals. Reading: the gap is **mainly information** if
+  Δ(L2−L0) is resolved and exceeds half of the gap between L0 and the oracle; **mainly architecture or noise** if L3 itself
+  stays below half of the oracle; otherwise **mixed**.
+- **Outputs:** `results/followup/R9/`, doc `results/followup/R9/`.
+
+### Implementation
+
+`scripts/236_r9_direct.py` (stages `select`, `test`, `crit`, `frozen`, `causal`, `ladder`; run in that order by), `scripts/236b_r9_allocator.py` (the file `151_profile_allocator.py` times). Inputs: X2's cells through
+`227_r1_target_swap.setup`, R8's table `lead_b4` `ref+ctrl` monocular, `results/followup/R3/`, the frozen cells through
+`124_causal_threshold.core_cells` and `nuplan_cells`. Scratch: `data/cache/xl/r9/`. Seeds: 0–4 for the MLPs, `random_state=0`
+for the gradient-boosted models, 0 for the bootstrap. No detector is trained or re-weighted. Every feature list is checked
+against rule 8 (`decision_margin`, `boundary_distance`, `a_cheap`, `a_full`, `a_gt`, `act_`) before any fit.
+
+### Defaults recorded before any R9 value
+
+1. **`cs_gbm`.** The 15 settings λ × ε; percentiles of positive V and the median |V| of affected frames (|V| > the benchmark's EPS)
+   on the frames being fit. A setting with one class in y is skipped and leaves no row. Hyperparameters taken from
+   `predict.make_model("gbm", "reg", 0)`. Score = `decision_function`.
+2. **MLPs.** Two 64-unit ReLU layers, one linear output, as the routers. Features z-scored on the fit frames and clipped at ±10
+   (the gate's ±1e6 infinities would otherwise dominate); V divided by the mean |V| of affected fit frames (scale only). Adam, lr
+   1e-3, weight decay 1e-4 (the routers' alpha). 200 epochs at most, validation checked every 10 epochs on the seed-averaged
+   scores; epoch is one of the selected settings. Refits run the chosen number of epochs on the 537 scenes.
+3. **Batches.** Scenes shuffled per epoch and seed, cut when a batch reaches 2,048 frames; a short remainder joins the last batch.
+4. **`topk_mlp`.** θ is the detached batch (1 − α) quantile, trained per budget, so T × 6 budgets settings. Loss = −mean(σ((s − θ)/T) V).
+5. **`pair_mlp`.** 8,192 pairs drawn uniformly inside each batch, pairs with V_i = V_j dropped, loss = mean of |V_i − V_j| ·
+   softplus(−sign(V_i − V_j)(s_i − s_j)). One training run serves all budgets; the epoch is chosen per budget.
+6. **Selection.** Largest validation realized gain at k = round(α n), per cell and budget; ties to the first in the order cs_gbm
+   (λ then ε), topk_mlp (T), pair_mlp, earliest epoch. All 15 + 18 + 1 settings on each of the six XL cells.
+7. **Primary.** Δ on the 228 test scenes at 20%, gate_gbm refit as X2 (537 scenes). Holm over the two at 0.05, on two-sided
+   bootstrap p-values as R1 (`2 min(P(x ≤ 0), P(x ≥ 0))`). "Direct better" or "regression better" by the sign of a rejected Δ,
+   otherwise "not resolved". Scene level decides; the log-level interval stands beside it.
+8. **Capped V.** At 20% on the six cells. Selection on V clipped at c (c = R7's rule, on the cell's own fit frames: training frames
+   for selection, 537 for the refit); compared with gate_gbm trained on the same capped V. Reported on capped V and on V; the
+   V-trained pair is also reported on capped V. Shares stay of the uncapped all-cheap loss.
+9. **R7's influence rows.** On the two primaries at 20%: without `scene-1051`, without `scene-1081`, without both, without the two logs'
+   test scenes, without the scene that moves Δ most, and the drop-one range. k is recomputed after removal, as in R7.
+10. **R8's primary variant.** The full selection (all settings, six budgets) repeated on the monocular braking cell with
+    `lead_b4` `ref+ctrl` V; gate_gbm refit on that V.
+11. **Criticality subset.** R3's gate_gbm subset. Selection on validation at R3's escalated share (from C_S = R3's gate_gbm cost, k =
+    floor), all settings. Costs: `151_profile_allocator.py`, nuScenes track, 400 timed inputs, on R3's 200 fixed frames (the
+    harness's export carries no cached geometry, so its input only sets the pace), R3's extractor, and the model as plain numpy
+    (no per-call scikit-learn overhead), for both the chosen direct model and gate_gbm. Engines from `feature_costs.csv`. Both rows
+    reported: each charged its own 151 cost, and gate_gbm at R3's batched C_S beside it. The budget is applied as in R3 (k =
+    floor(frac n), random at floor(0.2 n)).
+12. **Frozen cells.** All settings at the four submission budgets, fit on train, chosen on validation among the three learners per
+    cell and budget; refit on train + validation; one CSV per track (their id columns differ) through `evaluate_submission.py`
+    in the per-budget form, plans as its defaults; gate_gbm's scores through the same path in the same form, as the comparator. Nothing
+    is written under `results/final/`; its hashes are compared before and after.
+13. **Causal.** Variant V1 of `docs/iclr_causal_threshold.md`: the setting chosen at 20% refit on the 385 training scenes, threshold
+    from the validation scores, applied once to the test stream in (scene, frame) order; B's cap per scene; gate_gbm beside it under the
+    same policies. The six XL cells, 20%. Ties broken with `default_rng(0)` (none expected).
+14. **Ladder.** "Same two learners": gate_gbm and the primary cell's validation-chosen direct setting at 20%, not re-selected at any rung.
+    L1: the 65 gate features at t−3..t (zeros where the scene has no such frame, `183_xl_temporal.history_matrix`) and `ego_acc`, `yaw_rate`,
+    so 262 inputs. L2: L1 + the same extractor on the 384×640 detections (with the cheap cache's image statistics, which the full
+    cache does not store) + the differences, so 392. L3: L2 + four columns: in-corridor reference objects (corridor and range as in the
+    requirement, objects ≥ the benchmark's height), nearest in-corridor range (max range if none), its speed (`rap.planner.lead_speed`; no
+    rate = stationary) and closing speed (no rate = v_ego; 0 if none), so 396. No requirement, action or threshold-distance column.
+15. **Ladder reading.** Applied to each of the two learners, gate_gbm's being the headline. "Half of the gap" = 0.5 (oracle − L0); "half of
+    the oracle" = 0.5 × oracle gain at k; both from the test scenes. Information is tested first, then architecture, as worded in the item.
+16. **R7's scores.** gate_gbm is refit here rather than read from R7, so this item does not depend on R7's gate; the doc checks it against
+    X2's stored row.
+
+---
+
+## Addendum R10 — what the additive, fixed-history evaluation misses, and a decision-mask scorer
+
+Follow-up round 3, item R10. Committed before the first new value of R10.
+
+### Post hoc note
+
+The audit quoted in addendum R7 in `docs/followup_protocol.md` saw that E10's refresh allocators score with one-frame-old lists; that point belongs to R11.
+R10 itself was protocolled without a stored value of what it measures.
+
+### Item, as protocolled
+
+#### R10 — what the additive, fixed-history evaluation misses, and a decision-mask scorer
+
+- **Part A, replay of a mask.** The braking action at t depends only on the branch at t, and the loss on a_t and a_{t−1}, so
+  a mask z can be replayed exactly with each policy's own history. For oracle@20, `gate_gbm`, random (20 seeds) and all-full,
+  on XL braking (mono, oracle) and KITTI braking: replayed gain against the additive Σ z_i V_i, absolute and relative
+  difference, per population.
+- **Part B, sequence oracle.** By dynamic programming per scene over (t, previous action), with a Lagrange multiplier on
+  the number of escalations shared over the scenes, solve the budgeted replayed objective exactly. Report its value
+  against the additive top-k oracle at 10, 20, 30, 50%.
+- **Part C, decision-mask form.** Add a third submission form to `rap.submission` / `evaluate_submission.py`: one 0/1 column
+  `z` per input (or per budget level), scored by Σ z_i V_i, valid if Σ z ≤ k; `--causal` also checks the per-unit cap
+  floor(1 + αt) and reports violations. This lets a causal, abstaining or non-ranking policy be scored as itself rather than
+  as a whole-split ranking. **Gate R10-0:** G1' reproduces unchanged (`150 --stage g1`); default forms are byte-identical.
+  Score on it, on XL and the frozen cells: the six learned signals under policies A and B, and R9's chosen learner.
+- **Note for the doc.** This bounds the error of the additive view **within the controller's action memory only**. It says
+  nothing about ego-state feedback, which remains the subject of E3 and R2.
+- **Outputs:** `results/followup/R10/`, doc `results/followup/R10/`.
+
+### Implementation
+
+`scripts/237_r10_sequence.py` (stages `gate`, `replay`, `oracle`, `masks`; run by). Library: `rap.submission` gains the forms
+`mask` (`z`) and `per-budget mask` (`z_q10`..`z_q50`), `mask_stats`, `cap_violations`, `score_mask_cell`; `score(..., causal=False)`;
+`evaluate_submission.py --causal`; `docs/SUBMITTING.md` one table row; `tests/test_submission_mask.py`. Inputs: XL tables, the frozen KITTI tables (`t92.CORE`),
+R7's saved gate_gbm scores for XL, the official KITTI gate_gbm scores (`124.core_cells`), `results/followup/R9/{selected.json,frozen_selected.csv}`. Seeds: 0 for bootstrap,
+0–19 for tie orders and random.
+
+### Defaults recorded before any R10 value
+
+1. **Replay.** J(b | p) per frame from `decision_cost`'s formula with the stored `a_gt`, `act_cheap`, `act_full`; asserted equal to `J_cheap` (b = p = cheap) and `J_full` (b = full, p = cheap),
+   tolerance 1e-9. First frame of a unit: no jerk. All-cheap is the baseline of every gain.
+2. **Policies and populations.** XL braking (mono, oracle): the 850 and the 228; KITTI braking (mono, oracle): all 21 and the test sequences. gate_gbm only on test populations (its scores outside them are fitted
+   frames). Oracle at 20% = top k by V, ties (V = 0 frames) broken by 20 seeded orders, mean reported; random = 20 seeds; all-full escalates every frame. k = round(0.2 n).
+3. **Interval on replayed − additive.** The mask is held fixed and per-unit differences are resampled (1,000 draws, seed 0): this is the interval of the difference for that mask.
+4. **Sequence oracle.** The protocol's Lagrange form is run and reported with its multiplier; because per-unit curves F(m) (least loss with exactly m escalations) are also available from the same dynamic
+   program, the exact budgeted value is computed by a max-plus knapsack over units, with at most k escalations, and is the headline; the duality gap between the two is reported.
+5. **Its interval.** Per draw: the Lagrange dual on the resampled units against the additive top-k oracle of the same draw, k recomputed. Scene level and, on XL, log level. KITTI's unit is the sequence.
+6. **Mask semantics.** `z` is scored at every quota; `z_q..` each at its own. Within budget if Σ z ≤ k = round(α n). A mask over budget keeps its gain and has no nDG (`undefined_reason` says so).
+   The interval's filter (draws with the oracle's prize above 25% of the point prize) is the scorer's. A mask is fixed across draws; only units are resampled.
+7. **Stream.** By unit, in time: (seq, frame) for KITTI and nuScenes, (t0, iteration) for nuPlan, as 124. The cap is checked per unit with α = the quota.
+8. **Policies under the form.** V1 of `docs/iclr_causal_threshold.md`: models fit on the training units, threshold on validation, at each of 10, 20, 30, 50%. Policy B's cap as 124. R9's chosen learner: the setting chosen for that cell and budget, refit on the
+   training units. XL: six cells, 228 test scenes, through `mask_stats` (XL is not a benchmark cell), scene level with log level beside it. Frozen: 12 cells through `S.score`, and the R9 chosen B masks also through the CLI with `--causal`.
+   Policy A and B can exceed k: that is a result, and is reported, not repaired.
+9. **Gate R10-0.** 150 `--stage g1` with its one write under `results/final/` redirected to a temporary folder (no file there is touched), byte-compared with the stored `submission_path_g1.csv`; the shipped examples' scored files re-scored and byte-compared.
+
+---
+
+## Addendum R11 — refresh scheduling with real staleness
+
+Follow-up round 3, item R11 (conditional). Committed before the first new value of R11, and run only because R7–R10 were committed before the protocol's limit.
+
+### Item, as protocolled
+
+#### R11 — refresh scheduling with real staleness (conditional, see Order)
+
+- **Question:** can DEEP evaluate a policy that decides before any current-frame perception runs, whose action changes
+  future states, against an exact oracle?
+- **Cell.** KITTI (10 Hz, 21 sequences, primary) and nuScenes XL (2 Hz, secondary), braking, 640 detector. At each frame the
+  policy either runs the detector or reuses the last detected list, carried to the current frame with ego motion (E10's
+  `ego`). Maximum age 10 frames, then a forced refresh, charged to the budget. Loss from the benchmark's controller.
+- **Tables.** Per unit, the cost table L(t, s) for last refresh s ∈ [t−10, t]. **Gate R11-0:** s = t equals E10's fresh
+  branch and s = t−1 its stale branch, exactly.
+- **Oracle.** Dynamic programming over (t, s) with a shared Lagrange multiplier, refresh shares 10, 20, 30, 50%.
+- **Policies, scored by replay with their true staleness:** periodic; random; threshold on age and ego speed; E10's
+  `gate_gbm` with age added; and one sequential learner, a GBM that imitates the oracle's decisions on the state (features of
+  the carried list, age, ego speed, budget left), fit on training units, chosen on validation.
+- **Primary endpoint:** gain(sequential learner) − gain(periodic), KITTI, 20%. Reading as elsewhere.
+- **Outputs:** `results/followup/R11/`, doc `results/followup/R11/`. Report it as a new cell type, separate from
+  E10b, whose refresh scores do not carry staleness.
+
+### Implementation
+
+`scripts/238_r11_refresh.py` (stages `tables`, `oracle`, `policies`;). Reuses `206_temporal_escalation.py`'s `carry`, poses and
+range source. Scratch: `data/cache/xl/r11/`. Reports a new cell type; E10b's rows are unchanged.
+
+### Defaults recorded before any R11 value
+
+1. **Cost table.** For age a = t − s in 0..10: the 640 list of frame s moved once from ego(s) to ego(t) with `carry` (closing speed kept), through the controller at t; requirement a⋆ at t. The stored form is the action per (t, a); the loss
+   adds the jerk term from the policy's own previous action. Geometry: monocular is the primary; the oracle tables are built for the gate only.
+2. **Gate R11-0.** Action and requirement at a = 0 equal E10's fresh branch and at a = 1 its stale branch, exact float equality, with a⋆ too, on `KITTI` and `nuScenes` (850 scenes), both geometries.
+3. **Budget.** A unit's first frame always runs the detector and is charged, as is every forced refresh. k = round(share × frames) over the population. Age may reach 10; at what would be 11 a refresh is forced.
+4. **Baseline of every gain.** The minimal schedule: one refresh every 11 frames, the forced ones only. Shares are of its loss. All-stale is not available under the age limit.
+5. **Oracle.** Dynamic program over (t, age), a transition carrying the jerk term, with one multiplier per population and budget, found by bisection. The feasible value at count ≤ k and the dual bound are both reported, with the gap. If the forced refreshes alone exceed k, the row is infeasible
+   and says so.
+6. **Policies.** All causal, all forced at age 10. Periodic: every round(1/share) frames. Random: each frame with probability p, p found on refresh counts only (no outcome), 20 seeds. Age × speed: refresh when age × causal ego speed exceeds τ. `gate_gbm` with age: the gate on target
+   base loss(t, a) − base loss(t, 0) for every (t, a ≥ 1) of the training units, features of the list's frame (65, as E10 used the stale list's) plus age and causal speed; refresh when the prediction exceeds τ. The jerk term is left out of this target because it depends on the path.
+7. **Sequential learner.** `HistGradientBoostingClassifier` with the gate's hyperparameters, one per budget, on the states the oracle visits on the training units: the list's 65 features, age, causal speed, budget left; label = the oracle refreshed. Forced frames are not decisions. No aggregation of
+   states from the learner's own runs. Fit on the training units.
+8. **Budget left.** floor(share × (t + 1)) minus refreshes used in this unit, clipped to [−3, 5] (integers, so scores can be tabled).
+9. **Thresholds and cap.** τ for the three scored policies: on validation, from 41 score quantiles, largest replayed gain with count ≤ k, falling back to the smallest count. A non-forced refresh also needs used < floor(1 + share × (t + 1)). The count on test is reported with `within budget`; it is not repaired.
+10. **Units.** KITTI: 11 train, 4 validation, 6 test sequences, as the benchmark's split; nuScenes XL: 385, 152, 228, log level as the group for intervals. Six sequences give a coarse interval; the doc says so.
+11. **Primary.** Sequential learner − periodic, KITTI, 20%, test sequences, sequence bootstrap, 1,000 draws, seed 0: "sequential better", "sequential worse" or "not resolved". One endpoint, no Holm. Other rows are secondary.
+12. **Rule 8.** No action, requirement or threshold-distance column enters a feature; the feature list is checked before any fit. `a_stale`-style columns are not read by any policy.
+
+---
+
+## Addendum R12 — gaps left by R7, R8 and R10
+
+Round 3, add-on item R12. Committed before the first new value of R12.
+
+### Post hoc status
+
+R12 is post hoc: it was written after reading R7, R8, R9 and the stored part of R10. It is a sensitivity. No frozen value is replaced, and no existing doc or output is edited.
+If R12 changes how an earlier sentence should be read, `results/followup/R12/` says so.
+
+### Why it exists
+
+1. R7 Part H varied the loss weights on the standard reference, and R8 varied the reference at the default weights. Neither ran a loss without over-braking on the moving-lead reference.
+2. R7 Part H's harmed share at over-braking weight 0 still holds the jerk term (`lam_jerk = 0.02`), so a frame can stay harmed through jerk alone.
+3. R8 covered nuScenes only. KITTI uses the same stop-behind rule.
+4. R7 Part B saved the routers' scores, but their rows are in neither `results/followup/R7/` nor `partC_D_G_rows.csv`. A check of the docs found them nowhere else, so Part C runs.
+
+### Items
+
+**Part A, reference × loss terms (no fit, exact recombination of `Jterm_*`).** Tables: standard, `lead_b4 ref+ctrl`, `lead_b4 ref-only`; monocular (primary) and oracle geometry; populations pooled 850, 228 test, frozen 85.
+Losses: over-braking weight {0, 0.06, 0.12, 0.24, 0.48} at collision weight 6; collision weight {0, 12} at over-braking weight 0.12; no-jerk (default weights, jerk removed); safety-only (shortfall and collision only, as R6).
+Each row: affected, harmed, harmed share, ρ, gross benefit, gross harm, all-full, oracle@20, with intervals; the count and share of harmed and of helped frames whose shortfall, excess and collision terms are equal in the two branches.
+
+**Gate R12-0.** On the standard tables, default weights and safety-only reproduce R7's and R6's stored rows exactly.
+
+**Registered reading of Part A.** On `lead_b4 ref+ctrl`, monocular, safety-only, separately on the 228 and the 850:
+**harm in safety terms persists** if the harmed share's interval lies at or above 30% and ρ > 0; **harm in safety terms shrinks** if the point is below 30% or the interval reaches below 20%; **unclear** otherwise.
+
+**Part B, KITTI under the moving-lead reference (no perception rerun).** All 21 sequences and the test sequences, both geometries, `ref+ctrl` and `ref-only`: affected, harmed, ρ, all-full, oracle@20, harm direction, with sequence-level intervals.
+
+**Gate R12-1.** With the variant off, the rebuilt KITTI tables equal the frozen ones bit for bit.
+
+**Registered reading of Part B.** R8's "persists" rule (harmed ≥ 30% with ρ > 0), monocular `ref+ctrl`, on all 21 sequences and on the test sequences. No allocator rows.
+
+**Part C, router rows from R7's saved scores (no fit).** `R1_gbm_reg` and `R1_mlp_reg`, raw form, on V, fn_gain, risk_gain, Q, G, at 20%, on the 228: realized gain, over random at matched count, D_t against the same router on V, with intervals, on all scenes and with the row's most influential scene removed. R7's tie rule.
+R7's reading is applied only to the interval's side after removal, since no Part F repeats exist for routers.
+
+**Part D, facts (no fit, no reading).** (1) Log overlap between the XL fits and the 228. (2) Frames an oracle really uses: count and share of V > 0.
+
+### Implementation
+
+`scripts/239_r12_gaps.py`, stages `a`, `b`, `c`, `d`, run in that order. Inputs: `data/cache/xl/tables850`, `data/cache/xl/r8` (`lead_b4` tables), R7's `scores.pkl`, the frozen KITTI tables (`t92.CORE`), the KITTI detection cache, `scene_meta.csv`.
+Outputs in `results/followup/R12/`: `gate_r12_0.json`, `partA_rows.csv`, `reading_partA.csv`, `gate_r12_1.json`, `partB_rows.csv`, `partB_no_estimate.csv`, `reading_partB.csv`, `partC_rows.csv`, `partD_log_overlap.csv`, `partD_frames_used.csv`; doc `results/followup/R12/`. No library file changes.
+
+### Defaults recorded before any R12 value
+
+1. **Recombination.** J = shortfall + w_e × excess × (b / 0.12) + w_c × collision × (c / 6) + jerk, on stored weighted terms, as R7 Part H. No-jerk drops the jerk term; safety-only drops excess and jerk. The sum of the four terms is asserted equal to J on every table, tolerance 1e-9.
+2. **"V ≠ 0".** |V| > `EPS` of `rap.scoring`, per row, as every earlier affected count, so that the gate can compare exactly.
+3. **Bootstrap.** R7's `_a_task`: scene level and log level on the same seed; 1,000 draws, seed 0. A row's all-cheap loss is under that row's loss. Part B: KITTI's unit is the sequence, one interval.
+4. **Jerk-only.** On a row's own loss: a frame is jerk-only if the sum of absolute differences between branches of its weighted shortfall, excess and collision terms is at most `EPS`. So at over-braking weight 0 the excess term counts as equal. Rows without a jerk term report 0 by construction. No intervals on these counts.
+5. **Gate R12-0.** Standard rows only, computed before any variant row. Every shared column exact, CSV read with `round_trip`: mono against R7 `partH_weights.csv` for the grid's seven weight rows on the 850 and the 228; both geometries against R6 `controls.csv` (safety-only and standard, 228 and 850); frozen 85 default row against R8 `partC_settings.csv`. A failed gate stops Part A only.
+6. **Reading.** Scene-level interval decides, log-level beside it. "Lies at or above 30%" = lower bound ≥ 0.30.
+7. **KITTI range rate.** `kitti` geometry already holds a range rate per track: the local linear fit of `long_near` over time, `rap.geometry._fill_range_rate`, the function nuScenes uses, half-width 2 frames at 10 Hz (nuScenes: 1 at 2 Hz). So no new estimate is made. No estimate = `has_rate` false = stationary. The controller side of `ref+ctrl` uses the closing speed of `ttc`, as R8. `lead_cv` is not run.
+8. **Gate R12-1.** `decision.build` with `lead=None` on the frozen table's sequences, each column shared with `KITTI__YOLOv8s__cheap_320tofull_640__<geometry>.pkl`, `.equals`, both geometries, before any variant table. A failed gate stops Part B and Part D's KITTI `lead_b4` rows only.
+9. **KITTI splits.** `configs/benchmark_splits.json`, six test sequences; the doc says that the interval is coarse. Harm direction: R8's `harm_direction`.
+10. **Part C.** Row quantity for the influence removal: over random at matched count on V, D_t on other targets, as R7's `ask`. Most influential scene: the scene whose removal moves that quantity most toward zero, among the 228, as R7 (`idxmin` for a positive point, `idxmax` for a negative). D_t = gain(router on V) − gain(router on target). Scene level with log level beside it. Side after removal: "same side", "reaches zero", or "not resolved before removal".
+11. **Part D(1).** XL = 850 scenes; fits: 537 (train + validation) and 385 (train) of the group new765; test = 228. "Adjacent" = same log and scene numbers differ by exactly 1 (`scene-NNNN`), since the release's scene numbers follow time within a log.
+12. **Part D(2).** V > `EPS`. Populations: pooled 850, new 765, 228 test, frozen 85, KITTI all 21, KITTI test; both geometries; standard and `lead_b4 ref+ctrl`. The k at 20% is reported beside.
+13. **Rule 8.** No allocator is fit and no feature is built in R12.
+
+---
+
+## Addendum R13 — causal rules at a matched fit set, and the direct learner under log-grouped folds
+
+Round 3, add-on item R13. Committed before the first new value of R13.
+
+### Post hoc status
+
+R13 is post hoc: it was written after reading R7, R9, R10 and R12. It is a sensitivity. No frozen value is replaced, and no existing doc or output is edited. If R13 changes how an earlier sentence should be read, `results/followup/R13/` says so.
+
+### Why it exists
+
+1. X2, R1, R3 and R7 fill the budget by ranking the whole test split, which no deployed allocator can do.
+2. Fit sets are mixed: X2, R1 and R3 fit on 537 scenes; Tables R9i and R10c fit on 385 with the threshold on validation. No row gives ranking and a causal rule at one fit set.
+3. R3's one-group gate has no row in `masks_xl.csv`, and D_t exists for ranking only.
+4. `masks_xl.csv` has no interval on realized gain, only on gain over random.
+5. R9 has one split; R12 Part D found all 228 test scenes have their log in the 537-scene fit. The direct learners have no repeats.
+6. R3 gives gain over random at energy budgets, and no realized gain with an interval.
+
+### Definitions
+
+Cell: `mono_brake` on XL, standard tables. Signals, all `gate_gbm`: `V`; `fn_gain`, `risk_gain`, `Q`, `G` (all features, raw target, as R7); `crit_ms` (subset `crit`, target V, rate 0.0944490, R3's `frac_at` at 20% latency); `crit_mJ` (subset `crit`, target V, rate 0.1600907, 20% energy). The first five use rate 0.20.
+Forms: `rank` (top-k with R7's tie rule and R7's k rule for that signal), `A` and `B` (`t124.calibrate`, `mask_A`, `apply_cap`, as `policy_masks` in `237_r10_sequence.py`, with q = the row's rate, B's cap per scene). Shares are of the all-cheap loss. "Over random" = matched-count random.
+
+### Items
+
+**Part A, the 228 test scenes.** F385: fit on the 385 training scenes, threshold on the 152 validation scenes, as R10. F537: the scored model fit on the 537 scenes; the threshold from out-of-fold scores of those 537, five log-grouped folds by R7 Part F's rule with seed 0 over the logs of the 537, each fold scored by a model on the other four. No test frame enters; the threshold's scores come from models on four fifths of the data.
+Rows: every signal × fit × form: used of k, within budget, cap violations with units, realized share, over random, each with scene and log intervals; A − rank and B − rank at the same signal and fit, paired. D_t: each of the four targets at each fit and form, gain(`V`) − gain(target), paired; these rows are at matched policy, not matched count. Influence: `V`, `crit_ms` and each D_t under B at F537, with the claim's most influential scene removed, by R7's default 9.
+
+**Gate R13-0,** to file precision. F537 `rank`: `V` equals R7's stored realized row; `crit_ms` gain 447.477 and `crit_mJ` gain 628.466 equal R3's `test.csv`; D_t equal R7's rows. F385 `rank`: `V` equals the "385 scenes" row of `partE_fit_sets.csv`. F385 A and B: `V` gains 174.660 and 223.745 equal `masks_xl.csv`.
+
+**Part B, out of fold by log, causal threshold.** R7 Part F's outer folds, seeds 0–19, over the 765 scenes. Within each outer fold hold out one fifth of the fit logs, drawn with `default_rng(1000 + seed)` and that fold's index; fit on the rest; threshold on the held-out logs; score the outer fold; apply A and B to its stream, by scene. `rank`: pooled top-k of the same scores, paired; these fits are smaller than R7's, so `rank` need not equal Table R7g. Per seed, on the 765 and on the 765 minus the two logs: realized and over random for `V` and `crit_ms`, D_t for the four targets, under each form; used share under A and B. Summary as Table R7g.
+
+**Part C, the direct learner under log-grouped folds (ranking).** The same folds. Settings of `results/followup/R9/selected.json`, variant V, not chosen again: `mono_brake` 20% `pair_mlp` epoch 20; `mono_brake` 5% `cs_gbm`; `mono_plan_ade` 20% `topk_mlp`, T 1.0, alpha 0.2, epoch 40. Selection is not nested: R9 chose these on validation scenes inside these folds, which favours the direct learner. Δ = gain(direct) − gain(`gate_gbm`) on the same held-out frames, pooled per seed, as a share of the all-cheap loss, on the 765 and the 765 minus the two logs. Summary: mean (min, max), repeats above zero. Time limit: if one complete seed extrapolates to more than 4 hours for a row, that row uses seeds 0–9, decided from elapsed time alone and recorded.
+
+### Registered reading
+
+**Six claims, under policy B:** realized gain of `V` above zero; realized gain of `crit_ms` above zero; D_t above zero for each of the four targets. Interval and removal from Part A at F537, repeats from Part B. **robust:** after removing the claim's most influential scene the scene-level interval stays above zero, and at least 18 of 20 repeats are above zero; **tail-dependent:** not robust, the point after removal stays above zero, and at least 11 of 20 repeats do; **fragile:** otherwise. The rule tests side, not size. Policy A gets no reading, because it can exceed k.
+
+**Cost of the causal rule:** for `V` and `crit_ms`, at each fit, for each of A and B: **costs gain** if the interval of causal − rank lies below zero, **no resolved cost** otherwise.
+
+**Part C, each row:** **direct ahead** if at least 18 of 20 repeats have Δ > 0, **regression ahead** if at most 2 of 20 do, **no consistent difference** otherwise. With 10 seeds: 9 of 10 and 1 of 10.
+
+### Implementation
+
+`scripts/240_r13_causal.py`, stages `a`, `b`, `c`, `reading`. Inputs: X2's cell through `227.setup`, R1's `targets.csv`, R3's `selected.json`, `test.csv`, R9's `selected.json` and saved matrices. No library change. Outputs in `results/followup/R13/`: `gate_r13_0.json`, `partA_rows.csv`, `partA_Dt.csv`, `partA_influence.csv`, `partA_thresholds.csv`, `partA_frames.csv.gz`, `partB_repeats.csv`, `partB_summary.csv`, `partC_repeats.csv`, `partC_summary.csv`, `partC_time.json`, `reading.csv`; doc `results/followup/R13/`.
+
+### Defaults recorded before any R13 value
+
+1. **Rates.** The exact `escalated_frac` of R3's `test.csv` (gate_gbm, `crit`, mono, 20%, ms and mJ), asserted equal to the protocol's seven digits. k rule: `k_round` for the first five signals, `k_floor` at the row's rate for `crit_ms` and `crit_mJ`, as R7's R3 rows and `test.csv` (867 and 1,469).
+2. **Fits.** Workers keep OpenMP at one thread, as R9's refit of `gate_gbm`; the gate checks this reproduces the stored rows. A fit happens only in pool workers forked before any fit.
+3. **Bootstrap.** R7's draws: sorted units, `default_rng(0)`, 1,000 draws, one set per level, shared by every quantity of a level. `rank` is re-ranked on each draw with k recomputed from the draw's frames, as R7. A causal mask is held fixed and its frames resampled, as R10. Shares divide by the point all-cheap loss of the set. Over random: draw's used / n × ΣV. A − rank and D_t are differences within a draw.
+4. **Used and budget.** `rank` uses exactly k. Within budget = used ≤ k. Cap violations through `rap.submission.cap_violations` with the row's rate; not defined for `rank`.
+5. **Stream.** By scene, in frame order: `np.lexsort((frame, seq))`, as R10. Tie randomization in `mask_A`: `default_rng(0)`, as `policy_masks`.
+6. **Influence.** Masks are unchanged by removing a scene: the threshold is fixed and the cap is per scene. Value: realized share or D_t share with the all-cheap loss of the remaining frames. Most influential scene: the one whose removal gives the smallest value (the claims are all "above zero").
+7. **F537's folds.** `sorted` logs of the 537, `default_rng(0).permutation`, fold = position mod 5.
+8. **Part B's inner hold-out.** `rng = default_rng([1000 + seed, fold])`, `rng.permutation` of the sorted fit logs of that fold, first round(n / 5) logs held out. Signals `V`, the four targets, `crit_ms`. `crit_ms` model is target V on the `crit` columns. `crit_mJ` is not in Part B.
+9. **Part B's populations.** Masks are made per outer fold; on the 765 minus the two logs their frames are dropped, `rank` is ranked again with k recomputed, as Part F. D_t under A and B: difference of gains at each signal's own mask. Over random for `rank`: k / n × ΣV. Repeats for the reading: the row on the 765 scenes; the other population stands beside it.
+10. **Part C's data.** R9's saved matrices (`data__<cell>.npz`), rows in `227.setup`'s order, asserted. All-cheap loss from the same cell. The `gate_gbm` comparator on the same fit, on each fold, one thread. k = round(b n), recomputed on each population.
+11. **Part C's time limit.** Seed 0 runs first. For a row, extrapolated wall time = (sum of the seconds of its fits in seed 0, with its comparator's) × 20 / 3. Over 4 hours: that row stops at seed 9. Recorded in `partC_time.json`.
+12. **Reading.** Scene-level interval decides, log level beside it. "Above zero" = lower bound > 0; repeats above zero = value > 0. Cost: scene-level upper bound < 0.
+13. **Rule 8.** `check_columns` on every feature list before any fit.

@@ -209,3 +209,16 @@ Specified before its values were computed in `docs/followup_protocol.md`; output
 | `221_e11_run.sh` | E11: navtest metric cache, Latent TransFuser's full and cheap branches scored by NAVSIM (`REPEAT=1`: the full branch again; `SEED=1/2`: the secondary checkpoints) | D |
 | `222_e11_analysis.py` | E11: gate E11-0, settings and sub-scores, the repeat, the secondary seeds (`--seed`) | |
 | `navsim_e11/deep_e11_agent.py` | E11: NAVSIM's TransFuser agent with one branch's camera input and no LiDAR load (imported by 221) | |
+| `227_r1_target_swap.py` | R1: labels, targets, gate R1-0, the swap | D (labels) |
+| `228_r6_validity.py` | R6: validity checks, attribution, realism controls, audit export | D (frames, tables, audit) |
+| `229_r5_prevalence.py` | R5: prevalence, event onsets, scene counts | D (pairs) |
+| `230_r4_abstention.py` | R4: allocators that may leave budget unused | |
+| `231_r3_gate_cost.py` | R3: feature subsets under measured cost | H (profile) |
+| `232_r2_closedloop.py`, `233_r2_run.sh` | R2: closed-loop dynamics on nuPlan under replayed perception (nuPlan environment) | D |
+| `234_r7_influence.py` | R7: influence, tail and selection checks | |
+| `235_r8_reference.py` | R8: the moving-lead reference | D (gate, tables, parta) |
+| `236_r9_direct.py`, `236b_r9_allocator.py` | R9: direct-objective baselines, information ladder; the file 151 times | H (crit), D (ladder) |
+| `237_r10_sequence.py` | R10: replay, sequence oracle, decision masks | |
+| `238_r11_refresh.py` | R11: refresh scheduling with real staleness | D (tables) |
+| `239_r12_gaps.py` | R12: reference by loss terms, KITTI under the moving-lead reference, routers, facts | D (b) |
+| `240_r13_causal.py` | R13: ranking and causal rules at one fit set, repeats, the direct learner under folds | |

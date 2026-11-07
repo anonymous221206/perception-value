@@ -37,13 +37,15 @@ def main(argv=None):
                          "KITTI and nuScenes, nuplan_real for nuPlan)")
     ap.add_argument("--cells", nargs="*", default=None, help="score only these cells (track|geometry|system|target)")
     ap.add_argument("--nboot", type=int, default=S.NBOOT)
+    ap.add_argument("--causal", action="store_true", help="decision-mask forms: check the per-unit cap floor(1 + alpha t)")
     args = ap.parse_args(argv)
 
     path = Path(args.submission)
     sub = S.load(path)
     profile = S.load_profile(args.cost_profile) if args.cost_profile else None
     try:
-        form, scored = S.score(sub, plan=args.plan, nboot=args.nboot, profile=profile, cells_only=args.cells)
+        form, scored = S.score(sub, plan=args.plan, nboot=args.nboot, profile=profile, cells_only=args.cells,
+                               causal=args.causal)
     except S.SubmissionError as e:
         print(f"invalid submission {path}:\n{e}", file=sys.stderr)
         return 2

@@ -219,6 +219,42 @@ CACHED = [
      "data/cache/e3/ticks_rt",
      ["results/followup/E3/routing_sensitivity.json", "results/followup/E3/routing.csv",
       "results/followup/E3/routing_runs.csv", "results/followup/E3/routing_escalation.csv"]),
+    ("C59", "follow-up R1 (results/followup/R1/): gate R1-0 and the target swap", EDGE,
+     "PYTHONHASHSEED=0 {py} scripts/227_r1_target_swap.py --stage gate && PYTHONHASHSEED=0 {py} scripts/227_r1_target_swap.py --stage swap",
+     ['results/followup/R1/gate_r1_0.json', 'results/followup/R1/swap.csv']),
+    ("C60", "follow-up R6 (results/followup/R6/): attribution and realism controls", EDGE,
+     "PYTHONHASHSEED=0 {py} scripts/228_r6_validity.py --stage attribution && PYTHONHASHSEED=0 {py} scripts/228_r6_validity.py --stage controls",
+     ['results/followup/R6/attribution.csv', 'results/followup/R6/attribution_single.csv', 'results/followup/R6/controls.csv']),
+    ("C61", "follow-up R5 (results/followup/R5/): prevalence, event onsets, scene counts", EDGE,
+     "PYTHONHASHSEED=0 {py} scripts/229_r5_prevalence.py --stage prevalence && PYTHONHASHSEED=0 {py} scripts/229_r5_prevalence.py --stage events && PYTHONHASHSEED=0 {py} scripts/229_r5_prevalence.py --stage scenes",
+     ['results/followup/R5/prevalence_scenes.csv', 'results/followup/R5/prevalence_deciles.csv', 'results/followup/R5/events.csv', 'results/followup/R5/scene_counts.csv']),
+    ("C62", "follow-up R4 (results/followup/R4/): allocators that may leave budget unused", EDGE,
+     "PYTHONHASHSEED=0 {py} scripts/230_r4_abstention.py --stage run",
+     ['results/followup/R4/abstention.csv', 'results/followup/R4/thresholds.json']),
+    ("C63", "follow-up R3 (results/followup/R3/): feature subsets under measured cost, from the shipped costs", EDGE,
+     "PYTHONHASHSEED=0 {py} scripts/231_r3_gate_cost.py --stage select && PYTHONHASHSEED=0 {py} scripts/231_r3_gate_cost.py --stage test && PYTHONHASHSEED=0 {py} scripts/231_r3_gate_cost.py --stage frozen",
+     ['results/followup/R3/subsets_val.csv', 'results/followup/R3/selected.json', 'results/followup/R3/test.csv', 'results/followup/R3/frozen_kitti.csv']),
+    ("C64", "follow-up R7 (results/followup/R7/): influence and tail checks of the 850-scene claims (about 75 minutes)", EDGE,
+     "PYTHONHASHSEED=0 {py} scripts/234_r7_influence.py --stage b && PYTHONHASHSEED=0 {py} scripts/234_r7_influence.py --stage a && PYTHONHASHSEED=0 {py} scripts/234_r7_influence.py --stage cdg && PYTHONHASHSEED=0 {py} scripts/234_r7_influence.py --stage e && PYTHONHASHSEED=0 {py} scripts/234_r7_influence.py --stage f && PYTHONHASHSEED=0 {py} scripts/234_r7_influence.py --stage h && PYTHONHASHSEED=0 {py} scripts/234_r7_influence.py --stage reading",
+     ['results/followup/R7/gate_r7_0.json', 'results/followup/R7/partA_settings.csv', 'results/followup/R7/partA_scenes.csv', 'results/followup/R7/partA_other_rows.csv', 'results/followup/R7/partC_D_G_rows.csv', 'results/followup/R7/partD_drop_one.csv', 'results/followup/R7/partD_concentration.csv', 'results/followup/R7/partG_trained_capped.csv', 'results/followup/R7/partE_fit_sets.csv', 'results/followup/R7/partF_oof.csv', 'results/followup/R7/partF_summary.csv', 'results/followup/R7/partH_weights.csv', 'results/followup/R7/partH_rho_crossing.csv', 'results/followup/R7/reading.csv']),
+    ("C65", "follow-up R8 (results/followup/R8/): the moving-lead reference, from its shipped tables", EDGE,
+     "PYTHONHASHSEED=0 {py} scripts/235_r8_reference.py --stage parts && PYTHONHASHSEED=0 {py} scripts/235_r8_reference.py --stage partd",
+     ['results/followup/R8/partC_settings.csv', 'results/followup/R8/partC_harm_direction.csv', 'results/followup/R8/partC_drop_scene.csv', 'results/followup/R8/partC_drop_scene_names.csv', 'results/followup/R8/partD_allocators.csv', 'results/followup/R8/reading.csv']),
+    ("C66", "follow-up R9 (results/followup/R9/): baselines trained on the budgeted objective (about 100 minutes)", EDGE,
+     "PYTHONHASHSEED=0 {py} scripts/236_r9_direct.py --stage select && PYTHONHASHSEED=0 {py} scripts/236_r9_direct.py --stage test && PYTHONHASHSEED=0 {py} scripts/236_r9_direct.py --stage frozen && PYTHONHASHSEED=0 {py} scripts/236_r9_direct.py --stage causal",
+     ['results/followup/R9/val_settings.csv', 'results/followup/R9/selected.json', 'results/followup/R9/cells_budgets.csv', 'results/followup/R9/primary.csv', 'results/followup/R9/learners_descriptive.csv', 'results/followup/R9/capped.csv', 'results/followup/R9/r8_variant.csv', 'results/followup/R9/influence.csv', 'results/followup/R9/frozen_val.csv', 'results/followup/R9/frozen_selected.csv', 'results/followup/R9/causal.csv']),
+    ("C67", "follow-up R10 (results/followup/R10/): replay, sequence oracle, decision masks; reads the matrices C66 writes (about one hour)", EDGE,
+     "PYTHONHASHSEED=0 {py} scripts/237_r10_sequence.py --stage replay && PYTHONHASHSEED=0 {py} scripts/237_r10_sequence.py --stage oracle && PYTHONHASHSEED=0 {py} scripts/237_r10_sequence.py --stage masks",
+     ['results/followup/R10/replay.csv', 'results/followup/R10/sequence_oracle.csv', 'results/followup/R10/masks_xl.csv', 'results/followup/R10/masks_frozen.csv']),
+    ("C68", "follow-up R11 (results/followup/R11/): refresh scheduling with real staleness, from the shipped cost tables", EDGE,
+     "PYTHONHASHSEED=0 {py} scripts/238_r11_refresh.py --stage oracle && PYTHONHASHSEED=0 {py} scripts/238_r11_refresh.py --stage policies",
+     ['results/followup/R11/oracle.csv', 'results/followup/R11/policies.csv', 'results/followup/R11/primary.csv']),
+    ("C69", "follow-up R12 (results/followup/R12/): reference by loss terms, KITTI under the moving-lead reference, routers, facts", EDGE,
+     "PYTHONHASHSEED=0 {py} scripts/239_r12_gaps.py --stage a && PYTHONHASHSEED=0 {py} scripts/239_r12_gaps.py --stage b_rows && PYTHONHASHSEED=0 {py} scripts/239_r12_gaps.py --stage c && PYTHONHASHSEED=0 {py} scripts/239_r12_gaps.py --stage d",
+     ['results/followup/R12/gate_r12_0.json', 'results/followup/R12/partA_rows.csv', 'results/followup/R12/reading_partA.csv', 'results/followup/R12/partB_rows.csv', 'results/followup/R12/reading_partB.csv', 'results/followup/R12/partC_rows.csv', 'results/followup/R12/partD_log_overlap.csv', 'results/followup/R12/partD_frames_used.csv']),
+    ("C70", "follow-up R13 (results/followup/R13/): ranking and causal rules at one fit set, and repeats with a causal threshold; the reading reads Part C's shipped rows", EDGE,
+     "PYTHONHASHSEED=0 {py} scripts/240_r13_causal.py --stage a && PYTHONHASHSEED=0 {py} scripts/240_r13_causal.py --stage b && PYTHONHASHSEED=0 {py} scripts/240_r13_causal.py --stage reading",
+     ['results/followup/R13/gate_r13_0.json', 'results/followup/R13/partA_rows.csv', 'results/followup/R13/partA_Dt.csv', 'results/followup/R13/partA_influence.csv', 'results/followup/R13/partA_thresholds.csv', 'results/followup/R13/partB_repeats.csv', 'results/followup/R13/partB_summary.csv', 'results/followup/R13/reading.csv']),
 ]
 
 # the full pipeline from raw data, in the order the results were produced; D = needs datasets, H = hardware-dependent
@@ -431,6 +467,8 @@ FULL = [
      "scripts/198_b2d_dispatch.sh routes 220 && bash scripts/198_b2d_dispatch.sh ladder && HOSTS=$(hostname -s) FIT=1 "
      "bash scripts/204_b2d_routing_chain.sh   # with B and CARLA_ENV set; then copy the checkpoints and tick logs to "
      "data/cache/e3/ (see results/followup/E3/)"),
+    ("S9", "[D] follow-ups R1 to R12, the stages that need raw data or the device: R1's labels and targets, R2's closed loop, R3's and R9's profiling, R5's pair tables, R6's frames and tables, R8's gate and tables, R9's ladder, R10's gate, R11's tables, R12's Part B, R13's Part C", EDGE,
+     "PYTHONHASHSEED=0 {py} scripts/227_r1_target_swap.py --stage dump && PYTHONHASHSEED=0 {py} scripts/227_r1_target_swap.py --stage labels && PYTHONHASHSEED=0 {py} scripts/227_r1_target_swap.py --stage targets && PYTHONHASHSEED=0 {py} scripts/229_r5_prevalence.py --stage pairs && PYTHONHASHSEED=0 {py} scripts/228_r6_validity.py --stage frames && PYTHONHASHSEED=0 {py} scripts/228_r6_validity.py --stage completeness && PYTHONHASHSEED=0 {py} scripts/228_r6_validity.py --stage thresholds && PYTHONHASHSEED=0 {py} scripts/228_r6_validity.py --stage tables && PYTHONHASHSEED=0 {py} scripts/228_r6_validity.py --stage audit && PYTHONHASHSEED=0 {py} scripts/231_r3_gate_cost.py --stage profile && PYTHONHASHSEED=0 {py} scripts/235_r8_reference.py --stage gate && PYTHONHASHSEED=0 {py} scripts/235_r8_reference.py --stage tables && PYTHONHASHSEED=0 {py} scripts/235_r8_reference.py --stage parta && PYTHONHASHSEED=0 {py} scripts/236_r9_direct.py --stage crit && PYTHONHASHSEED=0 {py} scripts/236_r9_direct.py --stage ladder && PYTHONHASHSEED=0 {py} scripts/237_r10_sequence.py --stage gate && PYTHONHASHSEED=0 {py} scripts/238_r11_refresh.py --stage tables && PYTHONHASHSEED=0 {py} scripts/239_r12_gaps.py --stage b && PYTHONHASHSEED=0 {py} scripts/240_r13_causal.py --stage c_export && PYTHONHASHSEED=0 {py} scripts/240_r13_causal.py --stage c"),
 ]
 
 

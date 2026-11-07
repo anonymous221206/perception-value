@@ -1,0 +1,35 @@
+[
+ {
+  "name": "mono_brake 20%",
+  "cell": "mono_brake",
+  "budget": 0.2,
+  "setting": "{\"learner\": \"pair_mlp\"}",
+  "epoch": 20,
+  "learner": "pair_mlp",
+  "seconds_seed0": 37.04241132736206,
+  "extrapolated_hours": 0.020579117404090033,
+  "seeds": 20
+ },
+ {
+  "name": "mono_brake 5%",
+  "cell": "mono_brake",
+  "budget": 0.05,
+  "setting": "{\"eps_m\": 0.01, \"lam_q\": 50, \"learner\": \"cs_gbm\"}",
+  "epoch": -1,
+  "learner": "cs_gbm",
+  "seconds_seed0": 12.640856266021729,
+  "extrapolated_hours": 0.007022697925567627,
+  "seeds": 20
+ },
+ {
+  "name": "mono_plan_ade 20%",
+  "cell": "mono_plan_ade",
+  "budget": 0.2,
+  "setting": "{\"T\": 1.0, \"alpha\": 0.2, \"learner\": \"topk_mlp\"}",
+  "epoch": 40,
+  "learner": "topk_mlp",
+  "seconds_seed0": 46.49117732048035,
+  "extrapolated_hours": 0.025828431844711303,
+  "seeds": 20
+ }
+]

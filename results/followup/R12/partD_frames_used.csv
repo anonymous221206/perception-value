@@ -1,0 +1,25 @@
+track,rule,apply,geometry,population,frames,k_20,v_positive,share
+nuScenes XL,standard,-,oracle,pooled850,34149,6830,879,0.025740138803478873
+nuScenes XL,standard,-,oracle,new765,30773,6155,788,0.02560686315926299
+nuScenes XL,standard,-,oracle,new228_test,9181,1836,184,0.02004138982681625
+nuScenes XL,standard,-,oracle,frozen85,3376,675,91,0.026954976303317536
+nuScenes XL,standard,-,mono,pooled850,34149,6830,1535,0.044950071744414184
+nuScenes XL,standard,-,mono,new765,30773,6155,1370,0.04451954635557144
+nuScenes XL,standard,-,mono,new228_test,9181,1836,379,0.04128090621936608
+nuScenes XL,standard,-,mono,frozen85,3376,675,165,0.04887440758293839
+nuScenes XL,b4,ref+ctrl,oracle,pooled850,34149,6830,848,0.024832352338282234
+nuScenes XL,b4,ref+ctrl,oracle,new765,30773,6155,757,0.024599486562896046
+nuScenes XL,b4,ref+ctrl,oracle,new228_test,9181,1836,186,0.020259231020585994
+nuScenes XL,b4,ref+ctrl,oracle,frozen85,3376,675,91,0.026954976303317536
+nuScenes XL,b4,ref+ctrl,mono,pooled850,34149,6830,1646,0.04820053295850538
+nuScenes XL,b4,ref+ctrl,mono,new765,30773,6155,1476,0.047964124394761644
+nuScenes XL,b4,ref+ctrl,mono,new228_test,9181,1836,414,0.04509312711033656
+nuScenes XL,b4,ref+ctrl,mono,frozen85,3376,675,170,0.050355450236966824
+KITTI,standard,-,oracle,all 21,8008,1602,977,0.12200299700299701
+KITTI,standard,-,oracle,test,3536,707,377,0.10661764705882353
+KITTI,standard,-,mono,all 21,8008,1602,1365,0.17045454545454544
+KITTI,standard,-,mono,test,3536,707,540,0.15271493212669685
+KITTI,b4,ref+ctrl,oracle,all 21,8008,1602,959,0.11975524475524475
+KITTI,b4,ref+ctrl,oracle,test,3536,707,362,0.10237556561085973
+KITTI,b4,ref+ctrl,mono,all 21,8008,1602,1378,0.17207792207792208
+KITTI,b4,ref+ctrl,mono,test,3536,707,550,0.15554298642533937

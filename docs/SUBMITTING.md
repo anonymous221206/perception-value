@@ -15,7 +15,7 @@ python evaluate_submission.py my_allocator.csv [--cost_profile my_profile.json]
 
 Each **cell** is a pair of perception modes, CHEAP and FULL, feeding one downstream decision system, with one decision
 loss (the columns `track, geometry, system, target`; 14 cells: KITTI 4, nuScenes 6, nuPlan 4). The nuPlan cells are
-the real-perception track: decision values from real CHEAP and FULL detector outcomes on nuPlan
+the real-perception track: decision values from Task 5's real CHEAP and FULL detector outcomes
 (`scripts/120_nuplan_real_allocation.py`), not the older transported miss-model track that `benchmark_table.csv`
 still carries for nuPlan. For every input, the decision value `V = J(CHEAP) - J(FULL)` is how much loss escalating that input to FULL
 saves. An allocator scores every input **before** escalation; the benchmark escalates the top-scored inputs up to a
@@ -90,6 +90,7 @@ cell it enters must be covered exactly.
 | `scenario, iteration` | nuPlan: scenario token, iteration (integer) |
 | `score` | **ranking form**: one score per input, used at every budget |
 | `score_q10, score_q20, score_q30, score_q50` | **per-budget form**: one score column per budget level, for budget-conditioned allocators; each budget is scored on its own column |
+| `z` or `z_q10, z_q20, z_q30, z_q50` | **decision-mask forms**: 0/1 per input (or per budget level), scored by Σ z·V, within budget if Σ z ≤ k; a mask over budget keeps its gain and has no nDG. For causal, abstaining or non-ranking policies; `--causal` also reports violations of the per-unit cap floor(1 + αt) in stream order |
 
 No other column. Leave the other track's identifier columns empty (or omit them). The scored output records which
 form was used (`form`: `ranking` or `per-budget`).

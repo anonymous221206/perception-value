@@ -1,0 +1,3 @@
+fit,logs_in_xl,logs_in_765,fit_scenes,fit_logs,test_scenes,test_logs,logs_in_both,test_scenes_with_log_in_fit,test_scenes_with_adjacent_fit_scene
+537 (train + validation),68,59,537,59,228,52,52,228,127
+385 (train),68,59,385,58,228,52,51,225,62

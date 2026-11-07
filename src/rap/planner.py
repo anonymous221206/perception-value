@@ -49,12 +49,32 @@ def in_corridor(lat_min, lat_max, half_w: float) -> np.ndarray:
     return (np.asarray(lat_min) < half_w) & (np.asarray(lat_max) > -half_w)
 
 
-def required_decel(dist, lat_min, lat_max, ttc, v_ego: float,
-                   p: PlannerParams) -> tuple[float, np.ndarray]:
+LEAD_BRAKE = 4.0     # m/s^2, the lead's assumed braking under the follow-up's `lead_b4`
+TTC_NONE = 1e3       # rap.mono caps a non-expanding box's ttc here: no closing-speed estimate
+
+
+def lead_speed(dist, ttc, v_ego, range_rate=None):
+    """Follow-up round 3, R8: an object's speed along the ego heading, max(0, v_ego + range_rate).
+
+    `range_rate` is the reference's; NaN (a track without an estimate) counts as stationary. Without it the rate comes
+    from the closing speed of `ttc`, and an object with no finite ttc (or at rap.mono's cap) counts as stationary.
+    """
+    d = np.asarray(dist, float)
+    if range_rate is not None:
+        rr = np.asarray(range_rate, float)
+        return np.where(np.isfinite(rr), np.maximum(0.0, v_ego + rr), 0.0)
+    t = np.asarray(ttc, float)
+    has = np.isfinite(t) & (t < TTC_NONE) & (t > 0)
+    return np.where(has, np.maximum(0.0, v_ego - d / np.where(has, t, 1.0)), 0.0)
+
+
+def required_decel(dist, lat_min, lat_max, ttc, v_ego: float, p: PlannerParams,
+                   lead: str | None = None, range_rate=None) -> tuple[float, np.ndarray]:
     """Deceleration needed to stop behind the most constraining in-corridor obstacle.
 
     Returns the scalar requirement and the per-obstacle requirement, so the caller can
-    see *which* object drove the decision.
+    see *which* object drove the decision. `lead` (round 3, R8; None is the benchmark's rule) stops treating moving
+    objects as stationary: "b4" lets the lead brake at LEAD_BRAKE, "cv" lets it keep its speed.
     """
     dist = np.asarray(dist, dtype=np.float64)
     if dist.size == 0:
@@ -67,6 +87,10 @@ def required_decel(dist, lat_min, lat_max, ttc, v_ego: float,
     # usable stopping distance after reaction time, never negative
     gap = np.maximum(dist[sel] - p.standoff - v_ego * p.reaction_t, 0.05)
     a_stop = v_ego ** 2 / (2.0 * gap)
+    if lead is not None:
+        v_obj = lead_speed(dist, ttc, v_ego, range_rate)[sel]
+        a_stop = (v_ego ** 2 / (2.0 * (gap + v_obj ** 2 / (2.0 * LEAD_BRAKE))) if lead == "b4"
+                  else np.maximum(0.0, v_ego ** 2 - v_obj ** 2) / (2.0 * gap))
 
     if p.use_ttc:
         # a closing obstacle needs the *relative* speed bled off, not the ego speed

@@ -64,7 +64,7 @@ pip install -r environment/requirements-cached.txt
 cp configs/paths.env.example configs/paths.env     # defaults: datasets/ and models/ here, the active environment
 source configs/paths.env
 
-python reproduce.py --tier cached --list           # the 59 stages, C1 to C58 (with C30b), in order
+python reproduce.py --tier cached --list           # the 71 stages, C1 to C70 (with C30b), in order
 python reproduce.py --tier cached --verify         # run them all and compare against the shipped files
 ```
 
@@ -72,7 +72,7 @@ Useful flags: `--only <id>` for one stage, `--from <id>` to resume. `python -m p
 those needing KITTI files, PyTorch or OpenCV skip themselves when those are absent.
 
 Roughly four hours on the reference device for C1–C40, dominated by the bootstraps in C14, C19, C22, C23 and C35
-and the seed refits in C37. The follow-up stages C41–C58 add about four and a half hours, mostly C43, C44 and C47.
+and the seed refits in C37. The follow-up stages C41–C58 add about four and a half hours, mostly C43, C44 and C47, and C59–C70 about five and a half more, mostly C64, C66 and C67.
 
 ## What `--verify` checks
 
@@ -218,10 +218,23 @@ under `results/followup/`, the caches its cached stages read, and its scripts (1
 | E9 | the range estimator escalated from the ground-plane lift to Depth Anything V2 (metric), with range error and Jetson costs | `results/followup/E9/` | C53 |
 | E10 | escalation in time: reuse the last detections or run the detector | `results/followup/E10/` | C54 |
 | E11 | an end-to-end camera planner (Latent TransFuser) on NAVSIM navtest at half or full camera resolution, with a repeat of the full branch and three checkpoint seeds | `results/followup/E11/` | C55 |
+| R1 | the same allocator trained on perception targets instead of V | `results/followup/R1/` | C59 |
+| R2 | closed-loop dynamics on nuPlan under replayed perception | `results/followup/R2/` | S9 |
+| R3 | what the gate's features cost | `results/followup/R3/` | C63 |
+| R4 | allocators that may leave budget unused | `results/followup/R4/` | C62 |
+| R5 | when escalation helps: prevalence and event onsets | `results/followup/R5/` | C61 |
+| R6 | validity checks of the harmed frames | `results/followup/R6/` | C60 |
+| R7 | influence, tail and selection checks of the 850-scene claims (post hoc) | `results/followup/R7/` | C64 |
+| R8 | a moving-lead braking reference (post hoc, sensitivity) | `results/followup/R8/` | C65 |
+| R9 | baselines trained directly on the budgeted objective, and an information ladder | `results/followup/R9/` | C66 |
+| R10 | the additive view against replay, a sequence oracle, and a decision-mask scorer | `results/followup/R10/` | C67 |
+| R11 | refresh scheduling with real staleness | `results/followup/R11/` | C68 |
+| R12 | reference by loss terms, KITTI under the moving-lead reference (post hoc, sensitivity) | `results/followup/R12/` | C69 |
+| R13 | causal rules at one fit set, and the direct learner under log-grouped folds (post hoc, sensitivity) | `results/followup/R13/` | C70 |
 
 The 850-scene caches (`data/cache/xl/`, `data/cache/nusc_det_xl/`) add about 265 MB, the NAVSIM caches
 (`data/cache/navsim/`) about 60 MB, the caches of E7, E9 and E10 (`data/cache/xl/e7/`, `e7_planner/`, `e9/`, `e10/`,
-`data/cache/e7_lidar/`) about 106 MB, E11's NAVSIM score tables (`data/cache/xl/e11/`) 6 MB, and E3's evaluator checkpoints and tick logs (`data/cache/e3/`, tick logs xz-compressed) 65 MB. E7's LiDAR detections (370 MB) and E8's detections are not shipped: C51 and
+`data/cache/e7_lidar/`) about 106 MB, E11's NAVSIM score tables (`data/cache/xl/e11/`) 6 MB, and E3's evaluator checkpoints and tick logs (`data/cache/e3/`, tick logs xz-compressed) 65 MB. The caches of rounds 2 and 3 (`data/cache/xl/r5/`, `r6/`, `r7/`, `r8/`, `r11/`, `r12/`, `r13/`) add about 250 MB. E7's LiDAR detections (370 MB) and E8's detections are not shipped: C51 and
 C52 read the per-keyframe tables, the detectors' summaries and gate results, and the planner rows; `scripts/210_lidar_detect.py`,
 `207_argo_detect.py` and `215_av2_detect.py` rebuild the detections. The fine-tuned weights of E5
 (`yolov8s_ft.pt`, `yolov8m_ft.pt`, `yolov8l_ft.pt`; 156 MB) ship as assets of the repository's release page, not in the

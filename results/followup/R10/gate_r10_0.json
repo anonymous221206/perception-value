@@ -1,0 +1,13 @@
+{
+ "g1_exit": 0,
+ "g1_file_identical": true,
+ "examples_identical": {
+  "random": true,
+  "confidence": true
+ },
+ "compared": 28096,
+ "differing": 0,
+ "structural": 16,
+ "seconds": 1914.8720924854279,
+ "pass": true
+}

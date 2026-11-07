@@ -1,0 +1,23 @@
+{
+ "xl_oracle": {
+  "frames": 34149,
+  "columns": 39,
+  "differ": []
+ },
+ "xl_mono": {
+  "frames": 34149,
+  "columns": 39,
+  "differ": []
+ },
+ "frozen85_oracle": {
+  "frames": 3376,
+  "columns": 39,
+  "differ": []
+ },
+ "frozen85_mono": {
+  "frames": 3376,
+  "columns": 39,
+  "differ": []
+ },
+ "pass": true
+}

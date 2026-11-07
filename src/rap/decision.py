@@ -105,7 +105,7 @@ def build(det_dir, cheap_mode: str, full_mode: str, seqs, cfg: RiskConfig,
           lp: P.LateralParams | None = None,
           lc: P.LateralCostParams | None = None,
           adapter=KittiAdapter, cache_factory=None, history_variants: bool = False,
-          history: str = "shared") -> pd.DataFrame:
+          history: str = "shared", lead: str | None = None, lead_ctrl: bool = False) -> pd.DataFrame:
     """One row per frame. Both downstream tasks are scored from the same perception.
 
     `cache_factory(path, role)` replaces the detection cache of each fidelity (role "cheap" or "full"); None reads the
@@ -119,6 +119,8 @@ def build(det_dir, cheap_mode: str, full_mode: str, seqs, cfg: RiskConfig,
     all-CHEAP with an all-FULL sequence. `Jterm_<branch>_<term>` gives each weighted loss term under `history`.
     `history_variants` adds `J_full_shared`, `J_full_own`, `J_cheap_ml`, `J_full_ml` and the lateral counterparts
     (`_ml`: memoryless, no action-change term), without changing any other column.
+    `lead` (round 3, R8; None is the benchmark's rule) applies a moving-lead requirement to the reference, and with
+    `lead_ctrl` also to the controller on its perceived objects (closing speed from their ttc).
     """
     assert history in ("shared", "own"), history
     lp = lp or P.LateralParams()
@@ -151,12 +153,12 @@ def build(det_dir, cheap_mode: str, full_mode: str, seqs, cfg: RiskConfig,
                 geo_k = {kk: vv[k] for kk, vv in geo.items()}
                 bx = d["xyxy"][k].astype(float)
                 z, lo, hi, tt = _apply_range_source(bx, geo_k, g, range_source, rng, sigma)
-                a, _ = P.required_decel(z, lo, hi, tt, v, pp)
+                a, _ = P.required_decel(z, lo, hi, tt, v, pp, lead=lead if lead_ctrl else None)
                 lat_a, lat_off = P.lateral_action(z, lo, hi, v, lp)
                 out[tag] = {"a": a, "n": int(k.sum()), "conf": d["conf"][k],
                             "ent": d["binent"][k], "lat_a": lat_a, "lat_off": lat_off}
-            a_gt, _ = P.required_decel(g["long_near"], g["lat_min"], g["lat_max"],
-                                       g["ttc"], v, pp)
+            a_gt, _ = P.required_decel(g["long_near"], g["lat_min"], g["lat_max"], g["ttc"], v, pp, lead=lead,
+                                       range_rate=None if lead is None else np.where(g["has_rate"], g["range_rate"], np.nan))
             act_c = P.discrete_action(out["cheap"]["a"], pp)
             act_f = P.discrete_action(out["full"]["a"], pp)
             Jc = P.decision_cost(act_c, a_gt, prev_c, pp, cp)

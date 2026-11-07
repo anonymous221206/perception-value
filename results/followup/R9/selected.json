@@ -1,0 +1,434 @@
+[
+ {
+  "cell": "oracle_brake",
+  "variant": "V",
+  "budget": 0.05,
+  "learner": "cs_gbm",
+  "setting": "{\"eps_m\": 0.01, \"lam_q\": 50, \"learner\": \"cs_gbm\"}",
+  "epoch": -1,
+  "val_gain": 871.1873829764294
+ },
+ {
+  "cell": "oracle_brake",
+  "variant": "V",
+  "budget": 0.1,
+  "learner": "cs_gbm",
+  "setting": "{\"eps_m\": 0.1, \"lam_q\": 90, \"learner\": \"cs_gbm\"}",
+  "epoch": -1,
+  "val_gain": 827.0683816749646
+ },
+ {
+  "cell": "oracle_brake",
+  "variant": "V",
+  "budget": 0.2,
+  "learner": "topk_mlp",
+  "setting": "{\"T\": 1.0, \"alpha\": 0.2, \"learner\": \"topk_mlp\"}",
+  "epoch": 10,
+  "val_gain": 956.1543844719546
+ },
+ {
+  "cell": "oracle_brake",
+  "variant": "V",
+  "budget": 0.3,
+  "learner": "pair_mlp",
+  "setting": "{\"learner\": \"pair_mlp\"}",
+  "epoch": 110,
+  "val_gain": 776.7527297669176
+ },
+ {
+  "cell": "oracle_brake",
+  "variant": "V",
+  "budget": 0.4,
+  "learner": "cs_gbm",
+  "setting": "{\"eps_m\": 0.0, \"lam_q\": null, \"learner\": \"cs_gbm\"}",
+  "epoch": -1,
+  "val_gain": 805.1736393772563
+ },
+ {
+  "cell": "oracle_brake",
+  "variant": "V",
+  "budget": 0.5,
+  "learner": "cs_gbm",
+  "setting": "{\"eps_m\": 0.0, \"lam_q\": null, \"learner\": \"cs_gbm\"}",
+  "epoch": -1,
+  "val_gain": 795.0030787032438
+ },
+ {
+  "cell": "oracle_brake",
+  "variant": "capped",
+  "budget": 0.2,
+  "learner": "pair_mlp",
+  "setting": "{\"learner\": \"pair_mlp\"}",
+  "epoch": 50,
+  "val_gain": 297.9576635932802
+ },
+ {
+  "cell": "oracle_plan_ade",
+  "variant": "V",
+  "budget": 0.05,
+  "learner": "cs_gbm",
+  "setting": "{\"eps_m\": 0.01, \"lam_q\": 50, \"learner\": \"cs_gbm\"}",
+  "epoch": -1,
+  "val_gain": 130.0579968520199
+ },
+ {
+  "cell": "oracle_plan_ade",
+  "variant": "V",
+  "budget": 0.1,
+  "learner": "cs_gbm",
+  "setting": "{\"eps_m\": 0.01, \"lam_q\": 50, \"learner\": \"cs_gbm\"}",
+  "epoch": -1,
+  "val_gain": 229.74206576355223
+ },
+ {
+  "cell": "oracle_plan_ade",
+  "variant": "V",
+  "budget": 0.2,
+  "learner": "topk_mlp",
+  "setting": "{\"T\": 0.3, \"alpha\": 0.2, \"learner\": \"topk_mlp\"}",
+  "epoch": 180,
+  "val_gain": 337.76537628033446
+ },
+ {
+  "cell": "oracle_plan_ade",
+  "variant": "V",
+  "budget": 0.3,
+  "learner": "topk_mlp",
+  "setting": "{\"T\": 1.0, \"alpha\": 0.3, \"learner\": \"topk_mlp\"}",
+  "epoch": 10,
+  "val_gain": 357.4433345167769
+ },
+ {
+  "cell": "oracle_plan_ade",
+  "variant": "V",
+  "budget": 0.4,
+  "learner": "topk_mlp",
+  "setting": "{\"T\": 0.1, \"alpha\": 0.4, \"learner\": \"topk_mlp\"}",
+  "epoch": 130,
+  "val_gain": 395.7389507934639
+ },
+ {
+  "cell": "oracle_plan_ade",
+  "variant": "V",
+  "budget": 0.5,
+  "learner": "topk_mlp",
+  "setting": "{\"T\": 0.3, \"alpha\": 0.5, \"learner\": \"topk_mlp\"}",
+  "epoch": 90,
+  "val_gain": 391.8784790825082
+ },
+ {
+  "cell": "oracle_plan_ade",
+  "variant": "capped",
+  "budget": 0.2,
+  "learner": "topk_mlp",
+  "setting": "{\"T\": 1.0, \"alpha\": 0.2, \"learner\": \"topk_mlp\"}",
+  "epoch": 120,
+  "val_gain": 197.49459804850244
+ },
+ {
+  "cell": "oracle_plan_fde",
+  "variant": "V",
+  "budget": 0.05,
+  "learner": "cs_gbm",
+  "setting": "{\"eps_m\": 0.01, \"lam_q\": 50, \"learner\": \"cs_gbm\"}",
+  "epoch": -1,
+  "val_gain": 256.6325040751754
+ },
+ {
+  "cell": "oracle_plan_fde",
+  "variant": "V",
+  "budget": 0.1,
+  "learner": "cs_gbm",
+  "setting": "{\"eps_m\": 0.01, \"lam_q\": 50, \"learner\": \"cs_gbm\"}",
+  "epoch": -1,
+  "val_gain": 280.7113570050596
+ },
+ {
+  "cell": "oracle_plan_fde",
+  "variant": "V",
+  "budget": 0.2,
+  "learner": "cs_gbm",
+  "setting": "{\"eps_m\": 0.1, \"lam_q\": 75, \"learner\": \"cs_gbm\"}",
+  "epoch": -1,
+  "val_gain": 515.5261902912495
+ },
+ {
+  "cell": "oracle_plan_fde",
+  "variant": "V",
+  "budget": 0.3,
+  "learner": "topk_mlp",
+  "setting": "{\"T\": 1.0, \"alpha\": 0.3, \"learner\": \"topk_mlp\"}",
+  "epoch": 20,
+  "val_gain": 661.9213807671457
+ },
+ {
+  "cell": "oracle_plan_fde",
+  "variant": "V",
+  "budget": 0.4,
+  "learner": "topk_mlp",
+  "setting": "{\"T\": 1.0, \"alpha\": 0.4, \"learner\": \"topk_mlp\"}",
+  "epoch": 10,
+  "val_gain": 742.4032332950055
+ },
+ {
+  "cell": "oracle_plan_fde",
+  "variant": "V",
+  "budget": 0.5,
+  "learner": "topk_mlp",
+  "setting": "{\"T\": 1.0, \"alpha\": 0.5, \"learner\": \"topk_mlp\"}",
+  "epoch": 10,
+  "val_gain": 787.5369167503572
+ },
+ {
+  "cell": "oracle_plan_fde",
+  "variant": "capped",
+  "budget": 0.2,
+  "learner": "cs_gbm",
+  "setting": "{\"eps_m\": 0.01, \"lam_q\": 50, \"learner\": \"cs_gbm\"}",
+  "epoch": -1,
+  "val_gain": 462.322106663889
+ },
+ {
+  "cell": "mono_brake",
+  "variant": "V",
+  "budget": 0.05,
+  "learner": "cs_gbm",
+  "setting": "{\"eps_m\": 0.01, \"lam_q\": 50, \"learner\": \"cs_gbm\"}",
+  "epoch": -1,
+  "val_gain": 894.4990857611882
+ },
+ {
+  "cell": "mono_brake",
+  "variant": "V",
+  "budget": 0.1,
+  "learner": "pair_mlp",
+  "setting": "{\"learner\": \"pair_mlp\"}",
+  "epoch": 20,
+  "val_gain": 918.1294539434849
+ },
+ {
+  "cell": "mono_brake",
+  "variant": "V",
+  "budget": 0.2,
+  "learner": "pair_mlp",
+  "setting": "{\"learner\": \"pair_mlp\"}",
+  "epoch": 20,
+  "val_gain": 991.6884159610611
+ },
+ {
+  "cell": "mono_brake",
+  "variant": "V",
+  "budget": 0.3,
+  "learner": "pair_mlp",
+  "setting": "{\"learner\": \"pair_mlp\"}",
+  "epoch": 70,
+  "val_gain": 1040.2843062481686
+ },
+ {
+  "cell": "mono_brake",
+  "variant": "V",
+  "budget": 0.4,
+  "learner": "pair_mlp",
+  "setting": "{\"learner\": \"pair_mlp\"}",
+  "epoch": 70,
+  "val_gain": 1028.1659657450455
+ },
+ {
+  "cell": "mono_brake",
+  "variant": "V",
+  "budget": 0.5,
+  "learner": "topk_mlp",
+  "setting": "{\"T\": 0.1, \"alpha\": 0.5, \"learner\": \"topk_mlp\"}",
+  "epoch": 30,
+  "val_gain": 946.0956165090424
+ },
+ {
+  "cell": "mono_brake",
+  "variant": "capped",
+  "budget": 0.2,
+  "learner": "cs_gbm",
+  "setting": "{\"eps_m\": 0.01, \"lam_q\": null, \"learner\": \"cs_gbm\"}",
+  "epoch": -1,
+  "val_gain": 313.25398094147874
+ },
+ {
+  "cell": "r8_b4",
+  "variant": "V",
+  "budget": 0.05,
+  "learner": "cs_gbm",
+  "setting": "{\"eps_m\": 0.1, \"lam_q\": 50, \"learner\": \"cs_gbm\"}",
+  "epoch": -1,
+  "val_gain": 279.1862003568761
+ },
+ {
+  "cell": "r8_b4",
+  "variant": "V",
+  "budget": 0.1,
+  "learner": "cs_gbm",
+  "setting": "{\"eps_m\": 0.0, \"lam_q\": 75, \"learner\": \"cs_gbm\"}",
+  "epoch": -1,
+  "val_gain": 340.81440790572566
+ },
+ {
+  "cell": "r8_b4",
+  "variant": "V",
+  "budget": 0.2,
+  "learner": "cs_gbm",
+  "setting": "{\"eps_m\": 0.0, \"lam_q\": 75, \"learner\": \"cs_gbm\"}",
+  "epoch": -1,
+  "val_gain": 334.3598609837693
+ },
+ {
+  "cell": "r8_b4",
+  "variant": "V",
+  "budget": 0.3,
+  "learner": "pair_mlp",
+  "setting": "{\"learner\": \"pair_mlp\"}",
+  "epoch": 70,
+  "val_gain": 348.2056668511372
+ },
+ {
+  "cell": "r8_b4",
+  "variant": "V",
+  "budget": 0.4,
+  "learner": "pair_mlp",
+  "setting": "{\"learner\": \"pair_mlp\"}",
+  "epoch": 50,
+  "val_gain": 349.023079938462
+ },
+ {
+  "cell": "r8_b4",
+  "variant": "V",
+  "budget": 0.5,
+  "learner": "pair_mlp",
+  "setting": "{\"learner\": \"pair_mlp\"}",
+  "epoch": 70,
+  "val_gain": 332.98642821128675
+ },
+ {
+  "cell": "mono_plan_ade",
+  "variant": "V",
+  "budget": 0.05,
+  "learner": "topk_mlp",
+  "setting": "{\"T\": 0.3, \"alpha\": 0.05, \"learner\": \"topk_mlp\"}",
+  "epoch": 170,
+  "val_gain": 105.31361482203202
+ },
+ {
+  "cell": "mono_plan_ade",
+  "variant": "V",
+  "budget": 0.1,
+  "learner": "topk_mlp",
+  "setting": "{\"T\": 0.1, \"alpha\": 0.1, \"learner\": \"topk_mlp\"}",
+  "epoch": 60,
+  "val_gain": 130.48426036877214
+ },
+ {
+  "cell": "mono_plan_ade",
+  "variant": "V",
+  "budget": 0.2,
+  "learner": "topk_mlp",
+  "setting": "{\"T\": 1.0, \"alpha\": 0.2, \"learner\": \"topk_mlp\"}",
+  "epoch": 40,
+  "val_gain": 157.91692416420378
+ },
+ {
+  "cell": "mono_plan_ade",
+  "variant": "V",
+  "budget": 0.3,
+  "learner": "topk_mlp",
+  "setting": "{\"T\": 0.1, \"alpha\": 0.3, \"learner\": \"topk_mlp\"}",
+  "epoch": 50,
+  "val_gain": 174.5812301674931
+ },
+ {
+  "cell": "mono_plan_ade",
+  "variant": "V",
+  "budget": 0.4,
+  "learner": "topk_mlp",
+  "setting": "{\"T\": 0.1, \"alpha\": 0.4, \"learner\": \"topk_mlp\"}",
+  "epoch": 50,
+  "val_gain": 217.3551551650192
+ },
+ {
+  "cell": "mono_plan_ade",
+  "variant": "V",
+  "budget": 0.5,
+  "learner": "cs_gbm",
+  "setting": "{\"eps_m\": 0.01, \"lam_q\": 75, \"learner\": \"cs_gbm\"}",
+  "epoch": -1,
+  "val_gain": 198.1343478269325
+ },
+ {
+  "cell": "mono_plan_ade",
+  "variant": "capped",
+  "budget": 0.2,
+  "learner": "topk_mlp",
+  "setting": "{\"T\": 1.0, \"alpha\": 0.2, \"learner\": \"topk_mlp\"}",
+  "epoch": 110,
+  "val_gain": 97.63792312915422
+ },
+ {
+  "cell": "mono_plan_fde",
+  "variant": "V",
+  "budget": 0.05,
+  "learner": "topk_mlp",
+  "setting": "{\"T\": 1.0, \"alpha\": 0.05, \"learner\": \"topk_mlp\"}",
+  "epoch": 160,
+  "val_gain": 213.22187723605543
+ },
+ {
+  "cell": "mono_plan_fde",
+  "variant": "V",
+  "budget": 0.1,
+  "learner": "topk_mlp",
+  "setting": "{\"T\": 1.0, \"alpha\": 0.1, \"learner\": \"topk_mlp\"}",
+  "epoch": 70,
+  "val_gain": 224.1786665169998
+ },
+ {
+  "cell": "mono_plan_fde",
+  "variant": "V",
+  "budget": 0.2,
+  "learner": "cs_gbm",
+  "setting": "{\"eps_m\": 0.01, \"lam_q\": 50, \"learner\": \"cs_gbm\"}",
+  "epoch": -1,
+  "val_gain": 322.35759739379085
+ },
+ {
+  "cell": "mono_plan_fde",
+  "variant": "V",
+  "budget": 0.3,
+  "learner": "cs_gbm",
+  "setting": "{\"eps_m\": 0.0, \"lam_q\": 95, \"learner\": \"cs_gbm\"}",
+  "epoch": -1,
+  "val_gain": 393.50472338921236
+ },
+ {
+  "cell": "mono_plan_fde",
+  "variant": "V",
+  "budget": 0.4,
+  "learner": "topk_mlp",
+  "setting": "{\"T\": 1.0, \"alpha\": 0.4, \"learner\": \"topk_mlp\"}",
+  "epoch": 60,
+  "val_gain": 486.9975357851729
+ },
+ {
+  "cell": "mono_plan_fde",
+  "variant": "V",
+  "budget": 0.5,
+  "learner": "cs_gbm",
+  "setting": "{\"eps_m\": 0.0, \"lam_q\": 95, \"learner\": \"cs_gbm\"}",
+  "epoch": -1,
+  "val_gain": 412.40765698820616
+ },
+ {
+  "cell": "mono_plan_fde",
+  "variant": "capped",
+  "budget": 0.2,
+  "learner": "pair_mlp",
+  "setting": "{\"learner\": \"pair_mlp\"}",
+  "epoch": 10,
+  "val_gain": 278.6573430483119
+ }
+]

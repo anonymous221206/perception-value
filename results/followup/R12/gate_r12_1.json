@@ -1,0 +1,13 @@
+{
+ "oracle": {
+  "frames": 8008,
+  "columns": 39,
+  "differ": []
+ },
+ "mono": {
+  "frames": 8008,
+  "columns": 39,
+  "differ": []
+ },
+ "pass": true
+}
