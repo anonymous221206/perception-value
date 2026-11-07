@@ -192,6 +192,33 @@ CACHED = [
      "PYTHONHASHSEED=0 {py} scripts/206_temporal_escalation.py --stage refresh",
      ["results/followup/E10/settings.csv", "results/followup/E10/intervals.csv",
       "results/followup/E10/refresh_allocators.csv"]),
+    ("C55", "follow-up E11 (results/followup/E11/): an end-to-end camera planner (Latent TransFuser) on NAVSIM navtest, "
+     "gate E11-0, the repeat of the full branch and the secondary seeds", EDGE,
+     "PYTHONHASHSEED=0 {py} scripts/222_e11_analysis.py --scores data/cache/xl/e11 --logs "
+     "data/cache/navsim/pdms_rows_test.csv && for s in 1 2; do PYTHONHASHSEED=0 {py} scripts/222_e11_analysis.py "
+     "--scores data/cache/xl/e11 --logs data/cache/navsim/pdms_rows_test.csv --seed $s || exit 1; done",
+     ["results/followup/E11/gate_e11_0.json", "results/followup/E11/settings.csv", "results/followup/E11/tokens.csv",
+      "results/followup/E11/repeat_full.json", "results/followup/E11/means_seed1.json",
+      "results/followup/E11/settings_seed1.csv", "results/followup/E11/tokens_seed1.csv",
+      "results/followup/E11/means_seed2.json", "results/followup/E11/settings_seed2.csv",
+      "results/followup/E11/tokens_seed2.csv"]),
+    ("C56", "follow-up E3 (results/followup/E3/), (b): forked rollouts in closed loop against an A/A control, frame "
+     "sample and outcomes", EDGE,
+     "PYTHONHASHSEED=0 {py} scripts/196_b2d_forks.py --stage sample --logs data/cache/e3/ticks --out_dir "
+     "data/cache/e3/out && PYTHONHASHSEED=0 {py} scripts/196_b2d_forks.py --stage outcomes --logs data/cache/e3/ticks "
+     "--out_dir data/cache/e3/out",
+     ["results/followup/E3/fork_jobs.csv", "results/followup/E3/baseline_status.csv",
+      "results/followup/E3/forked_rollout.csv", "results/followup/E3/aa_control.csv"]),
+    ("C57", "follow-up E3, (a): the uniform ladder (privileged, cheap, full, 960; 220 routes x 3 repetitions)", EDGE,
+     "PYTHONHASHSEED=0 {py} scripts/200_b2d_ladder.py --out_dir data/cache/e3/ladder",
+     ["results/followup/E3/ladder_runs.csv", "results/followup/E3/uniform_ladder.csv"]),
+    ("C58", "follow-up E3, (c): routing at a 20% budget (gate and random against the ladder's cheap and full), and its "
+     "sensitivity from the ladder", EDGE,
+     "PYTHONHASHSEED=0 {py} scripts/203_b2d_routing.py --stage sensitivity --out_dir data/cache/e3/ladder && "
+     "PYTHONHASHSEED=0 {py} scripts/203_b2d_routing.py --stage outcomes --out_dir data/cache/e3/ladder --ticks "
+     "data/cache/e3/ticks_rt",
+     ["results/followup/E3/routing_sensitivity.json", "results/followup/E3/routing.csv",
+      "results/followup/E3/routing_runs.csv", "results/followup/E3/routing_escalation.csv"]),
 ]
 
 # the full pipeline from raw data, in the order the results were produced; D = needs datasets, H = hardware-dependent
@@ -388,6 +415,22 @@ FULL = [
      "for Small and 224 for Large, 212 --stage infer per dataset and size, gate, tables, cost; see results/followup/E9/"),
     ("S6", "[D] follow-up E10: per-frame tables of the stale and fresh branches and gate E10-0 (read by C54)", EDGE,
      "{py} scripts/206_temporal_escalation.py --stage tables"),
+    ("S7", "[D] follow-up E11: navtest's left and right front cameras from the OpenScene archives, the navtest metric "
+     "cache, and Latent TransFuser's branches with the released checkpoints (GPU machine's CPU, in NAVSIM's environment; "
+     "read by C55)", EDGE,
+     "bash scripts/219_openscene_cams_fetch.sh && bash scripts/221_e11_run.sh && REPEAT=1 bash scripts/221_e11_run.sh "
+     "&& SEED=1 bash scripts/221_e11_run.sh && SEED=2 bash scripts/221_e11_run.sh   # with B set; then copy "
+     "$B/deep_ext/navsim/e11/<branch>/*.csv to data/cache/xl/e11/<branch>/"),
+    ("S8", "[D] follow-up E3: Bench2Drive runs in CARLA 0.9.15 on the simulation machine (CARLA_ENV as in "
+     "scripts/b2d_env.example.sh; carla_garage with third_party/patches/carla_garage_e3.patch; 201's watchdog beside "
+     "the runs): baselines and forks (b), the ladder (a), development runs, gate fit and routing (c); read by C56-C58",
+     EDGE,
+     "bash scripts/198_b2d_dispatch.sh routes 50 && bash scripts/198_b2d_dispatch.sh baseline A && bash "
+     "scripts/198_b2d_dispatch.sh baseline B && {py} scripts/196_b2d_forks.py --stage sample --logs $B/deep_ext/b2d/ticks "
+     "--out_dir $B/deep_ext/b2d/out && bash scripts/198_b2d_dispatch.sh forks results/followup/E3/fork_jobs.csv && bash "
+     "scripts/198_b2d_dispatch.sh routes 220 && bash scripts/198_b2d_dispatch.sh ladder && HOSTS=$(hostname -s) FIT=1 "
+     "bash scripts/204_b2d_routing_chain.sh   # with B and CARLA_ENV set; then copy the checkpoints and tick logs to "
+     "data/cache/e3/ (see results/followup/E3/)"),
 ]
 
 

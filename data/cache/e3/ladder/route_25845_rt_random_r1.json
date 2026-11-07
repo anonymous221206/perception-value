@@ -1,0 +1,144 @@
+{
+    "_checkpoint": {
+        "global_record": {
+            "index": -1,
+            "route_id": -1,
+            "status": "Completed",
+            "infractions": {
+                "collisions_layout": 0.0,
+                "collisions_pedestrian": 0.0,
+                "collisions_vehicle": 19.014,
+                "red_light": 0.0,
+                "stop_infraction": 0.0,
+                "outside_route_lanes": 0.009,
+                "min_speed_infractions": 180.629,
+                "yield_emergency_vehicle_infractions": 0.0,
+                "scenario_timeouts": 0.0,
+                "route_dev": 0.0,
+                "vehicle_blocked": 0.0,
+                "route_timeout": 0.0
+            },
+            "scores_mean": {
+                "score_composed": 32.88953,
+                "score_route": 100.0,
+                "score_penalty": 0.328895
+            },
+            "scores_std_dev": {
+                "score_composed": 0,
+                "score_route": 0,
+                "score_penalty": 0
+            },
+            "meta": {
+                "total_length": 105.188,
+                "duration_game": 18.5,
+                "duration_system": 50.076,
+                "exceptions": []
+            }
+        },
+        "progress": [
+            1,
+            1
+        ],
+        "records": [
+            {
+                "index": 0,
+                "route_id": "RouteScenario_25845_rep0",
+                "scenario_name": "AccidentTwoWays_1",
+                "weather_id": "18",
+                "save_name": "RouteScenario_25845_rep0_Town15_AccidentTwoWays_1_18_10_19_05_48_49",
+                "status": "Completed",
+                "num_infractions": 22,
+                "infractions": {
+                    "collisions_layout": [],
+                    "collisions_pedestrian": [],
+                    "collisions_vehicle": [
+                        "Agent collided against object with type=vehicle.chevrolet.impala and id=234 at (x=110.949, y=-495.394, z=153.993)",
+                        "Agent collided against object with type=vehicle.chevrolet.impala and id=234 at (x=105.108, y=-500.46, z=154.155)"
+                    ],
+                    "red_light": [],
+                    "stop_infraction": [],
+                    "outside_route_lanes": [
+                        "Agent went outside its route lanes for about 9.001 meters (8.64% of the completed route)"
+                    ],
+                    "min_speed_infractions": [
+                        "Average speed is 140.5% of the surrounding traffic's one",
+                        "Average speed is 157.25% of the surrounding traffic's one",
+                        "Average speed is 280.95% of the surrounding traffic's one",
+                        "Average speed is 254.72% of the surrounding traffic's one",
+                        "Average speed is 176.43% of the surrounding traffic's one",
+                        "Average speed is 179.5% of the surrounding traffic's one",
+                        "Average speed is 129.03% of the surrounding traffic's one",
+                        "Average speed is 170.3% of the surrounding traffic's one",
+                        "Average speed is 190.22% of the surrounding traffic's one",
+                        "Average speed is 52.03% of the surrounding traffic's one",
+                        "Average speed is 139.11% of the surrounding traffic's one",
+                        "Average speed is 444.29% of the surrounding traffic's one",
+                        "Average speed is 306.42% of the surrounding traffic's one",
+                        "Average speed is 461.92% of the surrounding traffic's one",
+                        "Average speed is 302.23% of the surrounding traffic's one",
+                        "Average speed is 247.07% of the surrounding traffic's one",
+                        "Average speed is 206.34% of the surrounding traffic's one",
+                        "Average speed is 160.8% of the surrounding traffic's one",
+                        "Average speed is 160.8% of the surrounding traffic's one"
+                    ],
+                    "yield_emergency_vehicle_infractions": [],
+                    "scenario_timeouts": [],
+                    "route_dev": [],
+                    "vehicle_blocked": [],
+                    "route_timeout": []
+                },
+                "scores": {
+                    "score_route": 100,
+                    "score_penalty": 0.328895,
+                    "score_composed": 32.88953
+                },
+                "meta": {
+                    "route_length": 105.188,
+                    "duration_game": 18.5,
+                    "duration_system": 50.076
+                },
+                "town_name": "Town15"
+            }
+        ]
+    },
+    "entry_status": "Finished",
+    "eligible": true,
+    "sensors": [
+        "carla_imu",
+        "carla_camera"
+    ],
+    "values": [
+        "32.88953",
+        "100.0",
+        "0.328895",
+        "0.0",
+        "19.014",
+        "0.0",
+        "0.0",
+        "0.0",
+        "0.009",
+        "0.0",
+        "0.0",
+        "0.0",
+        "0.0",
+        "0.0",
+        "180.629"
+    ],
+    "labels": [
+        "Avg. driving score",
+        "Avg. route completion",
+        "Avg. infraction penalty",
+        "Collisions with pedestrians",
+        "Collisions with vehicles",
+        "Collisions with layout",
+        "Red lights infractions",
+        "Stop sign infractions",
+        "Off-road infractions",
+        "Route deviations",
+        "Route timeouts",
+        "Agent blocked",
+        "Yield emergency vehicles infractions",
+        "Scenario timeouts",
+        "Min speed infractions"
+    ]
+}

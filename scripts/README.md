@@ -195,3 +195,17 @@ Specified before its values were computed in `docs/followup_protocol.md`; output
 | `224_depth_engine.py` | E9: TensorRT FP16 engine with the layer norms in FP32 (Large) | H |
 | `225_e7_planner_rows.py` | E7: planner rows (submissions, rasters, pairs, rows) | D (but rows) |
 | `226_av1_gate_breakdown.py` | E8a: label-only breakdown of gate E8-0 | D |
+| `195_b2d_pilot.py` | E3: PDM-Lite with perception in the loop (the benchmark's modes, shadow and fork modes), the evaluator's agent | H, D |
+| `196_b2d_forks.py` | E3 (b): frame sample and the outcomes of the forked rollouts against the A/A control | |
+| `198_b2d_dispatch.sh` | E3: evaluator runs per case (`routes`, `baseline`, `forks`, `ladder`, `routedev`, `route`), crash reruns, claims across machines (simulation machine) | H, D |
+| `200_b2d_ladder.py` | E3 (a): the uniform ladder from the evaluator checkpoints | |
+| `201_b2d_watchdog.sh` | E3: stops evaluators whose CARLA server died or stopped ticking (simulation machine) | |
+| `202_b2d_route_pilot.py` | E3 (c): 195's pilot with per-frame routing between the cheap and full modes | H, D |
+| `203_b2d_routing.py` | E3 (c): gate fit on the development runs, routing outcomes, sensitivity from the ladder | D (fit) |
+| `204_b2d_routing_chain.sh` | E3 (c): development runs, gate fit and routing passes in order, on each machine | H, D |
+| `b2d_gpu_run.sh` | E3: starts one evaluator job on a GPU with MIN_FREE_MB free (used by 198) | |
+| `b2d_env.example.sh` | E3: template of the CARLA environment script 198 / 204 source (CARLA_ENV) | |
+| `219_openscene_cams_fetch.sh` | E11: CAM_L0 / CAM_R0 of OpenScene's test split from the public archives (GPU machine) | D |
+| `221_e11_run.sh` | E11: navtest metric cache, Latent TransFuser's full and cheap branches scored by NAVSIM (`REPEAT=1`: the full branch again; `SEED=1/2`: the secondary checkpoints) | D |
+| `222_e11_analysis.py` | E11: gate E11-0, settings and sub-scores, the repeat, the secondary seeds (`--seed`) | |
+| `navsim_e11/deep_e11_agent.py` | E11: NAVSIM's TransFuser agent with one branch's camera input and no LiDAR load (imported by 221) | |

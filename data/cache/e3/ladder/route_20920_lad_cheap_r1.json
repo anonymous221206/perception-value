@@ -1,0 +1,136 @@
+{
+    "_checkpoint": {
+        "global_record": {
+            "index": -1,
+            "route_id": -1,
+            "status": "Failed",
+            "infractions": {
+                "collisions_layout": 0.0,
+                "collisions_pedestrian": 0.0,
+                "collisions_vehicle": 35.676,
+                "red_light": 0.0,
+                "stop_infraction": 0.0,
+                "outside_route_lanes": 0.0,
+                "min_speed_infractions": 124.866,
+                "yield_emergency_vehicle_infractions": 0.0,
+                "scenario_timeouts": 0.0,
+                "route_dev": 0.0,
+                "vehicle_blocked": 0.0,
+                "route_timeout": 0.0
+            },
+            "scores_mean": {
+                "score_composed": 15.282,
+                "score_route": 42.45,
+                "score_penalty": 0.36
+            },
+            "scores_std_dev": {
+                "score_composed": 0,
+                "score_route": 0,
+                "score_penalty": 0
+            },
+            "meta": {
+                "total_length": 132.062,
+                "duration_game": 200.05,
+                "duration_system": 1086.394,
+                "exceptions": [
+                    [
+                        "RouteScenario_20920_rep0",
+                        0,
+                        "Failed - TickRuntime"
+                    ]
+                ]
+            }
+        },
+        "progress": [
+            1,
+            1
+        ],
+        "records": [
+            {
+                "index": 0,
+                "route_id": "RouteScenario_20920_rep0",
+                "scenario_name": "ConstructionObstacleTwoWays_1",
+                "weather_id": "15",
+                "save_name": "RouteScenario_20920_rep0_Town12_ConstructionObstacleTwoWays_1_15_10_14_12_19_20",
+                "status": "Failed - TickRuntime",
+                "num_infractions": 9,
+                "infractions": {
+                    "collisions_layout": [],
+                    "collisions_pedestrian": [],
+                    "collisions_vehicle": [
+                        "Agent collided against object with type=vehicle.dodge.charger_2020 and id=3866 at (x=3488.337, y=4502.666, z=367.957)",
+                        "Agent collided against object with type=vehicle.dodge.charger_2020 and id=3867 at (x=3489.441, y=4492.029, z=367.986)"
+                    ],
+                    "red_light": [],
+                    "stop_infraction": [],
+                    "outside_route_lanes": [],
+                    "min_speed_infractions": [
+                        "Average speed is 143.13% of the surrounding traffic's one",
+                        "Average speed is 119.74% of the surrounding traffic's one",
+                        "Average speed is 170.42% of the surrounding traffic's one",
+                        "Average speed is 135.07% of the surrounding traffic's one",
+                        "Average speed is 86.45% of the surrounding traffic's one",
+                        "Average speed is 12.01% of the surrounding traffic's one",
+                        "Average speed is 10.35% of the surrounding traffic's one"
+                    ],
+                    "yield_emergency_vehicle_infractions": [],
+                    "scenario_timeouts": [],
+                    "route_dev": [],
+                    "vehicle_blocked": [],
+                    "route_timeout": []
+                },
+                "scores": {
+                    "score_route": 42.45,
+                    "score_penalty": 0.36,
+                    "score_composed": 15.282
+                },
+                "meta": {
+                    "route_length": 132.062,
+                    "duration_game": 200.05,
+                    "duration_system": 1086.394
+                },
+                "town_name": "Town12"
+            }
+        ]
+    },
+    "entry_status": "Finished",
+    "eligible": true,
+    "sensors": [
+        "carla_imu",
+        "carla_camera"
+    ],
+    "values": [
+        "15.282",
+        "42.45",
+        "0.36",
+        "0.0",
+        "35.676",
+        "0.0",
+        "0.0",
+        "0.0",
+        "0.0",
+        "0.0",
+        "0.0",
+        "0.0",
+        "0.0",
+        "0.0",
+        "124.866"
+    ],
+    "labels": [
+        "Avg. driving score",
+        "Avg. route completion",
+        "Avg. infraction penalty",
+        "Collisions with pedestrians",
+        "Collisions with vehicles",
+        "Collisions with layout",
+        "Red lights infractions",
+        "Stop sign infractions",
+        "Off-road infractions",
+        "Route deviations",
+        "Route timeouts",
+        "Agent blocked",
+        "Yield emergency vehicles infractions",
+        "Scenario timeouts",
+        "Min speed infractions"
+    ]
+}

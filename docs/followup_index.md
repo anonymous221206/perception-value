@@ -6,7 +6,7 @@ protocol left open, with the reading taken.
 The protocol was committed before any decision value on the new test scenes was computed. Its public copy is the
 commit after release tag `v1.0`. Each addendum is appended to `docs/followup_protocol.md`, and the outputs of each experiment are under `results/followup/<experiment>/`.
 
-E8, E9 and E10 extend the protocol's list (Section 9 names E1–E7); each has its own addendum under the protocol's
+E8 to E11 extend the protocol's list (Section 9 names E1–E7); each has its own addendum under the protocol's
 Sections 3, 4 and 6.
 
 Each addendum was committed before the first decision value of its experiment.
@@ -29,6 +29,7 @@ Each addendum was committed before the first decision value of its experiment.
 | E8-0, E8b (Argoverse 2, both image versions) | **fail, E8b stopped**: recall 0.325 (raw) / 0.316 (undistorted); lift error +2.5% / +0.8% | no adapter fault; input scale and occlusion (breakdown) |
 | E9-0: TensorRT engines against PyTorch FP32, median relative difference of box ranges < 1% | **pass on the third run**: Small 0.07% / 0.33%, Large 0.03% / 0.12% (nuScenes / KITTI) | run 1 exposed a loading fault (relative head), run 2 failed Large on FP16 layer norms; both fixed before any decision value |
 | E10-0: the fresh branch reproduces the benchmark's tables | **pass**, all 16 cells equal | 8,008 KITTI and 34,149 nuScenes frames each |
+| E11-0: Latent TransFuser's full branch reproduces its published navtest PDMS within 1 point | **pass**: 84.14 against 83.8 | the cheap branch 84.20; 12,146 of 12,146 tokens valid in both |
 
 ## Deviations
 
@@ -46,6 +47,9 @@ Each addendum was committed before the first decision value of its experiment.
 | E9 (before any value): ONNX opset 16, the layer norms written as elementary operations | the Jetson's TensorRT 8.5 cannot import opset 17's LayerNormalization |
 | E9 (before any decision value): transformers 4.45.2, asserted in 213; export, engines, reference, inference and gate redone | gate E9-0's first run showed that 4.44.2 built the relative head for the metric checkpoints |
 | E9 (before any decision value): Large's engines hold the layer norms in FP32 (224); Small keeps its FP16 engines | gate E9-0's second run passed Small and failed Large; held in FP32, the same gate boxes differ by 0.03% |
+| E11 (before any value): the navtest metric cache rebuilt with NAVSIM v1.1's own caching script, navtest split, default parameters | E2's copy was no longer available |
+| E11: the analysis named the TTC sub-score `time_to_collision`; corrected to NAVSIM's `time_to_collision_within_bound`, as in E2's six sub-scores | its first run stopped at that sub-score, after the gate and four sub-score rows; no value already computed changed |
+| E3 (c): the first routing start was stopped after about 15 minutes and its six runs set aside unread; routing restarted from its first pass after the failed development run was rerun and the gate refit on all 50 routes | one development run had failed at set-up (out of GPU memory after another job grew) and the gate had been fit on 49 routes; such records now count as crashes |
 
 ## Points the protocol left open, and the reading taken
 
@@ -62,3 +66,14 @@ Each addendum was committed before the first decision value of its experiment.
 | E7 planner rows: operating points, geometry and field of view | the shared operating point only (as E5's planner rows); one geometry, since LiDAR boxes are metric; the addendum's field-of-view rule and class set, as for the braking rows; E1's 228 new test scenes |
 | E8b: a landscape input (for example a 5:3 band of the portrait image around the horizon) would likely lift recall above the gate | not run: it changes the registered input after seeing the gate |
 | E9: used as released, both depth networks read ranges about 40–50% longer than the reference on nuScenes | not run: a focal-length rescaling or scale fit would change the registered estimator after seeing the result |
+| E11: the trajectory is continuous, so most tokens change a little; is part of that run-to-run variation? | the full branch was scored a second time, unchanged (not registered): 0 of 12,146 tokens change |
+| E11: seeds 1 and 2 are secondary, "if time allows" | run with the same cameras, cache and settings; the gate and the reading stay seed 0's |
+| E3 (b): frames whose 8 s window does not lie inside all three runs (7 truncated, 2 forks whose route ended before the fork tick) | the primary rows keep frames whose window lies inside base_A, base_B and the fork; the truncated frames form a sensitivity row; the 2 forks are excluded; decided before any outcome was scored |
+| E3 (b): CARLA runs are not bit-reproducible, so the shared history of V_t is approximate | V_t as registered; the A/A control absorbs the run-to-run part; V_t_AA and the pre-fork distances are reported as diagnostics |
+| E3 (a): success rate and the paired difference | Bench2Drive's success (Completed or Perfect, no infraction other than min-speed); each route's mean over its repetitions, differenced between branches on the routes present in both, route bootstrap |
+| E3 (a): how crashed runs count (a checkpoint without a record) | rerun, as the evaluator asks; given up after three crashes and reported missing; crashes per branch are reported |
+| E3 (c): what the gate learns to predict | the benchmark's decision value per 10-tick frame: its braking controller on each mode's perceived scene, loss Eq. 10 against a⋆ from the true actors |
+| E3 (c): development and test routes | the first 50 routes by id (those of (b)) for the gate, the other 170 for the test |
+| E3 (c): budgets and policies | one budget, 20% of frames; gate and random only |
+| E3 (c): gate features in CARLA | E2's gate columns without NAVSIM's driving command, plus the ground-plane distance of the nearest kept detection and ego speed; E2's `gate_gbm`, nothing tuned |
+| E3 (c): a record that reflects the machine, not the driving (agent set-up failed, GPU out of memory) | counted as a crash: rerun, given up after three |

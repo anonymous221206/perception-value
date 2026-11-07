@@ -1,0 +1,14 @@
+{
+ "routes": 50,
+ "frames": 4074,
+ "affected_frames": 277,
+ "V_sum": 3350.0279299313775,
+ "V_positive_sum": 3760.985939489504,
+ "budget": 0.2,
+ "tau": 1.37958167800368,
+ "oof_escalation_share": 0.18532155130093275,
+ "oof_spearman": 0.048004358751763364,
+ "oof_gain_at_tau": 1562.02959130561,
+ "random_expected_gain": 670.0055859862755,
+ "oracle_gain_at_budget": 3760.9859394895034
+}

@@ -1,0 +1,137 @@
+{
+    "_checkpoint": {
+        "global_record": {
+            "index": -1,
+            "route_id": -1,
+            "status": "Failed",
+            "infractions": {
+                "collisions_layout": 0.0,
+                "collisions_pedestrian": 0.0,
+                "collisions_vehicle": 26.62,
+                "red_light": 0.0,
+                "stop_infraction": 0.0,
+                "outside_route_lanes": 0.0,
+                "min_speed_infractions": 239.577,
+                "yield_emergency_vehicle_infractions": 0.0,
+                "scenario_timeouts": 0.0,
+                "route_dev": 0.0,
+                "vehicle_blocked": 0.0,
+                "route_timeout": 0.0
+            },
+            "scores_mean": {
+                "score_composed": 28.968,
+                "score_route": 48.28,
+                "score_penalty": 0.6
+            },
+            "scores_std_dev": {
+                "score_composed": 0,
+                "score_route": 0,
+                "score_penalty": 0
+            },
+            "meta": {
+                "total_length": 77.809,
+                "duration_game": 200.05,
+                "duration_system": 923.998,
+                "exceptions": [
+                    [
+                        "RouteScenario_27018_rep0",
+                        0,
+                        "Failed - TickRuntime"
+                    ]
+                ]
+            }
+        },
+        "progress": [
+            1,
+            1
+        ],
+        "records": [
+            {
+                "index": 0,
+                "route_id": "RouteScenario_27018_rep0",
+                "scenario_name": "SignalizedJunctionRightTurn_1",
+                "weather_id": "18",
+                "save_name": "RouteScenario_27018_rep0_Town15_SignalizedJunctionRightTurn_1_18_10_17_21_14_57",
+                "status": "Failed - TickRuntime",
+                "num_infractions": 10,
+                "infractions": {
+                    "collisions_layout": [],
+                    "collisions_pedestrian": [],
+                    "collisions_vehicle": [
+                        "Agent collided against object with type=vehicle.mercedes.coupe_2020 and id=259 at (x=695.344, y=730.879, z=117.995)"
+                    ],
+                    "red_light": [],
+                    "stop_infraction": [],
+                    "outside_route_lanes": [],
+                    "min_speed_infractions": [
+                        "Average speed is 202.34% of the surrounding traffic's one",
+                        "Average speed is 221.38% of the surrounding traffic's one",
+                        "Average speed is 326.16% of the surrounding traffic's one",
+                        "Average speed is 617.18% of the surrounding traffic's one",
+                        "Average speed is 385.85% of the surrounding traffic's one",
+                        "Average speed is 154.36% of the surrounding traffic's one",
+                        "Average speed is 32.77% of the surrounding traffic's one",
+                        "Average speed is 339.86% of the surrounding traffic's one",
+                        "Average speed is 385.62% of the surrounding traffic's one"
+                    ],
+                    "yield_emergency_vehicle_infractions": [],
+                    "scenario_timeouts": [],
+                    "route_dev": [],
+                    "vehicle_blocked": [],
+                    "route_timeout": []
+                },
+                "scores": {
+                    "score_route": 48.28,
+                    "score_penalty": 0.6,
+                    "score_composed": 28.968
+                },
+                "meta": {
+                    "route_length": 77.809,
+                    "duration_game": 200.05,
+                    "duration_system": 923.998
+                },
+                "town_name": "Town15"
+            }
+        ]
+    },
+    "entry_status": "Finished",
+    "eligible": true,
+    "sensors": [
+        "carla_imu",
+        "carla_camera"
+    ],
+    "values": [
+        "28.968",
+        "48.28",
+        "0.6",
+        "0.0",
+        "26.62",
+        "0.0",
+        "0.0",
+        "0.0",
+        "0.0",
+        "0.0",
+        "0.0",
+        "0.0",
+        "0.0",
+        "0.0",
+        "239.577"
+    ],
+    "labels": [
+        "Avg. driving score",
+        "Avg. route completion",
+        "Avg. infraction penalty",
+        "Collisions with pedestrians",
+        "Collisions with vehicles",
+        "Collisions with layout",
+        "Red lights infractions",
+        "Stop sign infractions",
+        "Off-road infractions",
+        "Route deviations",
+        "Route timeouts",
+        "Agent blocked",
+        "Yield emergency vehicles infractions",
+        "Scenario timeouts",
+        "Min speed infractions"
+    ]
+}

@@ -1,0 +1,14 @@
+{
+ "test_routes": 170,
+ "first_test_route": 3048,
+ "runs": 2029,
+ "within_route_var_driving_score": 49.9743142862962,
+ "sd_noise_policy_difference": 5.772019536020081,
+ "mdd_noise": 1.2395423317397245,
+ "sd_full_minus_cheap": 11.873991473939734,
+ "mdd_full_minus_cheap_sd": 2.5574750866947116,
+ "headroom_full_minus_cheap": 0.5943268520710058,
+ "headroom_lo": -1.122529843885602,
+ "headroom_hi": 2.3799814471400396,
+ "headroom_routes": 169
+}

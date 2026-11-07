@@ -400,6 +400,200 @@ every-draw log bootstrap paired against random.
 
 ---
 
+## Addendum E3 — closed loop (Bench2Drive, CARLA 0.9.15)
+
+Addendum to `followup_protocol.md` (Section 9), committed before any E3 rollout is scored.
+Order: (b) forked rollouts, then (a) the uniform ladder, then (c) routing — and (c) only if (a) and (b) are done.
+
+### System
+
+- **Planner:** PDM-Lite, the rule-based expert of the Bench2Drive release of carla_garage. Its map, route, traffic
+  lights and scenario information stay privileged.
+- **Perception in the loop:** the rule of the benchmark's nuPlan and NAVSIM tracks.
+  - Every vehicle or walker whose 3D box projects into the front camera (1600×900, FOV 70°, Bench2Drive's CAM_FRONT
+    pose) is kept only if a detection of the active mode matches it (Hungarian, class-compatible, IoU ≥ 0.3).
+  - Unmatched in-camera actors are hidden from the planner.
+  - Unmatched detections become static obstacles on the ground plane (class-median sizes, heading along the viewing
+    ray).
+  - Actors outside the camera are untouched.
+- **Modes:** COCO YOLOv8s at 192×320 (cheap) and 384×640 (full), operating threshold 0.25.
+  - Inference runs in PyTorch FP16 on the simulation machine's GPU. TensorRT engines are Jetson-specific; the weights,
+    letterbox and decoding are the benchmark's.
+  - Detection is run on every simulator tick (20 Hz).
+- **Branches:** privileged (no perception), cheap, full; the uniform ladder (a) adds 960 (544×960).
+
+### Decision value in closed loop
+
+**Escalation unit.** One decision frame = 0.5 s = 10 simulator ticks, the benchmark's 2 Hz frame interval. Escalating
+frame t means that the full mode replaces the cheap mode for the ticks of that frame only.
+
+**Per-tick loss.** The benchmark's braking loss (Appendix J of the paper, Eq. 10):
+- a = the ego's realised longitudinal acceleration over the tick (negative = braking), from the simulator;
+- a⋆ = the braking controller's requirement computed from the true actors (all actors, privileged geometry, the
+  benchmark's corridor and parameters), at the ego's speed;
+- terms: shortfall, excess, change of a against the previous tick, and the large-shortfall penalty.
+
+**Window outcome**, over the 8 s window that starts at frame t:
+- J = the per-tick losses summed over the window;
+- collision: any collision event of the ego in the window;
+- progress: the route distance driven in the window.
+
+**Forked rollout (b).** For a route and a frame t:
+- the baseline run drives cheap throughout;
+- the fork re-runs the route from its start with the same seeds, cheap until t, full on frame t, cheap afterwards,
+  and stops 8 s after t;
+- closed-loop value: ΔJ = J(baseline window) − J(fork window), positive when escalating frame t helped;
+- single-step decision value: V_t = L(a_cheap, a⋆) − L(a_full, a⋆), summed over the 10 ticks of frame t (the first
+  ticks of the two runs, where the history is still shared).
+
+**A/A control.** The baseline is run twice with identical settings. On every sampled frame, |ΔJ_AA| (the difference
+between the two baseline windows) measures the simulator's run-to-run difference.
+- The noise floor is the 95th percentile of |ΔJ_AA| over the sampled frames.
+- Sign agreement between V_t and ΔJ is reported only on frames whose |ΔJ| exceeds the floor, together with the
+  number of frames below it.
+- The same is done for collision and progress, as differences in counts and metres.
+
+**Frame sample.**
+- In the baseline run both modes are evaluated on every frame (the full mode in shadow: it is computed and logged,
+  but not used).
+- A frame is eligible if the perceived object sets of the two modes differ on any of its ticks.
+- Up to 300 eligible frames are drawn without replacement, stratified by route, with numpy seed 0 (at most 5 per
+  route), from the first 40 Bench2Drive routes (in route-id order) that complete under the cheap branch.
+- 50 non-eligible frames are drawn the same way as a further null control.
+
+**Reported.**
+- Counts of eligible, sampled, above-floor and below-floor frames.
+- Sign agreement of V_t and ΔJ, with a 95% bootstrap interval by route.
+- Spearman correlation of V_t and ΔJ.
+- The same against collision and progress differences.
+
+### Uniform ladder (a)
+
+The 220 Bench2Drive routes with branches privileged, cheap, full (640), 960; three repetitions each. Reported:
+driving score, success rate, infractions by type, and the paired difference between branches, with a route-bootstrap
+interval over route × repetition means.
+
+### Routing (c)
+
+Defined in a further addendum after (a) and (b), before any routing run.
+
+### Reading
+
+- **If fewer than 30 frames exceed the noise floor**, sign agreement is reported as unresolved, with the count.
+- **If the floor is large compared with typical ΔJ**, that is reported: the simulator's run-to-run variation then
+  bounds what a closed-loop test of single-frame escalation can resolve.
+
+---
+
+## Addendum E3 (c) — routing at a matched budget in closed loop
+
+Addendum to `followup_protocol.md` (Section 9: "routing at matched budgets last") and addendum E3 in `docs/followup_protocol.md`.
+Written after (a) and (b) and committed before any development or routing run.
+
+### Question
+
+In closed loop, does a gate fitted the benchmark's way choose frames whose escalation helps driving more than a
+random choice of the same share of frames? The gate is E2's gradient-boosted gate, trained on the decision value.
+
+### System
+
+As in (a) and (b):
+- PDM-Lite with perception in the loop (the benchmark's rule);
+- COCO YOLOv8s, cheap 192×320 and full 384×640, threshold 0.25, PyTorch FP16;
+- detection on every tick (20 Hz).
+
+Code: `scripts/202_b2d_route_pilot.py` (195's pilot plus routing; 195 unchanged), `scripts/203_b2d_routing.py`, and
+`scripts/198_b2d_dispatch.sh` (cases `routedev`, `route`).
+
+### Routing
+
+- **Decision frame:** 10 ticks (0.5 s), counted from the route's first tick; the escalation unit of (b).
+- **Decision:** at a frame's first tick the cheap mode runs, and the router decides from that output and the ego
+  speed.
+- **Escalation:** an escalated frame uses the full mode on all 10 of its ticks, including the first tick's planner
+  input. Otherwise the frame uses cheap.
+- **Budget:** 20% of frames, the paper's headline selection budget.
+- **Policies:**
+  - **gate:** E2's `gate_gbm` (the benchmark's gradient-boosted regressor and settings) predicts V from the gate
+    features. A frame is escalated when the prediction is at least τ.
+  - **random:** a frame is escalated with probability 0.2. The numpy generator is seeded with route id × 10 +
+    repetition.
+
+### Gate fitting (development)
+
+**Routes and runs.** The first 50 Bench2Drive routes by id, the routes of (b). One run each: cheap, with the full mode
+in shadow (202, `ROUTER=dev`).
+
+**Decision value per frame.**
+- Per tick, the benchmark's braking controller acts on each mode's perceived scene. Its loss (Eq. 10) is computed
+  against a⋆ from the true actors; the jerk term is taken against that mode's previous action.
+- V = Σ over the frame's 10 ticks of [J(cheap action) − J(full action)].
+- Frames with fewer than 10 ticks (route end) are dropped.
+- PDM-Lite's own response to the full mode cannot be observed without one fork per frame. The gate is therefore
+  trained on the benchmark's decision value, as the paper's allocators are.
+
+**Features**, taken at the frame's first tick from the cheap output:
+- counts at the operating threshold and at the detector floor (0.10);
+- confidence sum (kept) and maximum (all);
+- summed binary entropy (kept, all);
+- largest and summed box area (kept);
+- lowest box bottom (kept);
+- the ground-plane distance of the nearest kept detection;
+- ego speed.
+
+These are E2's gate columns without NAVSIM's driving command, plus the nearest-detection distance that E2's addendum
+names.
+
+**Threshold and fit.**
+- τ is the lowest out-of-fold prediction (5 folds by route) at which the share of frames at or above it is still
+  within 20%.
+- The final model is fit on all development frames. No hyperparameter is tuned.
+
+**Reported** (`gate_dev.json`): frames, affected frames (V ≠ 0), out-of-fold Spearman with V, and the out-of-fold gain
+at τ against random's expectation and against the oracle at 20%.
+
+### Test
+
+- **Routes:** the other 170 Bench2Drive routes.
+- **Runs:** gate and random, three repetitions each with identical settings, as in (a): 1,020 runs.
+- **References:** the ladder's cheap and full runs of the same routes and repetitions (0% and 100% escalation).
+- **Crashes:** as in (a). A run without a record is rerun, up to three crashes; it is reported missing after that.
+- **Machines:** the runs are split between two machines with the same GPU (RTX A5000), the same driver, and the
+  same software from a shared work folder.
+  - The runs are shared out as the machines free up. In each pass, a machine with a free job slot claims the next
+    run; the claim is an atomic folder creation in the shared workspace, so no run is handled by two machines.
+  - Every machine finishes a pass before any machine starts the next one.
+  - The machine of each run is recorded (its tick-log folder). Policy means are also reported per machine, as a
+    check.
+
+**Reported** (`routing.csv`, `routing_runs.csv`, `routing_escalation.csv`):
+- per policy: driving score, success, route completion, vehicle collisions per run, TickRuntime stops, the realised
+  share of escalated frames, and the share of full-mode ticks;
+- paired differences of route means (route bootstrap, 1,000 draws, seed 0): gate − random (primary), gate − cheap,
+  random − cheap, full − gate, full − random, full − cheap.
+
+### Reading
+
+- **Primary:** gate − random on driving score.
+  - Interval above 0: the gate's choice helps beyond random.
+  - Interval below 0: the gate's choice is worse than random.
+  - Otherwise: unresolved.
+- **Sensitivity, from the final (a) before any routing run** (`routing_sensitivity.json`, 203 `--stage
+  sensitivity`; the 170 test routes, three repetitions):
+  - **Run-to-run noise:** the within-route variance of the driving score, pooled over branches, is 50.0. Two
+    policies with equal effect would differ in a route mean by SD √(2 × 50.0 / 3) = 5.8. The minimum detectable
+    difference (80% power, two-sided 5%) is then 2.8 × 5.8 / √170 = **1.2 points**.
+  - **Observed spread:** the route-mean full − cheap difference has SD 11.9 on these routes, which gives a minimum
+    detectable difference of **2.6 points**.
+  - **Headroom:** full − cheap on these routes is **+0.6 [−1.1, +2.4]** (169 routes; route 11755 has no cheap or
+    full run). A frame-selection policy at 20% would not be expected to exceed full.
+  - **Consequence:** the minimum detectable difference exceeds the headroom, so no resolved gate − random difference
+    is expected. (c) reports its intervals as they come out.
+- **Matching:** if the gate's realised escalation share on test lies outside 15–25%, the comparison with random is
+  flagged as not matched in budget.
+
+---
+
 ## Addendum E6 — a learned nuPlan planner on the external track
 
 Addendum to `followup_protocol.md` (Section 9), committed before any E6 decision value. Reviewed afterwards from the
@@ -944,3 +1138,65 @@ The protocol's list of prior contact (Section 2) contains no comparison of stale
 - E1's temporal-context router (secondary, X6) used the cheap detections of t−3..t as features of an allocator for
   resolution. It did not compare stale and fresh decisions.
 - E10's values have not been computed before this commit.
+
+---
+
+## Addendum E11 — an end-to-end camera planner on NAVSIM navtest
+
+Addendum to `followup_protocol.md` (Sections 3, 4 and 6 apply), for follow-up E11 (stretch, run last).
+Committed before any value of E11 is computed.
+
+### Question
+
+Does the sign variation of decision value reach a planner without a separate detection stage? The planner here maps
+camera images to a trajectory end to end. The escalation is the resolution of its camera input.
+
+### Planner
+
+- **Agent:** NAVSIM's Latent TransFuser (LTF), the official checkpoints released by NAVSIM's authors
+  (`autonomousvision/navsim_baselines`, `ltf/ltf_seed_0.ckpt`; Apache-2.0). It runs with NAVSIM devkit v1.1's own LTF
+  agent and configuration, unchanged.
+- **Seeds:** seed 0 is primary. Seeds 1 and 2 are secondary, if time allows.
+- **Inputs:** the agent's own input, the stitched front cameras CAM_L0, CAM_F0 and CAM_R0, plus ego status. LTF uses
+  no LiDAR.
+
+### Escalation
+
+- **Full:** the released camera images.
+- **Cheap:** each of the three images downsampled by 2 per side (OpenCV INTER_AREA), then upsampled back to its size
+  (INTER_LINEAR), before the agent's own preprocessing. This is the 2× per-side ratio of the benchmark's 320 → 640
+  modes. The agent and everything after the images are unchanged.
+
+### Data and scoring
+
+- **Tokens:** navtest (12,146 tokens, 136 logs), as in E2.
+- **Images:** CAM_L0 and CAM_R0 come from the public OpenScene test camera archives, kept for navtest's logs only;
+  CAM_F0 as in E2.
+- **Score:** NAVSIM v1.1 `pdm_score` with the default parameters and E2's navtest metric cache.
+  - (Added 2026-10-19, before any value of E11.) E2's navtest metric cache is no longer on the training machine's
+    shared volume. It is rebuilt the way E2's was: NAVSIM's own caching script, devkit v1.1 (3e8291b), navtest split,
+    default parameters. The file count is recorded with the run.
+- **Decision value:** V = PDMS(full) − PDMS(cheap) per token. Also per sub-score, as in E2.
+
+### Gate E11-0 (stops E11 until resolved)
+
+The full branch's mean PDMS on navtest reproduces LTF's published navtest PDMS (NAVSIM v1 leaderboard, seed 0, or the
+three-seed mean where only that is published) within 1.0 point. This checks the cameras, the checkpoint, the devkit
+and the cache, before any decision value.
+
+### Quantities
+
+- **Setting level (as E2):** affected tokens, harmed share, ρ, all-full and oracle@20 reduction, relative to the
+  all-cheap mean PDMS shortfall. Intervals from 1,000 bootstrap draws by log, seed 0.
+- **Sub-scores:** each with its affected count. ρ is undefined below 30 affected tokens (E2's rule).
+- **Allocators:** not run. The agent has no cheap-side detection list for the benchmark's features.
+
+### Reading
+
+- **PDMS, harmed share ≥ 30% with ρ > 0:** the sign variation reaches an end-to-end camera planner.
+- **Harmed share below 30%:** reported as a planner where it does not.
+- **All-full reduction:** reported with its interval, whatever its sign.
+
+### Prior runs
+
+- No learned end-to-end NAVSIM agent had been run with this repository's code before this addendum.

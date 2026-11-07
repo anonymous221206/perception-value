@@ -156,12 +156,22 @@ comparison requires. Official nuPlan metrics were written for both.
 - used via `diffusion_planner.planner.planner.DiffusionPlanner`, unmodified; its only mmengine use (local file IO in
   `utils/train_utils.py`) is served by `scripts/shims/mmengine/fileio.py`
 
-## NAVSIM — Dauner et al., NeurIPS 2024 Datasets and Benchmarks (follow-up E2)
+## NAVSIM — Dauner et al., NeurIPS 2024 Datasets and Benchmarks (follow-ups E2 and E11)
 - repo: https://github.com/autonomousvision/navsim
 - commit: `3e8291bfa89ff247231e0227778840cd0a036896` (devkit v1.1)
 - used via: its metric caching script, `PDMScorer` / `pdm_score` with the default scoring parameters, and its scene
   loader, in its own environment (`scripts/192_navsim_pdms.py`); unmodified. The OpenScene logs and CAM_F0 sensor blobs
   of the test and mini splits are user-supplied (`data/README.md`)
+- follow-up E11: its TransFuser agent with `latent: true` (Latent TransFuser), `run_metric_caching.py` and
+  `run_pdm_score.py`, unmodified; `scripts/navsim_e11/deep_e11_agent.py` subclasses the agent and its feature builder
+  to degrade one branch's camera images and to skip the LiDAR load
+- checkpoints: `autonomousvision/navsim_baselines` on Hugging Face (Apache-2.0), revision
+  `a068068540abdc32dd6985830ae8463a7ac2f9d2`, `ltf/ltf_seed_0.ckpt` (sha256
+  d08e97ba6beb937412697d619171553041622859e026a06935a2e0e118e6309d), `ltf_seed_1.ckpt`
+  (4802deb7e579e025295051f91a0f1cb45e69319139465521e29617c5358a2f70) and `ltf_seed_2.ckpt`
+  (47c82b97767b19b0da06abc0b220b6671d7adcee8bfab6383d40f82491fdefa8), fetched by `scripts/221_e11_run.sh`
+- navtest's CAM_L0 / CAM_R0 images: OpenScene v1.1's test camera archives (`OpenDriveLab/OpenScene` on Hugging Face),
+  fetched by `scripts/219_openscene_cams_fetch.sh`; CAM_F0 as for E2
 
 ## OpenPCDet — OpenPCDet Development Team (follow-up E7)
 - repo: https://github.com/open-mmlab/OpenPCDet
@@ -182,3 +192,12 @@ comparison requires. Official nuPlan metrics were written for both.
   exported to ONNX opset 16 and built into TensorRT engines on the Jetson (`scripts/224_depth_engine.py` for Large); the
   engines' md5 are in `results/followup/E9/engines.md5`
 
+## CARLA 0.9.15 and carla_garage (PDM-Lite, Bench2Drive) — follow-up E3
+- CARLA: release 0.9.15 (https://github.com/carla-simulator/carla), the packaged server and its Python client
+- carla_garage: https://github.com/autonomousvision/carla_garage, commit `f22bc491b3094792aef475149e09a94dcbb526f9`;
+  its Bench2Drive folder provides the leaderboard evaluator, scenario runner, the 220 routes
+  (`leaderboard/data/bench2drive220.xml`) and the PDM-Lite expert (`team_code/autopilot.py`), which `scripts/195_b2d_pilot.py`
+  subclasses
+- two changes, in `third_party/patches/carla_garage_e3.patch`: after a crash the evaluator kills only its own CARLA
+  server (the original kills every CARLA on the GPU), and the kinematic bicycle model builds its speed features in a
+  way numpy >= 1.24 accepts (same features)

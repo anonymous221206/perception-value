@@ -50,6 +50,15 @@ The archive links are only shown after logging in to the official download page,
 The fetch is capped at 400 MB of directory data and 3.5 GB of image data. It stops, rather than falling back to
 a whole-archive download, if a server refuses Range requests.
 
+## Follow-up experiments
+
+The follow-ups (`docs/followup_index.md`) read further data under `$RAP_DATASETS` or on the GPU machine; each script's
+header names its inputs. NAVSIM (E2, E11) needs OpenScene v1.1's `navsim_logs/{test,mini}`, the CAM_F0
+`sensor_blobs` of both splits and the nuPlan maps, set up as NAVSIM's install guide describes (`OPENSCENE_DATA_ROOT`,
+`NUPLAN_MAPS_ROOT`). E11 also needs navtest's CAM_L0 and CAM_R0 images: `scripts/219_openscene_cams_fetch.sh` fetches
+them from OpenScene's public test camera archives (about 128 GB downloaded, 32 GB kept). E3 needs no dataset: it
+runs Bench2Drive's 220 routes in CARLA 0.9.15 (`third_party/PROVENANCE.md`).
+
 ## Licenses of dataset-derived files
 
 The shipped caches, result tables, overlays and gallery images are derived from the datasets. They are
@@ -60,5 +69,7 @@ provided for non-commercial research under each dataset's own license:
 | nuScenes | CC BY-NC-SA 4.0 |
 | nuPlan | CC BY-NC-SA 4.0 |
 | KITTI | CC BY-NC-SA 3.0 |
+| OpenScene / NAVSIM (derived from nuPlan) | CC BY-NC-SA 4.0 |
+| Argoverse 1.1, Argoverse 2 | CC BY-NC-SA 4.0 |
 
 The MIT license in `LICENSE` covers the code only.
