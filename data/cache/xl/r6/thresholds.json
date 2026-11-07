@@ -1,0 +1,18 @@
+{
+ "S1": [
+  0.25,
+  0.470703125
+ ],
+ "S2": [
+  0.25,
+  0.35
+ ],
+ "S3": [
+  0.25,
+  0.34
+ ],
+ "S3_target_precision": 0.6257608847172529,
+ "S3_none_reached_target": false,
+ "units": "152 new validation scenes",
+ "frames": 6117
+}

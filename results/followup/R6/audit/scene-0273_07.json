@@ -1,0 +1,330 @@
+{
+ "scene": "scene-0273",
+ "frame": 7,
+ "sample_token": "a9460d1306f94aaf894af8b07d5f23a9",
+ "system": "brake",
+ "geometry": "mono",
+ "image_copy": "scene-0273_07.jpg",
+ "V": -0.6616713824101526,
+ "J_cheap": 1.9869499543978306,
+ "J_full": 2.648621336807983,
+ "ego_speed_mps": 6.016896356979481,
+ "action": {
+  "cheap": "KEEP",
+  "full": "HARD_BRAKE",
+  "reference": "DECELERATE"
+ },
+ "a_req": {
+  "cheap": 0.0,
+  "full": 9.0,
+  "reference": 1.4095921234164976
+ },
+ "cheap_boxes": [
+  {
+   "det_index": 0,
+   "xyxy": [
+    1380.0836181640625,
+    491.8525695800781,
+    1590.15966796875,
+    604.5860595703125
+   ],
+   "class": "vehicle",
+   "conf": 0.7431640625,
+   "matched_reference": true,
+   "matched_completed_reference": true,
+   "z_forward_m": 17.718172073364258,
+   "lat_min_m": -9.658275604248047,
+   "lat_max_m": -7.00786018371582,
+   "in_corridor": false,
+   "considered_by_controller": false,
+   "a_req_obj": 0.0
+  },
+  {
+   "det_index": 1,
+   "xyxy": [
+    351.7782287597656,
+    499.11712646484375,
+    395.7705993652344,
+    588.3386840820312
+   ],
+   "class": "person",
+   "conf": 0.4755859375,
+   "matched_reference": false,
+   "matched_completed_reference": false,
+   "z_forward_m": 19.98504066467285,
+   "lat_min_m": 6.2047247886657715,
+   "lat_max_m": 6.841425895690918,
+   "in_corridor": false,
+   "considered_by_controller": false,
+   "a_req_obj": 0.0
+  },
+  {
+   "det_index": 2,
+   "xyxy": [
+    520.2052001953125,
+    472.2794189453125,
+    569.8677368164062,
+    584.8026123046875
+   ],
+   "class": "person",
+   "conf": 0.2998046875,
+   "matched_reference": true,
+   "matched_completed_reference": true,
+   "z_forward_m": 20.667306900024414,
+   "lat_min_m": 3.818981647491455,
+   "lat_max_m": 4.563981056213379,
+   "in_corridor": false,
+   "considered_by_controller": false,
+   "a_req_obj": 0.0
+  }
+ ],
+ "full_boxes": [
+  {
+   "det_index": 0,
+   "xyxy": [
+    1385.127197265625,
+    492.9085693359375,
+    1599.0,
+    607.4248657226562
+   ],
+   "class": "vehicle",
+   "conf": 0.87255859375,
+   "matched_reference": true,
+   "matched_completed_reference": true,
+   "z_forward_m": 17.34806251525879,
+   "lat_min_m": -9.543543815612793,
+   "lat_max_m": -6.907625198364258,
+   "in_corridor": false,
+   "considered_by_controller": false,
+   "a_req_obj": 0.0
+  },
+  {
+   "det_index": 1,
+   "xyxy": [
+    640.0328369140625,
+    478.3287048339844,
+    685.2698974609375,
+    601.85302734375
+   ],
+   "class": "person",
+   "conf": 0.72802734375,
+   "matched_reference": true,
+   "matched_completed_reference": true,
+   "z_forward_m": 17.940366744995117,
+   "lat_min_m": 1.7889347076416016,
+   "lat_max_m": 2.3697152137756348,
+   "in_corridor": false,
+   "considered_by_controller": false,
+   "a_req_obj": 0.0
+  },
+  {
+   "det_index": 2,
+   "xyxy": [
+    495.8150634765625,
+    466.9688415527344,
+    546.3317260742188,
+    596.7418212890625
+   ],
+   "class": "person",
+   "conf": 0.68994140625,
+   "matched_reference": true,
+   "matched_completed_reference": true,
+   "z_forward_m": 18.650569915771484,
+   "lat_min_m": 3.730590343475342,
+   "lat_max_m": 4.407932758331299,
+   "in_corridor": false,
+   "considered_by_controller": false,
+   "a_req_obj": 0.0
+  },
+  {
+   "det_index": 3,
+   "xyxy": [
+    1222.8111572265625,
+    479.519287109375,
+    1258.4755859375,
+    506.2801513671875
+   ],
+   "class": "vehicle",
+   "conf": 0.640625,
+   "matched_reference": false,
+   "matched_completed_reference": false,
+   "z_forward_m": 85.33477020263672,
+   "lat_min_m": -28.660890579223633,
+   "lat_max_m": -26.309906005859375,
+   "in_corridor": false,
+   "considered_by_controller": false,
+   "a_req_obj": 0.0
+  },
+  {
+   "det_index": 4,
+   "xyxy": [
+    542.1099243164062,
+    472.5260925292969,
+    585.235107421875,
+    581.7949829101562
+   ],
+   "class": "person",
+   "conf": 0.4560546875,
+   "matched_reference": true,
+   "matched_completed_reference": true,
+   "z_forward_m": 21.256378173828125,
+   "lat_min_m": 3.699089527130127,
+   "lat_max_m": 4.366048812866211,
+   "in_corridor": false,
+   "considered_by_controller": false,
+   "a_req_obj": 0.0
+  },
+  {
+   "det_index": 5,
+   "xyxy": [
+    600.9163818359375,
+    451.47064208984375,
+    759.5589599609375,
+    594.473388671875
+   ],
+   "class": "vehicle",
+   "conf": 0.4130859375,
+   "matched_reference": true,
+   "matched_completed_reference": true,
+   "z_forward_m": 19.031688690185547,
+   "lat_min_m": 0.8902066946029663,
+   "lat_max_m": 3.063584566116333,
+   "in_corridor": true,
+   "considered_by_controller": true,
+   "a_req_obj": 9.0
+  },
+  {
+   "det_index": 6,
+   "xyxy": [
+    350.69219970703125,
+    487.6846923828125,
+    395.3028869628906,
+    573.3635864257812
+   ],
+   "class": "person",
+   "conf": 0.368408203125,
+   "matched_reference": true,
+   "matched_completed_reference": true,
+   "z_forward_m": 23.050445556640625,
+   "lat_min_m": 7.249948501586914,
+   "lat_max_m": 8.003795623779297,
+   "in_corridor": false,
+   "considered_by_controller": false,
+   "a_req_obj": 0.0
+  },
+  {
+   "det_index": 7,
+   "xyxy": [
+    600.2893676757812,
+    451.6184997558594,
+    757.7633666992188,
+    594.22998046875
+   ],
+   "class": "vehicle",
+   "conf": 0.36669921875,
+   "matched_reference": false,
+   "matched_completed_reference": false,
+   "z_forward_m": 19.06981658935547,
+   "lat_min_m": 0.916790246963501,
+   "lat_max_m": 3.0789146423339844,
+   "in_corridor": true,
+   "considered_by_controller": true,
+   "a_req_obj": 1.2344983446040854
+  }
+ ],
+ "reference_boxes_completed": [
+  {
+   "xyxy_projected": [
+    632.784912109375,
+    471.7092590332031,
+    682.6582641601562,
+    615.7715454101562
+   ],
+   "type": "human",
+   "z_forward_m": 17.54950714111328,
+   "lat_min_m": 1.7875972986221313,
+   "lat_max_m": 2.4433844089508057,
+   "excluded_by_visibility_rule": false
+  },
+  {
+   "xyxy_projected": [
+    341.2236328125,
+    463.3349609375,
+    406.90985107421875,
+    575.7955322265625
+   ],
+   "type": "human",
+   "z_forward_m": 20.974349975585938,
+   "lat_min_m": 6.4981207847595215,
+   "lat_max_m": 7.5991692543029785,
+   "excluded_by_visibility_rule": false
+  },
+  {
+   "xyxy_projected": [
+    487.70343017578125,
+    461.3464660644531,
+    556.3701782226562,
+    605.8624877929688
+   ],
+   "type": "human",
+   "z_forward_m": 17.421001434326172,
+   "lat_min_m": 3.415240526199341,
+   "lat_max_m": 4.252911567687988,
+   "excluded_by_visibility_rule": false
+  },
+  {
+   "xyxy_projected": [
+    523.1484985351562,
+    457.2838439941406,
+    585.6777954101562,
+    589.633056640625
+   ],
+   "type": "human",
+   "z_forward_m": 18.76852798461914,
+   "lat_min_m": 3.275048017501831,
+   "lat_max_m": 4.183330059051514,
+   "excluded_by_visibility_rule": false
+  },
+  {
+   "xyxy_projected": [
+    1443.77197265625,
+    494.4980163574219,
+    1519.3902587890625,
+    538.8890380859375
+   ],
+   "type": "vehicle",
+   "z_forward_m": 35.23229217529297,
+   "lat_min_m": -18.649616241455078,
+   "lat_max_m": -16.935392379760742,
+   "excluded_by_visibility_rule": true
+  },
+  {
+   "xyxy_projected": [
+    593.127685546875,
+    449.6194763183594,
+    766.3935546875,
+    604.1069946289062
+   ],
+   "type": "vehicle",
+   "z_forward_m": 18.940141677856445,
+   "lat_min_m": 0.9794549942016602,
+   "lat_max_m": 3.1328837871551514,
+   "excluded_by_visibility_rule": false
+  },
+  {
+   "xyxy_projected": [
+    1343.720458984375,
+    489.9944763183594,
+    1599.0,
+    613.6661987304688
+   ],
+   "type": "vehicle",
+   "z_forward_m": 17.104013442993164,
+   "lat_min_m": -9.955927848815918,
+   "lat_max_m": -8.008434295654297,
+   "excluded_by_visibility_rule": false
+  }
+ ],
+ "cause_from_attribution": "recovered real object misplaced by the lift",
+ "conventions": "boxes in original image pixels; z_forward_m = near-face range; detections in the monocular geometry; reference boxes are the completed reference, with the standard rule's exclusions flagged"
+}

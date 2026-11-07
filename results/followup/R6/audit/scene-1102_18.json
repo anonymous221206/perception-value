@@ -1,0 +1,87 @@
+{
+ "scene": "scene-1102",
+ "frame": 18,
+ "sample_token": "a28ba5249a42475b94932d8fa43baf8f",
+ "system": "brake",
+ "geometry": "mono",
+ "image_copy": "scene-1102_18.jpg",
+ "V": -4.44,
+ "J_cheap": 0.0,
+ "J_full": 4.44,
+ "ego_speed_mps": 14.895365123237072,
+ "action": {
+  "cheap": "KEEP",
+  "full": "HARD_BRAKE",
+  "reference": "KEEP"
+ },
+ "a_req": {
+  "cheap": 0.0,
+  "full": 4.2806947243454045,
+  "reference": 0.0
+ },
+ "cheap_boxes": [],
+ "full_boxes": [
+  {
+   "det_index": 0,
+   "xyxy": [
+    866.7254638671875,
+    490.615234375,
+    930.6637573242188,
+    543.8743896484375
+   ],
+   "class": "vehicle",
+   "conf": 0.405517578125,
+   "matched_reference": true,
+   "matched_completed_reference": true,
+   "z_forward_m": 33.87355422973633,
+   "lat_min_m": -2.7082865238189697,
+   "lat_max_m": -1.0841597318649292,
+   "in_corridor": true,
+   "considered_by_controller": true,
+   "a_req_obj": 4.2806947243454045
+  }
+ ],
+ "reference_boxes_completed": [
+  {
+   "xyxy_projected": [
+    751.9881591796875,
+    496.5057373046875,
+    778.0211791992188,
+    521.7237548828125
+   ],
+   "type": "vehicle",
+   "z_forward_m": 168.35418701171875,
+   "lat_min_m": 6.125542640686035,
+   "lat_max_m": 9.766733169555664,
+   "excluded_by_visibility_rule": true
+  },
+  {
+   "xyxy_projected": [
+    829.4681396484375,
+    488.9268798828125,
+    870.5183715820312,
+    527.691162109375
+   ],
+   "type": "vehicle",
+   "z_forward_m": 66.64314270019531,
+   "lat_min_m": -2.44826602935791,
+   "lat_max_m": -0.29391008615493774,
+   "excluded_by_visibility_rule": true
+  },
+  {
+   "xyxy_projected": [
+    871.1644287109375,
+    489.6159362792969,
+    930.1415405273438,
+    539.7747192382812
+   ],
+   "type": "vehicle",
+   "z_forward_m": 44.74826431274414,
+   "lat_min_m": -3.732170820236206,
+   "lat_max_m": -1.6101300716400146,
+   "excluded_by_visibility_rule": false
+  }
+ ],
+ "cause_from_attribution": "recovered real object misplaced by the lift",
+ "conventions": "boxes in original image pixels; z_forward_m = near-face range; detections in the monocular geometry; reference boxes are the completed reference, with the standard rule's exclusions flagged"
+}

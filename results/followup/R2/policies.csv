@@ -1,0 +1,13 @@
+planner,row,scenarios,J_mean,full_steps_mean,lo,hi,resolved
+pdm_closed,all-cheap,60,118.35290679999201,0.0,,,
+pdm_closed,all-full,60,113.93018753613958,197.61666666666667,,,
+pdm_closed,privileged,60,111.62408540935925,2.9166666666666665,,,
+pdm_closed,matched random,60,112.68270712669755,2.9166666666666665,,,
+pdm_closed,gate_gbm at 20% (test logs),16,206.28895561328375,39.6875,,,
+pdm_closed,privileged - matched random (principal secondary),60,-1.058621717338309,,-3.537585601414543,0.1442503471196833,False
+idm,all-cheap,60,78.63690263595124,0.0,,,
+idm,all-full,60,66.57683513049281,197.61666666666667,,,
+idm,privileged,60,78.49803353113643,0.8,,,
+idm,matched random,60,78.5404528085196,0.8,,,
+idm,gate_gbm at 20% (test logs),16,106.96524085388397,39.625,,,
+idm,privileged - matched random (principal secondary),60,-0.042419277383166004,,-0.28984894324362603,0.11495614732182692,False

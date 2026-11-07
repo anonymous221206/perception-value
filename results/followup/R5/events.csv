@@ -1,0 +1,33 @@
+population,policy,event,onsets,hours,onsets_per_hour,draws,frames,scenes
+new228_test,all-cheap,unnecessary hard braking,138.0,1.27244501027796,108.45262379539254,1,9181,228
+new228_test,all-cheap,missed braking,28.0,1.27244501027796,22.0048801903695,1,9181,228
+new228_test,all-cheap,any braking or deceleration while a* < 1.0 (secondary),310.0,1.27244501027796,243.62545925051947,1,9181,228
+new228_test,all-cheap,command below the level a* requires (secondary),200.0,1.27244501027796,157.17771564549645,1,9181,228
+new228_test,all-full,unnecessary hard braking,156.0,1.27244501027796,122.59861820348722,1,9181,228
+new228_test,all-full,missed braking,27.0,1.27244501027796,21.21899161214202,1,9181,228
+new228_test,all-full,any braking or deceleration while a* < 1.0 (secondary),339.0,1.27244501027796,266.41622801911643,1,9181,228
+new228_test,all-full,command below the level a* requires (secondary),182.0,1.27244501027796,143.03172123740177,1,9181,228
+new228_test,oracle at 20%,unnecessary hard braking,42.0,1.27244501027796,33.00732028555425,1,9181,228
+new228_test,oracle at 20%,missed braking,21.0,1.27244501027796,16.503660142777125,1,9181,228
+new228_test,oracle at 20%,any braking or deceleration while a* < 1.0 (secondary),180.0,1.27244501027796,141.4599440809468,1,9181,228
+new228_test,oracle at 20%,command below the level a* requires (secondary),171.0,1.27244501027796,134.38694687689946,1,9181,228
+new228_test,gate_gbm at 20% (X2's fit),unnecessary hard braking,98.0,1.27244501027796,77.01708066629325,1,9181,228
+new228_test,gate_gbm at 20% (X2's fit),missed braking,22.0,1.27244501027796,17.289548721004607,1,9181,228
+new228_test,gate_gbm at 20% (X2's fit),any braking or deceleration while a* < 1.0 (secondary),252.0,1.27244501027796,198.04392171332552,1,9181,228
+new228_test,gate_gbm at 20% (X2's fit),command below the level a* requires (secondary),190.0,1.27244501027796,149.31882986322162,1,9181,228
+new228_test,random at 20% (mean of 20 seeds),unnecessary hard braking,143.6,1.27244501027796,112.85359983346643,20,9181,228
+new228_test,random at 20% (mean of 20 seeds),missed braking,28.8,1.27244501027796,22.633591052951488,20,9181,228
+new228_test,random at 20% (mean of 20 seeds),any braking or deceleration while a* < 1.0 (secondary),318.85,1.27244501027796,250.5805731678327,20,9181,228
+new228_test,random at 20% (mean of 20 seeds),command below the level a* requires (secondary),201.1,1.27244501027796,158.04219308154666,20,9181,228
+all850,all-cheap,unnecessary hard braking,539.0,4.732680355211099,113.88895077321531,1,34149,850
+all850,all-cheap,missed braking,94.0,4.732680355211099,19.86189494004126,1,34149,850
+all850,all-cheap,any braking or deceleration while a* < 1.0 (secondary),1172.0,4.732680355211099,247.63979648647188,1,34149,850
+all850,all-cheap,command below the level a* requires (secondary),773.0,4.732680355211099,163.33239136863716,1,34149,850
+all850,all-full,unnecessary hard braking,536.0,4.732680355211099,113.25506050917144,1,34149,850
+all850,all-full,missed braking,84.0,4.732680355211099,17.74892739322836,1,34149,850
+all850,all-full,any braking or deceleration while a* < 1.0 (secondary),1230.0,4.732680355211099,259.8950082579867,1,34149,850
+all850,all-full,command below the level a* requires (secondary),697.0,4.732680355211099,147.27383801285913,1,34149,850
+all850,oracle at 20%,unnecessary hard braking,164.0,4.732680355211099,34.65266776773156,1,34149,850
+all850,oracle at 20%,missed braking,67.0,4.732680355211099,14.15688256364643,1,34149,850
+all850,oracle at 20%,any braking or deceleration while a* < 1.0 (secondary),684.0,4.732680355211099,144.52698020200236,1,34149,850
+all850,oracle at 20%,command below the level a* requires (secondary),657.0,4.732680355211099,138.82196782560754,1,34149,850

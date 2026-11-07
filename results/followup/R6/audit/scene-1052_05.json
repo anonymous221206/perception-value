@@ -1,0 +1,100 @@
+{
+ "scene": "scene-1052",
+ "frame": 5,
+ "sample_token": "d7619f4f14374fe6b62673a068593c68",
+ "system": "brake",
+ "geometry": "mono",
+ "image_copy": "scene-1052_05.jpg",
+ "V": -0.8,
+ "J_cheap": 0.0,
+ "J_full": 0.8,
+ "ego_speed_mps": 8.310087729741285,
+ "action": {
+  "cheap": "KEEP",
+  "full": "DECELERATE",
+  "reference": "KEEP"
+ },
+ "a_req": {
+  "cheap": 0.0,
+  "full": 1.6056369942828643,
+  "reference": 0.0
+ },
+ "cheap_boxes": [],
+ "full_boxes": [
+  {
+   "det_index": 0,
+   "xyxy": [
+    784.1903686523438,
+    509.0411376953125,
+    881.1689453125,
+    560.458984375
+   ],
+   "class": "vehicle",
+   "conf": 0.2509765625,
+   "matched_reference": false,
+   "matched_completed_reference": false,
+   "z_forward_m": 26.828758239746094,
+   "lat_min_m": -1.130521535873413,
+   "lat_max_m": 0.7941846251487732,
+   "in_corridor": true,
+   "considered_by_controller": true,
+   "a_req_obj": 1.6056369942828643
+  }
+ ],
+ "reference_boxes_completed": [
+  {
+   "xyxy_projected": [
+    867.2575073242188,
+    485.4449157714844,
+    892.1492919921875,
+    508.7279968261719
+   ],
+   "type": "vehicle",
+   "z_forward_m": 98.9666976928711,
+   "lat_min_m": -5.359890460968018,
+   "lat_max_m": -3.4068803787231445,
+   "excluded_by_visibility_rule": true
+  },
+  {
+   "xyxy_projected": [
+    909.2103271484375,
+    489.34490966796875,
+    976.4347534179688,
+    545.04736328125
+   ],
+   "type": "vehicle",
+   "z_forward_m": 38.857452392578125,
+   "lat_min_m": -4.519392013549805,
+   "lat_max_m": -2.753645896911621,
+   "excluded_by_visibility_rule": true
+  },
+  {
+   "xyxy_projected": [
+    660.8599853515625,
+    481.4903259277344,
+    781.1571655273438,
+    525.3754272460938
+   ],
+   "type": "vehicle",
+   "z_forward_m": 48.58558654785156,
+   "lat_min_m": 1.6285794973373413,
+   "lat_max_m": 6.048816204071045,
+   "excluded_by_visibility_rule": false
+  },
+  {
+   "xyxy_projected": [
+    825.0037841796875,
+    478.6556091308594,
+    857.4983520507812,
+    509.1850891113281
+   ],
+   "type": "vehicle",
+   "z_forward_m": 83.03885650634766,
+   "lat_min_m": -2.296154499053955,
+   "lat_max_m": -0.08596939593553543,
+   "excluded_by_visibility_rule": true
+  }
+ ],
+ "cause_from_attribution": "added detection without a real object",
+ "conventions": "boxes in original image pixels; z_forward_m = near-face range; detections in the monocular geometry; reference boxes are the completed reference, with the standard rule's exclusions flagged"
+}

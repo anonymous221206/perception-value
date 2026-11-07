@@ -1,0 +1,100 @@
+{
+ "scene": "scene-1010",
+ "frame": 11,
+ "sample_token": "682fd625a2de4493bb8da96f975f0ce0",
+ "system": "brake",
+ "geometry": "mono",
+ "image_copy": "scene-1010_11.jpg",
+ "V": -44.7,
+ "J_cheap": 42.3,
+ "J_full": 87.0,
+ "ego_speed_mps": 8.612326720877435,
+ "action": {
+  "cheap": "DECELERATE",
+  "full": "KEEP",
+  "reference": "HARD_BRAKE"
+ },
+ "a_req": {
+  "cheap": 3.0893943495169385,
+  "full": 0.0,
+  "reference": 9.0
+ },
+ "cheap_boxes": [
+  {
+   "det_index": 0,
+   "xyxy": [
+    898.1976318359375,
+    325.0960693359375,
+    1235.876708984375,
+    606.0645141601562
+   ],
+   "class": "vehicle",
+   "conf": 0.441650390625,
+   "matched_reference": true,
+   "matched_completed_reference": true,
+   "z_forward_m": 17.44925308227539,
+   "lat_min_m": -5.110747814178467,
+   "lat_max_m": -0.9140772223472595,
+   "in_corridor": true,
+   "considered_by_controller": true,
+   "a_req_obj": 3.0893943495169385
+  }
+ ],
+ "full_boxes": [],
+ "reference_boxes_completed": [
+  {
+   "xyxy_projected": [
+    1049.9559326171875,
+    438.7384033203125,
+    1086.2086181640625,
+    520.6621704101562
+   ],
+   "type": "human",
+   "z_forward_m": 29.31398582458496,
+   "lat_min_m": -5.689858913421631,
+   "lat_max_m": -5.054847717285156,
+   "excluded_by_visibility_rule": true
+  },
+  {
+   "xyxy_projected": [
+    712.8543701171875,
+    451.0067443847656,
+    729.9974975585938,
+    487.59869384765625
+   ],
+   "type": "human",
+   "z_forward_m": 60.591896057128906,
+   "lat_min_m": 4.436976909637451,
+   "lat_max_m": 5.165114879608154,
+   "excluded_by_visibility_rule": false
+  },
+  {
+   "xyxy_projected": [
+    878.263671875,
+    280.252197265625,
+    1287.3887939453125,
+    610.824951171875
+   ],
+   "type": "vehicle",
+   "z_forward_m": 14.750259399414062,
+   "lat_min_m": -4.769196033477783,
+   "lat_max_m": -1.082454800605774,
+   "excluded_by_visibility_rule": false
+  },
+  {
+   "xyxy_projected": [
+    697.5496215820312,
+    449.7204895019531,
+    714.621337890625,
+    486.3031921386719
+   ],
+   "type": "human",
+   "z_forward_m": 60.59767532348633,
+   "lat_min_m": 5.144606590270996,
+   "lat_max_m": 5.8808674812316895,
+   "excluded_by_visibility_rule": true
+  }
+ ],
+ "cause_from_attribution": "other",
+ "conventions": "boxes in original image pixels; z_forward_m = near-face range; detections in the monocular geometry; reference boxes are the completed reference, with the standard rule's exclusions flagged"
+}

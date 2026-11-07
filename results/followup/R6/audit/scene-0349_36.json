@@ -1,0 +1,80 @@
+{
+ "scene": "scene-0349",
+ "frame": 36,
+ "sample_token": "c69af5d1aede46abaed78833a3624e8a",
+ "system": "brake",
+ "geometry": "mono",
+ "image_copy": "scene-0349_36.jpg",
+ "V": -0.8,
+ "J_cheap": 0.0,
+ "J_full": 0.8,
+ "ego_speed_mps": 7.434854136732396,
+ "action": {
+  "cheap": "KEEP",
+  "full": "DECELERATE",
+  "reference": "KEEP"
+ },
+ "a_req": {
+  "cheap": 0.0,
+  "full": 1.0750811914151552,
+  "reference": 0.0
+ },
+ "cheap_boxes": [],
+ "full_boxes": [
+  {
+   "det_index": 0,
+   "xyxy": [
+    863.4686279296875,
+    523.1265869140625,
+    904.0481567382812,
+    550.40185546875
+   ],
+   "class": "vehicle",
+   "conf": 0.43212890625,
+   "matched_reference": false,
+   "matched_completed_reference": false,
+   "z_forward_m": 30.68225860595703,
+   "lat_min_m": -1.829351544380188,
+   "lat_max_m": -0.9007282853126526,
+   "in_corridor": true,
+   "considered_by_controller": true,
+   "a_req_obj": 1.0750811914151552
+  },
+  {
+   "det_index": 1,
+   "xyxy": [
+    781.2958374023438,
+    529.0473022460938,
+    805.9515991210938,
+    546.9750366210938
+   ],
+   "class": "vehicle",
+   "conf": 0.307373046875,
+   "matched_reference": false,
+   "matched_completed_reference": false,
+   "z_forward_m": 32.22250747680664,
+   "lat_min_m": 0.4369608163833618,
+   "lat_max_m": 1.0314017534255981,
+   "in_corridor": true,
+   "considered_by_controller": true,
+   "a_req_obj": 1.0143112924795936
+  }
+ ],
+ "reference_boxes_completed": [
+  {
+   "xyxy_projected": [
+    850.64599609375,
+    510.1525573730469,
+    905.1293334960938,
+    554.9683837890625
+   ],
+   "type": "vehicle",
+   "z_forward_m": 60.64409255981445,
+   "lat_min_m": -3.742572546005249,
+   "lat_max_m": -1.3535727262496948,
+   "excluded_by_visibility_rule": false
+  }
+ ],
+ "cause_from_attribution": "added detection without a real object",
+ "conventions": "boxes in original image pixels; z_forward_m = near-face range; detections in the monocular geometry; reference boxes are the completed reference, with the standard rule's exclusions flagged"
+}

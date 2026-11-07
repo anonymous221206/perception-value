@@ -1,0 +1,15 @@
+population,table,cause,frames,share,harmed_frames
+new228_test,cumulative (first step after which V >= 0),added detection without a real object,125,0.3026634382566586,413
+new228_test,cumulative (first step after which V >= 0),recovered real object misplaced by the lift,101,0.24455205811138014,413
+new228_test,cumulative (first step after which V >= 0),geometry change of a jointly detected object,151,0.36561743341404357,413
+new228_test,cumulative (first step after which V >= 0),other,36,0.08716707021791767,413
+new228_test,each intervention alone (descriptive),added detection without a real object,125,0.3026634382566586,413
+new228_test,each intervention alone (descriptive),recovered real object misplaced by the lift,96,0.2324455205811138,413
+new228_test,each intervention alone (descriptive),geometry change of a jointly detected object,145,0.35108958837772397,413
+all850,cumulative (first step after which V >= 0),added detection without a real object,383,0.2820324005891016,1358
+all850,cumulative (first step after which V >= 0),recovered real object misplaced by the lift,369,0.27172312223858613,1358
+all850,cumulative (first step after which V >= 0),geometry change of a jointly detected object,494,0.3637702503681885,1358
+all850,cumulative (first step after which V >= 0),other,112,0.08247422680412371,1358
+all850,each intervention alone (descriptive),added detection without a real object,383,0.2820324005891016,1358
+all850,each intervention alone (descriptive),recovered real object misplaced by the lift,350,0.25773195876288657,1358
+all850,each intervention alone (descriptive),geometry change of a jointly detected object,477,0.35125184094256257,1358

@@ -1,0 +1,7 @@
+{
+ "comparisons": 792,
+ "differing": 0,
+ "pass": true,
+ "first_differences": [],
+ "compared": "gate_gbm refit on V (X2's features, model, seed and fit units) against x3_budget_sweep.csv: gain, gain_random, delta_vs_random, delta_lo_all_draws, delta_hi_all_draws, delta_share_all_cheap, delta_share_lo_all_draws, delta_share_hi_all_draws, ndg, delta_lo_filtered, delta_hi_filtered; every cell, quota and bootstrap unit"
+}

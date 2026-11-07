@@ -160,8 +160,11 @@ class NuScenesDB:
         return v
 
     # ---- geometry ----------------------------------------------------------
-    def sequence_geometry(self, scene: str, min_pts: int = 1) -> np.ndarray:
-        """Same structured array `rap.geometry.sequence_geometry` returns for KITTI."""
+    def sequence_geometry(self, scene: str, min_pts: int = 1, min_px: float = 4) -> np.ndarray:
+        """Same structured array `rap.geometry.sequence_geometry` returns for KITTI.
+
+        `min_pts` (LiDAR + radar points) and `min_px` (projected width and height) keep their defaults everywhere
+        except round 2's R6, which lowers them to build the completed reference."""
         toks = self.samples(scene)
         rows = []
         for fi, tk in enumerate(toks):
@@ -205,7 +208,7 @@ class NuScenesDB:
                 x2, y2 = uv.max(0)
                 x1, x2 = np.clip([x1, x2], 0, IMG_W - 1)
                 y1, y2 = np.clip([y1, y2], 0, IMG_H - 1)
-                if (x2 - x1) < 4 or (y2 - y1) < 4:
+                if (x2 - x1) < min_px or (y2 - y1) < min_px:
                     continue
                 rows.append((self.scene_name(scene), fi, a["instance_token"],
                              cat.split(".")[0], coarse_class(cat),

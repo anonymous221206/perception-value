@@ -1,0 +1,138 @@
+{
+ "scene": "scene-0465",
+ "frame": 23,
+ "sample_token": "664c9ae7843746709c448def4fe3d9ba",
+ "system": "brake",
+ "geometry": "mono",
+ "image_copy": "scene-0465_23.jpg",
+ "V": -4.44,
+ "J_cheap": 0.0,
+ "J_full": 4.44,
+ "ego_speed_mps": 7.715646007657528,
+ "action": {
+  "cheap": "KEEP",
+  "full": "HARD_BRAKE",
+  "reference": "KEEP"
+ },
+ "a_req": {
+  "cheap": 0.0,
+  "full": 9.0,
+  "reference": 0.0
+ },
+ "cheap_boxes": [
+  {
+   "det_index": 0,
+   "xyxy": [
+    0.36376953125,
+    473.62762451171875,
+    573.62646484375,
+    774.8814697265625
+   ],
+   "class": "vehicle",
+   "conf": 0.89697265625,
+   "matched_reference": true,
+   "matched_completed_reference": true,
+   "z_forward_m": 8.284900665283203,
+   "lat_min_m": 1.4195290803909302,
+   "lat_max_m": 4.4295878410339355,
+   "in_corridor": false,
+   "considered_by_controller": false,
+   "a_req_obj": 0.0
+  },
+  {
+   "det_index": 1,
+   "xyxy": [
+    703.1954956054688,
+    452.0161437988281,
+    759.2019653320312,
+    483.38653564453125
+   ],
+   "class": "vehicle",
+   "conf": 0.332763671875,
+   "matched_reference": false,
+   "matched_completed_reference": false,
+   "z_forward_m": 63.574825286865234,
+   "lat_min_m": 3.9706742763519287,
+   "lat_max_m": 6.737581729888916,
+   "in_corridor": false,
+   "considered_by_controller": false,
+   "a_req_obj": 0.0
+  }
+ ],
+ "full_boxes": [
+  {
+   "det_index": 0,
+   "xyxy": [
+    0.0,
+    473.7467956542969,
+    571.5985717773438,
+    767.6052856445312
+   ],
+   "class": "vehicle",
+   "conf": 0.9326171875,
+   "matched_reference": true,
+   "matched_completed_reference": true,
+   "z_forward_m": 8.455220222473145,
+   "lat_min_m": 1.4667727947235107,
+   "lat_max_m": 4.5461649894714355,
+   "in_corridor": false,
+   "considered_by_controller": false,
+   "a_req_obj": 0.0
+  },
+  {
+   "det_index": 1,
+   "xyxy": [
+    1073.7281494140625,
+    556.7095947265625,
+    1314.9095458984375,
+    783.2693481445312
+   ],
+   "class": "vehicle",
+   "conf": 0.373779296875,
+   "matched_reference": false,
+   "matched_completed_reference": false,
+   "z_forward_m": 7.914566993713379,
+   "lat_min_m": -2.3150367736816406,
+   "lat_max_m": -1.1290154457092285,
+   "in_corridor": true,
+   "considered_by_controller": true,
+   "a_req_obj": 9.0
+  },
+  {
+   "det_index": 2,
+   "xyxy": [
+    735.8533325195312,
+    453.6431884765625,
+    760.1859130859375,
+    474.22216796875
+   ],
+   "class": "vehicle",
+   "conf": 0.289306640625,
+   "matched_reference": false,
+   "matched_completed_reference": false,
+   "z_forward_m": 96.01700592041016,
+   "lat_min_m": 5.967761039733887,
+   "lat_max_m": 7.8002471923828125,
+   "in_corridor": false,
+   "considered_by_controller": false,
+   "a_req_obj": 0.0
+  }
+ ],
+ "reference_boxes_completed": [
+  {
+   "xyxy_projected": [
+    0.0,
+    460.9446105957031,
+    589.8883666992188,
+    830.7158203125
+   ],
+   "type": "vehicle",
+   "z_forward_m": 7.020219802856445,
+   "lat_min_m": 1.9763461351394653,
+   "lat_max_m": 4.026933193206787,
+   "excluded_by_visibility_rule": false
+  }
+ ],
+ "cause_from_attribution": "added detection without a real object",
+ "conventions": "boxes in original image pixels; z_forward_m = near-face range; detections in the monocular geometry; reference boxes are the completed reference, with the standard rule's exclusions flagged"
+}

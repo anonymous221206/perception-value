@@ -1200,3 +1200,491 @@ and the cache, before any decision value.
 ### Prior runs
 
 - No learned end-to-end NAVSIM agent had been run with this repository's code before this addendum.
+
+---
+
+## Addendum R1 — training-target swap on XL
+
+Follow-up round 2, item R1 of six (order R1 → R6 → R5 → R4 → R3 → R2). Committed before any value of R1: no label, model,
+score or gain of R1 has been computed. The XL box dump (inputs only) and a timing check of the official label code
+(seconds only, every value discarded) were run before this commit; both are described below.
+
+### Question (from the round's protocol)
+
+Does training the same allocator on decision value instead of a perception-level target change the realized decision
+gain it delivers?
+
+### Learners
+
+gate_gbm (primary) and gate_ridge (secondary), with X2's features, hyperparameters, seeds and fit units: fit on the
+385 + 152 new training and validation scenes, scored once on the 228 new test scenes. Only the target changes.
+
+### Targets
+
+| name | per-frame target | source |
+|---|---|---|
+| V | J(cheap) − J(full) of the cell, as in X2 | XL tables (170) |
+| fn_gain | false-negative gain, `dE_E1_fn_only` | XL tables (170), the benchmark's definition |
+| risk_gain | risk-weighted gain, `dE_E6_risk_weighted` | XL tables (170), the benchmark's definition |
+| Q | ORIC's offloading reward (Qiu et al.) | 148's `labels_q`, unchanged |
+| G | the AP-swap objective of budget-adaptive routing (Geng et al.), dataset-wide dAP | 148's `labels_g`, unchanged |
+
+- **Primary:** every target enters raw.
+- **Secondary:** every target rank-transformed on the fit units; Q and G in their published CDF form.
+
+### Primary endpoint
+
+- **Cell:** braking controller, monocular geometry, YOLOv8s 192×320 → 384×640, shared threshold 0.25, shared action
+  history; 20% selection budget; gate_gbm.
+- **Statistic:** for each of the four other targets t, D_t = realized gain(V-trained) − realized gain(t-trained), as a
+  share of the all-cheap loss, with its 95% interval (scene bootstrap, 1,000 draws, seed 0, every draw kept, paired
+  within each draw).
+- **Test:** two-sided bootstrap p = 2 · min(share of draws with D_t* ≤ 0, share with D_t* ≥ 0); Holm over the four
+  comparisons at family-wise 0.05.
+- **Reading:** each comparison is "V-trained better" (Holm rejects, D_t > 0), "t-trained better" (Holm rejects,
+  D_t < 0) or "not resolved".
+
+### Gate R1-0 (implementation)
+
+The V-trained gate_gbm, refit by this item's code, reproduces X2's test rows exactly: gain, random gain, gain over
+random with its every-draw and filtered intervals, its shares of the all-cheap loss and nDG, for every cell, budget and
+bootstrap unit of `results/followup/E1/x3_budget_sweep.csv`. X2 did not keep its per-frame scores, so every number
+derived from them is compared. A failure stops R1 only.
+
+### Secondary
+
+Oracle geometry; the planner cells (ADE, FDE); budgets 5, 10, 30, 40 and 50%; the log bootstrap; nDG beside realized
+gain; gate_ridge; the rank and CDF variants.
+
+### Implementation
+
+- **Script:** `scripts/227_r1_target_swap.py`, stages `dump`, `labels`, `targets`, `gate`, `swap`.
+- **Cells:** X2's (`rap.xl.cells` on `data/cache/xl/tables850`, the new 765 scenes and X2's split, the ego lift frame,
+  X2's causal ego-speed table), with X2's features (`rap.xl.features` on `data/cache/nusc_det_xl`).
+- **Models:** `rap.xl.gate_scores` (X2's call): `rap.predict.make_model(kind, "reg", 0)`, seed 0, fit on the frames of
+  the training and validation scenes, scores on every frame; only the test frames are scored.
+- **Gains and draws:** X2's functions (`rap.xl.prepare`, `paired_draws`, `paired_rows`): realized gain is the sum of V
+  over the top-k test frames by score (k = round(budget × frames), ties by the benchmark's exact expectation); one
+  stream (seed 0) per bootstrap unit over all cells, as X2, so every series of a cell shares each draw.
+- **Q and G:** 148's functions on the XL frames:
+  - boxes: the cached cheap (weak) and full (strong) detections of `data/cache/nusc_det_xl`, and the benchmark's
+    reference objects (at least 10 px tall, coarse class) from the XL dataroot, as 148's dump (`--stage dump`);
+  - Q: the official `reward.compute_orie` (edgeml-object-detection@859f702), |E| = 1,000, the global RNG seeded 42 at
+    each call of `labels_q`, detections with confidence ≥ 0.10;
+  - G: the official `proxy_metrics.compute_dataset_wide_oric` (bgt-ada@6669ab0), detections with confidence ≥ 0.30,
+    `oric_allpoint`, context 1,000 frames (default 3); the official worker pool, capped at 6 workers through the
+    open-file limit (`ulimit -n 352`) for the Jetson's 14 GB (the pool's size does not change the values);
+  - each computed on the fit units and on the test units separately, each set its own context, as in 148.
+
+### Defaults for points the protocol leaves open
+
+1. **False-negative and risk-weighted gain:** the XL tables' `dE_E1_fn_only` and `dE_E6_risk_weighted`, the
+   benchmark's definitions, as the frozen target-swap study used them (122). They do not depend on the lift's geometry
+   (checked by the code).
+2. **Label sets:** as in 148, each cell's labels come from its own frame set. The brake cells (30,773 frames: 21,592
+   fit, 9,181 test) share one set and the planner cells (24,271: 17,037 fit, 7,234 test) another; frames in table
+   order.
+3. **G's context: 1,000 frames** (`context_size = 1000`, one draw, the code's own RandomState(42)), the official
+   code's default and the variant the frozen study computed beside its primary (`G_dap_ctx1000`). The frozen
+   primary, context 0 (every frame of the set), is not feasible on XL: on the Jetson, the official code took 194 s,
+   618 s and 2,868 s for the first 1,000, 2,000 and 4,000 fit frames (worse than quadratic), which puts the four
+   sets at about 60 hours. Context 0 also measures each frame against 21,592 frames here, against about 2,300 in
+   the frozen study; 1,000 is closer to that scale. Q costs 0.02 s per frame (1.9 s for 100 frames of the
+   21,592-frame set) and keeps 148's settings. Only timings were read; every label value was discarded.
+4. **Test-unit labels:** computed (as in 148) and written to `targets.csv`; no model sees them.
+5. **Rank variant:** 159's rank transform (ordinal ranks / n on the fit units, ties as 148's Q-MORIC), for all five
+   targets. Its D_t compares the rank-trained V and t models.
+6. **CDF variant:** 148's Q-MORIC (Qiu's ordinal rank) and G-MORIC (Geng's ECDF), fitted on the fit units. Its D_t
+   compares with the raw V-trained model (X2's).
+7. **Shared fits:** a non-V target does not depend on the cell's geometry or controller, so its model is the same for
+   the mono and oracle cells (and for ADE and FDE); it is fit once per frame set and learner.
+8. **Denominator:** D_t and its interval are divided by the all-cheap loss of the cell's test frames (point value), as
+   X2's shares.
+9. **p and Holm:** p over all 1,000 draws, capped at 1; Holm with `rap.xl.holm(p, alpha=0.05)` over the four primary
+   comparisons only.
+
+### Outputs
+
+- `results/followup/R1/targets.csv`: per frame: seq, frame, split, log, V of each cell, fn_gain, risk_gain,
+  Q and G of each label set, and their CDF forms on the fit units.
+- `swap.csv`: one row per learner × variant × target × cell × budget × bootstrap unit: gain, random gain, gain over
+  random with intervals, nDG, D_t with interval and p, and for the primary rows Holm and the reading.
+- `gate_r1_0.json`.
+- Doc: `results/followup/R1/`.
+
+---
+
+## Addendum R2 — closed-loop dynamics under replayed perception (nuPlan)
+
+Follow-up round 2, item R2 (last). Committed before any value of R2.
+
+### Scope (from the round's protocol)
+
+Detector outcomes are replayed by logged time. At each simulation step the observation is built from the logged frame
+at that time, not from what a camera would see at the simulated pose. R2 therefore measures closed-loop dynamics under
+replayed perception, not closed-loop sensing.
+
+### Setting
+
+- **Scenarios:** the 60 scenarios of the nuPlan real-perception track. **Planners:** PDM-Closed (primary) and IDM
+  (secondary), released configurations (82's `make_planner`, 82's route handling).
+- **Simulation:** nuPlan closed loop, non-reactive agents (logged), 0.1 s steps, the default ego controller (two-stage:
+  LQR tracker with the devkit's default gains, kinematic bicycle model, Pacifica parameters).
+- **Observation per step:** the logged frame nearest the step time, within 50 ms, built exactly as the open-loop track
+  builds a branch (114 / 115): logged tracks inside the front-camera image kept only if the step's mode detected them;
+  unmatched detections as false positives on the road plane, fixed in world coordinates at the logged pose; tracks
+  outside the image as logged. Steps without a frame within 50 ms reuse the previous observation; they are counted.
+- **Single-step V:** the track's open-loop safety-loss V, extended from the 1,440 states to every logged frame of the
+  60 scenarios (`v_all_frames.csv`).
+- **Closed-loop loss:** J over a window = Σ over steps of (10 · 1[collision] + 1.5 · c²), on the executed ego state
+  against the logged agents; c = the shortfall of the minimum ego–agent clearance below 1 m, clipped at 2 m. Secondary:
+  + 0.1 × the ego's mean deviation from the logged trajectory.
+- **Gate R2-0 (implementation only):** (a) two identical cheap-only forks give ΔJ = 0 on 20 frames; (b) on 100 sampled
+  states, the first plan of a fork whose first step uses the full mode equals the open-loop full-branch plan at that
+  state within 1e-6 m.
+- **Forks:** at every logged frame t with V_t ≠ 0, a simulation from the logged state at t with its history. Branch
+  "full": the full mode at the first step, cheap afterwards; branch "cheap": cheap throughout. Window 8 s (80 steps);
+  forks with less than 8 s left are excluded from the primary analysis and reported in a truncated-window row.
+  ΔJ = J(cheap) − J(full).
+- **Primary endpoint:** the share of forks with ΔJ ≠ 0 whose sign equals sign(V_t), with a log-bootstrap interval
+  (resampling the logs of the 60 scenarios). Reading: lower bound > 0.5 — the single-step sign predicts the closed-loop
+  direction; upper bound < 0.5 — it contradicts it; otherwise unresolved. Beside it: the share of forks with ΔJ = 0,
+  and Spearman ρ(V_t, ΔJ) with its interval.
+- **Policies over whole scenarios (principal secondary):** all-cheap and all-full (anchors); privileged (full at every
+  step whose logged V_t > 0); matched random (per scenario the same number of full-mode steps as privileged, placed
+  uniformly, mean over 20 seeds). Comparison: privileged − matched random on J over the whole scenario,
+  scenario-paired, log bootstrap. Also gate_gbm at 20% on the test-log scenarios (the nuPlan track's fit) and nuPlan's
+  closed-loop score components for every policy.
+
+### Implementation
+
+- **Script:** `scripts/232_r2_closedloop.py` (nuPlan environment), stages `spec`, `vall`, `gate`, `forks`, `policies`,
+  `analysis`; `--shard i/n` for the per-scenario stages; `--planner pdm_closed | idm`.
+- **Machine:** the training machine's CPU (the nuPlan environment, databases and maps of the shared workspace, as E6
+  used them); the Jetson is busy with R3.
+- **Specification at every iteration:** 114's construction unchanged (nearest fetched CAM_F0 image, projection,
+  Hungarian matching at IoU 0.3 with class compatibility, threshold 0.25, the false-positive lift), branches cheap and
+  full, at every DB iteration of the 60 scenarios. Checked: equal to 114's specification on all 5,760 (state, history
+  iteration) keys it shares; a difference stops R2.
+- **Logged frames:** the 0.1 s grid of each scenario from iteration 4 (the track's first state iteration) in steps of
+  two DB iterations, keeping the frames with an image within 50 ms.
+- **Single-step V at a frame:** exactly 115's call: a fresh planner per branch, initialised at the frame, the 4-iteration
+  history (20 Hz) with every observation through the branch's filter, 82's `score` against the true objects over the
+  plan's horizon, 83's safety loss; V = safety(cheap) − safety(full). Both planners.
+- **Rollout:** a planner initialised at the start frame with the same history as the open-loop call; at step s the plan
+  is computed at DB iteration k0 + 2s, the controller propagates the ego to k0 + 2(s + 1), and the loss is evaluated
+  there against the logged objects (collision = footprint overlap; clearance = footprint distance, as 82's `score`).
+  The history buffer appends (executed ego, observation) at each step.
+- **Gate R2-0:** (a) 20 frames drawn with `default_rng(0)` among the PDM-Closed frames with V ≠ 0, two all-cheap
+  forks each; (b) 100 of the track's 1,440 states drawn with the same generator, the open-loop full plan against the
+  fork's first plan, maximum absolute rear-axle difference over the sampled trajectory.
+- **Statistics:** 1,000 log-bootstrap draws, seed 0, every draw kept, 95% percentile intervals.
+
+### Defaults for points the protocol leaves open
+
+1. **Planners for forks and policies:** PDM-Closed first (primary); IDM after it with the same code (secondary).
+2. **History at a fork's start:** the open-loop state's (four DB iterations at 20 Hz through the start mode's filter),
+   so the first plan equals the open-loop plan (gate b); later steps append at 0.1 s.
+3. **Loss evaluation:** after each step's propagation (80 evaluations in an 8 s window); a step's collision counts
+   once per step.
+4. **Policies' start and end:** from iteration 4 to the last full step of the scenario; a step's mode follows the
+   policy at that step's frame; privileged uses the planner's own V_t (frames without V count as V ≤ 0).
+5. **gate_gbm at 20%:** 120's 18 gate features (119's definitions, cheap branch, previous iteration for its change
+   feature), computed at every logged frame; the benchmark's GBM with seed 0, refit on the track's 1,440 states of the
+   training and validation logs on the planner's safety V; the top 20% of the test-log scenarios' frames by score,
+   pooled, ties by (scenario, iteration); one run per test-log scenario.
+6. **nuPlan's closed-loop score components:** the loop stores each policy run's executed ego track (position, heading,
+   speed, acceleration, contact) per step; the components are computed from those tracks after the runs, with nuPlan's
+   metric definitions where they need only the ego track and the logged agents. Any component that needs nuPlan's full
+   simulation history is reported as not computed.
+7. **Order:** R2 starts while R3 waits for its Jetson session (a deviation from the round's order, recorded in the
+   index): it runs on the training machine, so the two items share no resource and no value.
+
+### Outputs
+
+`results/followup/R2/`: `v_all_frames.csv`, `gate_r2_0.json`, `forks.csv` (and `forks_<planner>.csv`
+per fork), `policies.csv`, `policy_runs.csv`; doc `results/followup/R2/`.
+
+---
+
+## Addendum R3 — what the gate's features cost
+
+Follow-up round 2, item R3 (fifth, after R1, R6, R5 and R4). Committed before any value of R3.
+
+### Design (from the round's protocol)
+
+- **Feature groups:** the four existing groups of the gate's 65 features: confidence statistics (10); uncertainty (14);
+  scene complexity (22: counts, areas, overlaps, image and motion statistics); criticality from the cheap detections'
+  monocular geometry (19). Subsets: the 15 non-empty combinations. No new feature.
+- **Cost of a subset, measured as executed, never summed from groups:** an extractor computing exactly the subset's
+  groups, profiled on the Jetson at the frozen track's timing boundary, on 200 fixed nuScenes frames, 250 repetitions
+  in 3 interleaved rounds (the protocol of x7_costs.csv); median ms per frame and module mJ. Model inference per fitted
+  model: gate_gbm batched (primary) and one call per input; gate_ridge. C_S = extraction + the model's inference. The
+  cheap and full pipelines are measured in the same session and the budgets use that session's profile.
+- **Budget rule:** the benchmark's measured-budget scorer, b = C_c + α·C_f, with C_S charged on every input.
+- **Selection, on validation only:** for each learner, each of the 15 subsets fit on the 385 training scenes; realized
+  gain on the 152 validation scenes at the 20% latency budget with the subset's C_S charged; the maximum, ties toward
+  the lower C_S. The chosen subset is refit on the 537 scenes and scored once on the 228 test scenes.
+- **Primary endpoint:** the chosen gate_gbm subset against random at the 20% latency budget, primary cell, paired
+  realized gain, scene bootstrap.
+- **Secondary:** gate_ridge; latency budgets 10, 30, 50%; module-energy budgets at the same α; oracle geometry; the
+  cost–gain table of all 15 subsets on the test scenes (descriptive, not used for selection). Frozen-85 and KITTI
+  braking without retuning: the subset chosen on XL validation, fit on each track's non-test units, scored once on its
+  test split.
+
+### Implementation
+
+- **Script:** `scripts/231_r3_gate_cost.py`, stages `profile` (exclusive Jetson session), `select`, `test`, `frozen`.
+- **Groups:** `rap.features`' registry (`conf`, `unc`, `complex`, `crit`), the 65 leakage-checked columns of X2's
+  features. Extractor for a subset: `frame_features`' group functions for the subset's groups only, in its order, on
+  the cheap detections (threshold 0.25), with the model's input vector built inside the timed call.
+- **Profile:** an idle rail baseline (10 s); then 3 rounds, each over every item in a fixed order (15 extractors; per
+  subset gate_gbm per input, gate_gbm batched over the 200 frames, gate_ridge per input), each item 40 warm-up and 250
+  timed calls cycling over the 200 frames; rails sampled every 50 ms during the timed calls. Then, in the same
+  session, the cheap (192×320) and full (384×640) YOLOv8s TensorRT engines with `01_profile_jetson.py` exactly as
+  `x7_costs.csv` was measured (real CAM_FRONT frames, 250 repetitions, 40 warm-up, 3 rounds). Round 0 discarded,
+  median of the kept rounds; module mJ = Σ over GPU, SOC, CPU of (rail mean − idle mean) × median ms (133's rule).
+- **Models:** X2's (`rap.predict.make_model(kind, "reg", 0)`), fit on V of the primary cell.
+- **Budget:** 93's rule: escalated share = (b − C_c − C_S) / C_f, k = floor(share × N); a subset with C_S above
+  α·C_f is infeasible at that budget. Random pays no overhead (k = floor(α × N)); its gain is its expectation.
+- **Bootstrap:** 1,000 draws, seed 0, test scenes resampled; k recomputed per draw; paired difference chosen − random.
+
+### Defaults for points the protocol leaves open
+
+1. **The 200 fixed frames:** the first 200 frames of the 228 XL test scenes in (scene, frame) order, from the XL cheap
+   cache, as 93's `_frames` builds them.
+2. **Timing boundary:** the frozen track's for the gate (93, 151): the inputs are the cheap detections, their
+   monocular geometry, and the image statistics the cheap pipeline already produces (cached beside the detections);
+   the timed call computes the subset's features and builds the model's input. The image statistics themselves are
+   part of the cheap pipeline in the frozen definition and are not charged to the complexity group.
+3. **Inference profiles use models fit on the 385 training scenes**, the models selection uses; inference cost does not
+   depend on the training targets.
+4. **Energy budgets:** b = C_c + α·C_f in module mJ with C_S in module mJ, the same subsets and models.
+5. **Frozen-85 and KITTI:** the frozen tracks' braking cells, monocular geometry (92's cells: the shipped features and
+   splits), fit on train + validation units; engine costs from `results/final/cost_registry.json` (the frozen profile
+   of each track); C_S from this session's nuScenes profile, also for KITTI (no KITTI frames are profiled).
+6. **Exclusive session:** held while a pause file exists; fan at 100%.
+
+### Outputs
+
+`results/followup/R3/`: `feature_costs.csv`, `subsets_val.csv`, `selected.json`, `test.csv`,
+`frozen_kitti.csv`; doc `results/followup/R3/`.
+
+---
+
+## Addendum R4 — allocators that may leave budget unused
+
+Follow-up round 2, item R4 (fourth, after R1, R6 and R5). Committed before any value of R4.
+
+### Design (from the round's protocol)
+
+- **Allocators:** the four regression allocators (gate_gbm, gate_ridge, R1_gbm_reg, R1_mlp_reg). Fit on the 385
+  training scenes only; the same train-only fit is used for both rules, so a threshold stays on the model's scale.
+- **Rules:**
+  - quota: escalate exactly k = round(α·N) inputs by score;
+  - abstention: escalate the inputs whose predicted V exceeds τ, at most k, highest first.
+- **Choice of τ:** per allocator and budget, on the 152 validation scenes, from the grid {−∞ (= quota), 0, and the
+  50/60/70/80/90/95th percentiles of the validation predictions}. Pick the value with the largest realized gain; break
+  ties toward fewer escalations. τ is fixed before the test scenes are scored once.
+- **Primary endpoint:** gate_gbm, primary cell, 20%: realized gain(abstention) − realized gain(quota), same model,
+  scene bootstrap.
+- **Secondary:** the other three allocators, budgets 5–50%, oracle geometry; the fixed rule τ = 0 without any choice;
+  each rule against random and against no escalation.
+- **Report for every row:** the escalated count and the fraction of the budget used (escalated / k).
+
+### Implementation
+
+- **Script:** `scripts/230_r4_abstention.py`, stage `run`.
+- **Cells:** X2's braking cells (monocular primary, oracle secondary) on the new 765 scenes; X2's features
+  (`rap.xl.features`), models and seeds: `rap.xl.gate_scores` for gate_gbm and gate_ridge, 103's `fit_score` on the
+  detection-list matrix for R1_gbm_reg and R1_mlp_reg, every one fit on the training scenes' frames only.
+- **Realized gain:** the sum of V over the escalated test frames, with the benchmark's exact tie expectation at the
+  k-th score (`rap.xl.gains`). Shares of the all-cheap loss of the test frames.
+- **Bootstrap:** 1,000 draws, seed 0, test scenes resampled with replacement; in each draw k = round(α × frames of the
+  draw), both rules evaluated on the same draw (paired), τ fixed.
+
+### Defaults for points the protocol leaves open
+
+1. **Abstention on a draw:** escalated count = min(k, frames of the draw with score > τ); the escalated frames are the
+   highest-scoring among those.
+2. **Against random:** random escalation of the same number of frames as the rule escalates (its expectation,
+   count / N × ΣV); against no escalation: the rule's gain itself (no escalation gains 0). Both with the paired
+   interval.
+3. **τ = −∞ in the grid** is the quota rule; a chosen τ of −∞ makes abstention equal to quota (D = 0 exactly).
+4. **Percentiles:** `numpy.percentile` (linear) of the allocator's predictions on the validation frames.
+5. **Ties in the choice of τ:** equal validation gain → the τ escalating fewer validation frames.
+6. **Planner cells:** not part of R4 (braking only, as the protocol's primary cell and its secondary list).
+
+### Outputs
+
+`results/followup/R4/`: `thresholds.json` (chosen τ and the validation grid per allocator, geometry and
+budget), `abstention.csv` (one row per geometry × allocator × budget × rule); doc `results/followup/R4/`.
+
+---
+
+## Addendum R5 — when escalation helps: prevalence, event onsets, scene counts
+
+Follow-up round 2, item R5 (third, after R1 and R6). Committed before any value of R5.
+
+### Primary endpoint (from the round's protocol)
+
+- Per scene s of the 850: prevalence p_s = share of frames whose reference requirement a⋆ ≥ 1.0 m/s² (the
+  controller's decelerate-or-brake region), and v̄_s = mean V per frame of the scene (scenes without an affected frame
+  contribute v̄_s = 0).
+- Statistic: Spearman ρ(p_s, v̄_s) over the 850 scenes, with its scene-bootstrap interval; primary cell.
+
+### Secondary
+
+- Deciles of p_s with the pooled relative all-full reduction ΣV / ΣJ_cheap per decile.
+- The relative reduction per scene (scenes with ΣJ_cheap > 0) in place of v̄_s.
+- Oracle geometry.
+- The same analysis on the 228 test scenes for the ten E5 replacement pairs and the two fine-tuned pairs.
+
+### Event onsets per hour (secondary, weight-free)
+
+- An episode is a maximal run of consecutive frames of one scene that satisfies the event condition; a gap above
+  0.75 s between frames breaks a run. Onsets are counted.
+- Hours = the sum over scenes of the scene's time span, each frame given its interval to the next frame and the last
+  frame of a scene the median interval.
+- Events: unnecessary hard braking (commanded hard braking while a⋆ < 1.0); missed braking (a⋆ ≥ 3.5 while the
+  commanded action is keep speed). Secondary events: any braking or deceleration while a⋆ < 1.0; a command below the
+  level a⋆ requires.
+- Policies: all-cheap and all-full; oracle at 20% (top 20% of frames by V within the population); gate_gbm at 20% (the
+  X2 fit, test scenes only); random at 20% (mean over 20 seeds). Commands follow each policy's per-frame mode under
+  the shared action history.
+- Populations: the 228 test scenes for every policy; all 850 for all-cheap, all-full and oracle.
+
+### Scene counts (secondary)
+
+Among scenes with at least one affected frame, the share in which ΣV < 0, with its interval; primary cell, all 850.
+
+### Implementation
+
+- **Script:** `scripts/229_r5_prevalence.py`, stages `pairs`, `prevalence`, `events`, `scenes`.
+- **Primary cell:** the XL braking tables (`data/cache/xl/tables850`, monocular geometry, 320 → 640, shared threshold
+  0.25, shared action history), all 850 scenes (34,149 frames); a⋆ = the tables' `a_gt`; V = J_cheap − J_full.
+- **E5 pairs:** E5's ten replacement pairs and two fine-tuned pairs at each pair's primary operating point (shared 0.25
+  within a family, equal box count across families, the thresholds of `x7_upgrades.csv` / `x7_finetuned.csv`), tables
+  rebuilt on the 228 test scenes by `decision.build` exactly as 177 built them (monocular geometry), detections from
+  `data/cache/xl_models`.
+- **gate_gbm at 20%:** X2's gate_gbm (`rap.xl.gate_scores`, fit on the 385 + 152 new scenes; gate R1-0 showed the refit
+  equal to X2), scored on the 228 test scenes' frames.
+- **Statistics:** scene bootstrap, 1,000 draws, seed 0, every draw kept, 95% percentile intervals.
+
+### Defaults for points the protocol leaves open
+
+1. **a⋆ thresholds:** the controller's `thr_decel` (1.0 m/s²) and `thr_hard` (3.5 m/s²). "Commanded hard braking" =
+   the HARD_BRAKE action, "keep speed" = KEEP, "braking or deceleration" = DECELERATE or HARD_BRAKE; "a command below
+   the level a⋆ requires" = the action below `discrete_action(a⋆)`.
+2. **Spearman interval:** Spearman ρ recomputed on each draw of scenes (resampled with replacement); a draw where ρ is
+   undefined is counted and left out of the percentiles.
+3. **Deciles:** scenes sorted by p_s, ties by scene name, cut into ten groups of equal size (85 scenes on 850); the
+   interval of each decile's pooled reduction resamples that decile's scenes.
+4. **Frame intervals:** each frame's interval to the next keyframe of its scene, from E10's per-frame time steps
+   (`data/cache/xl/e10/tables`, the same 850 scenes); the last frame of a scene gets that scene's median interval.
+5. **Episode continuation:** a flagged frame continues the previous frame's episode when that frame of the same scene
+   is flagged and at most 0.75 s earlier.
+6. **Policy selections:** oracle and gate take the top round(0.2 × frames) of the population by V or by score, ties
+   broken by (scene, frame); random draws that many frames uniformly without replacement with `default_rng(seed)`,
+   seeds 0–19, and reports the mean onsets.
+7. **Onset intervals:** reported as counts and rates without intervals (secondary, descriptive).
+
+### Outputs
+
+`results/followup/R5/`: `prevalence_scenes.csv`, `prevalence_deciles.csv` (Spearman rows and decile rows),
+`events.csv`, `scene_counts.csv`; doc `results/followup/R5/`.
+
+---
+
+## Addendum R6 — validity checks on XL
+
+Follow-up round 2, item R6 (second, after R1). Committed before any value of R6.
+
+### Primary endpoint — reference completeness (from the round's protocol)
+
+- Recompute braking V with the reference including the boxes the visibility rule excludes: annotations with no LiDAR
+  or radar point, and boxes under 10 px high.
+- Report harmed share and ρ with intervals on the 228 new test scenes (primary) and on all 850.
+- **Reading:** harmed share ≥ 30% with ρ > 0 means "not a labelling artefact"; otherwise report where it fails.
+- Also report the share of added false positives the controller considers that overlap an excluded annotation (image
+  IoU ≥ 0.3).
+
+### Attribution of harm (secondary, deterministic, non-overlapping)
+
+On every harmed frame (V < 0; primary cell, 228 test scenes; repeated on all 850), the following interventions are
+applied to the full branch cumulatively, in this order. The first step after which V ≥ 0 is the frame's cause:
+
+1. remove every full-mode detection that matches no box of the completed reference (IoU < 0.5): "added detection
+   without a real object";
+2. for objects the full mode detects and the cheap mode misses, replace their geometry (range, lateral extent, time
+   to collision) by the reference box's: "recovered real object misplaced by the lift";
+3. for objects both modes detect (matched to the same reference box), set the full branch's geometry to the cheap
+   branch's: "geometry change of a jointly detected object";
+4. otherwise: "other".
+
+Counts and shares per cause; as a descriptive table, the share of harmed frames fixed by each intervention alone.
+
+### Controls (secondary)
+
+320 → 640, both geometries, 228 test and 850 scenes:
+- per-mode operating points S1–S3, thresholds set on the 152 validation scenes with the paper's rules;
+- a persistence filter requiring a detection in the two previous keyframes of the same mode;
+- a safety-only braking loss (shortfall and collision terms only).
+
+### Manual-audit export
+
+100 harmed frames drawn at random (seed 0) from the primary cell on the 228 test scenes: cheap / full image pairs in
+the gallery format with the controller's actions, and a CSV with frame id, V, cause from the attribution and an empty
+label column (phantom, real_misplaced, real_missing_from_reference, real_correct, unclear).
+
+### Implementation
+
+- **Script:** `scripts/228_r6_validity.py`, stages `frames`, `completeness`, `attribution`, `thresholds`, `tables`,
+  `controls`, `audit`.
+- **Frame loop:** `decision.build`'s loop as 118 rebuilds it (per-object state), on all 850 XL scenes, YOLOv8s
+  192×320 → 384×640 from `data/cache/nusc_det_xl`, shared threshold 0.25, shared action history, monocular and oracle
+  geometry. Every frame's J of both branches under the standard reference is asserted equal to the XL tables
+  (`data/cache/xl/tables850`), so the loop is the tables' own.
+- **Completed reference:** `NuScenesDB.sequence_geometry(scene, min_pts=0, min_px=1)` and no 10 px height filter. The
+  standard reference is the same call with its defaults (min_pts 1, min_px 4) and the 10 px filter. `min_px` is a new
+  parameter whose default (4) keeps every earlier build unchanged. A box is "excluded" when its instance is not in the
+  frame's standard reference.
+- **Recomputed V:** a⋆ from the completed reference, each branch's action unchanged (the detections and the cheap
+  branch's previous action do not depend on the reference), J of both branches recomputed. Statistics as X1:
+  affected, harmed share, ρ, all-full and oracle@20 reductions, scene bootstrap 1,000 draws, seed 0.
+
+### Defaults for points the protocol leaves open
+
+1. **Completed reference geometry:** the standard procedure run on the completed annotation set. Range rate (hence
+   TTC) comes from neighbouring keyframes of the same track, so a standard box's TTC can change where its track gains
+   frames. Boxes that do not cover a pixel of the image in each direction (outside the image after clipping) stay out:
+   they are outside the camera, not excluded by visibility. The category filter (the evaluated classes) is unchanged.
+2. **Primary cell for completeness:** monocular geometry, the primary cell everywhere on XL. With the monocular lift
+   only a⋆ depends on the reference.
+3. **"Added false positives the controller considers":** full-mode detections that match no standard reference box
+   (IoU < 0.5, the benchmark's greedy matching), with no cheap detection at IoU ≥ 0.5, inside the controller's
+   corridor and range (monocular geometry of the full branch). Share = those overlapping an excluded box at image
+   IoU ≥ 0.3, pooled, with a scene-bootstrap interval.
+4. **Attribution:** matching to the completed reference (118's greedy assignment, IoU ≥ 0.5); "detected by a mode" =
+   a detection of that mode is assigned to the box. V after each step uses the standard reference's a⋆ (the frames
+   are harmed under it) and the cheap branch's previous action. A frame whose V stays below 0 after the three steps
+   is "other". The recomputed V without intervention is asserted equal to the frame's V.
+5. **S1–S3:** 100's stage-B rules on the 152 validation scenes: S1 count-matched (full threshold matching cheap's
+   detections per frame at 0.25, `rap.tables.match_detection_counts`), S2 F1-optimal per mode on the 0.05 grid, S3
+   the lowest full threshold on the 0.01 grid whose pooled precision reaches cheap's at 0.25. Pooled precision and
+   recall against the standard reference (`rap.percep_metrics.frame_losses`). Tables rebuilt by `decision.build`
+   with those thresholds.
+6. **Persistence filter:** a detection is kept when the same mode has a detection of the same coarse class at image
+   IoU ≥ 0.3 in each of the two previous keyframes (each at the mode's operating threshold); a scene's first two
+   keyframes keep their detections (no history). Applied to both modes before the controller.
+7. **Safety-only loss:** J = the shortfall and collision terms of the braking loss (`Jterm_*_shortfall +
+   Jterm_*_collision` of the XL tables); the excess-braking and jerk terms dropped.
+8. **Audit draw:** the harmed frames of the primary cell on the 228 test scenes, sorted by (scene, frame), 100 drawn
+   without replacement with `numpy.random.default_rng(0).choice`. Images: the original image and its gallery JSON
+   (118's format, with the completed reference and its exclusions), plus a side-by-side cheap | full rendering with
+   the controller's actions.
+
+### Outputs
+
+`results/followup/R6/`: `reference_completeness.csv`, `attribution.csv`, `attribution_single.csv`,
+`controls.csv`, `audit/`, `audit_frames.csv`; doc `results/followup/R6/`.

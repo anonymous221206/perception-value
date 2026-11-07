@@ -1,0 +1,3 @@
+R6 manual audit: 100 harmed frames (V < 0) of the primary cell (braking, monocular, 320 -> 640, threshold 0.25) on the 228 new test scenes, drawn at random with numpy default_rng(0).
+<scene>_<frame>.jpg: the image; <scene>_<frame>.json: the frame in the gallery format; <scene>_<frame>_pair.jpg: cheap (left, orange) | full (right, blue) detections, thick when the controller considers them; reference boxes green, red when the standard visibility rule excludes them; the actions on top.
+Label each row of audit_frames.csv: phantom, real_misplaced, real_missing_from_reference, real_correct, unclear.
