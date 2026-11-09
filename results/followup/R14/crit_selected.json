@@ -1,0 +1,38 @@
+[
+ {
+  "learner": "ridge_V",
+  "setting": "{}",
+  "epoch": -1,
+  "J_fit": 610.2659923198983,
+  "J_val": 200.43584513552298,
+  "cell": "mono_brake_crit",
+  "variant": "V",
+  "budget": 0.094449,
+  "k_fit": 1461,
+  "k_val": 577
+ },
+ {
+  "learner": "mlp_V",
+  "setting": "{}",
+  "epoch": 30,
+  "J_fit": 1186.7497161172714,
+  "J_val": 849.7483044231943,
+  "cell": "mono_brake_crit",
+  "variant": "V",
+  "budget": 0.094449,
+  "k_fit": 1461,
+  "k_val": 577
+ },
+ {
+  "learner": "exact_lin",
+  "setting": "{\"init\": \"ridge\", \"sigma0\": 1.0}",
+  "epoch": -1,
+  "J_fit": 934.904291434967,
+  "J_val": 739.3904219022548,
+  "cell": "mono_brake_crit",
+  "variant": "V",
+  "budget": 0.094449,
+  "k_fit": 1461,
+  "k_val": 577
+ }
+]

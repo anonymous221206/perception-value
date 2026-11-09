@@ -231,6 +231,8 @@ under `results/followup/`, the caches its cached stages read, and its scripts (1
 | R11 | refresh scheduling with real staleness | `results/followup/R11/` | C68 |
 | R12 | reference by loss terms, KITTI under the moving-lead reference (post hoc, sensitivity) | `results/followup/R12/` | C69 |
 | R13 | causal rules at one fit set, and the direct learner under log-grouped folds (post hoc, sensitivity) | `results/followup/R13/` | C70 |
+| R14 | scorers trained directly on the exact budgeted objective (post hoc, sensitivity) | `results/followup/R14/` | S10 |
+| R15 | log-disjoint evaluation of 850-scene allocators on the frozen 85 (post hoc, sensitivity) | `results/followup/R15/` | S10 |
 
 The 850-scene caches (`data/cache/xl/`, `data/cache/nusc_det_xl/`) add about 265 MB, the NAVSIM caches
 (`data/cache/navsim/`) about 60 MB, the caches of E7, E9 and E10 (`data/cache/xl/e7/`, `e7_planner/`, `e9/`, `e10/`,

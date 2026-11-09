@@ -1,0 +1,98 @@
+{
+ "checks": [
+  {
+   "what": "(i) no log in both F and T",
+   "shared": [],
+   "F_logs": 57,
+   "T_logs": 9,
+   "F_scenes": 754,
+   "T_scenes": 73,
+   "excluded": [
+    "scene-0003",
+    "scene-0092",
+    "scene-0093",
+    "scene-0094",
+    "scene-0095",
+    "scene-0096",
+    "scene-0097",
+    "scene-0098",
+    "scene-0099",
+    "scene-0100",
+    "scene-0101",
+    "scene-0102",
+    "scene-0103",
+    "scene-0104",
+    "scene-0105",
+    "scene-0106",
+    "scene-0107",
+    "scene-0108",
+    "scene-0109",
+    "scene-0110",
+    "scene-0344",
+    "scene-0345",
+    "scene-0346"
+   ],
+   "pass": true
+  },
+  {
+   "what": "(ii) V on T equals the released V (benchmark_decision_values.csv.gz)",
+   "cells": [
+    {
+     "cell": "mono_brake",
+     "T_frames": 2902,
+     "released_frames_of_T_scenes": 2902,
+     "missing_in_released": 0,
+     "differences": 0,
+     "max_abs_diff": 0.0
+    },
+    {
+     "cell": "mono_plan_ade",
+     "T_frames": 2284,
+     "released_frames_of_T_scenes": 2284,
+     "missing_in_released": 0,
+     "differences": 0,
+     "max_abs_diff": 0.0
+    },
+    {
+     "cell": "mono_plan_fde",
+     "T_frames": 2284,
+     "released_frames_of_T_scenes": 2284,
+     "missing_in_released": 0,
+     "differences": 0,
+     "max_abs_diff": 0.0
+    },
+    {
+     "cell": "oracle_brake",
+     "T_frames": 2902,
+     "released_frames_of_T_scenes": 2902,
+     "missing_in_released": 0,
+     "differences": 0,
+     "max_abs_diff": 0.0
+    },
+    {
+     "cell": "oracle_plan_ade",
+     "T_frames": 2284,
+     "released_frames_of_T_scenes": 2284,
+     "missing_in_released": 0,
+     "differences": 0,
+     "max_abs_diff": 0.0
+    },
+    {
+     "cell": "oracle_plan_fde",
+     "T_frames": 2284,
+     "released_frames_of_T_scenes": 2284,
+     "missing_in_released": 0,
+     "differences": 0,
+     "max_abs_diff": 0.0
+    }
+   ],
+   "pass": true
+  },
+  {
+   "what": "(iii) gate_gbm refit on F twice: identical scores",
+   "max_abs_diff": 0.0,
+   "pass": true
+  }
+ ],
+ "pass": true
+}

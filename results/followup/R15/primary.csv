@@ -1,0 +1,2 @@
+cell,budget,allocator,setting,epoch,chosen,T_scenes,T_logs,T_frames,form,rate,k,used,tau,gain,realized_share,over_random_share,realized_lo,realized_hi,over_random_lo,over_random_hi,realized_lo_log,realized_hi_log,over_random_lo_log,over_random_hi_log,reading
+mono_brake,0.2,gate_gbm,{},-1,,73,9,2902,rank,0.2,580,580,0.083524683,125.30053182780928,0.10415199086459773,0.07012650033190926,0.06591784278241378,0.1391168854086043,0.03966441500703783,0.09872158330419135,0.07198528845939639,0.1431026217453928,0.04680675645502907,0.10207436705658098,carries over

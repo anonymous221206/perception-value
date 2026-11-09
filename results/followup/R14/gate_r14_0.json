@@ -1,0 +1,25 @@
+{
+ "checks": [
+  {
+   "what": "(i) gate_gbm stored scores, mono_brake 20%, gain",
+   "ours": 626.3176248170716,
+   "stored": 626.3176248170716,
+   "diff": 0.0,
+   "share_ours": 0.12732028044227908,
+   "pass": true
+  },
+  {
+   "what": "(ii) benchmark-form ridge through R14 code equals stored gate_ridge (gain, 6 cells)",
+   "max_abs_diff": 0.0,
+   "pass": true
+  },
+  {
+   "what": "(iii) J_fit(exact) >= J_fit(regression) at F385, every cell, variant and budget",
+   "rows": 84,
+   "failing": 30,
+   "pass": false
+  }
+ ],
+ "ii_ridge_V_differences": "inputs differ: z clipped at +-10 vs StandardScaler on the +-1e6 matrix; alpha is the benchmark's (same fit frames); see gate_ii_ridge.csv",
+ "pass": false
+}

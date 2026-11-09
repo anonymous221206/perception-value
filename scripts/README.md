@@ -222,3 +222,5 @@ Specified before its values were computed in `docs/followup_protocol.md`; output
 | `238_r11_refresh.py` | R11: refresh scheduling with real staleness | D (tables) |
 | `239_r12_gaps.py` | R12: reference by loss terms, KITTI under the moving-lead reference, routers, facts | D (b) |
 | `240_r13_causal.py` | R13: ranking and causal rules at one fit set, repeats, the direct learner under folds | |
+| `241_r14_core.py`, `241_r14_exact.py`, `241b_r14_allocator.py` | R14: `exact_lin` (CEM) and `exact_mlp` (policy gradient), job queues, gate, test, secondary, frozen; the file 151 times | D (job queues), H (crit profile) |
+| `242_r15_logdisjoint.py` | R15: populations, gate R15-0, log-grouped CV, test on the frozen 85's log-disjoint scenes | D (job queues) |

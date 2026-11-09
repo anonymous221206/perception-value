@@ -1,0 +1,7 @@
+row,a,b,population,mean,min,max,repeats_above_0,repeats,reading
+mono_brake 20%,exact_lin,ridge_V,765 scenes,0.036708481716374294,0.013339276196052366,0.08729845017996815,20,20,exact ahead
+mono_brake 20%,exact_lin,ridge_V,765 minus the two logs,0.05004748227952176,0.03715737726831358,0.06401540681105469,20,20,exact ahead
+mono_brake 5%,exact_lin,ridge_V,765 scenes,0.011403059553142327,-0.0889050152471353,0.06050133438512501,16,20,no consistent difference
+mono_brake 5%,exact_lin,ridge_V,765 minus the two logs,0.015276106144483872,0.0015774672555272462,0.02719116561866546,20,20,exact ahead
+mono_plan_ade 20%,exact_lin,ridge_V,765 scenes,-0.00034809325139650274,-0.0024478493137746657,0.001465797672319817,8,20,no consistent difference
+mono_plan_ade 20%,exact_lin,ridge_V,765 minus the two logs,-0.0009216966672426794,-0.0039209980385847085,0.0010361128421316687,5,20,no consistent difference

@@ -6,7 +6,7 @@ protocol left open, with the reading taken.
 The protocol was committed before any decision value on the new test scenes was computed. Its public copy is the
 commit after release tag `v1.0`. Each addendum is appended to `docs/followup_protocol.md`, and the outputs of each experiment are under `results/followup/<experiment>/`.
 
-R1 to R13 extend the list further; each has its own addendum, committed before the first value of that item. R7, R8, R12 and R13 are post hoc, and each says so.
+R1 to R15 extend the list further; each has its own addendum, committed before the first value of that item. R7, R8 and R12 to R15 are post hoc, and each says so.
 
 E8 to E11 extend the protocol's list (Section 9 names E1–E7); each has its own addendum under the protocol's
 Sections 3, 4 and 6.
@@ -17,6 +17,8 @@ Each addendum was committed before the first decision value of its experiment.
 
 | gate | result | note |
 |---|---|---|
+| R14-0 (round 3, post hoc): (i) stored `gate_gbm` gain reproduced, (ii) benchmark-form ridge reproduces `gate_ridge`, (iii) J_train(exact) ≥ J_train(regression) at F385 on 42 rows per learner | **`exact_lin` pass; `exact_mlp` fail** — (i), (ii) difference 0; (iii) `exact_lin` 42/42 both runs, `exact_mlp` 0/42, then 12/42 after the optimizer fix (M 256, 400 epochs); gate kept, `exact_mlp` dropped (decided 2026-11-09) | stops `exact_mlp` only |
+| R15-0 (round 3, post hoc): no log in both F and T; V on T equals the released V; `gate_gbm` on F twice identical | **pass** — 0 shared logs (2 excluded, 12 + 11 scenes), 0 of 14,940 values differ over six cells, largest score difference 0 | stops R15 only |
 | parity: the 320 / 640 engines on the frozen 85 scenes against the shipped detections | **pass**, 0 of 85 files differ in either mode | L4T R35.6.5, TensorRT 8.5.2.2, CUDA 11.4 |
 | parity, second check: the frozen 85 scenes inside the 850-scene cache against the shipped cache | **pass**, 0 of 85 files differ | |
 | (a) the new-scene pipeline reproduces the frozen 85-scene values | **pass**, 0 of 3,852 comparisons differ | `gate_a.json`: tables (78 shared columns, both geometries), 132 cell descriptives, 480 official nDG values, 288 R1 values, 72 R2 values and 2,880 significance-table values, exactly |
@@ -75,6 +77,10 @@ Each addendum was committed before the first decision value of its experiment.
 | 2026-11-07: R11 runner: `policies` waited about 3 h behind the chain's busy check while release verification ran; the chain was stopped by PID after `oracle` and `policies` started alone, pinned to one core | No value existed; `oracle.csv` kept |
 | 2026-11-07: R13 Part C runs on the second training machine (x86, CPU, env with the Jetson's Python, scikit-learn and numpy, torch 2.4.1 against 2.1.0), to finish sooner; the protocol names the first device. Stages `c_export` and `c_check` added: `c_check` refits R9's rows there and compares with the Jetson's stored values, `partC_machine_check.csv`. The time limit's extrapolation uses the workers really used, not 3. Stage `b` stays on the Jetson. The R13 chain was stopped by PID after `b` started, so that `c` did not start on the Jetson | Before any Part C value; a machine difference, if any, is reported |
 | 2026-11-08: the per-experiment reports are not shipped, and each addendum is appended to `docs/followup_protocol.md` | fewer documents; every value is in the outputs and the paper |
+| 2026-11-09: R14 gate R14-0 (iii) failed for `exact_mlp` (0/42): optimizer only changed, M 16 → 256, epochs 200 → 400, selection re-run. Second run 12/42; the gate definition was kept (2026-11-09) and `exact_mlp` was dropped before any test value: primary Holm over the two Δ_lin contrasts, no `exact_mlp` secondary or frozen rows | `exact_mlp` and Δ_mlp not tested |
+| 2026-11-09: R14 and R15 fits on the CPUs of two x86 machines to save time: `mlp_V`/`exact_mlp` (allowed), R14's repeat and frozen `exact_lin`/`ridge_V` fits, R15's CV fits and final MLP fits; the round's protocol named the Jetson for these. Each result records its host (R14 default 21, R15 default 15) | Before the values concerned |
+| 2026-11-09: R14/R15 job chain restarted: a running driver is never edited (copied to a new file), and a shell bug in the driver's wait stopped it once for about 3 h; jobs are content-addressed and computed once | No value affected |
+| 2026-11-09: R14: helper stages beside `select`, `test`, `secondary`, `frozen` (queue, worker, `left`); `mlp_V` also run through the frozen path for reference | No reading changes |
 
 ## Points the protocol left open, and the reading taken
 
@@ -125,3 +131,5 @@ Each addendum was committed before the first decision value of its experiment.
 | R11: cost table, budget, baseline, oracle, policies, learner, thresholds, units, primary | the 12 defaults of addendum R11 in `docs/followup_protocol.md`, fixed before any R11 value |
 | R12: recombination, jerk-only count, gate rows, KITTI range rate, Part C's removal, adjacency, populations | the 13 defaults of addendum R12 in `docs/followup_protocol.md`, fixed before any R12 value |
 | R13: rates, fits, bootstrap of causal masks, influence, inner hold-out, Part C's data and time limit, reading | the 13 defaults of addendum R13 in `docs/followup_protocol.md`, fixed before any R13 value |
+| R14: inputs, objective, ties, CEM, policy gradient, comparators, selection, capped V, influence, causal, crit, repeats, ladder, frozen, machines | the 21 defaults of addendum R14 in `docs/followup_protocol.md`, fixed before any R14 value |
+| R15: populations, cells, gates, allocators, CV, final fit, primary statistic, causal, crit, drop-one-log, power, orientation, planner exposure, machines | the 15 defaults of addendum R15 in `docs/followup_protocol.md`, fixed before any R15 value |
